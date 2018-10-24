@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+
+    
+    @Styles.Render("~/assets/css")
+        @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+
+
+
+    <!-- Navigation Bar-->
+    <header id="topnav">
+        <div class="topbar-main">
+            <div class="container">
+                <!-- Logo container-->
+                <div class="logo">
+                    <a href="~/Inicio/Index" class="logo">
+                        <span>
+                            SGEI - HOSPITAL ALFREDO ITALO PERRUPATO
+                        </span>
+                    </a>
+                </div>
+                <!-- End Logo container-->
+
+
+                <div class="menu-extras">
+                    @Html.Partial("_LoginPartial")
+
+                    <div class="menu-item">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="navbar-custom">
+            <div class="container">
+                <div id="navigation">
+                    @Html.Partial("_LoginPartial01")
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="wrapper">
+        <div class="container">@RenderBody()</div>
+        <div class="container">
+            <footer class="footer text-right">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <script type="text/javascript">
+                                copyright = new Date();
+                                update = copyright.getFullYear();
+                                document.write("By Seba Ruiz - " + "© " + update);
+                            </script>.
+                        </div>
+                        <div class="col-xs-6">
+                            <ul class="pull-right list-inline m-b-0">
+                                <li>
+                                    <a href="#">Acerca</a>
+                                </li>
+                                <li>
+                                    <a href="#">Ayuda</a>
+                                </li>
+                                <li>
+                                    <a href="#">Contacto</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- End Footer -->
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

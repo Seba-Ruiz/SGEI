@@ -1,0 +1,14 @@
+D:\PROYECTO SICIT\login v6\Model\bin\Debug\Model.dll.config
+D:\PROYECTO SICIT\login v6\Model\bin\Debug\Model.dll
+D:\PROYECTO SICIT\login v6\Model\bin\Debug\Model.pdb
+D:\PROYECTO SICIT\login v6\Model\bin\Debug\EntityFramework.dll
+D:\PROYECTO SICIT\login v6\Model\bin\Debug\EntityFramework.SqlServer.dll
+D:\PROYECTO SICIT\login v6\Model\bin\Debug\EntityFramework.xml
+D:\PROYECTO SICIT\login v6\Model\bin\Debug\EntityFramework.SqlServer.xml
+D:\PROYECTO SICIT\login v6\Model\bin\Debug\es\EntityFramework.resources.dll
+D:\PROYECTO SICIT\login v6\Model\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+D:\PROYECTO SICIT\login v6\Model\obj\Debug\Model.csprojAssemblyReference.cache
+D:\PROYECTO SICIT\login v6\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+D:\PROYECTO SICIT\login v6\Model\obj\Debug\Model.csproj.CopyComplete
+D:\PROYECTO SICIT\login v6\Model\obj\Debug\Model.dll
+D:\PROYECTO SICIT\login v6\Model\obj\Debug\Model.pdb

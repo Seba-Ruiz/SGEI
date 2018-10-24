@@ -1,0 +1,44 @@
+﻿@model Model.tipo_tel
+
+@{
+    ViewBag.Title = "Editar Tipo Telefono";
+}
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/index">Inicio</a></li>
+    <li class="active">@(Model.id_tipo > 0 ? Model.nombre_tipo : "Editar Tipo") </li>
+</ol>
+
+@using (Html.BeginForm("Guardartipo_tel", "ABM", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.id_tipo)
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="card-box">
+                <h4 class="m-t-0 m-b-20 header-title"><b>EDITAR TIPO DE TELEFONO</b></h4>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5><b>Edita las propiedades del tipo de telefono </b></h5>
+                        <p class="text-muted m-b-30 font-13">
+                            Edite el tipo.
+                        </p>
+                        <div class="form-group">
+                            @Html.Label("Ingrese Tipo Telefono")
+                            @Html.TextBoxFor(x => x.nombre_tipo, new { @class = "form-control", @style = "width:200px;", @required = "required" })
+                            @Html.ValidationMessageFor(x => x.nombre_tipo, null, new { @class = "label label-danger" })
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn-custom btn-inverse">Guardar</button>
+    </div>
+
+}

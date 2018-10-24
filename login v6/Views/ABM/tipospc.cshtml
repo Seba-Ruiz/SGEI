@@ -1,0 +1,52 @@
+﻿@model List<Model.tipoPC>
+@{
+    ViewBag.Title = "Tipos PC";
+}
+<h4 class="page-title">Tipos de PCs!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Tipos de PCs") </li>
+</ol>
+
+@using (Html.BeginForm("Crudtipopc", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
+{
+    <div class="vakata-context-left">
+        <button type="submit" class="btn btn-inverse waves-effect waves-light">
+            <span class="btn btn-label">
+                <i class="md md-queue"></i>
+            </span>
+            Agregar
+        </button>
+    </div>
+
+}
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="card-box table-responsive">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">Nombre del Tipo</th>
+                    <th style="width:10px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <th>@a.nombre_tipo</th>
+                        <th>
+                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/Editartipopc/@a.id_tipo"></a>
+
+                            <a onclick="return confirm('¿Desea eliminar el tipo de PC?');" class="md md-clear" title="Eliminar" href="~/ABM/Eliminartipopc/@a.id_tipo"></a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    </div>
+<div class="col-md-2"></div>
+
+

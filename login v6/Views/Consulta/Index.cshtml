@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4 class="page-title">Consultas!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Consulta de Insumos e Incidentes") </li>
+</ol>
+
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-lg-8">
+        <ul class="nav nav-tabs tabs">
+            <li class="active tab">
+                <a href="#home-2" data-toggle="tab" aria-expanded="false">
+                    <span class="visible-xs"><i class="fa fa-home"></i></span>
+                    <span class="hidden-xs">Insumos por Fecha</span>
+                </a>
+            </li>
+            <li class="tab">
+                <a href="#profile-2" data-toggle="tab" aria-expanded="false">
+                    <span class="visible-xs"><i class="fa fa-user"></i></span>
+                    <span class="hidden-xs">Insumos Disponibles</span>
+                </a>
+            </li>
+            <li class="tab">
+                <a href="#messages-2" data-toggle="tab" aria-expanded="true">
+                    <span class="visible-xs"><i class="fa fa-envelope-o"></i></span>
+                    <span class="hidden-xs">Incidendes de Impresora</span>
+                </a>
+            </li>
+            
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="home-2">
+                @using (Html.BeginForm("Buscar", "Consulta", FormMethod.Post, new { id = "frm-incidente" }))
+
+                {
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-12">
+                            <div class="card-box">
+                                <h4 class="m-t-0 m-b-20 header-title"><b>CONSULTA DE INSUMO</b></h4>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><b>Insumo por fecha</b></h5>
+                                        <p class="text-muted m-b-30 font-13">
+                                            Seleccione la ubicacion de la impresora que desea consultar sus insumos. El sistema mostrara las impresoras de esa ubicacion.
+                                        </p>
+                                        <div class="form-group">
+                                            @Html.Label("Nombre de Ubicacion")
+                                            @Html.DropDownList("ubicacion", new SelectList(ViewBag.ubicaciones, "id", "nombreUbicacion"), new { @class = "form-control", @style = "width:300px;" })
+                                        </div>
+
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn-custom btn-inverse">Buscar</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="tab-pane" id="profile-2">
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-12">
+                        <div class="card-box">
+                            <h4 class="m-t-0 m-b-20 header-title"><b>INSUMOS DISPONIBLES</b></h4>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5><b>Insumos</b></h5>
+                                    <p class="text-muted m-b-30 font-13">
+                                        Esta pantalla muestra la cantidad de insumos de que se dispone.
+                                    </p>
+                                    <div class="card-box table-responsive">
+                                        <table class="table table-striped m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:100px;">Nombre Insumo</th>
+                                                    <th style="width:100px;">Cantidad Disponible</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var a in ViewBag.insumos)
+
+            {
+                                    <tr>
+                                        <th>@a.nombre</th>
+                                        <th>@a.cantidad</th>
+
+                                    </tr>
+}
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="messages-2">
+                @using (Html.BeginForm("BuscarIncidente", "Consulta", FormMethod.Post))
+
+                {
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-12">
+                            <div class="card-box">
+                                <h4 class="m-t-0 m-b-20 header-title"><b>CONSULTA DE INCIDENTE</b></h4>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><b>Incidentes de impresora</b></h5>
+                                        <p class="text-muted m-b-30 font-13">
+                                            Seleccione la ubicacion de la impresora que desea consultar sus incidentes. El sistema mostrara las impresoras de esa ubicacion.
+                                        </p>
+                                        <div class="form-group">
+                                            @Html.Label("Nombre de Ubicacion")
+                                            @Html.DropDownList("ubicacion", new SelectList(ViewBag.ubicaciones, "id", "nombreUbicacion"), new { @class = "form-control", @style = "width:300px;" })
+                                        </div>
+
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn-custom btn-inverse">Buscar</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+

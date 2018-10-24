@@ -1,0 +1,56 @@
+﻿@model List<Model.ubicacionPC>
+@{
+    ViewBag.Title = "Ubicacion PC";
+}
+<h4 class="page-title">Ubicacion de PCs!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Ubicacion de PCs") </li>
+</ol>
+
+@using (Html.BeginForm("Crudubipc", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
+{
+    <div class="vakata-context-left">
+        <button type="submit" class="btn btn-inverse waves-effect waves-light">
+            <span class="btn btn-label">
+                <i class="md md-queue"></i>
+            </span>
+            Agregar
+        </button>
+    </div>
+
+}
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="card-box table-responsive">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">Nombre de Ubicacion</th>
+                    <th style="width:50px;">Descripcion</th>
+                    <th style="width:50px;">Responsable</th>
+                    <th style="width:10px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <th>@a.nombre</th>
+                        <th>@a.descripcion</th>
+                        <th>@a.responsable</th>
+                        <th>
+                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/Editarubipc/@a.id_ubicacion"></a>
+
+                            <a onclick="return confirm('¿Desea eliminar el tipo de PC?');" class="md md-clear" title="Eliminar" href="~/ABM/Eliminarubipc/@a.id_ubicacion"></a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    </div>
+<div class="col-md-2"></div>
+
+

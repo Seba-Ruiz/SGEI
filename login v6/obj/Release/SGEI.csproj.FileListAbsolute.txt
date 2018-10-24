@@ -1,0 +1,2 @@
+D:\PROYECTO SICIT\login v6\login v6\obj\Release\SGEI.csprojAssemblyReference.cache
+D:\PROYECTO SICIT\login v6\login v6\obj\Release\SGEI.csproj.CoreCompileInputs.cache

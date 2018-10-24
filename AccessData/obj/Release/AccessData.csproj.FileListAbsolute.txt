@@ -1,0 +1,18 @@
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\bin\Release\AccessData.dll.config
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\bin\Release\AccessData.dll
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\bin\Release\AccessData.pdb
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\bin\Release\EntityFramework.dll
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\bin\Release\Model.dll
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\bin\Release\Model.pdb
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\bin\Release\Model.dll.config
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\bin\Release\EntityFramework.xml
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\obj\Release\AccessData.csprojResolveAssemblyReference.cache
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\obj\Release\AccessData.csproj.CoreCompileInputs.cache
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\obj\Release\AccessData.dll
+C:\Users\leonardo.ruiz\Downloads\PROYECTOS\GIMP(2)\AccessData\obj\Release\AccessData.pdb
+D:\PROYECTO SICIT\login v6\AccessData\obj\Release\AccessData.csprojAssemblyReference.cache
+D:\PROYECTO SICIT\login v6\AccessData\obj\Release\AccessData.csproj.CoreCompileInputs.cache
+D:\PROYECTO SICIT\login v6\AccessData\obj\Release\AccessData.dll
+D:\PROYECTO SICIT\login v6\AccessData\obj\Release\AccessData.pdb

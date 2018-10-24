@@ -1,0 +1,175 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
+    {
+        @Html.AntiForgeryToken()
+
+<ul class="navigation-menu">
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-cog"></i>Gestion</a>
+        <ul class="submenu">
+            <li class="has-submenu">
+                <a href="#">Impresoras</a>
+                <ul class="submenu">
+                    <li>
+                        <a href="~/ABM/insumos"><i class="fa fa-lg fa-newspaper-o"></i> Insumos</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/impresoras"><i class="fa fa-lg fa-print"></i> Impresoras</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/ubicacion"><i class="fa fa-lg fa-location-arrow"></i> Ubicacion</a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="has-submenu">
+                <a href="#">Computadoras</a>
+                <ul class="submenu">
+                    <li>
+                        <a href="~/ABM/rams"><i class="fa fa-lg fa-maxcdn"></i> Memorias</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/discos"><i class="fa fa-lg fa-hdd-o"></i> Discos</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/sos"><i class="fa fa-lg fa-windows"></i> Sistemas Operativos</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/mothers"><i class="fa fa-lg fa-building-o"></i> Placas Madre</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/incidentespc"><i class="fa fa-lg fa-exclamation-triangle"></i> Incidentes PC</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/tipospc"><i class="fa fa-lg fa-desktop"></i> Tipos PC</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/ubicacionespc"><i class="fa fa-lg fa-globe"></i> Ubicaciones PC</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/motivospc"><i class="fa fa-lg fa-level-down"></i> Motivos de Baja PC</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/procesadorespc"><i class="fa fa-lg fa-product-hunt"></i> Procesadores</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/insumospc"><i class="fa fa-lg fa-keyboard-o"></i> Insumos PC</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#">Telefonos</a>
+                <ul class="submenu">
+                    <li>
+                        <a href="~/ABM/tipo_telefonos"><i class="fa fa-low-vision"></i> Tipo Telefono</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/ubicacionestel"><i class="fa fa-wpforms"></i> Ubicaciones Telefonos</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/mmarcas"><i class=" fa fa-cc-diners-club"></i> Modelos Telefonos</a>
+                    </li>
+                    <li>
+                        <a href="~/ABM/incidentestel"><i class="fa fa-object-ungroup"></i> Incidentes Telefonos</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+
+
+
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-plus"></i>Altas</a>
+        <ul class="submenu">
+            <li><a href="~/home/crud"><i class="glyphicon glyphicon-arrow-up"></i> Alta de impresora</a></li>
+            <li><a href="~/home/AltaCompu"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Computadoras</a></li>
+
+            <li><a href="~/home/AltaTel"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Telefonos</a></li>
+        </ul>
+    </li>
+
+    @*<li class="has-submenu">
+            <a href="#"><i class="glyphicon glyphicon-tasks"></i>Consultas</a>
+            <ul class="submenu">
+                <li><a href="~/consulta/index"><i class="ti ti-image"></i> Consultas Impresoras</a></li>
+                <li><a href="~/Home/impresoras_baja"><i class="ti ti-arrow-down"></i> Impresoras de baja</a></li>
+                <li><a href="~/consulta/Computadoras"><i class="ti ti-image"></i> Consultas Computadoras</a></li>
+                <li><a href="~/consulta/compuBaja"><i class="ti ti-arrow-down"></i> Computadoras de baja</a></li>
+                <li><a href="~/consulta/Telefonos"><i class="ti ti-image"></i> Consultas Telefonos</a></li>
+
+            </ul>
+
+        </li>*@
+
+
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-cog"></i>Consultas</a>
+        <ul class="submenu">
+
+            <li class="has-submenu">
+                <a href="#">Impresoras</a>
+                <ul class="submenu">
+                    <li>
+                        <a href="~/consulta/index"><i class="fa fa-lg fa-newspaper-o"></i> Informes</a>
+                    </li>
+                    <li>
+                        <a href="~/Home/impresoras_baja"><i class="fa fa-lg fa-print"></i> Bajas</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#">Computadoras</a>
+                <ul class="submenu">
+                    <li>
+                        <a href="~/consulta/Computadoras"><i class="fa fa-lg fa-maxcdn"></i> Informes</a>
+                    </li>
+                    <li>
+                        <a href="~/consulta/compuBaja"><i class="fa fa-lg fa-hdd-o"></i> Bajas</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#">Telefonos</a>
+                <ul class="submenu">
+                    <li>
+                        <a href="~/consulta/Telefonos"><i class="fa fa-low-vision"></i> Informes</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-user"></i>Usuarios</a>
+        <ul class="submenu">
+            <li><a href="~/usuario/index"><i class="glyphicon glyphicon-user"></i> Gestionar</a></li>
+            <li><a href="~/Role/index"><i class="glyphicon glyphicon-arrow-up"></i> Roles</a></li>
+        </ul>
+    </li>
+
+    
+
+
+
+
+
+
+</ul>
+    }
+}
+else
+{
+    @*<ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>*@
+}
+

@@ -1,0 +1,94 @@
+﻿@model Model.pc_incidentepc
+
+
+@{
+    ViewBag.Title = "Incidente";
+    Model.pc_id = Convert.ToInt32(ViewBag.id_pc);
+
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="~/Home/Index">Inicio</a></li>
+    <li class="active">@("Cargar Incidente") </li>
+</ol>
+
+@using (Html.BeginForm("Guardarincidente", "Computadora", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.pc_id)
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="card-box">
+                <h4 class="m-t-0 m-b-20 header-title"><b>INCIDENTE</b></h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5><b>Datos del incidente</b></h5>
+                        <p class="text-muted m-b-30 font-13">
+                            Rellene los campos a continuacion para detallar el incidente ocurrido y su accion de reparacion.
+                        </p>
+                        <div class="form-group">
+                            @Html.Label("Seleccione el incidente ocurrido")
+                            @Html.DropDownList("incidentepc", new SelectList(ViewBag.incidentepc, "id_incidentepc", "nombre"), new { @class = "form-control", @style = "width:500px;" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Fecha de Incidente")
+                            @Html.TextBoxFor(x => x.fecha_incidente, new { @class = "form-control", type = "date", @style = "width:200px;" })
+                            @Html.ValidationMessageFor(x => x.fecha_incidente, null, new { @class = "label label-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Accion Realizada")
+                            @Html.TextBoxFor(x => x.reparacion, new { @class = "form-control", @style = "width:500px;" })
+                            @Html.ValidationMessageFor(x => x.reparacion, null, new { @class = "label label-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Fecha de Accion Realizada")
+                            @Html.TextBoxFor(x => x.fecha_reparacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
+                            @Html.ValidationMessageFor(x => x.fecha_reparacion, null, new { @class = "label label-danger" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Atención</h3>
+                </div>
+                <div class="modal-body">
+                    <h4>Desea agregar el incidente?</h4>
+                    Al aceptar se agregara el incidente a la impresora. Luego podra consultar el incidente dentro del menu consultas!
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn-custom btn-default">Aceptar</button>
+                    @*<a href="#" data-dismiss="modal" class="btn btn-default">Aceptar</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="text-center">
+    <button class="btn-custom btn-inverse" data-toggle="modal" data-target="#mostrarmodal">Agregar</button>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#mostrarmodal").modal("show");
+    });
+</script>
+
+
+
+
+

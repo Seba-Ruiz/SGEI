@@ -1,0 +1,29 @@
+﻿
+@{
+
+    ViewBag.Title = "Ver Imagen";
+}
+
+<h4 class="page-title">Incidentes</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Detalle de los incidentes") </li>
+</ol>
+
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:180px;">IMAGEN</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <th><img src="@Url.Action("VerIma", "Consulta", new { id = 1 })" /></th>
+            </tr>
+
+        </tbody>
+    </table>
+    </div>

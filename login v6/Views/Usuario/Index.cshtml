@@ -1,0 +1,84 @@
+﻿@model List<Model.AspNetUsers>
+@{
+    /**/
+
+    ViewBag.Title = "Insumos";
+}
+<h4 class="page-title">Insumos!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Detalle de Usuarios del sistema") </li>
+</ol>
+
+@using (Html.BeginForm("Crud", "Usuario", FormMethod.Post, new { id = "frm-insumo" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="vakata-context-left">
+        <button type="submit" class="btn btn-inverse waves-effect waves-light">
+            <span class="btn btn-label">
+                <i class="md md-queue"></i>
+            </span>
+            Agregar
+        </button>
+    </div>
+
+}
+<div class="col-md-2"></div>
+<div class="col-md-8">
+
+    <div class="card-box table-responsive">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">Email</th>
+                    <th style="width:50px;">Email Confirmado</th>
+                    <th style="width:50px;">Telefono</th>
+                    <th style="width:50px;">Fecha Baja</th>
+                    <th style="width:50px;">Accion</th>
+                    <th style="width:10px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <th>@a.Email</th>
+                        @if (a.EmailConfirmed)
+                        {
+                            <th>Si</th>
+                        }
+                        else
+                        {
+                            <th>No</th>
+                        }
+
+                        <th>@a.PhoneNumber</th>
+                        @if (a.fecha_baja == null)
+                        {
+                            <th>-</th>
+                        }
+                        else
+                        {
+                            <th>a.fecha_baja</th>
+                        }
+
+                        <th>
+                            <a class="md md-assignment" title="Detalle" href="~/Usuario/Detalle/@a.Id"></a>
+
+                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/Usuario/Editar/@a.Id"></a>
+
+                            <a onclick="return confirm('¿Desea eliminar el Usuario?');" class="md md-clear" title="Eliminar" href="~/Usuario/Eliminar/@a.Id"></a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<div class="col-md-2"></div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
