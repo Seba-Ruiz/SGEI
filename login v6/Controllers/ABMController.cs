@@ -28,6 +28,7 @@ namespace login_v6.Controllers
         public ubicacion_tel_dominio ut = new ubicacion_tel_dominio();
         public incidentes_tel_dominio incitel = new incidentes_tel_dominio();
 
+        alkjdshakldjklasdj
 
         public ActionResult Index()
         {
