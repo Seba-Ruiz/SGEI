@@ -13,6 +13,7 @@ using Model;
 using Negocio.Dominio;
 using System.Data.Entity;
 
+
 namespace login_v6.Controllers
 {
     [Authorize]
@@ -107,6 +108,10 @@ namespace login_v6.Controllers
                        
                         ctx.SaveChanges();
                     }
+
+                    var tipoRol = usr.obtenerTipoRol(usuario.Id);
+                    System.Web.HttpContext.Current.Session["userid"] = tipoRol.Id;
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
