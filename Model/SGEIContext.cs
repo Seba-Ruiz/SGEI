@@ -20,20 +20,35 @@ namespace Model
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<baja> baja { get; set; }
         public virtual DbSet<bajaPC> bajaPC { get; set; }
+        public virtual DbSet<camara> camara { get; set; }
+        public virtual DbSet<camara_incidente_camara> camara_incidente_camara { get; set; }
+        public virtual DbSet<detalle_camara> detalle_camara { get; set; }
+        public virtual DbSet<detalle_escaner> detalle_escaner { get; set; }
         public virtual DbSet<detalle_impresora_ubicacion> detalle_impresora_ubicacion { get; set; }
+        public virtual DbSet<detalle_insumo_camara> detalle_insumo_camara { get; set; }
         public virtual DbSet<detalle_insumo_impresora> detalle_insumo_impresora { get; set; }
         public virtual DbSet<detalle_tel> detalle_tel { get; set; }
         public virtual DbSet<detallePC> detallePC { get; set; }
         public virtual DbSet<discoPC> discoPC { get; set; }
+        public virtual DbSet<escaner> escaner { get; set; }
+        public virtual DbSet<escaner_incidente_escaner> escaner_incidente_escaner { get; set; }
+        public virtual DbSet<escaner_ubicacion_escaner> escaner_ubicacion_escaner { get; set; }
         public virtual DbSet<imagen> imagen { get; set; }
         public virtual DbSet<impresora> impresora { get; set; }
         public virtual DbSet<incidente> incidente { get; set; }
+        public virtual DbSet<incidente_camara> incidente_camara { get; set; }
+        public virtual DbSet<incidente_escaner> incidente_escaner { get; set; }
+        public virtual DbSet<incidente_switch> incidente_switch { get; set; }
         public virtual DbSet<incidente_tel> incidente_tel { get; set; }
         public virtual DbSet<incidente_tel_tel> incidente_tel_tel { get; set; }
         public virtual DbSet<incidentePC> incidentePC { get; set; }
         public virtual DbSet<insumo> insumo { get; set; }
+        public virtual DbSet<insumo_camara> insumo_camara { get; set; }
         public virtual DbSet<insumo_pc> insumo_pc { get; set; }
+        public virtual DbSet<marca_modelo_camara> marca_modelo_camara { get; set; }
         public virtual DbSet<marca_modelo_cel> marca_modelo_cel { get; set; }
+        public virtual DbSet<marca_modelo_escaner> marca_modelo_escaner { get; set; }
+        public virtual DbSet<marca_modelo_switch> marca_modelo_switch { get; set; }
         public virtual DbSet<motherPC> motherPC { get; set; }
         public virtual DbSet<motivobajaPC> motivobajaPC { get; set; }
         public virtual DbSet<pc> pc { get; set; }
@@ -43,12 +58,20 @@ namespace Model
         public virtual DbSet<procesadorPC> procesadorPC { get; set; }
         public virtual DbSet<ramPC> ramPC { get; set; }
         public virtual DbSet<soPC> soPC { get; set; }
+        public virtual DbSet<swicth> swicth { get; set; }
+        public virtual DbSet<switch_detalle> switch_detalle { get; set; }
+        public virtual DbSet<switch_incidente_switch> switch_incidente_switch { get; set; }
+        public virtual DbSet<switch_ubicacion_switch> switch_ubicacion_switch { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<telefono> telefono { get; set; }
         public virtual DbSet<tipo_tel> tipo_tel { get; set; }
         public virtual DbSet<tipoPC> tipoPC { get; set; }
         public virtual DbSet<ubicacion> ubicacion { get; set; }
+        public virtual DbSet<ubicacion_camara> ubicacion_camara { get; set; }
+        public virtual DbSet<ubicacion_camara_camara> ubicacion_camara_camara { get; set; }
+        public virtual DbSet<ubicacion_escaner> ubicacion_escaner { get; set; }
         public virtual DbSet<ubicacion_impresora> ubicacion_impresora { get; set; }
+        public virtual DbSet<ubicacion_switch> ubicacion_switch { get; set; }
         public virtual DbSet<ubicacion_tel> ubicacion_tel { get; set; }
         public virtual DbSet<ubicacion_tel_tel> ubicacion_tel_tel { get; set; }
         public virtual DbSet<ubicacionPC> ubicacionPC { get; set; }
@@ -84,6 +107,35 @@ namespace Model
                 .Property(e => e.motivo_baja)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<camara>()
+                .HasMany(e => e.camara_incidente_camara)
+                .WithOptional(e => e.camara)
+                .HasForeignKey(e => e.camara_id);
+
+            modelBuilder.Entity<camara>()
+                .HasMany(e => e.detalle_camara)
+                .WithOptional(e => e.camara)
+                .HasForeignKey(e => e.camara_id);
+
+            modelBuilder.Entity<detalle_camara>()
+                .HasMany(e => e.detalle_insumo_camara)
+                .WithOptional(e => e.detalle_camara)
+                .HasForeignKey(e => e.detalle_id);
+
+            modelBuilder.Entity<detalle_camara>()
+                .HasMany(e => e.ubicacion_camara_camara)
+                .WithOptional(e => e.detalle_camara)
+                .HasForeignKey(e => e.detalle_camara_id);
+
+            modelBuilder.Entity<detalle_escaner>()
+                .Property(e => e.nroip)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<detalle_escaner>()
+                .HasMany(e => e.escaner_ubicacion_escaner)
+                .WithOptional(e => e.detalle_escaner)
+                .HasForeignKey(e => e.detalle_escaner_id);
+
             modelBuilder.Entity<detalle_impresora_ubicacion>()
                 .Property(e => e.ip)
                 .IsUnicode(false);
@@ -91,6 +143,10 @@ namespace Model
             modelBuilder.Entity<detalle_impresora_ubicacion>()
                 .Property(e => e.pc_dondeseconecta)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<detalle_insumo_camara>()
+                .Property(e => e.fecha_insumo)
+                .IsFixedLength();
 
             modelBuilder.Entity<detalle_tel>()
                 .HasMany(e => e.incidente_tel_tel)
@@ -116,6 +172,16 @@ namespace Model
                 .HasMany(e => e.detallePC)
                 .WithOptional(e => e.discoPC)
                 .HasForeignKey(e => e.disco_id);
+
+            modelBuilder.Entity<escaner>()
+                .HasMany(e => e.detalle_escaner)
+                .WithOptional(e => e.escaner)
+                .HasForeignKey(e => e.escaner_id);
+
+            modelBuilder.Entity<escaner>()
+                .HasMany(e => e.escaner_incidente_escaner)
+                .WithOptional(e => e.escaner)
+                .HasForeignKey(e => e.escaner_id);
 
             modelBuilder.Entity<impresora>()
                 .Property(e => e.tipo)
@@ -145,6 +211,25 @@ namespace Model
                 .HasForeignKey(e => e.incidente_id)
                 .WillCascadeOnDelete();
 
+            modelBuilder.Entity<incidente_camara>()
+                .HasMany(e => e.camara_incidente_camara)
+                .WithOptional(e => e.incidente_camara)
+                .HasForeignKey(e => e.incidente_id);
+
+            modelBuilder.Entity<incidente_escaner>()
+                .Property(e => e.fecha_baja)
+                .IsFixedLength();
+
+            modelBuilder.Entity<incidente_escaner>()
+                .HasMany(e => e.escaner_incidente_escaner)
+                .WithOptional(e => e.incidente_escaner)
+                .HasForeignKey(e => e.incidente_escaner_id);
+
+            modelBuilder.Entity<incidente_switch>()
+                .HasMany(e => e.switch_incidente_switch)
+                .WithOptional(e => e.incidente_switch)
+                .HasForeignKey(e => e.incidente_switch_id);
+
             modelBuilder.Entity<incidente_tel>()
                 .HasMany(e => e.incidente_tel_tel)
                 .WithOptional(e => e.incidente_tel)
@@ -165,14 +250,42 @@ namespace Model
                 .HasForeignKey(e => e.insumo_id)
                 .WillCascadeOnDelete();
 
+            modelBuilder.Entity<insumo_camara>()
+                .Property(e => e.fecha_baja)
+                .IsFixedLength();
+
+            modelBuilder.Entity<insumo_camara>()
+                .HasMany(e => e.detalle_insumo_camara)
+                .WithOptional(e => e.insumo_camara)
+                .HasForeignKey(e => e.insumo_id);
+
             modelBuilder.Entity<insumo_pc>()
                 .HasMany(e => e.pc_insumo_pc)
                 .WithOptional(e => e.insumo_pc)
                 .HasForeignKey(e => e.insumo_id);
 
+            modelBuilder.Entity<marca_modelo_camara>()
+                .HasMany(e => e.detalle_camara)
+                .WithOptional(e => e.marca_modelo_camara)
+                .HasForeignKey(e => e.marca_model_id);
+
             modelBuilder.Entity<marca_modelo_cel>()
                 .HasMany(e => e.detalle_tel)
                 .WithOptional(e => e.marca_modelo_cel)
+                .HasForeignKey(e => e.marca_modelo_id);
+
+            modelBuilder.Entity<marca_modelo_escaner>()
+                .HasMany(e => e.detalle_escaner)
+                .WithOptional(e => e.marca_modelo_escaner)
+                .HasForeignKey(e => e.marca_modelo_id);
+
+            modelBuilder.Entity<marca_modelo_switch>()
+                .Property(e => e.marca_modelo)
+                .IsFixedLength();
+
+            modelBuilder.Entity<marca_modelo_switch>()
+                .HasMany(e => e.switch_detalle)
+                .WithOptional(e => e.marca_modelo_switch)
                 .HasForeignKey(e => e.marca_modelo_id);
 
             modelBuilder.Entity<motherPC>()
@@ -215,6 +328,25 @@ namespace Model
                 .WithOptional(e => e.soPC)
                 .HasForeignKey(e => e.so_id);
 
+            modelBuilder.Entity<swicth>()
+                .HasMany(e => e.switch_detalle)
+                .WithOptional(e => e.swicth)
+                .HasForeignKey(e => e.switch_id);
+
+            modelBuilder.Entity<swicth>()
+                .HasMany(e => e.switch_incidente_switch)
+                .WithOptional(e => e.swicth)
+                .HasForeignKey(e => e.switch_id);
+
+            modelBuilder.Entity<switch_detalle>()
+                .HasMany(e => e.switch_ubicacion_switch)
+                .WithOptional(e => e.switch_detalle)
+                .HasForeignKey(e => e.detalle_swich_id);
+
+            modelBuilder.Entity<switch_ubicacion_switch>()
+                .Property(e => e.fecha_ubicacion)
+                .IsFixedLength();
+
             modelBuilder.Entity<telefono>()
                 .HasMany(e => e.detalle_tel)
                 .WithOptional(e => e.telefono)
@@ -244,6 +376,16 @@ namespace Model
                 .HasForeignKey(e => e.ubicacion_id)
                 .WillCascadeOnDelete();
 
+            modelBuilder.Entity<ubicacion_camara>()
+                .HasMany(e => e.ubicacion_camara_camara)
+                .WithOptional(e => e.ubicacion_camara)
+                .HasForeignKey(e => e.ubicacion_impresora_id);
+
+            modelBuilder.Entity<ubicacion_escaner>()
+                .HasMany(e => e.escaner_ubicacion_escaner)
+                .WithOptional(e => e.ubicacion_escaner)
+                .HasForeignKey(e => e.ubicacion_escaner_id);
+
             modelBuilder.Entity<ubicacion_impresora>()
                 .HasMany(e => e.baja)
                 .WithOptional(e => e.ubicacion_impresora)
@@ -266,6 +408,11 @@ namespace Model
                 .WithOptional(e => e.ubicacion_impresora)
                 .HasForeignKey(e => e.ubicacion_impresora_id)
                 .WillCascadeOnDelete();
+
+            modelBuilder.Entity<ubicacion_switch>()
+                .HasMany(e => e.switch_ubicacion_switch)
+                .WithOptional(e => e.ubicacion_switch)
+                .HasForeignKey(e => e.ubicacion_switch_id);
 
             modelBuilder.Entity<ubicacion_tel>()
                 .HasMany(e => e.ubicacion_tel_tel)
