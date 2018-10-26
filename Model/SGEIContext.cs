@@ -251,10 +251,6 @@ namespace Model
                 .WillCascadeOnDelete();
 
             modelBuilder.Entity<insumo_camara>()
-                .Property(e => e.fecha_baja)
-                .IsFixedLength();
-
-            modelBuilder.Entity<insumo_camara>()
                 .HasMany(e => e.detalle_insumo_camara)
                 .WithOptional(e => e.insumo_camara)
                 .HasForeignKey(e => e.insumo_id);
