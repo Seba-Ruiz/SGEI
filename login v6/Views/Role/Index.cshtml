@@ -4,30 +4,62 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Roles de usuarios") </li>
+</ol>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    <div class="col-sm-offset-2 col-sm-8">
+        <div class="card-box">
+            <div class="row">
 
-</table>
+                <div class="panel panel-primary panel-border">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Roles de Usuario</h3>
+                        <p class="text-muted font-13">
+                            En la siguiente tabla se muestran los distintos roles que los usuarios pueden tener. Presiona en "Detalle" para ver las funcionalidades asignadas a cada uno de los roles.
+                        </p>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="p-20">
+
+                            <table class="table m-0">
+
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre de Rol</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <th scope="row">@item.Id</th>
+                                            <td>@item.Name</td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="text-center">
+                        <a class="btn btn-default waves-effect waves-light" href="~/Role/Detalle"> Detalle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       </div>
+</div>
