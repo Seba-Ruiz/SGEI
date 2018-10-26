@@ -670,5 +670,63 @@ namespace login_v6.Controllers
             incitel.Eliminar(id);
             return Redirect("~/ABM/incidentestel");
         }
+
+
+
+
+
+
+
+
+
+        //DE ACA EN ADELANTE ARRANCA LA ACTUALIZACION DE LOS NUEVOS EQUIPOS
+
+
+
+        //ABM INSUMO_CAMARAS
+        public insumo_cam_dominio insumocam = new insumo_cam_dominio();
+
+        [Authorize]
+        public ActionResult insumosCam()
+        {
+            return View(insumocam.Listar());
+        }
+
+
+        [Authorize]
+        public ActionResult Crudinsumocam(int id = 0)
+        {
+
+            return View(id == 0 ? new insumo_camara()
+                        : insumocam.Obtener(id));
+        }
+
+
+        [Authorize]
+        public ActionResult Guardarinsumocam(insumo_camara model)
+        {
+            insumocam.Guardar(model);
+            return Redirect("~/ABM/insumosCam");
+        }
+
+
+        [Authorize]
+        public ActionResult EditarinsumoCam(int id = 0)
+        {
+            return View(id == 0 ? new insumo_camara()
+                        : insumocam.Obtener(id));
+        }
+
+
+        [Authorize]
+        public ActionResult EliminarinsumoCam(int id)
+        {
+
+            insumocam.Eliminar(id);
+            return Redirect("~/ABM/insumosCam");
+        }
+
+
+
     }
 }

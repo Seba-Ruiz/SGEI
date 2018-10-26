@@ -60,6 +60,7 @@
     <Compile Include="Dominio\incidentes_tel_dominio.cs" />
     <Compile Include="Dominio\incidente_dominio.cs" />
     <Compile Include="Dominio\incidente_tel_tel_dominio.cs" />
+    <Compile Include="Dominio\insumo_cam_dominio.cs" />
     <Compile Include="Dominio\insumo_dominio.cs" />
     <Compile Include="Dominio\insumo_pc_dominio.cs" />
     <Compile Include="Dominio\mmarca_dominio.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Dominio\tipo_telefono_dominio.cs" />
     <Compile Include="Dominio\ubicacionpc_dominio.cs" />
     <Compile Include="Dominio\ubicacionpc_pc_dominio.cs" />
+    <Compile Include="Dominio\ubicacion_camara_dominio.cs" />
     <Compile Include="Dominio\ubicacion_dominio.cs" />
     <Compile Include="Dominio\ubicacion_impresora_dominio.cs" />
     <Compile Include="Dominio\ubicacion_tel_dominio.cs" />

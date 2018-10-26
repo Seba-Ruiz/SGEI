@@ -20,8 +20,8 @@ namespace Model
         [StringLength(50)]
         public string nombre { get; set; }
 
-        [StringLength(10)]
-        public string fecha_baja { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? fecha_baja { get; set; }
 
         public int? cantidad { get; set; }
 
