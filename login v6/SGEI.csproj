@@ -9447,6 +9447,7 @@
     <Content Include="Views\Usuario\Detalle.cshtml" />
     <Content Include="Views\Usuario\Editar.cshtml" />
     <Content Include="Views\Usuario\confirmarEditar.cshtml" />
+    <Content Include="Views\Role\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
