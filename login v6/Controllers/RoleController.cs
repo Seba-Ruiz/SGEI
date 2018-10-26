@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Negocio.Dominio;
 
 namespace login_v6.Controllers
 {
@@ -13,17 +14,16 @@ namespace login_v6.Controllers
     {
         //private ApplicationRoleManager _roleManager;
 
-        public RoleController()
-        {
-        }
+        public RoleController(){}
 
+        public rol_dominio rol = new rol_dominio();
 
 
         public ActionResult Index()
         {
+            var roles = rol.Listar();
 
-
-            return View();
+            return View(roles);
         }
 
         //public RoleController(ApplicationRoleManager roleManager)
