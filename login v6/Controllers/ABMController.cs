@@ -728,5 +728,51 @@ namespace login_v6.Controllers
 
 
 
+
+        //ABM MODELOS_CAM
+        public mmarca_camara_dominio modelo_cam = new mmarca_camara_dominio();
+
+        [Authorize]
+        public ActionResult modeloCam()
+        {
+            return View(modelo_cam.Listar());
+        }
+
+
+        [Authorize]
+        public ActionResult Crudmmaarcacam(int id = 0)
+        {
+
+            return View(id == 0 ? new marca_modelo_camara()
+                        : modelo_cam.Obtener(id));
+        }
+
+
+        [Authorize]
+        public ActionResult Guardarmmarcacam(marca_modelo_camara model)
+        {
+            modelo_cam.Guardar(model);
+            return Redirect("~/ABM/modeloCam");
+        }
+
+
+        [Authorize]
+        public ActionResult EditarmodeloCam(int id = 0)
+        {
+            return View(id == 0 ? new marca_modelo_camara()
+                        : modelo_cam.Obtener(id));
+        }
+
+
+        [Authorize]
+        public ActionResult EliminarmodeloCam(int id)
+        {
+
+            modelo_cam.Eliminar(id);
+            return Redirect("~/ABM/modeloCam");
+        }
+
+
+
     }
 }

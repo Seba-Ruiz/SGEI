@@ -9452,6 +9452,9 @@
     <Content Include="Views\ABM\insumosCam.cshtml" />
     <Content Include="Views\ABM\Crudinsumocam.cshtml" />
     <Content Include="Views\ABM\EditarinsumoCam.cshtml" />
+    <Content Include="Views\ABM\modeloCam.cshtml" />
+    <Content Include="Views\ABM\Crudmmaarcacam.cshtml" />
+    <Content Include="Views\ABM\EditarmodeloCam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
