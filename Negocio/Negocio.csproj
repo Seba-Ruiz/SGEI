@@ -63,6 +63,7 @@
     <Compile Include="Dominio\insumo_cam_dominio.cs" />
     <Compile Include="Dominio\insumo_dominio.cs" />
     <Compile Include="Dominio\insumo_pc_dominio.cs" />
+    <Compile Include="Dominio\mmarca_camara_dominio.cs" />
     <Compile Include="Dominio\mmarca_dominio.cs" />
     <Compile Include="Dominio\motherboard_dominio.cs" />
     <Compile Include="Dominio\motivobajapc_dominio.cs" />
