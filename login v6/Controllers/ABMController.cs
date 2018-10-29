@@ -774,5 +774,96 @@ namespace login_v6.Controllers
 
 
 
+
+        //ABM UBICACIONES DE CAMARAS
+        public ubicacion_camara_dominio ubi_cam = new ubicacion_camara_dominio();
+
+        [Authorize]
+        public ActionResult ubiCam()
+        {
+            return View(ubi_cam.Listar());
+        }
+
+
+        [Authorize]
+        public ActionResult Crudubicam(int id = 0)
+        {
+
+            return View(id == 0 ? new ubicacion_camara()
+                        : ubi_cam.Obtener(id));
+        }
+
+
+        [Authorize]
+        public ActionResult Guardarubicam(ubicacion_camara model)
+        {
+            ubi_cam.Guardar(model);
+            return Redirect("~/ABM/ubiCam");
+        }
+
+
+        [Authorize]
+        public ActionResult EditarubiCam(int id = 0)
+        {
+            return View(id == 0 ? new ubicacion_camara()
+                        : ubi_cam.Obtener(id));
+        }
+
+
+        [Authorize]
+        public ActionResult EliminarubiCam(int id)
+        {
+
+            ubi_cam.Eliminar(id);
+            return Redirect("~/ABM/ubiCam");
+        }
+
+
+
+
+        //ABM INCIDENTES DE CAMARAS
+        public incidente_camara_dominio incidente_cam = new incidente_camara_dominio();
+
+        [Authorize]
+        public ActionResult incidenteCam()
+        {
+            return View(incidente_cam.Listar());
+        }
+
+
+        [Authorize]
+        public ActionResult Crudincidentecam(int id = 0)
+        {
+
+            return View(id == 0 ? new incidente_camara()
+                        : incidente_cam.Obtener(id));
+        }
+
+
+        [Authorize]
+        public ActionResult Guardarincidentecam(incidente_camara model)
+        {
+            incidente_cam.Guardar(model);
+            return Redirect("~/ABM/incidenteCam");
+        }
+
+
+        [Authorize]
+        public ActionResult EditarincidenteCam(int id = 0)
+        {
+            return View(id == 0 ? new incidente_camara()
+                        : incidente_cam.Obtener(id));
+        }
+
+
+        [Authorize]
+        public ActionResult EliminarincidenteCam(int id)
+        {
+
+            ubi_cam.Eliminar(id);
+            return Redirect("~/ABM/incidenteCam");
+        }
+
+
     }
 }
