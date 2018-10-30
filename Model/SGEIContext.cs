@@ -276,10 +276,6 @@ namespace Model
                 .HasForeignKey(e => e.marca_modelo_id);
 
             modelBuilder.Entity<marca_modelo_switch>()
-                .Property(e => e.marca_modelo)
-                .IsFixedLength();
-
-            modelBuilder.Entity<marca_modelo_switch>()
                 .HasMany(e => e.switch_detalle)
                 .WithOptional(e => e.marca_modelo_switch)
                 .HasForeignKey(e => e.marca_modelo_id);

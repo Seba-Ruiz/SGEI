@@ -830,7 +830,6 @@ namespace login_v6.Controllers
             return View(incidente_cam.Listar());
         }
 
-
         [Authorize]
         public ActionResult Crudincidentecam(int id = 0)
         {
@@ -839,14 +838,12 @@ namespace login_v6.Controllers
                         : incidente_cam.Obtener(id));
         }
 
-
         [Authorize]
         public ActionResult Guardarincidentecam(incidente_camara model)
         {
             incidente_cam.Guardar(model);
             return Redirect("~/ABM/incidenteCam");
         }
-
 
         [Authorize]
         public ActionResult EditarincidenteCam(int id = 0)
@@ -855,7 +852,6 @@ namespace login_v6.Controllers
                         : incidente_cam.Obtener(id));
         }
 
-
         [Authorize]
         public ActionResult EliminarincidenteCam(int id)
         {
@@ -863,6 +859,133 @@ namespace login_v6.Controllers
             ubi_cam.Eliminar(id);
             return Redirect("~/ABM/incidenteCam");
         }
+
+
+
+
+        //ABM UBICACIONES SWITCH
+        public ubicacion_sw_dominio ubicacion_sw = new ubicacion_sw_dominio();
+
+        [Authorize]
+        public ActionResult ubicacionSW()
+        {
+            return View(ubicacion_sw.Listar());
+        }
+
+        [Authorize]
+        public ActionResult Crudubicacionsw(int id = 0)
+        {
+
+            return View(id == 0 ? new ubicacion_switch()
+                        : ubicacion_sw.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult Guardarubicacionsw(ubicacion_switch model)
+        {
+            ubicacion_sw.Guardar(model);
+            return Redirect("~/ABM/ubicacionSW");
+        }
+
+        [Authorize]
+        public ActionResult Editarubicacionsw(int id = 0)
+        {
+            return View(id == 0 ? new ubicacion_switch()
+                        : ubicacion_sw.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult Eliminarubicacionsw(int id)
+        {
+
+            ubicacion_sw.Eliminar(id);
+            return Redirect("~/ABM/ubicacionSW");
+        }
+
+
+        //ABM INCIDENTES SWITCH
+        public incidente_sw_dominio incidente_sw = new incidente_sw_dominio();
+
+        [Authorize]
+        public ActionResult incidenteSW()
+        {
+            return View(incidente_sw.Listar());
+        }
+
+        [Authorize]
+        public ActionResult Crudincidentesw(int id = 0)
+        {
+
+            return View(id == 0 ? new incidente_switch()
+                        : incidente_sw.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult Guardarincidentesw(incidente_switch model)
+        {
+            incidente_sw.Guardar(model);
+            return Redirect("~/ABM/incidenteSW");
+        }
+
+        [Authorize]
+        public ActionResult Editarincidentesw(int id = 0)
+        {
+            return View(id == 0 ? new incidente_switch()
+                        : incidente_sw.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult Eliminarincidentesw(int id)
+        {
+
+            incidente_sw.Eliminar(id);
+            return Redirect("~/ABM/incidenteSW");
+        }
+
+
+        //ABM MODELOS SWITCH
+        public modelo_sw_dominio modelo_sw = new modelo_sw_dominio();
+
+        [Authorize]
+        public ActionResult modeloSW()
+        {
+            return View(modelo_sw.Listar());
+        }
+
+        [Authorize]
+        public ActionResult Crudmodelosw(int id = 0)
+        {
+
+            return View(id == 0 ? new marca_modelo_switch()
+                        : modelo_sw.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult Guardarmodelosw(marca_modelo_switch model)
+        {
+            modelo_sw.Guardar(model);
+            return Redirect("~/ABM/modeloSW");
+        }
+
+        [Authorize]
+        public ActionResult Editarmodelosw(int id = 0)
+        {
+            return View(id == 0 ? new marca_modelo_switch()
+                        : modelo_sw.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult Eliminarmodeloswm(int id)
+        {
+
+            modelo_sw.Eliminar(id);
+            return Redirect("~/ABM/modeloSW");
+        }
+
+
+
+
+
 
 
     }
