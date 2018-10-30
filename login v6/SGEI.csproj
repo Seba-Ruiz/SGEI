@@ -9455,6 +9455,21 @@
     <Content Include="Views\ABM\modeloCam.cshtml" />
     <Content Include="Views\ABM\Crudmmaarcacam.cshtml" />
     <Content Include="Views\ABM\EditarmodeloCam.cshtml" />
+    <Content Include="Views\ABM\ubiCam.cshtml" />
+    <Content Include="Views\ABM\Crudubicam.cshtml" />
+    <Content Include="Views\ABM\EditarubiCam.cshtml" />
+    <Content Include="Views\ABM\incidenteCam.cshtml" />
+    <Content Include="Views\ABM\Crudincidentecam.cshtml" />
+    <Content Include="Views\ABM\EditarincidenteCam.cshtml" />
+    <Content Include="Views\ABM\modeloSW.cshtml" />
+    <Content Include="Views\ABM\Crudmodelosw.cshtml" />
+    <Content Include="Views\ABM\Editarmodelosw.cshtml" />
+    <Content Include="Views\ABM\ubicacionSW.cshtml" />
+    <Content Include="Views\ABM\Crudubicacionsw.cshtml" />
+    <Content Include="Views\ABM\Editarubicacionsw.cshtml" />
+    <Content Include="Views\ABM\incidenteSW.cshtml" />
+    <Content Include="Views\ABM\Crudincidentesw.cshtml" />
+    <Content Include="Views\ABM\Editarincidentesw.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

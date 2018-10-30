@@ -17,7 +17,7 @@ namespace Model
         [Key]
         public int id_mmarca { get; set; }
 
-        [StringLength(10)]
+        [StringLength(50)]
         public string marca_modelo { get; set; }
 
         [Column(TypeName = "date")]
