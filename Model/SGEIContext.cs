@@ -217,10 +217,6 @@ namespace Model
                 .HasForeignKey(e => e.incidente_id);
 
             modelBuilder.Entity<incidente_escaner>()
-                .Property(e => e.fecha_baja)
-                .IsFixedLength();
-
-            modelBuilder.Entity<incidente_escaner>()
                 .HasMany(e => e.escaner_incidente_escaner)
                 .WithOptional(e => e.incidente_escaner)
                 .HasForeignKey(e => e.incidente_escaner_id);

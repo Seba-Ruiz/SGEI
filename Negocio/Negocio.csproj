@@ -60,6 +60,7 @@
     <Compile Include="Dominio\incidentes_tel_dominio.cs" />
     <Compile Include="Dominio\incidente_camara_dominio.cs" />
     <Compile Include="Dominio\incidente_dominio.cs" />
+    <Compile Include="Dominio\incidente_escaner_dominio.cs" />
     <Compile Include="Dominio\incidente_sw_dominio.cs" />
     <Compile Include="Dominio\incidente_tel_tel_dominio.cs" />
     <Compile Include="Dominio\insumo_cam_dominio.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Dominio\insumo_pc_dominio.cs" />
     <Compile Include="Dominio\mmarca_camara_dominio.cs" />
     <Compile Include="Dominio\mmarca_dominio.cs" />
+    <Compile Include="Dominio\modelo_escaner_dominio.cs" />
     <Compile Include="Dominio\modelo_sw_dominio.cs" />
     <Compile Include="Dominio\motherboard_dominio.cs" />
     <Compile Include="Dominio\motivobajapc_dominio.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Dominio\ubicacionpc_pc_dominio.cs" />
     <Compile Include="Dominio\ubicacion_camara_dominio.cs" />
     <Compile Include="Dominio\ubicacion_dominio.cs" />
+    <Compile Include="Dominio\ubicacion_escaner_dominio.cs" />
     <Compile Include="Dominio\ubicacion_impresora_dominio.cs" />
     <Compile Include="Dominio\ubicacion_sw_dominio.cs" />
     <Compile Include="Dominio\ubicacion_tel_dominio.cs" />
