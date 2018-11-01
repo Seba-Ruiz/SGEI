@@ -23,5 +23,24 @@ namespace login_v6.Controllers
             return View();
 
         }
+
+
+
+        public ActionResult Check()
+        {
+            return View();
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }
