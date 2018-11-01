@@ -9480,13 +9480,15 @@
     <Content Include="Views\ABM\incidenteES.cshtml" />
     <Content Include="Views\ABM\CrudincidenteES.cshtml" />
     <Content Include="Views\ABM\EditarincidenteES.cshtml" />
+    <Content Include="Views\Home\AltaCam.cshtml" />
+    <Content Include="Views\Home\AltaExitosaCam.cshtml" />
+    <Content Include="Views\Camara\Check.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\login\plugins\jstree\themes\default\" />
     <Folder Include="assets\menuleft\plugins\jstree\themes\default\" />
     <Folder Include="assets\plugins\jstree\themes\default\" />
-    <Folder Include="Views\Camara\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

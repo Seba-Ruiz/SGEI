@@ -49,7 +49,9 @@
   <ItemGroup>
     <Compile Include="Dominio\bajapc_dominio.cs" />
     <Compile Include="Dominio\baja_dominio.cs" />
+    <Compile Include="Dominio\camara_dominio.cs" />
     <Compile Include="Dominio\detallepc_dominio.cs" />
+    <Compile Include="Dominio\detalle_camara_dominio.cs" />
     <Compile Include="Dominio\detalle_impresora_ubicacion_dominio.cs" />
     <Compile Include="Dominio\detalle_insumo_impresora_dominio.cs" />
     <Compile Include="Dominio\detalle_tel_dominio.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Dominio\tipo_telefono_dominio.cs" />
     <Compile Include="Dominio\ubicacionpc_dominio.cs" />
     <Compile Include="Dominio\ubicacionpc_pc_dominio.cs" />
+    <Compile Include="Dominio\ubicacion_camara_camara_dominio.cs" />
     <Compile Include="Dominio\ubicacion_camara_dominio.cs" />
     <Compile Include="Dominio\ubicacion_dominio.cs" />
     <Compile Include="Dominio\ubicacion_escaner_dominio.cs" />
@@ -94,6 +97,7 @@
     <Compile Include="Dominio\usuario_dominio.cs" />
     <Compile Include="Dominio\usuario_rol_dominio.cs" />
     <Compile Include="Dominio\u_impresora_dominio.cs" />
+    <Compile Include="DTO\DTO_camara.cs" />
     <Compile Include="DTO\DTO_consulta_01a.cs" />
     <Compile Include="DTO\DTO_consulta_pc.cs" />
     <Compile Include="DTO\DTO_consulta_pc_detalle.cs" />

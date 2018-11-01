@@ -203,8 +203,6 @@ namespace login_v6.Controllers
                         : disco.Obtener(id));
         }
 
-
-
         [Authorize]
         public ActionResult EliminarDisco(int id)
         {

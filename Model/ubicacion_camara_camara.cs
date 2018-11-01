@@ -16,7 +16,7 @@ namespace Model
 
         public int? detalle_camara_id { get; set; }
 
-        public int? ubicacion_impresora_id { get; set; }
+        public int? ubicacion_camara_id { get; set; }
 
         public virtual detalle_camara detalle_camara { get; set; }
 

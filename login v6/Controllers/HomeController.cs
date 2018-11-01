@@ -36,20 +36,20 @@ namespace SGEI.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+        //public ActionResult About()
+        //{
+        //    ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
-        [Authorize]
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+        //[Authorize]
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
         public ActionResult AltaTel()
         {
@@ -113,6 +113,80 @@ namespace SGEI.Controllers
         {
             return View();
         }
+
+
+
+
+        //ALTA CAMARA
+
+        public ActionResult AltaCam()
+        {
+            mmarca_camara_dominio  mmarca_cam = new mmarca_camara_dominio();
+            ubicacion_camara_dominio ubicam = new ubicacion_camara_dominio();
+
+            ViewBag.modelo = mmarca_cam.Listar();
+            ViewBag.ubicacion = ubicam.Listar();
+
+            DTO_camara dto = new DTO_camara();
+
+            return View(dto);
+        }
+
+
+
+        public ActionResult GuardarCam(DTO_camara dto, bool test)
+        {
+            if (test)
+            {
+                camara_dominio camara = new camara_dominio();
+                camara cam = new camara();
+
+                cam.descripcion = dto.descripcion;
+                camara.Guardar(cam); //Cabecera
+
+                detalle_camara_dominio dt = new detalle_camara_dominio();
+                detalle_camara detalle = new detalle_camara();
+
+                int id_camara = camara.ObtenerUltimo();
+
+                detalle.nroip = Convert.ToString(dto.ip);
+                detalle.marca_model_id = dto.mmarca;
+                detalle.fecha_detalle = DateTime.Now;
+                detalle.camara_id = id_camara;
+
+                dt.Guardar(detalle);  //Detalle
+
+                ubicacion_camara_camara_dominio ubi = new ubicacion_camara_camara_dominio();
+                ubicacion_camara_camara ubicacion = new ubicacion_camara_camara();
+
+                int id_detalle = ubi.ObtenerUltimo();
+
+                ubicacion.ubicacion_camara_id = dto.ubicacion;
+                ubicacion.fehca_ubicacion = DateTime.Now;
+                ubicacion.detalle_camara_id = id_detalle;
+
+                ubi.Guardar(ubicacion); //Guardo la ubicacion
+
+                return RedirectToAction("AltaExitosaCam");
+            }
+            else
+            {
+                return Redirect("~/Camara/Check");
+            }
+
+        }
+
+        public ActionResult AltaExitosaCam()
+        {
+            return View();
+        }
+
+
+        //------------------------------------------------------------//
+
+
+
+
 
         public ActionResult AltaCompu(int id = 0)
         {

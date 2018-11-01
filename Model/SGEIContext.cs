@@ -367,7 +367,7 @@ namespace Model
             modelBuilder.Entity<ubicacion_camara>()
                 .HasMany(e => e.ubicacion_camara_camara)
                 .WithOptional(e => e.ubicacion_camara)
-                .HasForeignKey(e => e.ubicacion_impresora_id);
+                .HasForeignKey(e => e.ubicacion_camara_id);
 
             modelBuilder.Entity<ubicacion_escaner>()
                 .HasMany(e => e.escaner_ubicacion_escaner)
