@@ -9470,6 +9470,16 @@
     <Content Include="Views\ABM\incidenteSW.cshtml" />
     <Content Include="Views\ABM\Crudincidentesw.cshtml" />
     <Content Include="Views\ABM\Editarincidentesw.cshtml" />
+    <Content Include="Views\ABM\ubicacionES.cshtml" />
+    <Content Include="Views\ABM\CrudubicacionES.cshtml" />
+    <Content Include="Views\ABM\EditarubicacionES.cshtml" />
+    <Content Include="Views\ABM\modeloES.cshtml" />
+    <Content Include="Views\ABM\CrudmodeloES.cshtml" />
+    <Content Include="Views\ABM\EditarmodeloES.cshtml" />
+    <Content Include="Views\ABM\EliminarmodeloES.cshtml" />
+    <Content Include="Views\ABM\incidenteES.cshtml" />
+    <Content Include="Views\ABM\CrudincidenteES.cshtml" />
+    <Content Include="Views\ABM\EditarincidenteES.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

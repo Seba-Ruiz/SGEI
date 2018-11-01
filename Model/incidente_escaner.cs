@@ -20,8 +20,8 @@ namespace Model
         [StringLength(100)]
         public string descripcion { get; set; }
 
-        [StringLength(10)]
-        public string fecha_baja { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? fecha_baja { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<escaner_incidente_escaner> escaner_incidente_escaner { get; set; }

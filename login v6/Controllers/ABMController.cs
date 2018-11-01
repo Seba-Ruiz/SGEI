@@ -983,6 +983,138 @@ namespace login_v6.Controllers
         }
 
 
+        //ABM UBICACION ESCANER
+        public ubicacion_escaner_dominio ubi_es = new ubicacion_escaner_dominio();
+
+        [Authorize]
+        public ActionResult ubicacionES()
+        {
+            return View(ubi_es.Listar());
+        }
+
+        [Authorize]
+        public ActionResult CrudubicacionES(int id = 0)
+        {
+
+            return View(id == 0 ? new ubicacion_escaner()
+                        : ubi_es.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult GuardarubicacionES(ubicacion_escaner model)
+        {
+            ubi_es.Guardar(model);
+            return Redirect("~/ABM/ubicacionES");
+        }
+
+        [Authorize]
+        public ActionResult EditarubicacionES(int id = 0)
+        {
+            return View(id == 0 ? new ubicacion_escaner()
+                        : ubi_es.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult EliminarubicacionES(int id)
+        {
+
+            ubi_es.Eliminar(id);
+            return Redirect("~/ABM/ubicacionES");
+        }
+
+
+
+
+        //ABM MODELOS ESCANER
+        public modelo_escaner_dominio modelo_es = new modelo_escaner_dominio();
+
+        [Authorize]
+        public ActionResult modeloES()
+        {
+            return View(modelo_es.Listar());
+        }
+
+        [Authorize]
+        public ActionResult CrudmodeloES(int id = 0)
+        {
+
+            return View(id == 0 ? new marca_modelo_escaner()
+                        : modelo_es.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult GuardarmodeloES(marca_modelo_escaner model)
+        {
+            modelo_es.Guardar(model);
+            return Redirect("~/ABM/modeloES");
+        }
+
+        [Authorize]
+        public ActionResult EditarmodeloES(int id = 0)
+        {
+            return View(id == 0 ? new marca_modelo_escaner()
+                        : modelo_es.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult EliminarmodeloES(int id)
+        {
+
+            modelo_es.Eliminar(id);
+            return Redirect("~/ABM/modeloES");
+        }
+
+
+
+
+
+
+        //ABM INCIDENTE ESCANER
+        public incidente_escaner_dominio incidente_es = new incidente_escaner_dominio();
+
+        [Authorize]
+        public ActionResult incidenteES()
+        {
+            return View(incidente_es.Listar());
+        }
+
+        [Authorize]
+        public ActionResult CrudincidenteES(int id = 0)
+        {
+
+            return View(id == 0 ? new incidente_escaner()
+                        : incidente_es.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult GuardarincidenteES(incidente_escaner model)
+        {
+            incidente_es.Guardar(model);
+            return Redirect("~/ABM/incidenteES");
+        }
+
+        [Authorize]
+        public ActionResult EditarincidenteES(int id = 0)
+        {
+            return View(id == 0 ? new incidente_escaner()
+                        : incidente_es.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult EliminarincidenteES(int id)
+        {
+
+            incidente_es.Eliminar(id);
+            return Redirect("~/ABM/incidenteES");
+        }
+
+
+
+
+
+
+
+
 
 
 
