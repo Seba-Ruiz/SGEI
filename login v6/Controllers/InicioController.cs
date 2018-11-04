@@ -17,6 +17,7 @@ namespace login_v6.Controllers
             ViewBag.impresoras = serv.sumaImpresora();
             ViewBag.computadoras = serv.sumaComputadora();
             ViewBag.telefonos = serv.sumaTelefono();
+            ViewBag.camaras = serv.sumaCamara();
 
             return View();
         }

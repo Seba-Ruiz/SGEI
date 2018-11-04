@@ -678,6 +678,124 @@ namespace Negocio.Servicio
 
         }
 
+
+
+        public DTO_u_detalle_camara u_detalle_camara(int ubicacion)
+        {
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.detalle_camara
+                               from b in ctx.camara
+                               from c in ctx.marca_modelo_camara
+                               from d in ctx.ubicacion_camara_camara
+                               from e in ctx.ubicacion_camara
+
+
+                               where
+
+                               a.id_detalle == ubicacion &&
+                               a.marca_model_id == c.id_mmarca &&
+                               a.camara_id == b.id_camara &&
+                               a.id_detalle == d.detalle_camara_id &&
+                               d.ubicacion_camara_id == e.id_ubicacion_camara
+
+
+                               select new
+                               {
+
+                                   nro_ip = a.nroip,
+                                   id_camara = b.id_camara,
+                                   descripcion = b.descripcion,
+                                   id_mm = c.id_mmarca,
+                                   fecha_ubicacion = d.fehca_ubicacion,
+                                   id_ubicacion_cam = e.id_ubicacion_camara,
+                                   id_detalle = a.id_detalle
+
+
+                               }).FirstOrDefault();
+
+
+
+                var dto = new DTO_u_detalle_camara();
+
+                dto.nro_ip = detalle.nro_ip;
+                dto.id_camara = detalle.id_camara;
+                dto.descripcion = detalle.descripcion;
+                dto.id_mm = detalle.id_mm;
+                dto.fecha_ubicacion = detalle.fecha_ubicacion;
+                dto.id_ubicacion_camara = detalle.id_ubicacion_cam;
+                dto.id_detalle = detalle.id_detalle;
+
+
+                return dto;
+            }
+
+        }
+
+
+
+        public List<DTO_u_camara_01> u_camara_01(int ubicacion)
+        {
+            var dto_u_camara_01 = new List<DTO_u_camara_01>();
+
+
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.detalle_camara
+                               from b in ctx.camara
+                               from c in ctx.marca_modelo_camara
+                               from d in ctx.ubicacion_camara_camara
+                               from e in ctx.ubicacion_camara
+
+
+                               where
+
+                               d.ubicacion_camara_id == ubicacion &&
+                               e.id_ubicacion_camara == d.ubicacion_camara_id &&
+                               d.detalle_camara_id == a.id_detalle &&
+                               a.marca_model_id == c.id_mmarca &&
+                               a.camara_id == b.id_camara &&
+                               b.fecha_baja == null
+
+
+                               select new
+                               {
+
+                                   nro_interno = a.nroip,
+                                   descripcion = b.descripcion,
+                                   id_camara = b.id_camara,
+                                   marca = c.marca_modelo,
+                                   fecha_ubicacion = d.fehca_ubicacion,
+                                   nombre_ubi = e.nombre,
+                                   id_detalle = a.id_detalle
+
+
+                               }).ToList();
+
+
+                foreach (var item in detalle)
+                {
+                    var dto = new DTO_u_camara_01();
+
+                    dto.nro_ip = item.nro_interno;
+                    dto.descripcion = item.descripcion;
+                    dto.id_camara = item.id_camara;
+                    dto.mmarca = item.marca;
+                    dto.fecha_ubicacion = item.fecha_ubicacion;
+                    dto.nombre_ubi = item.nombre_ubi;
+                    dto.id_detalle = item.id_detalle;
+
+
+                    dto_u_camara_01.Add(dto);
+
+                }
+                return dto_u_camara_01;
+            }
+        }
+
+
+
+
     }
 
 }

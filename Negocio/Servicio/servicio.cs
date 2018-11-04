@@ -45,6 +45,20 @@ namespace Negocio.Servicio
             return telefonos;
         }
 
+        public int sumaCamara()
+        {
+            int camaras;
+
+            using (var ctx = new SGEIContext())
+            {
+                camaras = Convert.ToInt32(ctx.camara.Where(x => x.fecha_baja == null).Count());
+
+            }
+            return camaras;
+        }
+
+
+
         public List<pc> computadoras_de_baja()
         {
             using (var ctx = new SGEIContext())

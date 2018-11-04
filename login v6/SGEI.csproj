@@ -9483,6 +9483,13 @@
     <Content Include="Views\Home\AltaCam.cshtml" />
     <Content Include="Views\Home\AltaExitosaCam.cshtml" />
     <Content Include="Views\Camara\Check.cshtml" />
+    <Content Include="Views\Camara\Index.cshtml" />
+    <Content Include="Views\Camara\Buscar.cshtml" />
+    <Content Include="Views\Camara\Editar.cshtml" />
+    <Content Include="Views\Camara\GuardarCam.cshtml" />
+    <Content Include="Views\Camara\Incidente.cshtml" />
+    <Content Include="Views\Camara\Guardarincidente.cshtml" />
+    <Content Include="Views\Camara\Baja.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
