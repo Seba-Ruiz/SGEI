@@ -331,10 +331,6 @@ namespace Model
                 .WithOptional(e => e.switch_detalle)
                 .HasForeignKey(e => e.detalle_swich_id);
 
-            modelBuilder.Entity<switch_ubicacion_switch>()
-                .Property(e => e.fecha_ubicacion)
-                .IsFixedLength();
-
             modelBuilder.Entity<telefono>()
                 .HasMany(e => e.detalle_tel)
                 .WithOptional(e => e.telefono)

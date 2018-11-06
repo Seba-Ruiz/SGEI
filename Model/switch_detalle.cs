@@ -26,7 +26,8 @@ namespace Model
 
         public int? interfaces { get; set; }
 
-        public int? nroip { get; set; }
+        [StringLength(50)]
+        public string nroip { get; set; }
 
         public virtual marca_modelo_switch marca_modelo_switch { get; set; }
 

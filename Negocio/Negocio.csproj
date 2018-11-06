@@ -55,6 +55,7 @@
     <Compile Include="Dominio\detalle_camara_dominio.cs" />
     <Compile Include="Dominio\detalle_impresora_ubicacion_dominio.cs" />
     <Compile Include="Dominio\detalle_insumo_impresora_dominio.cs" />
+    <Compile Include="Dominio\detalle_sw_dominio.cs" />
     <Compile Include="Dominio\detalle_tel_dominio.cs" />
     <Compile Include="Dominio\disco_dominio.cs" />
     <Compile Include="Dominio\imagen_dominio.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Dominio\insumo_pc_dominio.cs" />
     <Compile Include="Dominio\mmarca_camara_dominio.cs" />
     <Compile Include="Dominio\mmarca_dominio.cs" />
+    <Compile Include="Dominio\mmarca_sw_dominio.cs" />
     <Compile Include="Dominio\modelo_escaner_dominio.cs" />
     <Compile Include="Dominio\modelo_sw_dominio.cs" />
     <Compile Include="Dominio\motherboard_dominio.cs" />
@@ -82,6 +84,9 @@
     <Compile Include="Dominio\ram_dominio.cs" />
     <Compile Include="Dominio\rol_dominio.cs" />
     <Compile Include="Dominio\so_dominio.cs" />
+    <Compile Include="Dominio\switch_dominio.cs" />
+    <Compile Include="Dominio\switch_incidente_switch_dominio.cs" />
+    <Compile Include="Dominio\switch_ubicacion_switch_dominio.cs" />
     <Compile Include="Dominio\telefono_dominio.cs" />
     <Compile Include="Dominio\tipopc_dominio.cs" />
     <Compile Include="Dominio\tipo_telefono_dominio.cs" />
@@ -104,15 +109,18 @@
     <Compile Include="DTO\DTO_consulta_pc_detalle.cs" />
     <Compile Include="DTO\DTO_consulta_tel_incidente.cs" />
     <Compile Include="DTO\DTO_PC.cs" />
+    <Compile Include="DTO\DTO_sw.cs" />
     <Compile Include="DTO\DTO_Telefono.cs" />
     <Compile Include="DTO\DTO_u_camara_01.cs" />
     <Compile Include="DTO\DTO_u_computadora.cs" />
     <Compile Include="DTO\DTO_u_computadora_detalle.cs" />
     <Compile Include="DTO\DTO_u_computadora_detalle_id.cs" />
     <Compile Include="DTO\DTO_u_detalle_camara.cs" />
+    <Compile Include="DTO\DTO_u_detalle_sw.cs" />
     <Compile Include="DTO\DTO_u_detalle_telefono.cs" />
     <Compile Include="DTO\DTO_u_impresora_01.cs" />
     <Compile Include="DTO\DTO_u_impresora_04.cs" />
+    <Compile Include="DTO\DTO_u_sw_01.cs" />
     <Compile Include="DTO\DTO_u_telefono_01.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicio\servicio.cs" />
