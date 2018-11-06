@@ -36,21 +36,7 @@ namespace SGEI.Controllers
             return View();
         }
 
-        //public ActionResult About()
-        //{
-        //    ViewBag.Message = "Your application description page.";
-
-        //    return View();
-        //}
-
-        //[Authorize]
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
-
-        //    return View();
-        //}
-
+        
         public ActionResult AltaTel()
         {
             tipo_telefono_dominio tipot = new tipo_telefono_dominio();
@@ -182,12 +168,79 @@ namespace SGEI.Controllers
         }
 
 
+
+
         //------------------------------------------------------------//
+        // ALTA SWITCHS
+        public ActionResult Altasw()
+        {
+            mmarca_sw_dominio mmarca_cam = new mmarca_sw_dominio();
+            ubicacion_sw_dominio ubicam = new ubicacion_sw_dominio();
+
+            ViewBag.modelo = mmarca_cam.Listar();
+            ViewBag.ubicacion = ubicam.Listar();
+
+            DTO_sw dto = new DTO_sw();
+
+            return View(dto);
+        }
+
+
+
+
+        public ActionResult GuardarSW(DTO_sw dto, bool test)
+        {
+            if (test)
+            {
+                switch_dominio switc = new switch_dominio();
+                swicth sw = new swicth();
+
+                sw.descripcion = dto.descripcion;
+                switc.Guardar(sw); //Cabecera
+
+                detalle_sw_dominio dt = new detalle_sw_dominio();
+                switch_detalle detalle = new switch_detalle();
+
+                int id_sw = switc.ObtenerUltimo();
+
+                detalle.nroip = Convert.ToString(dto.ip);
+                detalle.interfaces = dto.interfaces;
+                detalle.marca_modelo_id = dto.mmarca;
+                detalle.fecha_detalle = DateTime.Now;
+                detalle.switch_id = id_sw;
+
+                dt.Guardar(detalle);  //Detalle
+
+                switch_ubicacion_switch_dominio ubi = new switch_ubicacion_switch_dominio();
+                switch_ubicacion_switch ubicacion = new switch_ubicacion_switch();
+
+                int id_detalle = ubi.ObtenerUltimo();
+
+                ubicacion.ubicacion_switch_id = dto.ubicacion;
+                ubicacion.fecha_ubicacion = DateTime.Now;
+                ubicacion.detalle_swich_id = id_detalle;
+
+                ubi.Guardar(ubicacion); //Guardo la ubicacion
+
+                return RedirectToAction("AltaExitosaSW");
+            }
+            else
+            {
+                return Redirect("~/Swichs/Check");
+            }
+
+        }
+
+        public ActionResult AltaExitosaSW()
+        {
+            return View();
+        }
 
 
 
 
 
+        //----------------------------------------------//
         public ActionResult AltaCompu(int id = 0)
         {
             tipopc_dominio tipo = new tipopc_dominio();

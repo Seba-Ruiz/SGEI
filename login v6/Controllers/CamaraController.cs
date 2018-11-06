@@ -96,9 +96,6 @@ namespace login_v6.Controllers
             return View();
         }
 
-
-
-
         public ActionResult Baja(int id)
         {
             camara_dominio cam = new camara_dominio();
