@@ -14,6 +14,7 @@ namespace login_v6.Controllers
     public class SwichsController : Controller
     {
         stores store = new stores();
+
         // GET: Switch
         public ActionResult Index()
         {
@@ -108,8 +109,6 @@ namespace login_v6.Controllers
             sw.Guardar(switc);
             return View();
         }
-
-
 
         public ActionResult Check()
         {

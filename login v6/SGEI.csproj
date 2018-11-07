@@ -199,6 +199,7 @@
     <Compile Include="Controllers\CamaraController.cs" />
     <Compile Include="Controllers\ComputadoraController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
+    <Compile Include="Controllers\EscanerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidenteController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
@@ -9501,6 +9502,16 @@
     <Content Include="Views\Swichs\Incidente.cshtml" />
     <Content Include="Views\Swichs\Guardarincidente.cshtml" />
     <Content Include="Views\Swichs\Baja.cshtml" />
+    <Content Include="Views\Escaner\Index.cshtml" />
+    <Content Include="Views\Escaner\Buscar.cshtml" />
+    <Content Include="Views\Home\Altaes.cshtml" />
+    <Content Include="Views\Escaner\Check.cshtml" />
+    <Content Include="Views\Home\AltaExitosaES.cshtml" />
+    <Content Include="Views\Escaner\Editar.cshtml" />
+    <Content Include="Views\Escaner\GuardarES.cshtml" />
+    <Content Include="Views\Escaner\Incidente.cshtml" />
+    <Content Include="Views\Escaner\Guardarincidente.cshtml" />
+    <Content Include="Views\Escaner\Baja.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
