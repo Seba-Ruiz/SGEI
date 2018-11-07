@@ -236,11 +236,74 @@ namespace SGEI.Controllers
             return View();
         }
 
-
-
-
-
         //----------------------------------------------//
+
+        //ALTA ESCANER
+
+        public ActionResult Altaes()
+        {
+            mmarca_es_dominio mmarca_cam = new mmarca_es_dominio();
+            ubicacion_escaner_dominio ubicam = new ubicacion_escaner_dominio();
+
+            ViewBag.modelo = mmarca_cam.Listar();
+            ViewBag.ubicacion = ubicam.Listar();
+
+            DTO_es dto = new DTO_es();
+
+            return View(dto);
+        }
+
+        public ActionResult GuardarES(DTO_es dto, bool test)
+        {
+            if (test)
+            {
+                escaner_dominio escaner = new escaner_dominio();
+                escaner esc = new escaner();
+
+                esc.descripcion = dto.descripcion;
+                escaner.Guardar(esc); //Cabecera
+
+                detalle_escaner_dominio dt = new detalle_escaner_dominio();
+                detalle_escaner detalle = new detalle_escaner();
+
+                int id_es = escaner.ObtenerUltimo();
+
+                detalle.nroip = Convert.ToString(dto.ip);
+                detalle.marca_modelo_id = dto.mmarca;
+                detalle.fecha_detalle = DateTime.Now;
+                detalle.escaner_id = id_es;
+
+                dt.Guardar(detalle);  //Detalle
+
+                escaner_ubicacion_escaner_dominio ubi = new escaner_ubicacion_escaner_dominio();
+                escaner_ubicacion_escaner ubicacion = new escaner_ubicacion_escaner();
+
+                int id_detalle = ubi.ObtenerUltimo();
+
+                ubicacion.ubicacion_escaner_id = dto.ubicacion;
+                ubicacion.fecha_ubicacion = DateTime.Now;
+                ubicacion.detalle_escaner_id = id_detalle;
+
+                ubi.Guardar(ubicacion); //Guardo la ubicacion
+
+                return RedirectToAction("AltaExitosaES");
+            }
+            else
+            {
+                return Redirect("~/Escaner/Check");
+            }
+
+        }
+
+        public ActionResult AltaExitosaES()
+        {
+            return View();
+        }
+
+
+
+
+        //--------------------------------------------//
         public ActionResult AltaCompu(int id = 0)
         {
             tipopc_dominio tipo = new tipopc_dominio();
