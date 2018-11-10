@@ -1017,6 +1017,54 @@ namespace Negocio.Servicio
         }
 
 
+        public List<DTO_consultacam_01a> consultacam_01a(int id, DateTime fdesde, DateTime fhasta)
+        {
+            var dto_consultacam_01a = new List<DTO_consultacam_01a>();
+
+
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.detalle_insumo_camara
+                               from b in ctx.insumo_camara
+
+                               where
+
+                               a.detalle_id == id &&
+                               a.fecha_insumo <= fhasta &&
+                               a.fecha_insumo >= fdesde &&
+                               a.insumo_id == b.id_insumo
+
+
+                               select new
+                               {
+
+                                   fechacambioinsumo = a.fecha_insumo,
+                                   nombre = b.nombre
+
+
+                               }).ToList();
+
+
+                foreach (var item in detalle)
+                {
+                    var dto = new DTO_consultacam_01a();
+
+                    dto.fechacambioinsumo = item.fechacambioinsumo;
+                    dto.nombre = item.nombre;
+
+
+                    dto_consultacam_01a.Add(dto);
+
+                }
+
+
+
+                return dto_consultacam_01a;
+            }
+
+
+        }
+
     }
 
 }

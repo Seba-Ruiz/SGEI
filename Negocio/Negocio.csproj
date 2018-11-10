@@ -110,6 +110,7 @@
     <Compile Include="Dominio\usuario_rol_dominio.cs" />
     <Compile Include="Dominio\u_impresora_dominio.cs" />
     <Compile Include="DTO\DTO_camara.cs" />
+    <Compile Include="DTO\DTO_consultacam_01a.cs" />
     <Compile Include="DTO\DTO_consulta_01a.cs" />
     <Compile Include="DTO\DTO_consulta_pc.cs" />
     <Compile Include="DTO\DTO_consulta_pc_detalle.cs" />
