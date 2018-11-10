@@ -9512,6 +9512,11 @@
     <Content Include="Views\Escaner\Incidente.cshtml" />
     <Content Include="Views\Escaner\Guardarincidente.cshtml" />
     <Content Include="Views\Escaner\Baja.cshtml" />
+    <Content Include="Views\Consulta\Camara.cshtml" />
+    <Content Include="Views\Consulta\BuscarCam.cshtml" />
+    <Content Include="Views\Consulta\ConsultarFechaCam.cshtml" />
+    <Content Include="Views\Consulta\ConsultarRangoCam.cshtml" />
+    <Content Include="Views\Consulta\BuscarIncidenteCam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

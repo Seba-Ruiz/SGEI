@@ -144,10 +144,6 @@ namespace Model
                 .Property(e => e.pc_dondeseconecta)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<detalle_insumo_camara>()
-                .Property(e => e.fecha_insumo)
-                .IsFixedLength();
-
             modelBuilder.Entity<detalle_tel>()
                 .HasMany(e => e.incidente_tel_tel)
                 .WithOptional(e => e.detalle_tel)

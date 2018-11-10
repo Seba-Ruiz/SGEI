@@ -10,6 +10,32 @@ namespace Negocio.Dominio
 {
     public class incidente_camara_dominio
     {
+
+        public List<incidente_camara> verIncidente(int id)
+        {
+            var incidentes = new List<incidente_camara>();
+
+            try
+            {
+                using (var ctx = new SGEIContext())
+
+
+
+                    //incidentes = ctx.camara_incidente_camara.Where(x => x.camara_id == id)
+                    //                          .ToList();
+
+            }
+            catch (Exception E)
+            {
+                throw;
+            }
+            return incidentes;
+        }
+
+
+
+
+
         public void Eliminar(int id)
         {
             try
