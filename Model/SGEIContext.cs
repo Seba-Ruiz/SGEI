@@ -144,10 +144,6 @@ namespace Model
                 .Property(e => e.pc_dondeseconecta)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<detalle_insumo_camara>()
-                .Property(e => e.fecha_insumo)
-                .IsFixedLength();
-
             modelBuilder.Entity<detalle_tel>()
                 .HasMany(e => e.incidente_tel_tel)
                 .WithOptional(e => e.detalle_tel)
@@ -330,10 +326,6 @@ namespace Model
                 .HasMany(e => e.switch_ubicacion_switch)
                 .WithOptional(e => e.switch_detalle)
                 .HasForeignKey(e => e.detalle_swich_id);
-
-            modelBuilder.Entity<switch_ubicacion_switch>()
-                .Property(e => e.fecha_ubicacion)
-                .IsFixedLength();
 
             modelBuilder.Entity<telefono>()
                 .HasMany(e => e.detalle_tel)

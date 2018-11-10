@@ -678,8 +678,6 @@ namespace Negocio.Servicio
 
         }
 
-
-
         public DTO_u_detalle_camara u_detalle_camara(int ubicacion)
         {
             using (var ctx = new SGEIContext())
@@ -731,8 +729,6 @@ namespace Negocio.Servicio
             }
 
         }
-
-
 
         public List<DTO_u_camara_01> u_camara_01(int ubicacion)
         {
@@ -793,8 +789,281 @@ namespace Negocio.Servicio
             }
         }
 
+        public List<DTO_u_sw_01> u_sw_01(int ubicacion)
+        {
+            var dto_u_sw_01 = new List<DTO_u_sw_01>();
 
 
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.switch_detalle
+                               from b in ctx.swicth
+                               from c in ctx.marca_modelo_switch
+                               from d in ctx.switch_ubicacion_switch
+                               from e in ctx.ubicacion_switch
+
+
+                               where
+
+                               d.ubicacion_switch_id == ubicacion &&
+                               e.id_ubicacion_switch == d.ubicacion_switch_id &&
+                               d.detalle_swich_id == a.id_detalle_switch &&
+                               a.marca_modelo_id == c.id_mmarca &&
+                               a.switch_id == b.id_switch &&
+                               b.fecha_baja == null
+
+
+                               select new
+                               {
+
+                                   nro_ip = a.nroip,
+                                   descripcion = b.descripcion,
+                                   id_sw = b.id_switch,
+                                   marca = c.marca_modelo,
+                                   fecha_ubicacion = d.fecha_ubicacion,
+                                   nombre_ubi = e.nombre,
+                                   id_detalle = a.id_detalle_switch,
+                                   interfaces = a.interfaces
+
+
+                               }).ToList();
+
+
+                foreach (var item in detalle)
+                {
+                    var dto = new DTO_u_sw_01();
+
+                    dto.nro_ip = item.nro_ip;
+                    dto.descripcion = item.descripcion;
+                    dto.id_sw = item.id_sw;
+                    dto.mmarca = item.marca;
+                    dto.fecha_ubicacion = item.fecha_ubicacion;
+                    dto.nombre_ubi = item.nombre_ubi;
+                    dto.id_detalle = item.id_detalle;
+                    dto.interfaces = item.interfaces;
+
+
+                    dto_u_sw_01.Add(dto);
+
+                }
+                return dto_u_sw_01;
+            }
+        }
+
+
+        public DTO_u_detalle_sw u_detalle_sw(int ubicacion)
+        {
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.switch_detalle
+                               from b in ctx.swicth
+                               from c in ctx.marca_modelo_switch
+                               from d in ctx.switch_ubicacion_switch
+                               from e in ctx.ubicacion_switch
+
+
+                               where
+
+                               a.id_detalle_switch == ubicacion &&
+                               a.marca_modelo_id == c.id_mmarca &&
+                               a.switch_id == b.id_switch &&
+                               a.id_detalle_switch == d.detalle_swich_id &&
+                               d.ubicacion_switch_id == e.id_ubicacion_switch
+
+
+                               select new
+                               {
+
+                                   nro_ip = a.nroip,
+                                   id_sw = b.id_switch,
+                                   descripcion = b.descripcion,
+                                   id_mm = c.id_mmarca,
+                                   fecha_ubicacion = d.fecha_ubicacion,
+                                   id_ubicacion_sw = e.id_ubicacion_switch,
+                                   id_detalle = a.id_detalle_switch,
+                                   interfaces = a.interfaces
+
+
+                               }).FirstOrDefault();
+
+
+
+                var dto = new DTO_u_detalle_sw();
+
+                dto.nro_ip = detalle.nro_ip;
+                dto.id_sw = detalle.id_sw;
+                dto.descripcion = detalle.descripcion;
+                dto.id_mm = detalle.id_mm;
+                dto.fecha_ubicacion = detalle.fecha_ubicacion;
+                dto.id_ubicacion_sw = detalle.id_ubicacion_sw;
+                dto.id_detalle = detalle.id_detalle;
+                dto.interfaces = detalle.interfaces;
+
+
+                return dto;
+            }
+
+        }
+
+        public List<DTO_u_es_01> u_es_01(int ubicacion)
+        {
+            var dto_u_es_01 = new List<DTO_u_es_01>();
+
+
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.detalle_escaner
+                               from b in ctx.escaner
+                               from c in ctx.marca_modelo_escaner
+                               from d in ctx.escaner_ubicacion_escaner
+                               from e in ctx.ubicacion_escaner
+
+
+                               where
+
+                               d.ubicacion_escaner_id == ubicacion &&
+                               e.id_ubicacion_escaner == d.ubicacion_escaner_id &&
+                               d.detalle_escaner_id == a.id_detalle_escaner &&
+                               a.marca_modelo_id == c.id_marca_modelo_escaner &&
+                               a.escaner_id == b.id_escaner &&
+                               b.fecha_baja == null
+
+
+                               select new
+                               {
+
+                                   nro_ip = a.nroip,
+                                   descripcion = b.descripcion,
+                                   id_es = b.id_escaner,
+                                   marca = c.descripcion,
+                                   fecha_ubicacion = d.fecha_ubicacion,
+                                   nombre_ubi = e.nombre,
+                                   id_detalle = a.id_detalle_escaner
+
+
+                               }).ToList();
+
+
+                foreach (var item in detalle)
+                {
+                    var dto = new DTO_u_es_01();
+
+                    dto.nro_ip = item.nro_ip;
+                    dto.descripcion = item.descripcion;
+                    dto.id_es = item.id_es;
+                    dto.mmarca = item.marca;
+                    dto.fecha_ubicacion = item.fecha_ubicacion;
+                    dto.nombre_ubi = item.nombre_ubi;
+                    dto.id_detalle = item.id_detalle;
+
+
+                    dto_u_es_01.Add(dto);
+
+                }
+                return dto_u_es_01;
+            }
+        }
+
+        public DTO_u_detalle_escaner u_detalle_escaner(int ubicacion)
+        {
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.detalle_escaner
+                               from b in ctx.escaner
+                               from c in ctx.marca_modelo_escaner
+                               from d in ctx.escaner_ubicacion_escaner
+                               from e in ctx.ubicacion_escaner
+
+
+                               where
+
+                               a.id_detalle_escaner == ubicacion &&
+                               a.marca_modelo_id == c.id_marca_modelo_escaner &&
+                               a.escaner_id == b.id_escaner &&
+                               a.id_detalle_escaner == d.detalle_escaner_id &&
+                               d.ubicacion_escaner_id == e.id_ubicacion_escaner
+
+
+                               select new
+                               {
+
+                                   nro_ip = a.nroip,
+                                   id_escaner = b.id_escaner,
+                                   descripcion = b.descripcion,
+                                   id_mm = c.id_marca_modelo_escaner,
+                                   fecha_ubicacion = d.fecha_ubicacion,
+                                   id_ubicacion_escaner = e.id_ubicacion_escaner,
+                                   id_detalle = a.id_detalle_escaner
+
+
+                               }).FirstOrDefault();
+
+
+
+                var dto = new DTO_u_detalle_escaner();
+
+                dto.nro_ip = detalle.nro_ip;
+                dto.id_escaner = detalle.id_escaner;
+                dto.descripcion = detalle.descripcion;
+                dto.id_mm = detalle.id_mm;
+                dto.fecha_ubicacion = detalle.fecha_ubicacion;
+                dto.id_ubicacion_escaner = detalle.id_ubicacion_escaner;
+                dto.id_detalle = detalle.id_detalle;
+
+
+                return dto;
+            }
+
+        }
+
+
+        public List<DTO_consultacam_01a> consultacam_01a(int id, DateTime fdesde, DateTime fhasta)
+        {
+            var dto_consultacam_01a = new List<DTO_consultacam_01a>();
+
+
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.detalle_insumo_camara
+                               from b in ctx.insumo_camara
+
+                               where
+
+                               a.detalle_id == id &&
+                               a.fecha_insumo <= fhasta &&
+                               a.fecha_insumo >= fdesde &&
+                               a.insumo_id == b.id_insumo
+
+
+                               select new
+                               {
+
+                                   fechacambioinsumo = a.fecha_insumo,
+                                   nombre = b.nombre
+
+
+                               }).ToList();
+
+
+                foreach (var item in detalle)
+                {
+                    var dto = new DTO_consultacam_01a();
+
+                    dto.fechacambioinsumo = item.fechacambioinsumo;
+                    dto.nombre = item.nombre;
+
+
+                    dto_consultacam_01a.Add(dto);
+
+                }
+
+
+
+                return dto_consultacam_01a;
+            }
+
+
+        }
 
     }
 

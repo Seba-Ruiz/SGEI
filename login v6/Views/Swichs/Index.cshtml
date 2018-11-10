@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Camara";
+
+}
+<h4 class="page-title">Bienvenido!</h4>
+<ol class="breadcrumb">
+    <li class="active">
+        Sistema para control de insumos e incidentes de switchs
+    </li>
+</ol>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-20 header-title"><b>INICIO</b></h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><b>Gestion de Switchs</b></h5>
+                    <p class="text-muted m-b-30 font-13">
+                        Para comenzar seleccione en el combo la ubicacion del switch, el sistema mostrara los switchs en esa ubicacion.
+                    </p>
+                    @using (Html.BeginForm("Buscar", "Swichs", FormMethod.Post, new { id = "frm-incidente" }))
+                    {
+                        <div class="form-group">
+                            @Html.Label("Nombre de Ubicacion:")
+                            @Html.DropDownList("ubicacionsw", new SelectList(ViewBag.ubicacionsw, "id_ubicacion_switch", "nombre"), new { @class = "btn dropdown-toggle btn-white", @style = "width:200px;" })
+                        </div>
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button type="submit" class="btn-custom btn-inverse">Buscar</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
