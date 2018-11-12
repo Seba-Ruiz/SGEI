@@ -46,8 +46,6 @@ namespace login_v6.Controllers
             return View();
 
         }
-
-
         public ActionResult ConsultarRangoCam(DateTime FechaDesde, DateTime FechaHasta)
         {
 
@@ -58,7 +56,6 @@ namespace login_v6.Controllers
 
             return View(datos);
         }
-
         public ActionResult BuscarIncidenteCam(int ubicacion)
         {
 
@@ -68,22 +65,15 @@ namespace login_v6.Controllers
 
         }
 
-
         public ActionResult VerIncidenteCam(int id)
         {
 
-            incidente_camara_dominio datos = new incidente_camara_dominio();
 
-            var consulta = datos.verIncidente(id);
+            var consulta = store.incidente_camara(id);
 
             return View(consulta);
 
         }
-
-
-
-
-
         //-----------------------------------//
 
 

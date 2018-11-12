@@ -850,7 +850,6 @@ namespace Negocio.Servicio
             }
         }
 
-
         public DTO_u_detalle_sw u_detalle_sw(int ubicacion)
         {
             using (var ctx = new SGEIContext())
@@ -1016,7 +1015,6 @@ namespace Negocio.Servicio
 
         }
 
-
         public List<DTO_consultacam_01a> consultacam_01a(int id, DateTime fdesde, DateTime fhasta)
         {
             var dto_consultacam_01a = new List<DTO_consultacam_01a>();
@@ -1064,6 +1062,59 @@ namespace Negocio.Servicio
 
 
         }
+
+        public List<DTO_incidente_camara> incidente_camara(int camara_id)
+        {
+            var dto_incidente_camara = new List<DTO_incidente_camara>();
+
+
+            using (var ctx = new SGEIContext())
+            {
+                var ubica = (from a in ctx.camara
+                             from b in ctx.incidente_camara
+                             from c in ctx.camara_incidente_camara
+                             
+
+                             where
+                             a.id_camara == camara_id &&
+                             c.camara_id == a.id_camara &&
+                             c.incidente_id == b.id_incidente &&
+                             a.fecha_baja == null
+
+                             select new
+                             {
+                                 id_camara = a.id_camara,
+                                 incidente = b.descripcion,
+                                 fecha_incidente = c.fecha_incidente,
+                                 reparacion = c.reparacion,
+                                 fecha_reparacion = c.fecha_reparacion
+
+                             }).ToList();
+
+                foreach (var item in ubica)
+                {
+                    var dto = new DTO_incidente_camara();
+
+                    dto.id_camara = item.id_camara;
+                    dto.incidente = item.incidente;
+                    dto.fecha_incidente = item.fecha_incidente;
+                    dto.reparacion = item.reparacion;
+                    dto.fecha_reparacion = item.fecha_reparacion;
+
+
+                    dto_incidente_camara.Add(dto);
+
+                }
+
+
+
+                return dto_incidente_camara;
+            }
+
+        }
+
+
+
 
     }
 
