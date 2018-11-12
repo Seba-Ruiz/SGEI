@@ -9517,6 +9517,7 @@
     <Content Include="Views\Consulta\ConsultarFechaCam.cshtml" />
     <Content Include="Views\Consulta\ConsultarRangoCam.cshtml" />
     <Content Include="Views\Consulta\BuscarIncidenteCam.cshtml" />
+    <Content Include="Views\Consulta\VerIncidenteCam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
