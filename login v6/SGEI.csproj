@@ -9522,6 +9522,7 @@
     <Content Include="Views\Consulta\BuscarSW.cshtml" />
     <Content Include="Views\Consulta\BuscarIncidenteSW.cshtml" />
     <Content Include="Views\Consulta\VerIncidenteSW.cshtml" />
+    <Content Include="Views\Computadora\GuardarIncidente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

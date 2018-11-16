@@ -70,7 +70,7 @@ namespace login_v6.Controllers
 
             incid.Guardar(inci);
 
-            return Redirect("~/inicio");
+            return View();
 
         }
 
