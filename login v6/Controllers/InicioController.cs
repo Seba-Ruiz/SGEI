@@ -19,7 +19,7 @@ namespace login_v6.Controllers
             ViewBag.telefonos = serv.sumaTelefono();
             ViewBag.camaras = serv.sumaCamara();
             ViewBag.sw = serv.sumaSW();
-            ViewBag.sw = serv.sumaES();
+            ViewBag.es = serv.sumaES();
 
             return View();
         }

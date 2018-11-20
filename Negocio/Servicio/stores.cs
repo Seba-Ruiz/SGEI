@@ -1223,6 +1223,125 @@ namespace Negocio.Servicio
             }
 
         }
+
+
+        public List<DTO_u_escaner_01> u_escaner_01(int ubicacion)
+        {
+            var dto_u_es_01 = new List<DTO_u_escaner_01>();
+
+
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.detalle_escaner
+                               from b in ctx.escaner
+                               from c in ctx.marca_modelo_escaner
+                               from d in ctx.escaner_ubicacion_escaner
+                               from e in ctx.ubicacion_escaner
+
+
+                               where
+
+                               d.ubicacion_escaner_id == ubicacion &&
+                               e.id_ubicacion_escaner == d.ubicacion_escaner_id &&
+                               d.detalle_escaner_id == a.id_detalle_escaner &&
+                               a.marca_modelo_id == c.id_marca_modelo_escaner &&
+                               a.escaner_id == b.id_escaner &&
+                               b.fecha_baja == null
+
+
+                               select new
+                               {
+
+                                   nro_ip = a.nroip,
+                                   descripcion = b.descripcion,
+                                   id_es = b.id_escaner,
+                                   marca = c.descripcion,
+                                   fecha_ubicacion = d.fecha_ubicacion,
+                                   nombre_ubi = e.nombre,
+                                   id_detalle = a.id_detalle_escaner
+
+
+                               }).ToList();
+
+
+                foreach (var item in detalle)
+                {
+                    var dto = new DTO_u_escaner_01();
+
+                    dto.nro_ip = item.nro_ip;
+                    dto.descripcion = item.descripcion;
+                    dto.id_es = item.id_es;
+                    dto.mmarca = item.marca;
+                    dto.fecha_ubicacion = item.fecha_ubicacion;
+                    dto.nombre_ubi = item.nombre_ubi;
+                    dto.id_detalle = item.id_detalle;
+
+
+                    dto_u_es_01.Add(dto);
+
+                }
+                return dto_u_es_01;
+            }
+        }
+
+
+
+
+
+        public List<DTO_incidente_es> incidente_es(int sw_id)
+        {
+            var dto_incidente_es = new List<DTO_incidente_es>();
+
+
+            using (var ctx = new SGEIContext())
+            {
+                var ubica = (from a in ctx.escaner
+                             from b in ctx.incidente_escaner
+                             from c in ctx.escaner_incidente_escaner
+
+
+                             where
+                             a.id_escaner == sw_id &&
+                             c.escaner_id == a.id_escaner &&
+                             c.incidente_escaner_id == b.id_incidente_escaner &&
+                             a.fecha_baja == null
+
+                             select new
+                             {
+                                 id_es = a.id_escaner,
+                                 incidente = b.descripcion,
+                                 fecha_incidente = c.fecha_incidente,
+                                 reparacion = c.reparacion,
+                                 fecha_reparacion = c.fecha_reparacion
+
+                             }).ToList();
+
+                foreach (var item in ubica)
+                {
+                    var dto = new DTO_incidente_es();
+
+                    dto.id_es = item.id_es;
+                    dto.incidente = item.incidente;
+                    dto.fecha_incidente = item.fecha_incidente;
+                    dto.reparacion = item.reparacion;
+                    dto.fecha_reparacion = item.fecha_reparacion;
+
+
+                    dto_incidente_es.Add(dto);
+
+                }
+
+
+
+                return dto_incidente_es;
+            }
+
+        }
+
+
+
+
+
     }
 
 }

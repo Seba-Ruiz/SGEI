@@ -9523,6 +9523,10 @@
     <Content Include="Views\Consulta\BuscarIncidenteSW.cshtml" />
     <Content Include="Views\Consulta\VerIncidenteSW.cshtml" />
     <Content Include="Views\Computadora\GuardarIncidente.cshtml" />
+    <Content Include="Views\Consulta\camaras.cshtml" />
+    <Content Include="Views\Consulta\escaners.cshtml" />
+    <Content Include="Views\Consulta\BuscarIncidenteES.cshtml" />
+    <Content Include="Views\Consulta\VerIncidenteES.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
