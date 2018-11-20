@@ -14,28 +14,25 @@ namespace login_v6.Controllers
     public class ComputadoraController : Controller
     {
         stores store = new stores();
+        public insumo_pc_dominio insumo_pc = new insumo_pc_dominio();
 
         // GET: Computadora
         public ActionResult Index()
         {
             ubicacionpc_dominio ubi = new ubicacionpc_dominio();
             ViewBag.ubicacionpc = ubi.Listar();
+            ViewBag.insu = insumo_pc.Listar();
             return View();
         }
 
         public ActionResult Buscar(int ubicacionpc)
         {
-           
-
             var ubica = store.u_computadora(ubicacionpc);
 
             return View(ubica);
-
-
         }
         public ActionResult Detalle(int id)
         {
-
             var ubic = store.u_computadora_detalle(id);
 
             return View(ubic);
@@ -60,8 +57,6 @@ namespace login_v6.Controllers
             return View(incidente);
 
         }
-
-
         public ActionResult GuardarIncidente(pc_incidentepc inci, int incidentepc)
         {
 
