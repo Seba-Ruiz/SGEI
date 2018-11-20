@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Negocio.DTO.DTO_u_escaner_01>
+@{
+    ViewBag.Title = "Buscar Incidente";
+}
+
+
+<h4 class="page-title">Consultar Incidentes</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Seleccion de Switch") </li>
+</ol>
+
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:180px;">MARCA_MODELO</th>
+                <th style="width:200px;">DESCRIPCION</th>
+                <th style="width:180px;">Nº IP</th>
+                @*<th style="width:200px;">id</th>*@
+
+                <th style="width:180px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <th>@a.mmarca</th>
+                    <th>@a.descripcion</th>
+                    <th>@a.nro_ip</th>
+
+                    <th>
+                        <a class="btn btn-xs btn-primary" href="~/consulta/VerIncidenteES/@a.id_es">Ver Incidentes</a>
+                    </th>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

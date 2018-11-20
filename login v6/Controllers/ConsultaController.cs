@@ -19,6 +19,7 @@ namespace login_v6.Controllers
         public ubicacionpc_dominio ubipc = new ubicacionpc_dominio();
         public ubicacion_camara_dominio ubicam = new ubicacion_camara_dominio();
         public ubicacion_sw_dominio ubisw = new ubicacion_sw_dominio();
+        public ubicacion_escaner_dominio ubies = new ubicacion_escaner_dominio();
         public insumo_cam_dominio insucam = new insumo_cam_dominio();
         stores store = new stores();
 
@@ -79,7 +80,7 @@ namespace login_v6.Controllers
 
 
 
-        // CONSULTAS DE SWITCHS TERMINARLAS----
+        // CONSULTAS DE SWITCHS 
         public ActionResult switchs()
         {
             ViewBag.ubicaciones = ubisw.Listar();
@@ -118,6 +119,39 @@ namespace login_v6.Controllers
             return View(consulta);
         }
         //-----------------------------------//
+
+
+
+        // CONSULTAS DE ESCANER 
+        public ActionResult escaners()
+        {
+            ViewBag.ubicaciones = ubies.Listar();
+            return View();
+        }
+
+        public ActionResult BuscarIncidenteES(int ubicacion)
+        {
+            var datos = store.u_escaner_01(ubicacion);
+
+            return View(datos);
+
+        }
+
+        public ActionResult VerIncidenteES(int id)
+        {
+            var consulta = store.incidente_es(id);
+
+            return View(consulta);
+        }
+        //-----------------------------------//
+
+
+
+
+
+
+
+
 
 
 

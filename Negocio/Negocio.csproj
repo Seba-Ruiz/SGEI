@@ -117,6 +117,7 @@
     <Compile Include="DTO\DTO_consulta_tel_incidente.cs" />
     <Compile Include="DTO\DTO_es.cs" />
     <Compile Include="DTO\DTO_incidente_camara.cs" />
+    <Compile Include="DTO\DTO_incidente_es.cs" />
     <Compile Include="DTO\DTO_incidente_sw.cs" />
     <Compile Include="DTO\DTO_PC.cs" />
     <Compile Include="DTO\DTO_sw.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="DTO\DTO_u_detalle_escaner.cs" />
     <Compile Include="DTO\DTO_u_detalle_sw.cs" />
     <Compile Include="DTO\DTO_u_detalle_telefono.cs" />
+    <Compile Include="DTO\DTO_u_escaner_01.cs" />
     <Compile Include="DTO\DTO_u_es_01.cs" />
     <Compile Include="DTO\DTO_u_impresora_01.cs" />
     <Compile Include="DTO\DTO_u_impresora_04.cs" />
