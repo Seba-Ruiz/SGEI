@@ -54,6 +54,7 @@
     <Compile Include="AspNetUserLogins.cs" />
     <Compile Include="AspNetUserRoles.cs" />
     <Compile Include="AspNetUsers.cs" />
+    <Compile Include="Auditoria.cs" />
     <Compile Include="baja.cs" />
     <Compile Include="bajaPC.cs" />
     <Compile Include="camara.cs" />

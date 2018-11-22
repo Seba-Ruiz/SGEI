@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dominio\auditoria_dominio.cs" />
     <Compile Include="Dominio\bajapc_dominio.cs" />
     <Compile Include="Dominio\baja_dominio.cs" />
     <Compile Include="Dominio\camara_dominio.cs" />

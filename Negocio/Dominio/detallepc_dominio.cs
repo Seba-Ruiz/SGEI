@@ -33,7 +33,7 @@ namespace Negocio.Dominio
             }
         }
 
-        public detallePC Obtener(int id)
+        public detallePC Obtener(int? id)
         {
             var dt = new detallePC();
             try

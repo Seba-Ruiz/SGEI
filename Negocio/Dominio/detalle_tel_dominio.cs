@@ -13,7 +13,7 @@ namespace Negocio.Dominio
         
        
 
-        public detalle_tel Obtener(int id)
+        public detalle_tel Obtener(int? id)
         {
             var dt = new detalle_tel();
             try

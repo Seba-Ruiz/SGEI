@@ -18,6 +18,7 @@ namespace Model
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Auditoria> Auditoria { get; set; }
         public virtual DbSet<baja> baja { get; set; }
         public virtual DbSet<bajaPC> bajaPC { get; set; }
         public virtual DbSet<camara> camara { get; set; }
