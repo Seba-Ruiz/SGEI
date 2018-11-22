@@ -36,6 +36,19 @@ namespace login_v6.Controllers
 
             deta.Restar(insu);
 
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "IMPRESORA";
+            audit.id_equipo = model.ubicacion_impresora_id;
+            audit.accion = "INSUMO";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
             return View();
         }
 
@@ -57,7 +70,27 @@ namespace login_v6.Controllers
             pc_insumo_pc_dominio insu = new pc_insumo_pc_dominio();
             insumo_pc_dominio insumo = new insumo_pc_dominio();
 
+            var detalle = new detallepc_dominio();
+
+
             insu.Guardar(model);
+
+            var det = detalle.Obtener(model.detalle_pc_id);
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "COMPUTADORA";
+            audit.id_equipo = det.pc_id;
+            audit.accion = "INSUMO";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
+
             insumo.Restar(Convert.ToInt32(model.insumo_id));
             return View();
         }

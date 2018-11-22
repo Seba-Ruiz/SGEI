@@ -57,6 +57,23 @@ namespace login_v6.Controllers
 
             incidenteDominio.Guardar(incidente);
 
+
+            var detalle = new detalle_tel_dominio();
+            var det = detalle.Obtener(inci.detalle_id);
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "TELEFONO";
+            audit.id_equipo = det.telefono_id;
+            audit.accion = "INCIDENTE";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
             return View();
         }
         public ActionResult Editar(int id)
@@ -93,6 +110,19 @@ namespace login_v6.Controllers
 
                 dt.Guardar(detalle);
 
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "TELEFONO";
+                audit.id_equipo = deta.id_telefono;
+                audit.accion = "EDITAR";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
                 return View();
             }
             else
@@ -106,6 +136,19 @@ namespace login_v6.Controllers
             var telefono = tel.Obtener(id);
             telefono.fecha_baja = DateTime.Now;
             tel.Guardar(telefono);
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "TELEFONO";
+            audit.id_equipo = id;
+            audit.accion = "BAJA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
             return View();
         }
 

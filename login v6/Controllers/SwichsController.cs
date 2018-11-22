@@ -45,6 +45,19 @@ namespace login_v6.Controllers
 
             incidenteDominio.Guardar(incidente);
 
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "SWITCH";
+            audit.id_equipo = inci.switch_id;
+            audit.accion = "INCIDENTE";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
             return View();
         }
 
@@ -83,6 +96,19 @@ namespace login_v6.Controllers
 
                 dt.Guardar(detalle);
 
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "SWITCH";
+                audit.id_equipo = deta.id_sw;
+                audit.accion = "EDITAR";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
                 return View();
             }
             else
@@ -107,6 +133,19 @@ namespace login_v6.Controllers
             var switc = sw.Obtener(id);
             switc.fecha_baja = DateTime.Now;
             sw.Guardar(switc);
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "SWITCH";
+            audit.id_equipo = id;
+            audit.accion = "BAJA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
             return View();
         }
 

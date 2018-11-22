@@ -6,7 +6,7 @@
     <li><a href="~/Inicio/index">Inicio</a></li>
     <li class="active">@(Model.id_incidente_escaner > 0 ? Model.descripcion : "Editar Ubicacion") </li>
 </ol>
-@using (Html.BeginForm("GuardarmodeloES", "ABM", FormMethod.Post))
+@using (Html.BeginForm("GuardarincidenteES", "ABM", FormMethod.Post))
 {
     @Html.HiddenFor(x => x.id_incidente_escaner)
     <div class="row">
