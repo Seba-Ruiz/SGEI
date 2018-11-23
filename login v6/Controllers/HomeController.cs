@@ -595,7 +595,6 @@ namespace SGEI.Controllers
         {
             ubi_imp.Guardar(model);
             TempData["id_ubicacion"] = model.id;
-
             return RedirectToAction("CrudDetalle_Impresora_Ubicacion");
         }
 

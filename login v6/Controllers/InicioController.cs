@@ -13,7 +13,6 @@ namespace login_v6.Controllers
         servicio serv = new servicio();
         public ActionResult Index()
         {
-
             ViewBag.impresoras = serv.sumaImpresora();
             ViewBag.computadoras = serv.sumaComputadora();
             ViewBag.telefonos = serv.sumaTelefono();
