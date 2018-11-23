@@ -329,6 +329,7 @@
     <Content Include="assets\js\jquery.slimscroll.js" />
     <Content Include="assets\js\modernizr.min.js" />
     <Content Include="assets\js\pace.min.js" />
+    <Content Include="assets\js\spiner.js" />
     <Content Include="assets\js\waves.js" />
     <Content Include="assets\js\wow.min.js" />
     <Content Include="assets\landing\css\bootstrap.min.css" />

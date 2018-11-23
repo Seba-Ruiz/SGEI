@@ -5,233 +5,271 @@
     {
         @Html.AntiForgeryToken()
 
-<ul class="navigation-menu">
-    <li class="has-submenu">
-        <a href="#"><i class="glyphicon glyphicon-cog"></i>Gestion</a>
-        <ul class="submenu">
+        <ul class="navigation-menu">
             <li class="has-submenu">
-                <a href="#">Impresoras</a>
+                <a href="#"><i class="glyphicon glyphicon-cog"></i>Gestion</a>
                 <ul class="submenu">
-                    <li>
-                        <a href="~/ABM/insumos"><i class="fa fa-lg fa-newspaper-o"></i> Insumos</a>
+                    <li class="has-submenu">
+                        <a href="#">Impresoras</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/ABM/insumos"><i class="fa fa-lg fa-newspaper-o"></i> Insumos</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/impresoras"><i class="fa fa-lg fa-print"></i> Impresoras</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/ubicacion"><i class="fa fa-lg fa-location-arrow"></i> Ubicacion</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="~/ABM/impresoras"><i class="fa fa-lg fa-print"></i> Impresoras</a>
+
+                    <li class="has-submenu">
+                        <a href="#">Computadoras</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/ABM/rams"><i class="fa fa-lg fa-maxcdn"></i> Memorias</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/discos"><i class="fa fa-lg fa-hdd-o"></i> Discos</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/sos"><i class="fa fa-lg fa-windows"></i> Sistemas Operativos</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/mothers"><i class="fa fa-lg fa-building-o"></i> Placas Madre</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/incidentespc"><i class="fa fa-lg fa-exclamation-triangle"></i> Incidentes PC</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/tipospc"><i class="fa fa-lg fa-desktop"></i> Tipos PC</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/ubicacionespc"><i class="fa fa-lg fa-globe"></i> Ubicaciones PC</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/motivospc"><i class="fa fa-lg fa-level-down"></i> Motivos de Baja PC</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/procesadorespc"><i class="fa fa-lg fa-product-hunt"></i> Procesadores</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/insumospc"><i class="fa fa-lg fa-keyboard-o"></i> Insumos PC</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="~/ABM/ubicacion"><i class="fa fa-lg fa-location-arrow"></i> Ubicacion</a>
+
+                    <li class="has-submenu">
+                        <a href="#">Telefonos</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/ABM/tipo_telefonos"><i class="fa fa-low-vision"></i> Tipo Telefono</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/ubicacionestel"><i class="fa fa-wpforms"></i> Ubicaciones Telefonos</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/mmarcas"><i class=" fa fa-cc-diners-club"></i> Modelos Telefonos</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/incidentestel"><i class="fa fa-object-ungroup"></i> Incidentes Telefonos</a>
+                            </li>
+                        </ul>
                     </li>
+
+
+
+                    <li class="has-submenu">
+                        <a href="#">Camaras</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/ABM/insumosCam"><i class="fa fa-lg fa-newspaper-o"></i> Insumos Camaras</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/modeloCam"><i class="fa fa-lg fa-print"></i> Modelos Camaras</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/ubiCam"><i class="fa fa-lg fa-location-arrow"></i> Ubicaciones camara</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/incidenteCam"><i class="fa fa-lg fa-location-arrow"></i> Incidentes Camaras</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">Swichts</a>
+                        <ul class="submenu">
+
+                            <li>
+                                <a href="~/ABM/modeloSW"><i class="fa fa-lg fa-print"></i> Modelos SW</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/ubicacionSW"><i class="fa fa-lg fa-location-arrow"></i> Ubicaciones SW</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/incidenteSw"><i class="fa fa-lg fa-location-arrow"></i> Incidentes SW</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">Escaners</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/ABM/modeloES"><i class="fa fa-lg fa-print"></i> Modelos Escaner</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/ubicacionES"><i class="fa fa-lg fa-location-arrow"></i> Ubicaciones Escaner</a>
+                            </li>
+                            <li>
+                                <a href="~/ABM/incidenteEs"><i class="fa fa-lg fa-location-arrow"></i> Incidentes Escaner</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="glyphicon glyphicon-plus"></i>Altas</a>
+                <ul class="submenu">
+                    <li><a href="~/home/crud"><i class="glyphicon glyphicon-arrow-up"></i> Alta de impresora</a></li>
+                    <li><a href="~/home/AltaCompu"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Computadoras</a></li>
+                    <li><a href="~/home/AltaTel"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Telefonos</a></li>
+                    <li><a href="~/home/AltaCam"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Camara</a></li>
+                    <li><a href="~/home/AltaSW"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Switchs</a></li>
+                    <li><a href="~/home/AltaEs"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Escaners</a></li>
                 </ul>
             </li>
 
             <li class="has-submenu">
-                <a href="#">Computadoras</a>
+                <a href="#"><i class="fa fa-wpforms"></i>Consultas</a>
                 <ul class="submenu">
-                    <li>
-                        <a href="~/ABM/rams"><i class="fa fa-lg fa-maxcdn"></i> Memorias</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/discos"><i class="fa fa-lg fa-hdd-o"></i> Discos</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/sos"><i class="fa fa-lg fa-windows"></i> Sistemas Operativos</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/mothers"><i class="fa fa-lg fa-building-o"></i> Placas Madre</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/incidentespc"><i class="fa fa-lg fa-exclamation-triangle"></i> Incidentes PC</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/tipospc"><i class="fa fa-lg fa-desktop"></i> Tipos PC</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/ubicacionespc"><i class="fa fa-lg fa-globe"></i> Ubicaciones PC</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/motivospc"><i class="fa fa-lg fa-level-down"></i> Motivos de Baja PC</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/procesadorespc"><i class="fa fa-lg fa-product-hunt"></i> Procesadores</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/insumospc"><i class="fa fa-lg fa-keyboard-o"></i> Insumos PC</a>
-                    </li>
-                </ul>
-            </li>
 
-            <li class="has-submenu">
-                <a href="#">Telefonos</a>
-                <ul class="submenu">
-                    <li>
-                        <a href="~/ABM/tipo_telefonos"><i class="fa fa-low-vision"></i> Tipo Telefono</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/ubicacionestel"><i class="fa fa-wpforms"></i> Ubicaciones Telefonos</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/mmarcas"><i class=" fa fa-cc-diners-club"></i> Modelos Telefonos</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/incidentestel"><i class="fa fa-object-ungroup"></i> Incidentes Telefonos</a>
-                    </li>
-                </ul>
-            </li>
+                    <li class="has-submenu">
+                        <a href="#">Impresoras</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/consulta/index"><i class="fa fa-lg fa-newspaper-o"></i> Informes</a>
+                            </li>
+                            <li>
+                                <a href="~/Home/impresoras_baja"><i class="fa fa-lg fa-print"></i> Bajas</a>
+                            </li>
 
+                        </ul>
+                    </li>
 
+                    <li class="has-submenu">
+                        <a href="#">Computadoras</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/consulta/Computadoras"><i class="fa fa-lg fa-maxcdn"></i> Informes</a>
+                            </li>
+                            <li>
+                                <a href="~/consulta/compuBaja"><i class="fa fa-lg fa-hdd-o"></i> Bajas</a>
+                            </li>
+                        </ul>
+                    </li>
 
-            <li class="has-submenu">
-                <a href="#">Camaras</a>
-                <ul class="submenu">
-                    <li>
-                        <a href="~/ABM/insumosCam"><i class="fa fa-lg fa-newspaper-o"></i> Insumos Camaras</a>
+                    <li class="has-submenu">
+                        <a href="#">Telefonos</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/consulta/Telefonos"><i class="fa fa-low-vision"></i> Informes</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="~/ABM/modeloCam"><i class="fa fa-lg fa-print"></i> Modelos Camaras</a>
+                    <li class="has-submenu">
+                        <a href="#">Camaras</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/consulta/Camara"><i class="fa fa-low-vision"></i> Informes</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="~/ABM/ubiCam"><i class="fa fa-lg fa-location-arrow"></i> Ubicaciones camara</a>
+                    <li class="has-submenu">
+                        <a href="#">Switchs</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/consulta/switchs"><i class="fa fa-low-vision"></i> Informes</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="~/ABM/incidenteCam"><i class="fa fa-lg fa-location-arrow"></i> Incidentes Camaras</a>
+                    <li class="has-submenu">
+                        <a href="#">Escaners</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="~/consulta/escaners"><i class="fa fa-low-vision"></i> Informes</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
             <li class="has-submenu">
-                <a href="#">Swichts</a>
+                <a href="#"><i class="glyphicon glyphicon-user"></i>Usuarios</a>
                 <ul class="submenu">
+                    <li><a id="usuario" style="cursor: pointer;"><i class="glyphicon glyphicon-user"></i> Gestionar</a></li>
+                    <li><a id="rol" style="cursor: pointer;"><i class="glyphicon glyphicon-arrow-up"></i> Roles</a></li>
 
-                    <li>
-                        <a href="~/ABM/modeloSW"><i class="fa fa-lg fa-print"></i> Modelos SW</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/ubicacionSW"><i class="fa fa-lg fa-location-arrow"></i> Ubicaciones SW</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/incidenteSw"><i class="fa fa-lg fa-location-arrow"></i> Incidentes SW</a>
-                    </li>
                 </ul>
             </li>
+
             <li class="has-submenu">
-                <a href="#">Escaners</a>
-                <ul class="submenu">
-                    <li>
-                        <a href="~/ABM/modeloES"><i class="fa fa-lg fa-print"></i> Modelos Escaner</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/ubicacionES"><i class="fa fa-lg fa-location-arrow"></i> Ubicaciones Escaner</a>
-                    </li>
-                    <li>
-                        <a href="~/ABM/incidenteEs"><i class="fa fa-lg fa-location-arrow"></i> Incidentes Escaner</a>
-                    </li>
-                </ul>
+                <a href="#"><i class="fa fa-tasks"></i>Ingresos</a>
             </li>
 
         </ul>
-    </li>
-    <li class="has-submenu">
-        <a href="#"><i class="glyphicon glyphicon-plus"></i>Altas</a>
-        <ul class="submenu">
-            <li><a href="~/home/crud"><i class="glyphicon glyphicon-arrow-up"></i> Alta de impresora</a></li>
-            <li><a href="~/home/AltaCompu"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Computadoras</a></li>
-            <li><a href="~/home/AltaTel"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Telefonos</a></li>
-            <li><a href="~/home/AltaCam"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Camara</a></li>
-            <li><a href="~/home/AltaSW"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Switchs</a></li>
-            <li><a href="~/home/AltaEs"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Escaners</a></li>
-        </ul>
-    </li>
 
-    <li class="has-submenu">
-        <a href="#"><i class="fa fa-wpforms"></i>Consultas</a>
-        <ul class="submenu">
-
-            <li class="has-submenu">
-                <a href="#">Impresoras</a>
-                <ul class="submenu">
-                    <li>
-                        <a href="~/consulta/index"><i class="fa fa-lg fa-newspaper-o"></i> Informes</a>
-                    </li>
-                    <li>
-                        <a href="~/Home/impresoras_baja"><i class="fa fa-lg fa-print"></i> Bajas</a>
-                    </li>
-
-                </ul>
-            </li>
-
-            <li class="has-submenu">
-                <a href="#">Computadoras</a>
-                <ul class="submenu">
-                    <li>
-                        <a href="~/consulta/Computadoras"><i class="fa fa-lg fa-maxcdn"></i> Informes</a>
-                    </li>
-                    <li>
-                        <a href="~/consulta/compuBaja"><i class="fa fa-lg fa-hdd-o"></i> Bajas</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="has-submenu">
-                <a href="#">Telefonos</a>
-                <ul class="submenu">
-                    <li>
-                        <a href="~/consulta/Telefonos"><i class="fa fa-low-vision"></i> Informes</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="has-submenu">
-                <a href="#">Camaras</a>
-                <ul class="submenu">
-                    <li>
-                        <a href="~/consulta/Camara"><i class="fa fa-low-vision"></i> Informes</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="has-submenu">
-                <a href="#">Switchs</a>
-                <ul class="submenu">
-                    <li>
-                        <a href="~/consulta/switchs"><i class="fa fa-low-vision"></i> Informes</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="has-submenu">
-                <a href="#">Escaners</a>
-                <ul class="submenu">
-                    <li>
-                        <a href="~/consulta/escaners"><i class="fa fa-low-vision"></i> Informes</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-    <li class="has-submenu">
-        <a href="#"><i class="glyphicon glyphicon-user"></i>Usuarios</a>
-        <ul class="submenu">
-            <li><a href="~/usuario/index"><i class="glyphicon glyphicon-user"></i> Gestionar</a></li>
-            <li><a href="~/Role/index"><i class="glyphicon glyphicon-arrow-up"></i> Roles</a></li>
-        </ul>
-    </li>
-
-    <li class="has-submenu">
-        <a href="#"><i class="fa fa-tasks"></i>Ingresos</a>
-    </li>
-
-
-
-
-</ul>
-        
-
-
-
-
-            }
-            }
-            else
-            {
-            @*<ul class="nav navbar-nav navbar-right">
+    }
+}
+else
+{
+    @*<ul class="nav navbar-nav navbar-right">
             <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
             <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
         </ul>*@
-            }
+}
+
+
+
+<div id="spiner" class="modal fade bs-example-modal-sm in" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm" style="margin-top:200px">
+        <div>
+            <div>
+                <h4 style="text-align:center;color:black;font-weight:bolder;font-size:25px">Espere...</h4>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-primary progress-bar-striped progress-animated wow animated" role="progressbar" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/assets/js/spiner.js"></script>
+<script>
+
+    $("#rol").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Index","Role")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+
+
+    $("#usuario").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Index","Usuario")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+</script>
+
+
+
 
