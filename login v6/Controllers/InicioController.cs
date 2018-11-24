@@ -13,13 +13,12 @@ namespace login_v6.Controllers
         servicio serv = new servicio();
         public ActionResult Index()
         {
-
             ViewBag.impresoras = serv.sumaImpresora();
             ViewBag.computadoras = serv.sumaComputadora();
             ViewBag.telefonos = serv.sumaTelefono();
             ViewBag.camaras = serv.sumaCamara();
             ViewBag.sw = serv.sumaSW();
-            ViewBag.sw = serv.sumaES();
+            ViewBag.es = serv.sumaES();
 
             return View();
         }

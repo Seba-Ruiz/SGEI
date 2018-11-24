@@ -8,7 +8,7 @@
 <ol class="breadcrumb">
 
     <li class="active">
-        Sistema para control de insumos e incidentes de computadoras
+        Sistema para control de insumos e incidentes de computadoras.
     </li>
 </ol>
 <div class="row">
@@ -19,9 +19,9 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <h5><b>Gestion de Computadoras</b></h5>
+                    <h5><b>Gestión de Computadoras</b></h5>
                     <p class="text-muted m-b-30 font-13">
-                        Para comenzar seleccione en el combo la ubicacion de la computadora, el sistema mostrara las computadoras en esa ubicacion.
+                        Para comenzar, seleccione en el combo la ubicación de la computadora, el sistema mostrará las computadoras en esa ubicación.
                     </p>
 
                     @using (Html.BeginForm("Buscar", "Computadora", FormMethod.Post, new { id = "frm-incidente" }))
@@ -35,22 +35,22 @@
                                 <button type="submit" class="btn-custom btn-inverse">Buscar</button>
                             </div>
                         </div>
-                        @*foreach (var item in @ViewBag.insumos)
+                        foreach (var item in @ViewBag.insu)
                         {
                             if (item.cantidad == 0)
                             {
                                 <div class="alert alert-danger" role="alert">
-                                    <strong>ATENCION</strong> Sin stock disponible para toner del tipo @item.nombre
+                                    <strong>ATENCION</strong> Sin stock disponible para el insumo @item.nombre
                                 </div>
                             }
 
-                            if (item.cantidad < 10 & item.cantidad > 0)
+                            if (item.cantidad < 5 & item.cantidad > 0)
                             {
                                 <div class="alert alert-info" role="alert">
-                                    <strong>ATENCION</strong> Quedan @item.cantidad toner del tipo @item.nombre
+                                    <strong>ATENCION</strong> Quedan la cantidad de @item.cantidad para el insumo @item.nombre
                                 </div>
                             }
-                        }*@
+                        }
                     }
                 </div>
             </div>

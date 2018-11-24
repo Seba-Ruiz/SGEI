@@ -31,12 +31,5 @@ namespace login_v6.Controllers
             return View();
         }
 
-
-
-
-
-
-
-
     }
 }

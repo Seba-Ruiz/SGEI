@@ -2,7 +2,7 @@
 @{
     /**/
 
-    ViewBag.Title = "Insumos";
+    ViewBag.Title = "Usuarios";
 }
 <h4 class="page-title">Insumos!</h4>
 <ol class="breadcrumb">
@@ -10,20 +10,6 @@
     <li class="active">@("Detalle de Usuarios del sistema") </li>
 </ol>
 
-@using (Html.BeginForm("Crud", "Usuario", FormMethod.Post, new { id = "frm-insumo" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="vakata-context-left">
-        <button type="submit" class="btn btn-inverse waves-effect waves-light">
-            <span class="btn btn-label">
-                <i class="md md-queue"></i>
-            </span>
-            Agregar
-        </button>
-    </div>
-
-}
 <div class="col-md-2"></div>
 <div class="col-md-8">
 

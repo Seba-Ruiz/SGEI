@@ -87,6 +87,19 @@ namespace SGEI.Controllers
 
                 ubi.Guardar(ubicacion); //Guardo la ubicacion
 
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "TELEFONO";
+                audit.id_equipo = id_telefono;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
                 return RedirectToAction("AltaExitosaTel");
             }
             else
@@ -152,6 +165,19 @@ namespace SGEI.Controllers
                 ubicacion.detalle_camara_id = id_detalle;
 
                 ubi.Guardar(ubicacion); //Guardo la ubicacion
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "CAMARA";
+                audit.id_equipo = id_camara;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
 
                 return RedirectToAction("AltaExitosaCam");
             }
@@ -222,6 +248,20 @@ namespace SGEI.Controllers
 
                 ubi.Guardar(ubicacion); //Guardo la ubicacion
 
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "SWITCH";
+                audit.id_equipo = id_sw;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
                 return RedirectToAction("AltaExitosaSW");
             }
             else
@@ -286,6 +326,19 @@ namespace SGEI.Controllers
 
                 ubi.Guardar(ubicacion); //Guardo la ubicacion
 
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "ESCANER";
+                audit.id_equipo = id_es;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
                 return RedirectToAction("AltaExitosaES");
             }
             else
@@ -370,6 +423,20 @@ namespace SGEI.Controllers
                 ubipc.Guardar(pcubicacion); // guardo la ubicacion de la pc
 
 
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "COMPUTADORA";
+                audit.id_equipo = id_compu;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
+
                 return Redirect("~/home/AltaExitosa");
             }
             else
@@ -424,7 +491,20 @@ namespace SGEI.Controllers
 
             baja_aceptada.Guardar(baja);
 
-            return Redirect("~/home");
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "IMPRESORA";
+            audit.id_equipo = baja.ubicacion_impresora_id;
+            audit.accion = "BAJA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
+            return Redirect("~/Inicio/Index");
 
         }
 
@@ -451,7 +531,20 @@ namespace SGEI.Controllers
             var impresora = new u_impresora_dominio();
 
             impresora.mover(id_ubicacion_impresora, id_nueva_ubicacion);
-            return Redirect("~/home");
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "IMPRESORA";
+            audit.id_equipo = id_ubicacion_impresora;
+            audit.accion = "MOVER";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+            return Redirect("~/Inicio/Index");
         }
 
         public ActionResult CrudDetalle_Impresora_Ubicacion(int id = 0) //Este es el ABM detalle_impresora
@@ -481,22 +574,34 @@ namespace SGEI.Controllers
         public ActionResult GuardarDetalle(detalle_impresora_ubicacion model)
         {
             deta.Guardar(model);
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "IMPRESORA";
+            audit.id_equipo = model.ubicacion_impresora_id;
+            audit.accion = "ALTA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
             //TempData["id_impre"] = model.impresora_id;
-            return Redirect("~/home");
+            return Redirect("~/Inicio/Index");
         }
 
         public ActionResult GuardarUbicacion(ubicacion_impresora model)
         {
             ubi_imp.Guardar(model);
             TempData["id_ubicacion"] = model.id;
-
             return RedirectToAction("CrudDetalle_Impresora_Ubicacion");
         }
 
         public ActionResult Eliminar(impresora model)
         {
             imp.Eliminar(model.id);
-            return Redirect("~/home");
+            return Redirect("~/Inicio/Index");
         }
 
         public ActionResult impresoras_baja()
@@ -529,9 +634,11 @@ namespace SGEI.Controllers
 
             ubi_imp.Guardar(ubi);
 
+
+
             //alta.Eliminar(ubi.id);
 
-            return Redirect("~/home");
+            return Redirect("~/Inicio/Index");
         }
 
 

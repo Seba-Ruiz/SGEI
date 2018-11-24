@@ -69,6 +69,19 @@ namespace login_v6.Controllers
 
                 dt.Guardar(detalle);
 
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "ESCANER";
+                audit.id_equipo = deta.id_escaner;
+                audit.accion = "EDITAR";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
                 return View();
             }
             else
@@ -100,6 +113,19 @@ namespace login_v6.Controllers
 
             incidenteDominio.Guardar(incidente);
 
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "escaner";
+            audit.id_equipo = inci.escaner_id;
+            audit.accion = "INCIDENTE";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
             return View();
         }
 
@@ -110,6 +136,19 @@ namespace login_v6.Controllers
             var escaner = esc.Obtener(id);
             escaner.fecha_baja = DateTime.Now;
             esc.Guardar(escaner);
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "ESCANER";
+            audit.id_equipo = id;
+            audit.accion = "BAJA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
             return View();
         }
 

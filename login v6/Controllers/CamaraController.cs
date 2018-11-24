@@ -40,6 +40,7 @@ namespace login_v6.Controllers
             ViewBag.modelo = new SelectList(modelo.Listar(), "id_mmarca", "marca_modelo", det.id_mm);
             ViewBag.ubicacion = new SelectList(ubi.Listar(), "id_ubicacion_camara", "nombre", det.id_ubicacion_camara);
 
+
             return View(det);
         }
 
@@ -62,6 +63,20 @@ namespace login_v6.Controllers
                 detalle.nroip = deta.nro_ip; //Detalle
 
                 dt.Guardar(detalle);
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "CAMARA";
+                audit.id_equipo = deta.id_camara;
+                audit.accion = "EDITAR";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
 
                 return View();
             }
@@ -93,6 +108,19 @@ namespace login_v6.Controllers
 
             incidenteDominio.Guardar(incidente);
 
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "CAMARA";
+            audit.id_equipo = inci.camara_id;
+            audit.accion = "INCIDENTE";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
             return View();
         }
 
@@ -102,6 +130,20 @@ namespace login_v6.Controllers
             var camara = cam.Obtener(id);
             camara.fecha_baja = DateTime.Now;
             cam.Guardar(camara);
+
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "CAMARA";
+            audit.id_equipo = id;
+            audit.accion = "BAJA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
             return View();
         }
 
@@ -110,16 +152,5 @@ namespace login_v6.Controllers
             return View();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }

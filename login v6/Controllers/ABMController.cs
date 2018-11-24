@@ -1106,17 +1106,5 @@ namespace login_v6.Controllers
             return Redirect("~/ABM/incidenteES");
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

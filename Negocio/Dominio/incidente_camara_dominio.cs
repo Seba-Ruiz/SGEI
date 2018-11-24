@@ -11,18 +11,16 @@ namespace Negocio.Dominio
     public class incidente_camara_dominio
     {
 
-        public List<incidente_camara> verIncidente(int id)
+        public List<camara_incidente_camara> verIncidente(int id)
         {
-            var incidentes = new List<incidente_camara>();
+            var incidentes = new List<camara_incidente_camara>();
 
             try
             {
                 using (var ctx = new SGEIContext())
 
-
-
-                    //incidentes = ctx.camara_incidente_camara.Where(x => x.camara_id == id)
-                    //                          .ToList();
+                    incidentes = ctx.camara_incidente_camara.Where(x => x.camara_id == id)
+                                              .ToList();
 
             }
             catch (Exception E)

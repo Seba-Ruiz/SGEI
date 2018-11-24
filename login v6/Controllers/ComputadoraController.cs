@@ -14,34 +14,29 @@ namespace login_v6.Controllers
     public class ComputadoraController : Controller
     {
         stores store = new stores();
+        public insumo_pc_dominio insumo_pc = new insumo_pc_dominio();
 
         // GET: Computadora
         public ActionResult Index()
         {
             ubicacionpc_dominio ubi = new ubicacionpc_dominio();
             ViewBag.ubicacionpc = ubi.Listar();
+            ViewBag.insu = insumo_pc.Listar();
             return View();
         }
 
         public ActionResult Buscar(int ubicacionpc)
         {
-           
-
             var ubica = store.u_computadora(ubicacionpc);
 
             return View(ubica);
-
-
         }
         public ActionResult Detalle(int id)
         {
-
             var ubic = store.u_computadora_detalle(id);
 
             return View(ubic);
         }
-
-
 
         public ActionResult Incidente(int id)
         {
@@ -60,17 +55,27 @@ namespace login_v6.Controllers
             return View(incidente);
 
         }
-
-
         public ActionResult GuardarIncidente(pc_incidentepc inci, int incidentepc)
         {
-
             inci.incidentepc_id = incidentepc;
             pc_inidentepc_dominio incid = new pc_inidentepc_dominio();
-
             incid.Guardar(inci);
 
-            return Redirect("~/inicio");
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "COMPUTADORA";
+            audit.id_equipo = inci.pc_id;
+            audit.accion = "INCIDENTE";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
+            return View();
 
         }
 
@@ -109,6 +114,19 @@ namespace login_v6.Controllers
             compu.Guardar(pc);
             baja_aceptada.Guardar(baja);
 
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "COMPUTADORA";
+            audit.id_equipo = pc.id_pc;
+            audit.accion = "BAJA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
             return View();
         }
 
@@ -141,6 +159,19 @@ namespace login_v6.Controllers
 
             var dt = new detallepc_dominio();
             dt.mover(Convert.ToInt32(id_ubicacion_actual), id_nueva_ubicacion, id_pc);
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "COMPUTADORA";
+            audit.id_equipo = id_pc;
+            audit.accion = "MOVER";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
 
             return View();
 
@@ -198,6 +229,19 @@ namespace login_v6.Controllers
                 dt.responsablepc = modelo.responsablepc;
                 dt.so_id = modelo.id_so;
                 detalle.Guardar(dt); // Guardo las modificaciones del detalle
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "COMPUTADORA";
+                audit.id_equipo = modelo.id_pc;
+                audit.accion = "EDITAR";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
             }
             else
             {
