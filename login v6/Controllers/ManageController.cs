@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using login_v6.Models;
 using System.Security.Claims;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Negocio.Dominio;
 
 namespace login_v6.Controllers
 {
@@ -78,6 +79,21 @@ namespace login_v6.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+
+
+            // DATOS DE USUARIO
+            var usuario = new usuario_dominio();
+            var user = usuario.Obtener(userId);
+
+            var tipoRol = usuario.obtenerTipoRol(userId);
+            ViewBag.tipoRol = tipoRol.Name;
+
+            ViewBag.nombre = user.nombre;
+            ViewBag.apellido = user.apellido;
+            ViewBag.telefono = user.PhoneNumber;
+            ViewBag.ingreso = user.ultimo_ingreso;
+            ViewBag.mail = user.Email;
+            ViewBag.id = user.Id;
             return View(model);
         }
 

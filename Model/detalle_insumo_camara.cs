@@ -11,8 +11,8 @@ namespace Model
         [Key]
         public int id_detalle_insumo_camara { get; set; }
 
-        [StringLength(10)]
-        public string fecha_insumo { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? fecha_insumo { get; set; }
 
         public int? insumo_id { get; set; }
 

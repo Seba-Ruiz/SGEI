@@ -11,8 +11,8 @@ namespace Model
         [Key]
         public int id_switch_ubicacion_switch { get; set; }
 
-        [StringLength(10)]
-        public string fecha_ubicacion { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? fecha_ubicacion { get; set; }
 
         public int? ubicacion_switch_id { get; set; }
 

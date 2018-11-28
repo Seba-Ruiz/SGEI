@@ -81,7 +81,8 @@ namespace login_v6.Controllers
             roles_dominio.Guardar(usuarioRol);
             
             user.Guardar(usu);
-            
+
+
             return View();
         }
 

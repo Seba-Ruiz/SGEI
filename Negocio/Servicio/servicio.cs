@@ -57,7 +57,28 @@ namespace Negocio.Servicio
             return camaras;
         }
 
+        public int sumaSW()
+        {
+            int sw;
 
+            using (var ctx = new SGEIContext())
+            {
+                sw = Convert.ToInt32(ctx.swicth.Where(x => x.fecha_baja == null).Count());
+
+            }
+            return sw;
+        }
+        public int sumaES()
+        {
+            int sw;
+
+            using (var ctx = new SGEIContext())
+            {
+                sw = Convert.ToInt32(ctx.escaner.Where(x => x.fecha_baja == null).Count());
+
+            }
+            return sw;
+        }
 
         public List<pc> computadoras_de_baja()
         {

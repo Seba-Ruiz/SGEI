@@ -18,6 +18,7 @@ namespace Model
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Auditoria> Auditoria { get; set; }
         public virtual DbSet<baja> baja { get; set; }
         public virtual DbSet<bajaPC> bajaPC { get; set; }
         public virtual DbSet<camara> camara { get; set; }
@@ -143,10 +144,6 @@ namespace Model
             modelBuilder.Entity<detalle_impresora_ubicacion>()
                 .Property(e => e.pc_dondeseconecta)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<detalle_insumo_camara>()
-                .Property(e => e.fecha_insumo)
-                .IsFixedLength();
 
             modelBuilder.Entity<detalle_tel>()
                 .HasMany(e => e.incidente_tel_tel)
@@ -330,10 +327,6 @@ namespace Model
                 .HasMany(e => e.switch_ubicacion_switch)
                 .WithOptional(e => e.switch_detalle)
                 .HasForeignKey(e => e.detalle_swich_id);
-
-            modelBuilder.Entity<switch_ubicacion_switch>()
-                .Property(e => e.fecha_ubicacion)
-                .IsFixedLength();
 
             modelBuilder.Entity<telefono>()
                 .HasMany(e => e.detalle_tel)

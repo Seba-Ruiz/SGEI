@@ -25,7 +25,7 @@
                     <div class="col-md-12">
                         <h5><b>Datos del incidente</b></h5>
                         <p class="text-muted m-b-30 font-13">
-                            Rellene los campos a continuacion para detallar el incidente ocurrido y su accion de reparacion.
+                            Rellene los campos a continuación para detallar el incidente ocurrido y su acción de reparación.
                         </p>
                         <div class="form-group">
                             @Html.Label("Seleccione el incidente ocurrido")
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.Label("Fecha de Accion Realizada")
+                            @Html.Label("Fecha de AcciÓn Realizada")
                             @Html.TextBoxFor(x => x.fecha_reparacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
                             @Html.ValidationMessageFor(x => x.fecha_reparacion, null, new { @class = "label label-danger" })
                         </div>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="modal-body">
                     <h4>Desea agregar el incidente?</h4>
-                    Al aceptar se agregara el incidente a la impresora. Luego podra consultar el incidente dentro del menu consultas!
+                    Al aceptar se agregara el incidente a la computadora. Luego podrá consultar el incidente dentro del menu consultas.
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn-custom btn-default">Aceptar</button>

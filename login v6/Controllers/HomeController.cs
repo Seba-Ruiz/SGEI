@@ -36,21 +36,7 @@ namespace SGEI.Controllers
             return View();
         }
 
-        //public ActionResult About()
-        //{
-        //    ViewBag.Message = "Your application description page.";
-
-        //    return View();
-        //}
-
-        //[Authorize]
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
-
-        //    return View();
-        //}
-
+        
         public ActionResult AltaTel()
         {
             tipo_telefono_dominio tipot = new tipo_telefono_dominio();
@@ -100,6 +86,19 @@ namespace SGEI.Controllers
                 ubicacion.detalle_id = id_detalle;
 
                 ubi.Guardar(ubicacion); //Guardo la ubicacion
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "TELEFONO";
+                audit.id_equipo = id_telefono;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
 
                 return RedirectToAction("AltaExitosaTel");
             }
@@ -167,6 +166,19 @@ namespace SGEI.Controllers
 
                 ubi.Guardar(ubicacion); //Guardo la ubicacion
 
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "CAMARA";
+                audit.id_equipo = id_camara;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
                 return RedirectToAction("AltaExitosaCam");
             }
             else
@@ -182,12 +194,169 @@ namespace SGEI.Controllers
         }
 
 
+
+
         //------------------------------------------------------------//
+        // ALTA SWITCHS
+        public ActionResult Altasw()
+        {
+            mmarca_sw_dominio mmarca_cam = new mmarca_sw_dominio();
+            ubicacion_sw_dominio ubicam = new ubicacion_sw_dominio();
+
+            ViewBag.modelo = mmarca_cam.Listar();
+            ViewBag.ubicacion = ubicam.Listar();
+
+            DTO_sw dto = new DTO_sw();
+
+            return View(dto);
+        }
 
 
 
 
+        public ActionResult GuardarSW(DTO_sw dto, bool test)
+        {
+            if (test)
+            {
+                switch_dominio switc = new switch_dominio();
+                swicth sw = new swicth();
 
+                sw.descripcion = dto.descripcion;
+                switc.Guardar(sw); //Cabecera
+
+                detalle_sw_dominio dt = new detalle_sw_dominio();
+                switch_detalle detalle = new switch_detalle();
+
+                int id_sw = switc.ObtenerUltimo();
+
+                detalle.nroip = Convert.ToString(dto.ip);
+                detalle.interfaces = dto.interfaces;
+                detalle.marca_modelo_id = dto.mmarca;
+                detalle.fecha_detalle = DateTime.Now;
+                detalle.switch_id = id_sw;
+
+                dt.Guardar(detalle);  //Detalle
+
+                switch_ubicacion_switch_dominio ubi = new switch_ubicacion_switch_dominio();
+                switch_ubicacion_switch ubicacion = new switch_ubicacion_switch();
+
+                int id_detalle = ubi.ObtenerUltimo();
+
+                ubicacion.ubicacion_switch_id = dto.ubicacion;
+                ubicacion.fecha_ubicacion = DateTime.Now;
+                ubicacion.detalle_swich_id = id_detalle;
+
+                ubi.Guardar(ubicacion); //Guardo la ubicacion
+
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "SWITCH";
+                audit.id_equipo = id_sw;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
+                return RedirectToAction("AltaExitosaSW");
+            }
+            else
+            {
+                return Redirect("~/Swichs/Check");
+            }
+
+        }
+
+        public ActionResult AltaExitosaSW()
+        {
+            return View();
+        }
+
+        //----------------------------------------------//
+
+        //ALTA ESCANER
+
+        public ActionResult Altaes()
+        {
+            mmarca_es_dominio mmarca_cam = new mmarca_es_dominio();
+            ubicacion_escaner_dominio ubicam = new ubicacion_escaner_dominio();
+
+            ViewBag.modelo = mmarca_cam.Listar();
+            ViewBag.ubicacion = ubicam.Listar();
+
+            DTO_es dto = new DTO_es();
+
+            return View(dto);
+        }
+
+        public ActionResult GuardarES(DTO_es dto, bool test)
+        {
+            if (test)
+            {
+                escaner_dominio escaner = new escaner_dominio();
+                escaner esc = new escaner();
+
+                esc.descripcion = dto.descripcion;
+                escaner.Guardar(esc); //Cabecera
+
+                detalle_escaner_dominio dt = new detalle_escaner_dominio();
+                detalle_escaner detalle = new detalle_escaner();
+
+                int id_es = escaner.ObtenerUltimo();
+
+                detalle.nroip = Convert.ToString(dto.ip);
+                detalle.marca_modelo_id = dto.mmarca;
+                detalle.fecha_detalle = DateTime.Now;
+                detalle.escaner_id = id_es;
+
+                dt.Guardar(detalle);  //Detalle
+
+                escaner_ubicacion_escaner_dominio ubi = new escaner_ubicacion_escaner_dominio();
+                escaner_ubicacion_escaner ubicacion = new escaner_ubicacion_escaner();
+
+                int id_detalle = ubi.ObtenerUltimo();
+
+                ubicacion.ubicacion_escaner_id = dto.ubicacion;
+                ubicacion.fecha_ubicacion = DateTime.Now;
+                ubicacion.detalle_escaner_id = id_detalle;
+
+                ubi.Guardar(ubicacion); //Guardo la ubicacion
+
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "ESCANER";
+                audit.id_equipo = id_es;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+                return RedirectToAction("AltaExitosaES");
+            }
+            else
+            {
+                return Redirect("~/Escaner/Check");
+            }
+
+        }
+
+        public ActionResult AltaExitosaES()
+        {
+            return View();
+        }
+
+
+
+
+        //--------------------------------------------//
         public ActionResult AltaCompu(int id = 0)
         {
             tipopc_dominio tipo = new tipopc_dominio();
@@ -254,6 +423,20 @@ namespace SGEI.Controllers
                 ubipc.Guardar(pcubicacion); // guardo la ubicacion de la pc
 
 
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "COMPUTADORA";
+                audit.id_equipo = id_compu;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
+
                 return Redirect("~/home/AltaExitosa");
             }
             else
@@ -308,7 +491,20 @@ namespace SGEI.Controllers
 
             baja_aceptada.Guardar(baja);
 
-            return Redirect("~/home");
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "IMPRESORA";
+            audit.id_equipo = baja.ubicacion_impresora_id;
+            audit.accion = "BAJA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
+            return Redirect("~/Inicio/Index");
 
         }
 
@@ -335,7 +531,20 @@ namespace SGEI.Controllers
             var impresora = new u_impresora_dominio();
 
             impresora.mover(id_ubicacion_impresora, id_nueva_ubicacion);
-            return Redirect("~/home");
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "IMPRESORA";
+            audit.id_equipo = id_ubicacion_impresora;
+            audit.accion = "MOVER";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+            return Redirect("~/Inicio/Index");
         }
 
         public ActionResult CrudDetalle_Impresora_Ubicacion(int id = 0) //Este es el ABM detalle_impresora
@@ -365,22 +574,34 @@ namespace SGEI.Controllers
         public ActionResult GuardarDetalle(detalle_impresora_ubicacion model)
         {
             deta.Guardar(model);
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "IMPRESORA";
+            audit.id_equipo = model.ubicacion_impresora_id;
+            audit.accion = "ALTA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
             //TempData["id_impre"] = model.impresora_id;
-            return Redirect("~/home");
+            return Redirect("~/Inicio/Index");
         }
 
         public ActionResult GuardarUbicacion(ubicacion_impresora model)
         {
             ubi_imp.Guardar(model);
             TempData["id_ubicacion"] = model.id;
-
             return RedirectToAction("CrudDetalle_Impresora_Ubicacion");
         }
 
         public ActionResult Eliminar(impresora model)
         {
             imp.Eliminar(model.id);
-            return Redirect("~/home");
+            return Redirect("~/Inicio/Index");
         }
 
         public ActionResult impresoras_baja()
@@ -413,9 +634,11 @@ namespace SGEI.Controllers
 
             ubi_imp.Guardar(ubi);
 
+
+
             //alta.Eliminar(ubi.id);
 
-            return Redirect("~/home");
+            return Redirect("~/Inicio/Index");
         }
 
 

@@ -17,9 +17,144 @@ namespace login_v6.Controllers
         public incidente_dominio inci = new incidente_dominio();
         public insumo_pc_dominio insupc = new insumo_pc_dominio();
         public ubicacionpc_dominio ubipc = new ubicacionpc_dominio();
+        public ubicacion_camara_dominio ubicam = new ubicacion_camara_dominio();
+        public ubicacion_sw_dominio ubisw = new ubicacion_sw_dominio();
+        public ubicacion_escaner_dominio ubies = new ubicacion_escaner_dominio();
+        public insumo_cam_dominio insucam = new insumo_cam_dominio();
         stores store = new stores();
-        
-        
+
+
+        // CONSULTAS DE CAMARA
+        public ActionResult Camara()
+        {
+            ViewBag.ubicaciones = ubicam.Listar();
+            ViewBag.insucam = insucam.Listar();
+            return View();
+        }
+
+        public ActionResult BuscarCam(int ubicacion)
+        {
+
+            var datos = store.u_camara_01(ubicacion);
+
+            return View(datos);
+
+        }
+        public ActionResult ConsultarFechaCam(int id)
+        {
+
+            TempData["id_ubicacion_camara"] = id;
+
+            return View();
+
+        }
+        public ActionResult ConsultarRangoCam(DateTime FechaDesde, DateTime FechaHasta)
+        {
+
+            var ubi_camara = TempData["id_ubicacion_camara"];
+            int u_cam_id = Convert.ToInt32(ubi_camara);
+
+            var datos = store.consultacam_01a(u_cam_id, FechaDesde, FechaHasta);
+
+            return View(datos);
+        }
+        public ActionResult BuscarIncidenteCam(int ubicacion)
+        {
+
+            var datos = store.u_camara_01(ubicacion);
+
+            return View(datos);
+
+        }
+
+        public ActionResult VerIncidenteCam(int id)
+        {
+
+
+            var consulta = store.incidente_camara(id);
+
+            return View(consulta);
+
+        }
+        //-----------------------------------//
+
+
+
+        // CONSULTAS DE SWITCHS 
+        public ActionResult switchs()
+        {
+            ViewBag.ubicaciones = ubisw.Listar();
+            return View();
+        }
+
+       
+        public ActionResult ConsultarSW(int id)
+        {
+            TempData["id_ubicacion_camara"] = id;
+            return View();
+        }
+        public ActionResult ConsultarRangoSW(DateTime FechaDesde, DateTime FechaHasta)
+        {
+
+            var ubi_camara = TempData["id_ubicacion_camara"];
+            int u_cam_id = Convert.ToInt32(ubi_camara);
+
+            var datos = store.consultacam_01a(u_cam_id, FechaDesde, FechaHasta);
+
+            return View(datos);
+        }
+        public ActionResult BuscarIncidenteSW(int ubicacion)
+        {
+
+            var datos = store.u_switch_01(ubicacion);
+
+            return View(datos);
+
+        }
+
+        public ActionResult VerIncidenteSW(int id)
+        {
+            var consulta = store.incidente_sw(id);
+
+            return View(consulta);
+        }
+        //-----------------------------------//
+
+
+
+        // CONSULTAS DE ESCANER 
+        public ActionResult escaners()
+        {
+            ViewBag.ubicaciones = ubies.Listar();
+            return View();
+        }
+
+        public ActionResult BuscarIncidenteES(int ubicacion)
+        {
+            var datos = store.u_escaner_01(ubicacion);
+
+            return View(datos);
+
+        }
+
+        public ActionResult VerIncidenteES(int id)
+        {
+            var consulta = store.incidente_es(id);
+
+            return View(consulta);
+        }
+        //-----------------------------------//
+
+
+
+
+
+
+
+
+
+
+
         public ActionResult Index()
         {
             ViewBag.ubicaciones = ubi.Listar();
