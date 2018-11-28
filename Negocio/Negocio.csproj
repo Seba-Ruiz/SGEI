@@ -120,6 +120,7 @@
     <Compile Include="DTO\DTO_incidente_camara.cs" />
     <Compile Include="DTO\DTO_incidente_es.cs" />
     <Compile Include="DTO\DTO_incidente_sw.cs" />
+    <Compile Include="DTO\DTO_ingreso_impresora.cs" />
     <Compile Include="DTO\DTO_PC.cs" />
     <Compile Include="DTO\DTO_sw.cs" />
     <Compile Include="DTO\DTO_Telefono.cs" />
