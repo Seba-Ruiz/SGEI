@@ -202,6 +202,7 @@
     <Compile Include="Controllers\EscanerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidenteController.cs" />
+    <Compile Include="Controllers\IngresosController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\InsumoController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -9528,6 +9529,7 @@
     <Content Include="Views\Consulta\escaners.cshtml" />
     <Content Include="Views\Consulta\BuscarIncidenteES.cshtml" />
     <Content Include="Views\Consulta\VerIncidenteES.cshtml" />
+    <Content Include="Views\Ingresos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
