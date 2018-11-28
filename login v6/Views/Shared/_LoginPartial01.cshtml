@@ -13,13 +13,13 @@
                         <a href="#">Impresoras</a>
                         <ul class="submenu">
                             <li>
-                                <a href="~/ABM/insumos"><i class="fa fa-lg fa-newspaper-o"></i> Insumos</a>
+                                <a id="insumos" style="cursor: pointer;"><i class="fa fa-lg fa-newspaper-o"></i> Insumos</a>
                             </li>
                             <li>
-                                <a href="~/ABM/impresoras"><i class="fa fa-lg fa-print"></i> Impresoras</a>
+                                <a id="impresoras" style="cursor: pointer;"><i class="fa fa-lg fa-print"></i> Impresoras</a>
                             </li>
                             <li>
-                                <a href="~/ABM/ubicacion"><i class="fa fa-lg fa-location-arrow"></i> Ubicacion</a>
+                                <a id="ubicacion" style="cursor: pointer;"><i class="fa fa-lg fa-location-arrow"></i> Ubicacion</a>
                             </li>
                         </ul>
                     </li>
@@ -215,6 +215,11 @@
 
             <li class="has-submenu">
                 <a href="#"><i class="fa fa-tasks"></i>Ingresos</a>
+                <ul class="submenu">
+                    <li><a id="ingreso" style="cursor: pointer;"><i class="glyphicon glyphicon-user"></i> Nuevo Ingreso</a></li>
+                    <li><a id="veringreso" style="cursor: pointer;"><i class="glyphicon glyphicon-arrow-up"></i> Ver Ingresos</a></li>
+
+                </ul>
             </li>
 
         </ul>
@@ -597,6 +602,46 @@ else
 
         setTimeout(function () {
             window.location = "@Url.Action("rams", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#ubicacion").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("ubicacion", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#impresoras").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("impresoras", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#insumos").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("insumos", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#ingreso").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Index", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#veringreso").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("VerIngresos", "Ingresos")";
             $('#spiner').modal('hide');
         }, 1000);
     });
