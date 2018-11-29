@@ -1106,5 +1106,48 @@ namespace login_v6.Controllers
             return Redirect("~/ABM/incidenteES");
         }
 
+
+
+
+
+        //ABM PROVEEDORES
+        public proveedor_dominio proveedor = new proveedor_dominio();
+
+        [Authorize]
+        public ActionResult proveedores()
+        {
+            return View(proveedor.Listar());
+        }
+
+        [Authorize]
+        public ActionResult CrudProveedor(int id = 0)
+        {
+
+            return View(id == 0 ? new Proveedor()
+                        : proveedor.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult GuardarProveedor(Proveedor model)
+        {
+            proveedor.Guardar(model);
+            return Redirect("~/ABM/proveedores");
+        }
+
+        [Authorize]
+        public ActionResult EditarProveedor(int id = 0)
+        {
+            return View(id == 0 ? new Proveedor()
+                        : proveedor.Obtener(id));
+        }
+
+        [Authorize]
+        public ActionResult EliminarProveedor(int id)
+        {
+
+            proveedor.Eliminar(id);
+            return Redirect("~/ABM/proveedores");
+        }
+
     }
 }
