@@ -72,6 +72,7 @@
     <Compile Include="Dominio\incidente_escaner_dominio.cs" />
     <Compile Include="Dominio\incidente_sw_dominio.cs" />
     <Compile Include="Dominio\incidente_tel_tel_dominio.cs" />
+    <Compile Include="Dominio\ingreso_dominio.cs" />
     <Compile Include="Dominio\insumo_cam_dominio.cs" />
     <Compile Include="Dominio\insumo_dominio.cs" />
     <Compile Include="Dominio\insumo_pc_dominio.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Dominio\pc_inidentepc_dominio.cs" />
     <Compile Include="Dominio\pc_insumo_pc_dominio.cs" />
     <Compile Include="Dominio\procesador_dominio.cs" />
+    <Compile Include="Dominio\proveedor_dominio.cs" />
     <Compile Include="Dominio\ram_dominio.cs" />
     <Compile Include="Dominio\rol_dominio.cs" />
     <Compile Include="Dominio\so_dominio.cs" />

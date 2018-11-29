@@ -80,6 +80,7 @@
     <Compile Include="incidente_switch.cs" />
     <Compile Include="incidente_tel.cs" />
     <Compile Include="incidente_tel_tel.cs" />
+    <Compile Include="IngresoInsumo.cs" />
     <Compile Include="insumo.cs" />
     <Compile Include="insumo_camara.cs" />
     <Compile Include="insumo_pc.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="pc_ubicacionpc.cs" />
     <Compile Include="procesadorPC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveedor.cs" />
     <Compile Include="ramPC.cs" />
     <Compile Include="SGEIContext.cs" />
     <Compile Include="soPC.cs" />
