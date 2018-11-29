@@ -43,6 +43,7 @@ namespace Model
         public virtual DbSet<incidente_tel> incidente_tel { get; set; }
         public virtual DbSet<incidente_tel_tel> incidente_tel_tel { get; set; }
         public virtual DbSet<incidentePC> incidentePC { get; set; }
+        public virtual DbSet<IngresoInsumo> IngresoInsumo { get; set; }
         public virtual DbSet<insumo> insumo { get; set; }
         public virtual DbSet<insumo_camara> insumo_camara { get; set; }
         public virtual DbSet<insumo_pc> insumo_pc { get; set; }
@@ -57,6 +58,7 @@ namespace Model
         public virtual DbSet<pc_insumo_pc> pc_insumo_pc { get; set; }
         public virtual DbSet<pc_ubicacionpc> pc_ubicacionpc { get; set; }
         public virtual DbSet<procesadorPC> procesadorPC { get; set; }
+        public virtual DbSet<Proveedor> Proveedor { get; set; }
         public virtual DbSet<ramPC> ramPC { get; set; }
         public virtual DbSet<soPC> soPC { get; set; }
         public virtual DbSet<swicth> swicth { get; set; }
@@ -302,6 +304,11 @@ namespace Model
                 .HasMany(e => e.detallePC)
                 .WithOptional(e => e.procesadorPC)
                 .HasForeignKey(e => e.procesador_id);
+
+            modelBuilder.Entity<Proveedor>()
+                .HasMany(e => e.IngresoInsumo)
+                .WithOptional(e => e.Proveedor1)
+                .HasForeignKey(e => e.id_proveedor);
 
             modelBuilder.Entity<ramPC>()
                 .HasMany(e => e.detallePC)

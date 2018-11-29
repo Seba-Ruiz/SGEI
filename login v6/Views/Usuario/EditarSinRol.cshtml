@@ -1,0 +1,103 @@
+﻿@model Model.AspNetUsers
+@{
+    ViewBag.Title = "Editar Usuario";
+}
+
+<div class="container">
+
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+
+            <h4 class="page-title">Editar Usuario</h4>
+            <ol class="breadcrumb">
+                @*<li>
+                        <a href="~/usuario/index">Usuario</a>
+                    </li>*@
+                <li class="active">
+                    Edite los datos de usuario.
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="card-box">
+                <h4 class="m-t-0 header-title"><b>Detalle del usuario</b></h4>
+                <p class="text-muted m-b-30 font-13">
+                    Esta pantalla podras editar el usuario seleccionado.
+                </p>
+                <div class="col-md-2"></div>
+                <div class="row">
+                    <div class="col-md-10">
+                        @using (Html.BeginForm("ConfirmarEditarSinRol", "Usuario", FormMethod.Post, new { id = "form-control" }))
+                        {
+                            @Html.HiddenFor(x => x.AccessFailedCount)
+                            @Html.HiddenFor(x => x.AccessFailedCount)
+                            @Html.HiddenFor(x => x.EmailConfirmed)
+                            @Html.HiddenFor(x => x.fecha_baja)
+                            @Html.HiddenFor(x => x.Id)
+                            @Html.HiddenFor(x => x.Email)
+                            @Html.HiddenFor(x => x.ultimo_ingreso)
+                            @Html.HiddenFor(x => x.SecurityStamp)
+
+                            @Html.HiddenFor(x => x.LockoutEnabled)
+                            @Html.HiddenFor(x => x.LockoutEndDateUtc)
+                            @Html.HiddenFor(x => x.PasswordHash)
+                            @Html.HiddenFor(x => x.PhoneNumberConfirmed)
+                            @Html.HiddenFor(x => x.TwoFactorEnabled)
+                            @Html.HiddenFor(x => x.UserName)
+
+                            <div class="form-group">
+                                @Html.Label("Email del Usuario")
+                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @style = "width:250px;", @required = "required", @disabled = "disabled" })
+                                @Html.ValidationMessageFor(x => x.Email, null, new { @class = "label label-danger" })
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Telefono")
+                                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                                @Html.ValidationMessageFor(x => x.PhoneNumber, null, new { @class = "label label-danger" })
+
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.Label("Tipo Usuario")
+
+                                @Html.DropDownList("tipoRol", ViewBag.tipo as SelectList, new { @class = "form-control", @style = "width:250px;", @disabled = "disabled" })
+                                <span class="help-block"><small>El tipo de usuario es gestionado por el Administrador del sistema.</small></span>
+                                @*<input class="form-control" name="idusr" type="text" value=@ViewBag.tipoUsuario />*@
+                                @*@Html.DropDownList("tipoUsuario", ViewBag.tipo as SelectList, new { @class = "form-control", @style = "width:250px;" })*@
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Nombre")
+                                @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                                @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Apellido")
+                                @Html.TextBoxFor(x => x.apellido, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                                @Html.ValidationMessageFor(x => x.apellido, null, new { @class = "label label-danger" })
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger btn-custom btn-rounded waves-effect waves-light" title="Guardar"> Guardar </button>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

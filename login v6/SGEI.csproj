@@ -9530,6 +9530,17 @@
     <Content Include="Views\Consulta\BuscarIncidenteES.cshtml" />
     <Content Include="Views\Consulta\VerIncidenteES.cshtml" />
     <Content Include="Views\Ingresos\Index.cshtml" />
+    <Content Include="Views\Usuario\EditarSinRol.cshtml" />
+    <Content Include="Views\Usuario\confirmarEditarSinRol.cshtml" />
+    <Content Include="Views\ABM\proveedores.cshtml" />
+    <Content Include="Views\ABM\CrudProveedor.cshtml" />
+    <Content Include="Views\ABM\EditarProveedor.cshtml" />
+    <Content Include="Views\Ingresos\GuardarInsumoImpresora.cshtml" />
+    <Content Include="Views\Ingresos\ErrorPantalla.cshtml" />
+    <Content Include="Views\Ingresos\VerIngresoImpresora.cshtml" />
+    <Content Include="Views\Ingresos\GuardarInsumoComputadora.cshtml" />
+    <Content Include="Views\Ingresos\IndexCompu.cshtml" />
+    <Content Include="Views\Ingresos\VerIngresoPC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

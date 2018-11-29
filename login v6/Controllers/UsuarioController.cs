@@ -61,6 +61,19 @@ namespace login_v6.Controllers
             return View(usuario);
         }
 
+        public ActionResult EditarSinRol(string id)
+        {
+            var usuario = user.Obtener(id);
+
+            var tipoRol = user.obtenerTipoRol(id);
+
+            var roles_dominio = new rol_dominio();
+
+            ViewBag.tipo = new SelectList(roles_dominio.Listar(), "Id", "Name", tipoRol.Id);
+
+            return View(usuario);
+        }
+
         /// <summary>
         /// Este es la confirmacion del la edicion del usuario guardando los cambios seleccionados anteriormente.
         /// </summary>
@@ -80,6 +93,15 @@ namespace login_v6.Controllers
 
             roles_dominio.Guardar(usuarioRol);
             
+            user.Guardar(usu);
+
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult confirmarEditarSinRol(AspNetUsers usu)
+        {
+
             user.Guardar(usu);
 
 

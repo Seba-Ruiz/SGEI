@@ -21,7 +21,6 @@ namespace Model
         [StringLength(50)]
         public string nombre_tipo { get; set; }
 
-        [Column(TypeName = "date")]
         public DateTime? fecha_baja { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
