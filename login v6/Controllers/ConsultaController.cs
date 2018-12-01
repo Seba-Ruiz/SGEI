@@ -248,13 +248,27 @@ namespace login_v6.Controllers
 
             return View();
         }
-        public ActionResult ConsultarRangoPC(DateTime FechaDesde, DateTime FechaHasta)
+        public ActionResult ConsultarRangoPC(DateTime? FechaDesde, DateTime? FechaHasta)
         {
-            var det_pc = TempData["id_detalle_pc"];
-            int detalle_id = Convert.ToInt32(det_pc);
-            var datos = store.consulta_pc(detalle_id, FechaDesde, FechaHasta);
+            if (FechaDesde>FechaHasta || FechaHasta==null ||FechaDesde==null)
+            {
+                return RedirectToAction("ErrorPantalla");
+            }
+            else
+            {
+                var det_pc = TempData["id_detalle_pc"];
+                int detalle_id = Convert.ToInt32(det_pc);
+                var datos = store.consulta_pc(detalle_id, FechaDesde, FechaHasta);
 
-            return View(datos);
+                return View(datos);
+            }
+
+        }
+
+        public ActionResult ErrorPantalla()
+        {
+
+            return View();
         }
 
         public ActionResult IncidentesPcporFecha(int ubicacion)

@@ -18,6 +18,9 @@ namespace Model
         [Column(TypeName = "date")]
         public DateTime? fecha_insumo { get; set; }
 
+        [StringLength(50)]
+        public string nro_serie { get; set; }
+
         public virtual detallePC detallePC { get; set; }
 
         public virtual insumo_pc insumo_pc { get; set; }
