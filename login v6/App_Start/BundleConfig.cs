@@ -40,6 +40,12 @@ namespace login_v6
                         "~/assets/plugins/datatables/dataTables.bootstrap.js",
                         "~/assets/plugins/bootstrap-sweetalert/sweet-alert.min.js",
                         "~/assets/pages/jquery.sweet-alert.init.js",
+
+
+                        "~/assets/plugins/datatables/jquery.dataTables.min.js",
+                        "~/assets/plugins/datatables/dataTables.bootstrap.js",
+                        "~/assets/plugins/datatables/jszip.min.js",
+
                         "~/assets/plugins/datatables/dataTables.buttons.min.js",
                         "~/assets/plugins/datatables/buttons.bootstrap.min.js",
                         "~/assets/plugins/datatables/pdfmake.min.js",
@@ -61,6 +67,10 @@ namespace login_v6
                         "~/assets/plugins/x-editable/js/bootstrap-editable.min.js",
                         "~/assets/pages/jquery.xeditable.js"
 
+
+
+
+
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -75,7 +85,16 @@ namespace login_v6
                       "~/assets/js/bootstrap.min.js"));
 
             bundles.Add(new StyleBundle("~/assets/css").Include(
-                      "~/assets/css/bootstrap.min.css",
+                      "~/assets/plugins/datatables/jquery.dataTables.min.css",
+                      "~/assets/plugins/datatables/buttons.bootstrap.min.css",
+                      "~/assets/plugins/datatables/fixedHeader.bootstrap.min.css",
+                      "~/assets/plugins/datatables/responsive.bootstrap.min.css",
+                      "~/assets/plugins/datatables/dataTables.colVis.css",
+                      "~/assets/plugins/datatables/dataTables.bootstrap.min.css",
+                      "~/assets/plugins/datatables/fixedColumns.dataTables.min.css",
+                      "~/assets/plugins/datatables/scroller.bootstrap.min.css",
+
+                       "~/assets/css/bootstrap.min.css",
                       "~/assets/css/menu.css",
                       "~/assets/css/core.css",
                       "~/assets/css/components.css",
@@ -85,13 +104,7 @@ namespace login_v6
                       "~/assets/css/responsive.css",
                       "~/assets/plugins/bootstrap-sweetalert/sweet-alert.css",
                       "~/assets/plugins/jquery.steps/css/jquery.steps.css",
-                      "~/assets/plugins/datatables/jquery.dataTables.min.css",
-                      "~/assets/plugins/datatables/buttons.bootstrap.min.css",
-                      "~/assets/plugins/datatables/fixedHeader.bootstrap.min.css",
-                      "~/assets/plugins/datatables/responsive.bootstrap.min.css",
-                      "~/assets/plugins/datatables/dataTables.colVis.css",
-                      "~/assets/plugins/datatables/dataTables.bootstrap.min.css",
-                      "~/assets/plugins/datatables/fixedColumns.dataTables.min.css",
+                      
                       "~/assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css",
                       "~/assets/plugins/switchery/css/switchery.min.css",
                       "~/assets/plugins/multiselect/css/multi-select.css",
@@ -99,6 +112,9 @@ namespace login_v6
                       "~/assets/plugins/bootstrap-select/css/bootstrap-select.min.css",
                       "~/assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css",
                       "~/assets/plugins/x-editable/css/bootstrap-editable.css"
+
+
+                        
                       ));
         }
     }

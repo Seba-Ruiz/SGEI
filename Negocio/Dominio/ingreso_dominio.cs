@@ -69,5 +69,23 @@ namespace Negocio.Dominio
             }
             return ingreso;
         }
+        public List<IngresoInsumo> ListarIngresoCam()
+        {
+            var ingreso = new List<IngresoInsumo>();
+            try
+            {
+                using (var ctx = new SGEIContext())
+
+                    ingreso = ctx.IngresoInsumo
+                        .Where(x => x.tipo_equipo == "CAMARA")
+                        .ToList();
+            }
+            catch (Exception E)
+            {
+
+                throw;
+            }
+            return ingreso;
+        }
     }
 }
