@@ -234,8 +234,8 @@
                     <li class="has-submenu">
                         <a href="#">Camara</a>
                         <ul class="submenu">
-                            <li><a id="ingreso" style="cursor: pointer;">Insumos</a></li>
-                            <li><a id="veringreso" style="cursor: pointer;">Ver Ingresos</a></li>
+                            <li><a id="ingresoCam" style="cursor: pointer;">Insumos</a></li>
+                            <li><a id="veringresoCam" style="cursor: pointer;">Ver Ingresos</a></li>
                         </ul>
                     </li>
                     <li><a id="proveedores" style="cursor: pointer;">Proveedores</a></li>
@@ -368,15 +368,7 @@ else
             $('#spiner').modal('hide');
         }, 1000);
     });
-    $("#altaes").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("AltaES","Home")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
+ 
     $("#altaes").click(function () {
         $('#spiner').modal('show');
 
@@ -691,6 +683,23 @@ else
             $('#spiner').modal('hide');
         }, 1000);
     });
+    $("#ingresoCam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("IndexCam", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#veringresoCam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("VerIngresoCam", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
 
 
 

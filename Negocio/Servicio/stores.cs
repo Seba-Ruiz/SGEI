@@ -355,7 +355,7 @@ namespace Negocio.Servicio
 
         }
 
-        public List<DTO_consulta_pc> consulta_pc(int id, DateTime fdesde, DateTime fhasta)
+        public List<DTO_consulta_pc> consulta_pc(int id, DateTime? fdesde, DateTime? fhasta)
         {
             var dto_consulta_pc = new List<DTO_consulta_pc>();
 
@@ -377,7 +377,8 @@ namespace Negocio.Servicio
                                {
 
                                    fecha_insumo = a.fecha_insumo,
-                                   nombre = b.nombre
+                                   nombre = b.nombre,
+                                   nro_serie = a.nro_serie
 
 
                                }).ToList();
@@ -389,6 +390,7 @@ namespace Negocio.Servicio
 
                     dto.fecha_insumo = item.fecha_insumo;
                     dto.nombre = item.nombre;
+                    dto.nro_serie = item.nro_serie;
 
 
                     dto_consulta_pc.Add(dto);

@@ -9541,6 +9541,10 @@
     <Content Include="Views\Ingresos\GuardarInsumoComputadora.cshtml" />
     <Content Include="Views\Ingresos\IndexCompu.cshtml" />
     <Content Include="Views\Ingresos\VerIngresoPC.cshtml" />
+    <Content Include="Views\Ingresos\VerIngresoCam.cshtml" />
+    <Content Include="Views\Ingresos\GuardarInsumoCam.cshtml" />
+    <Content Include="Views\Ingresos\IndexCam.cshtml" />
+    <Content Include="Views\Consulta\ErrorPantalla.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

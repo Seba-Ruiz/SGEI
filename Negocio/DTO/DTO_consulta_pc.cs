@@ -12,6 +12,7 @@ namespace Negocio.DTO
         public DateTime? fecha_insumo { get; set; }
 
         public string nombre { get; set; }
+        public string nro_serie { get; set; }
 
     }
 }

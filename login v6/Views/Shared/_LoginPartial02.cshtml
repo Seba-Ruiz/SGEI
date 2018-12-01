@@ -10,10 +10,12 @@
             <li class="has-submenu">
                 <a href="#"><i class="glyphicon glyphicon-plus"></i>Altas</a>
                 <ul class="submenu">
-                    <li><a href="~/home/crud"><i class="glyphicon glyphicon-arrow-up"></i> Alta de impresora</a></li>
-                    <li><a href="~/home/AltaCompu"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Computadoras</a></li>
-
-                    <li><a href="~/home/AltaTel"><i class="glyphicon glyphicon-arrow-up"></i> Alta de Telefonos</a></li>
+                    <li><a id="altaimpresora" style="cursor: pointer;">Impresora</a></li>
+                    <li><a id="altacompu" style="cursor: pointer;">Computadora</a></li>
+                    <li><a id="altatel" style="cursor: pointer;">Telefono</a></li>
+                    <li><a id="altacam" style="cursor: pointer;">Camara</a></li>
+                    <li><a id="altasw" style="cursor: pointer;">Switch</a></li>
+                    <li><a id="altaes" style="cursor: pointer;">Escaner</a></li>
                 </ul>
             </li>
         </ul>
@@ -24,4 +26,57 @@ else
    
 }
 
+        <script src="~/assets/js/spiner.js"></script>
+<script>
 
+
+    $("#altaes").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("AltaES","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altasw").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("AltaSW","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altacam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Altacam","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altatel").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Altatel","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altacompu").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("AltaCompu","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altaimpresora").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Crud","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+</script>
