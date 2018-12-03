@@ -9545,6 +9545,9 @@
     <Content Include="Views\Ingresos\GuardarInsumoCam.cshtml" />
     <Content Include="Views\Ingresos\IndexCam.cshtml" />
     <Content Include="Views\Consulta\ErrorPantalla.cshtml" />
+    <Content Include="Views\Consulta\ErrorPantallaCam.cshtml" />
+    <Content Include="Views\Consulta\ErrorPantallaSW.cshtml" />
+    <Content Include="Views\Consulta\ErrorPantallaImp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

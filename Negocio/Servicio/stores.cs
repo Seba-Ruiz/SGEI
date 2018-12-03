@@ -307,7 +307,7 @@ namespace Negocio.Servicio
 
         }
 
-        public List<DTO_consulta_01a> consulta_01a(int id, DateTime fdesde, DateTime fhasta)
+        public List<DTO_consulta_01a> consulta_01a(int id, DateTime? fdesde, DateTime? fhasta)
         {
             var dto_consulta_01a = new List<DTO_consulta_01a>();
 
@@ -400,7 +400,7 @@ namespace Negocio.Servicio
             }
         }
 
-        public List<DTO_consulta_pc_detalle> consulta_pc_detalle(int? id, DateTime fdesde, DateTime fhasta)
+        public List<DTO_consulta_pc_detalle> consulta_pc_detalle(int? id, DateTime? fdesde, DateTime? fhasta)
         {
             var dto_consulta_pc_detalle = new List<DTO_consulta_pc_detalle>();
 
@@ -511,7 +511,7 @@ namespace Negocio.Servicio
             }
         }
 
-        public List<DTO_consulta_tel_incidente> consulta_tel_incidente(int? id, DateTime fdesde, DateTime fhasta)
+        public List<DTO_consulta_tel_incidente> consulta_tel_incidente(int? id, DateTime? fdesde, DateTime? fhasta)
         {
             var dto_consulta_tel_incidente = new List<DTO_consulta_tel_incidente>();
 
@@ -1017,7 +1017,7 @@ namespace Negocio.Servicio
 
         }
 
-        public List<DTO_consultacam_01a> consultacam_01a(int id, DateTime fdesde, DateTime fhasta)
+        public List<DTO_consultacam_01a> consultacam_01a(int id, DateTime? fdesde, DateTime? fhasta)
         {
             var dto_consultacam_01a = new List<DTO_consultacam_01a>();
 

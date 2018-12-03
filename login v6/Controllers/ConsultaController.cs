@@ -48,15 +48,21 @@ namespace login_v6.Controllers
             return View();
 
         }
-        public ActionResult ConsultarRangoCam(DateTime FechaDesde, DateTime FechaHasta)
+        public ActionResult ConsultarRangoCam(DateTime? FechaDesde, DateTime? FechaHasta)
         {
+            if (FechaDesde > FechaHasta || FechaHasta == null || FechaDesde == null)
+            {
+                return RedirectToAction("ErrorPantallaCam");
+            }
+            else
+            {
+                var ubi_camara = TempData["id_ubicacion_camara"];
+                int u_cam_id = Convert.ToInt32(ubi_camara);
 
-            var ubi_camara = TempData["id_ubicacion_camara"];
-            int u_cam_id = Convert.ToInt32(ubi_camara);
+                var datos = store.consultacam_01a(u_cam_id, FechaDesde, FechaHasta);
 
-            var datos = store.consultacam_01a(u_cam_id, FechaDesde, FechaHasta);
-
-            return View(datos);
+                return View(datos);
+            }
         }
         public ActionResult BuscarIncidenteCam(int ubicacion)
         {
@@ -93,15 +99,21 @@ namespace login_v6.Controllers
             TempData["id_ubicacion_camara"] = id;
             return View();
         }
-        public ActionResult ConsultarRangoSW(DateTime FechaDesde, DateTime FechaHasta)
+        public ActionResult ConsultarRangoSW(DateTime? FechaDesde, DateTime? FechaHasta)
         {
-
-            var ubi_camara = TempData["id_ubicacion_camara"];
+            if (FechaDesde > FechaHasta || FechaHasta == null || FechaDesde == null)
+            {
+                return RedirectToAction("ErrorPantallaSW");
+            }
+            else
+            {
+                var ubi_camara = TempData["id_ubicacion_camara"];
             int u_cam_id = Convert.ToInt32(ubi_camara);
 
             var datos = store.consultacam_01a(u_cam_id, FechaDesde, FechaHasta);
 
             return View(datos);
+            }
         }
         public ActionResult BuscarIncidenteSW(int ubicacion)
         {
@@ -213,15 +225,22 @@ namespace login_v6.Controllers
         }
 
 
-        public ActionResult ConsultarRango(DateTime FechaDesde, DateTime FechaHasta)
+        public ActionResult ConsultarRango(DateTime? FechaDesde, DateTime? FechaHasta)
         {
+            if (FechaDesde > FechaHasta || FechaHasta == null || FechaDesde == null)
+            {
+                return RedirectToAction("ErrorPantallaImp");
+            }
+            else
+            {
 
-            var ubi_impresora = TempData["id_ubicacion_impresora"];
-            int u_imp_id = Convert.ToInt32(ubi_impresora);
+                var ubi_impresora = TempData["id_ubicacion_impresora"];
+                int u_imp_id = Convert.ToInt32(ubi_impresora);
 
-            var datos = store.consulta_01a(u_imp_id, FechaDesde, FechaHasta);
+                var datos = store.consulta_01a(u_imp_id, FechaDesde, FechaHasta);
 
-            return View(datos);
+                return View(datos);
+            }
 
         }
 
@@ -270,6 +289,21 @@ namespace login_v6.Controllers
 
             return View();
         }
+        public ActionResult ErrorPantallaCam()
+        {
+
+            return View();
+        }
+        public ActionResult ErrorPantallaSW()
+        {
+
+            return View();
+        }
+        public ActionResult ErrorPantallaImp()
+        {
+
+            return View();
+        }
 
         public ActionResult IncidentesPcporFecha(int ubicacion)
         {
@@ -286,19 +320,26 @@ namespace login_v6.Controllers
             return View();
         }
 
-        public ActionResult ConsultarRangoPCIncidente(DateTime FechaDesde, DateTime FechaHasta)
+        public ActionResult ConsultarRangoPCIncidente(DateTime? FechaDesde, DateTime? FechaHasta)
         {
-            var det_pc = TempData["id_detalle_pc_incidente"];
+            if (FechaDesde > FechaHasta || FechaHasta == null || FechaDesde == null)
+            {
+                return RedirectToAction("ErrorPantalla");
+            }
+            else
+            {
+                var det_pc = TempData["id_detalle_pc_incidente"];
 
-            int detalle_id = Convert.ToInt32(det_pc);
+                int detalle_id = Convert.ToInt32(det_pc);
 
-            var detalle_pc_dominio = new detallepc_dominio();
-            var consulta = detalle_pc_dominio.Obtener(detalle_id);
-            var id_pc = consulta.pc_id;
+                var detalle_pc_dominio = new detallepc_dominio();
+                var consulta = detalle_pc_dominio.Obtener(detalle_id);
+                var id_pc = consulta.pc_id;
 
-            var datos = store.consulta_pc_detalle(id_pc, FechaDesde, FechaHasta);
+                var datos = store.consulta_pc_detalle(id_pc, FechaDesde, FechaHasta);
 
-            return View(datos);
+                return View(datos);
+            }
         }
 
         public ActionResult compuBaja()
@@ -369,13 +410,20 @@ namespace login_v6.Controllers
             return View();
         }
 
-        public ActionResult ConsultarRangoTelIncidente(DateTime FechaDesde, DateTime FechaHasta)
+        public ActionResult ConsultarRangoTelIncidente(DateTime? FechaDesde, DateTime? FechaHasta)
         {
-            var det_tel = TempData["id_detalle_tel_incidente"];
+            if (FechaDesde > FechaHasta || FechaHasta == null || FechaDesde == null)
+            {
+                return RedirectToAction("ErrorPantalla");
+            }
+            else
+            {
+                var det_tel = TempData["id_detalle_tel_incidente"];
 
-            var datos = store.consulta_tel_incidente(Convert.ToInt32(det_tel), FechaDesde, FechaHasta);
+                var datos = store.consulta_tel_incidente(Convert.ToInt32(det_tel), FechaDesde, FechaHasta);
 
-            return View(datos);
+                return View(datos);
+            }
         }
     }
 }

@@ -28,27 +28,31 @@
                 @using (Html.BeginForm("BuscarIncidenteSW", "Consulta", FormMethod.Post))
 
                 {
+
+
                     <div class="row">
-                        <div class="col-sm-3"></div>
                         <div class="col-sm-12">
-                            <div class="card-box">
-                                <h4 class="m-t-0 m-b-20 header-title"><b>CONSULTA DE INCIDENTE</b></h4>
+                            <div class="panel panel-primary panel-border">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">CONSULTA DE INCIDENTES</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                                            <p class="text-muted m-b-30 font-13">
+                                                Seleccione la ubicación del switch que desea consultar sus incidentes. El sistema mostrará los switchs de esa ubicación.
+                                            </p>
+                                            <div class="form-group text-center">
+                                                @Html.Label("Nombre de Ubicacion")
+                                                @Html.DropDownList("ubicacion", new SelectList(ViewBag.ubicaciones, "id_ubicacion_switch", "nombre"), new { @class = "form-control col-lg-offset-3", @style = "width:300px;" })
+                                            </div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h5><b>Incidentes de switchs</b></h5>
-                                        <p class="text-muted m-b-30 font-13">
-                                            Seleccione la ubicacion del switch que desea consultar sus incidentes. El sistema mostrara los switchs de esa ubicacion.
-                                        </p>
-                                        <div class="form-group">
-                                            @Html.Label("Nombre de Ubicacion")
-                                            @Html.DropDownList("ubicacion", new SelectList(ViewBag.ubicaciones, "id_ubicacion_switch", "nombre"), new { @class = "form-control", @style = "width:300px;" })
-                                        </div>
 
+                                            <div class="text-center">
+                                                <button type="submit" class="btn-custom btn-inverse">Buscar</button>
 
-                                        <div class="text-center">
-                                            <button type="submit" class="btn-custom btn-inverse">Buscar</button>
-
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
