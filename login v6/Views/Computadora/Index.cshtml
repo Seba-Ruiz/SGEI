@@ -8,10 +8,64 @@
 <ol class="breadcrumb">
 
     <li class="active">
-        Sistema para control de insumos e incidentes de computadoras.
+        Sistema para la gestión de las computadoras en el hospital.
     </li>
 </ol>
+
+
 <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-primary panel-border">
+            <div class="panel-heading">
+                <h4 class="panel-title">COMPUTADORAS</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                        <p class="text-muted m-b-30 font-13">
+                            Para comenzar, seleccione en el combo la ubicación de la computadora, el sistema mostrará las computadoras en esa ubicación.
+                        </p>
+                        @using (Html.BeginForm("Buscar", "Computadora", FormMethod.Post, new { id = "frm-incidente" }))
+                        {
+                            <div class="form-group">
+                                @Html.Label("Nombre de Ubicacion:")
+                                @Html.DropDownList("ubicacionpc", new SelectList(ViewBag.ubicacionpc, "id_ubicacion", "nombre"), new { @class = "btn dropdown-toggle btn-white", @style = "width:200px;" })
+                            </div>
+                            foreach (var item in @ViewBag.insu)
+                            {
+                                if (item.cantidad == 0)
+                                {
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>ATENCION</strong> Sin stock disponible para el insumo @item.nombre
+                                    </div>
+                                }
+
+                                if (item.cantidad < 5 & item.cantidad > 0)
+                                {
+                                    <div class="alert alert-info" role="alert">
+                                        <strong>ATENCION</strong> Quedan la cantidad de @item.cantidad para el insumo @item.nombre
+                                    </div>
+                                }
+                            }
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Buscar</button>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@*<div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
         <div class="card-box">
@@ -56,7 +110,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 

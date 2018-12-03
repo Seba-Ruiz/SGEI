@@ -38,25 +38,28 @@
                 @using (Html.BeginForm("InsumosPCporFecha", "Consulta", FormMethod.Post, new { id = "frm-incidente" }))
 
                 {
+
                     <div class="row">
-                        <div class="col-sm-3"></div>
                         <div class="col-sm-12">
-                            <div class="card-box">
-                                <h4 class="m-t-0 m-b-20 header-title"><b>CONSULTA DE INSUMO</b></h4>
+                            <div class="panel panel-primary panel-border">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">CONSULTA DE INSUMO</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                                            <p class="text-muted m-b-30 font-13">
+                                                Seleccione la ubicación de la computadora que desea consultar sus insumos. El sistema mostrará las computadoras de esa ubicación.
+                                            </p>
+                                            <div class="form-group text-center">
+                                                @Html.Label("Nombre de Ubicacion")
+                                                @Html.DropDownList("ubicacion", new SelectList(ViewBag.ubicaciones, "id_ubicacion", "nombre"), new { @class = "form-control col-lg-offset-3", @style = "width:300px;" })
+                                            </div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h5><b>Insumo por fecha</b></h5>
-                                        <p class="text-muted m-b-30 font-13">
-                                            Seleccione la ubicación de la computadora que desea consultar sus insumos. El sistema mostrará las computadoras de esa ubicación.
-                                        </p>
-                                        <div class="form-group">
-                                            @Html.Label("Nombre de Ubicacion")
-                                            @Html.DropDownList("ubicacion", new SelectList(ViewBag.ubicaciones, "id_ubicacion", "nombre"), new { @class = "form-control", @style = "width:300px;" })
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn-custom btn-inverse">Buscar</button>
-
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Buscar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -66,77 +69,82 @@
                 }
             </div>
             <div class="tab-pane" id="profile-2">
+
                 <div class="row">
-                    <div class="col-sm-3"></div>
                     <div class="col-sm-12">
-                        <div class="card-box">
-                            <h4 class="m-t-0 m-b-20 header-title"><b>INSUMOS DISPONIBLES</b></h4>
+                        <div class="panel panel-danger panel-border">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">CONSULTA DE INSUMO DISPONIBLES</h4>
+                            </div>
+                            <div class="panel-body">
+                                <p class="text-muted m-b-30 font-13">
+                                    A continuación se muestra la cantidad de insumos que se dispone.
+                                </p>
+                                <div class="card-box table-responsive">
+                                    <table class="table table-striped m-0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:100px;">Nombre Insumo</th>
+                                                <th style="width:100px;">Cantidad Disponible</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var a in ViewBag.insumos)
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h5><b>Insumos</b></h5>
-                                    <p class="text-muted m-b-30 font-13">
-                                        Esta pantalla muestra la cantidad de insumos de que se dispone.
-                                    </p>
-                                    <div class="card-box table-responsive">
-                                        <table class="table table-striped m-0">
-                                            <thead>
+                                            {
                                                 <tr>
-                                                    <th style="width:100px;">Nombre Insumo</th>
-                                                    <th style="width:100px;">Cantidad Disponible</th>
+                                                    <th>@a.nombre</th>
+                                                    <th>@a.cantidad</th>
+
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var a in ViewBag.insumos)
+                                            }
+                                        </tbody>
 
-                                                {
-                                                    <tr>
-                                                        <th>@a.nombre</th>
-                                                        <th>@a.cantidad</th>
-
-                                                    </tr>
-                                                }
-                                            </tbody>
-
-                                        </table>
-                                    </div>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
             <div class="tab-pane" id="messages-2">
                 @using (Html.BeginForm("IncidentesPcporFecha", "Consulta", FormMethod.Post))
 
                 {
+
+
                     <div class="row">
-                        <div class="col-sm-3"></div>
                         <div class="col-sm-12">
-                            <div class="card-box">
-                                <h4 class="m-t-0 m-b-20 header-title"><b>CONSULTA DE INCIDENTE</b></h4>
+                            <div class="panel panel-warning panel-border">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">CONSULTA DE INCIDENTE</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                                            <p class="text-muted m-b-30 font-13">
+                                                Seleccione la ubicación de la computadora que desea consultar sus incidentes. El sistema mostrará las computadoras de esa ubicación.
+                                            </p>
+                                            <div class="form-group text-center">
+                                                @Html.Label("Nombre de Ubicacion")
+                                                @Html.DropDownList("ubicacion", new SelectList(ViewBag.ubicaciones, "id_ubicacion", "nombre"), new { @class = "form-control col-lg-offset-3", @style = "width:300px;" })
+                                            </div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h5><b>Incidentes de impresora</b></h5>
-                                        <p class="text-muted m-b-30 font-13">
-                                            Seleccione la ubicación de la computadora que desea consultar sus incidentes. El sistema mostrará las computadoras de esa ubicación.
-                                        </p>
-                                        <div class="form-group">
-                                            @Html.Label("Nombre de Ubicacion")
-                                            @Html.DropDownList("ubicacion", new SelectList(ViewBag.ubicaciones, "id_ubicacion", "nombre"), new { @class = "form-control", @style = "width:300px;" })
-                                        </div>
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Buscar</button>
 
-
-                                        <div class="text-center">
-                                            <button type="submit" class="btn-custom btn-inverse">Buscar</button>
-
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
                 }
             </div>
 
