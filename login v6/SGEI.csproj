@@ -9548,6 +9548,9 @@
     <Content Include="Views\Consulta\ErrorPantallaCam.cshtml" />
     <Content Include="Views\Consulta\ErrorPantallaSW.cshtml" />
     <Content Include="Views\Consulta\ErrorPantallaImp.cshtml" />
+    <Content Include="Views\Insumo\ErrorPantalla.cshtml" />
+    <Content Include="Views\Computadora\ErrorPantalla.cshtml" />
+    <Content Include="Views\Insumo\ErrorPantallaImpre.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,7 +14,50 @@
 {
     @*@Html.HiddenFor(x => x.id)*@
     @Html.HiddenFor(x => x.detalle_pc_id)
-    <div class="row">
+    
+    
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-purple panel-border">
+            <div class="panel-heading">
+                <h4 class="panel-title">INSUMOS</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                        <p class="text-muted m-b-30 font-13">
+                            Seleccione el insumo perteneciente a la computadora, el número de serie y la fecha de la colocación del insumo.
+                        </p>
+                        <div class="form-group">
+                            @Html.Label("Seleccione insumo")
+                            @Html.DropDownListFor(x => x.insumo_id, new SelectList(ViewBag.insumos, "id_insumo", "nombre"), new { @class = "form-control", @style = "width:200px;" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Número de serie del insumo")
+                            @Html.TextBoxFor(x => x.nro_serie, new { @class = "form-control", @style = "width:200px;", @required = "required" })
+                            @Html.ValidationMessageFor(x => x.nro_serie, null, new { @class = "label label-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Fecha cambio de insumo")
+                            @Html.TextBoxFor(x => x.fecha_insumo, new { @class = "form-control", type = "date", @style = "width:200px;" })
+                            @Html.ValidationMessageFor(x => x.fecha_insumo, null, new { @class = "label label-danger" })
+                        </div>
+
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Guardar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    @*<div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
             <div class="card-box">
@@ -49,7 +92,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
 }
 

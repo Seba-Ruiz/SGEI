@@ -57,24 +57,36 @@ namespace login_v6.Controllers
         }
         public ActionResult GuardarIncidente(pc_incidentepc inci, int incidentepc)
         {
-            inci.incidentepc_id = incidentepc;
-            pc_inidentepc_dominio incid = new pc_inidentepc_dominio();
-            incid.Guardar(inci);
+            if (inci.fecha_incidente == null || inci.fecha_reparacion==null)
+            {
+                return RedirectToAction("ErrorPantalla");
+            }
+            else
+            {
+                inci.incidentepc_id = incidentepc;
+                pc_inidentepc_dominio incid = new pc_inidentepc_dominio();
+                incid.Guardar(inci);
 
 
-            //AUDITORIA
-            Auditoria audit = new Auditoria();
-            auditoria_dominio audit_dom = new auditoria_dominio();
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
 
-            audit.fecha_hora = DateTime.Now;
-            audit.tipo_equipo = "COMPUTADORA";
-            audit.id_equipo = inci.pc_id;
-            audit.accion = "INCIDENTE";
-            audit.usuario = User.Identity.Name;
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "COMPUTADORA";
+                audit.id_equipo = inci.pc_id;
+                audit.accion = "INCIDENTE";
+                audit.usuario = User.Identity.Name;
 
-            audit_dom.Guardar(audit);
-            //---//
+                audit_dom.Guardar(audit);
+                //---//
 
+                return View();
+            }
+        }
+
+        public ActionResult ErrorPantalla()
+        {
             return View();
 
         }
