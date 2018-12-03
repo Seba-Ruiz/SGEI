@@ -30,27 +30,38 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Guardar_detalle_insumo_impresora(detalle_insumo_impresora model)
         {
-            deta.Guardar(model);
+            if (model.fechacambioinsumo == null)
+            {
+                return RedirectToAction("ErrorPantallaImpre");
+            }
+            else
+            {
 
-            int insu = Convert.ToInt32(model.insumo_id);
+                deta.Guardar(model);
 
-            deta.Restar(insu);
+                int insu = Convert.ToInt32(model.insumo_id);
 
-            //AUDITORIA
-            Auditoria audit = new Auditoria();
-            auditoria_dominio audit_dom = new auditoria_dominio();
+                deta.Restar(insu);
 
-            audit.fecha_hora = DateTime.Now;
-            audit.tipo_equipo = "IMPRESORA";
-            audit.id_equipo = model.ubicacion_impresora_id;
-            audit.accion = "INSUMO";
-            audit.usuario = User.Identity.Name;
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
 
-            audit_dom.Guardar(audit);
-            //---//
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "IMPRESORA";
+                audit.id_equipo = model.ubicacion_impresora_id;
+                audit.accion = "INSUMO";
+                audit.usuario = User.Identity.Name;
 
-            return View();
+                audit_dom.Guardar(audit);
+                //---//
+
+                return View();
+            }
+
+            
         }
+        
 
 
         public ActionResult AgregarInsumoPC(int id)
@@ -67,31 +78,50 @@ namespace login_v6.Controllers
 
         public ActionResult Guardar_insumo_pc(pc_insumo_pc model)
         {
-            pc_insumo_pc_dominio insu = new pc_insumo_pc_dominio();
-            insumo_pc_dominio insumo = new insumo_pc_dominio();
+            if (model.fecha_insumo == null)
+            {
+                return RedirectToAction("ErrorPantalla");
+            }
+            else
+            {
+                pc_insumo_pc_dominio insu = new pc_insumo_pc_dominio();
+                insumo_pc_dominio insumo = new insumo_pc_dominio();
 
-            var detalle = new detallepc_dominio();
-
-
-            insu.Guardar(model);
-
-            var det = detalle.Obtener(model.detalle_pc_id);
-
-            //AUDITORIA
-            Auditoria audit = new Auditoria();
-            auditoria_dominio audit_dom = new auditoria_dominio();
-
-            audit.fecha_hora = DateTime.Now;
-            audit.tipo_equipo = "COMPUTADORA";
-            audit.id_equipo = det.pc_id;
-            audit.accion = "INSUMO";
-            audit.usuario = User.Identity.Name;
-
-            audit_dom.Guardar(audit);
-            //---//
+                var detalle = new detallepc_dominio();
 
 
-            insumo.Restar(Convert.ToInt32(model.insumo_id));
+                insu.Guardar(model);
+
+                var det = detalle.Obtener(model.detalle_pc_id);
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "COMPUTADORA";
+                audit.id_equipo = det.pc_id;
+                audit.accion = "INSUMO";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
+
+                insumo.Restar(Convert.ToInt32(model.insumo_id));
+                return View();
+            }
+
+        }
+
+        public ActionResult ErrorPantalla()
+        {
+           
+            return View();
+        }
+        public ActionResult ErrorPantallaImpre()
+        {
+
             return View();
         }
     }

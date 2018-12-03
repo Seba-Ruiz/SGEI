@@ -14,48 +14,55 @@
 {
     @*@Html.HiddenFor(x => x.id)*@
     @Html.HiddenFor(x => x.ubicacion_impresora_id)
-<div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6">
-        <div class="card-box">
-            <h4 class="m-t-0 m-b-20 header-title"><b>INSUMOS</b></h4>
-            <div class="row">
-                <div class="col-md-12">
-                    <h5><b>Seleccione el insumo</b></h5>
-                    <p class="text-muted m-b-30 font-13">
-                        Seleccione el insumo perteneciente a la impresora y la fecha de colocacion del mismo.
-                    </p>
-                    <div class="form-group">
-                        @Html.Label("Seleccione insumo")
-                        @Html.DropDownListFor(x => x.insumo_id, new SelectList(ViewBag.insumos, "id", "nombre"), new { @class = "form-control", @style = "width:200px;" })
+
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="panel panel-purple panel-border">
+                <div class="panel-heading">
+                    <h4 class="panel-title">AGREGAR INSUMO</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                            <p class="text-muted m-b-30 font-13">
+                                Seleccione el insumo perteneciente a la impresora y la fecha de colocación del mismo.
+                            </p>
+                            <div class="form-group">
+                                @Html.Label("Seleccione insumo")
+                                @Html.DropDownListFor(x => x.insumo_id, new SelectList(ViewBag.insumos, "id", "nombre"), new { @class = "form-control", @style = "width:200px;" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Fecha cambio de insumo")
+                                @Html.TextBoxFor(x => x.fechacambioinsumo, new { @class = "form-control", type = "date", @style = "width:200px;" })
+                                @Html.ValidationMessageFor(x => x.fechacambioinsumo, null, new { @class = "label label-danger" })
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Guardar</button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        @Html.Label("Fecha cambio de insumo")
-                        @Html.TextBoxFor(x => x.fechacambioinsumo, new { @class = "form-control", type = "date", @style = "width:200px;" })
-                        @Html.ValidationMessageFor(x => x.fechacambioinsumo, null, new { @class = "label label-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="text-center">
-                    <button type="submit" class="btn-custom btn-inverse">Guardar</button>
-                </div>
-            </div>
-            @foreach (var item in ViewBag.insu)
-            {
-            if (item.cantidad == 0)
-            {
-            <div class="alert alert-danger" role="alert">
-                <strong>ATENCION</strong> Sin stock disponible para toner del tipo @item.nombre
-            </div>
-            }
-            }
 
+
+                </div>
+                @foreach (var item in ViewBag.insu)
+                {
+                    if (item.cantidad == 0)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <strong>ATENCION</strong> Sin stock disponible para toner del tipo @item.nombre
+                        </div>
+                    }
+                }
+            </div>
         </div>
     </div>
-</div>
-                
+
+
 }
 
 
