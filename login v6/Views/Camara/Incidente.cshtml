@@ -16,46 +16,49 @@
 @using (Html.BeginForm("Guardarincidente", "Camara", FormMethod.Post))
 {
     @Html.HiddenFor(x => x.camara_id)
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
-            <div class="card-box">
-                <h4 class="m-t-0 m-b-20 header-title"><b>INCIDENTE</b></h4>
+    
+    
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-primary panel-border">
+            <div class="panel-heading">
+                <h4 class="panel-title">CARGA DE INCIDENTE</h4>
+            </div>
+            <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <h5><b>Datos del incidente</b></h5>
+                    <div class="col-sm-12">
+                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
                         <p class="text-muted m-b-30 font-13">
-                            Rellene los campos a continuacion para detallar el incidente ocurrido y su accion de reparacion.
+                            Rellene los campos a continuación para detallar el incidente ocurrido y su acción de reparación.
                         </p>
                         <div class="form-group">
                             @Html.Label("Seleccione el incidente ocurrido")
                             @Html.DropDownListFor(x => x.incidente_id, new SelectList(ViewBag.incidente, "id_incidente", "descripcion"), new { @class = "form-control", @style = "width:500px;" })
                         </div>
-
                         <div class="form-group">
                             @Html.Label("Fecha de Incidente")
                             @Html.TextBoxFor(x => x.fecha_incidente, new { @class = "form-control", type = "date", @style = "width:200px;" })
                             @Html.ValidationMessageFor(x => x.fecha_incidente, null, new { @class = "label label-danger" })
                         </div>
-
                         <div class="form-group">
                             @Html.Label("Accion Realizada")
-                            @Html.TextBoxFor(x => x.reparacion, new { @class = "form-control", @style = "width:500px;" })
+                            @Html.TextBoxFor(x => x.reparacion, new { @class = "form-control", @style = "width:500px;", @required="required" })
                             @Html.ValidationMessageFor(x => x.reparacion, null, new { @class = "label label-danger" })
                         </div>
-
                         <div class="form-group">
                             @Html.Label("Fecha de Accion Realizada")
                             @Html.TextBoxFor(x => x.fecha_reparacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
                             @Html.ValidationMessageFor(x => x.fecha_reparacion, null, new { @class = "label label-danger" })
                         </div>
 
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
+    
     <div class="modal fade" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -77,16 +80,16 @@
 }
 
 <div class="text-center">
-    <button class="btn-custom btn-inverse" data-toggle="modal" data-target="#mostrarmodal">Agregar</button>
+    <button class="btn btn-primary btn-custom waves-effect waves-light" data-toggle="modal" data-target="#mostrarmodal">Agregar</button>
 </div>
 
 
 
-<script>
+@*<script>
     $(document).ready(function () {
         $("#mostrarmodal").modal("show");
     });
-</script>
+</script>*@
 
 
 

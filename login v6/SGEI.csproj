@@ -9551,6 +9551,12 @@
     <Content Include="Views\Insumo\ErrorPantalla.cshtml" />
     <Content Include="Views\Computadora\ErrorPantalla.cshtml" />
     <Content Include="Views\Insumo\ErrorPantallaImpre.cshtml" />
+    <Content Include="Views\Incidente\ErrorPantalla.cshtml" />
+    <Content Include="Views\Telefonos\ErrorPantalla.cshtml" />
+    <Content Include="Views\Camara\ErrorPantalla.cshtml" />
+    <Content Include="Views\Swichs\ErrorPantalla.cshtml" />
+    <Content Include="Views\Escaner\ErrorPantalla.cshtml" />
+    <Content Include="Views\Consulta\ErrorPantallaTel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -101,30 +101,43 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarincidente(escaner_incidente_escaner inci)
         {
-            escaner_incidente_escaner incidente = new escaner_incidente_escaner();
-            escaner_incidente_escaner_dominio incidenteDominio = new escaner_incidente_escaner_dominio();
+            if (inci.fecha_incidente==null || inci.fecha_reparacion==null)
+            {
+                return RedirectToAction("ErrorPantalla");
+            }
+            else
+            {
+                escaner_incidente_escaner incidente = new escaner_incidente_escaner();
+                escaner_incidente_escaner_dominio incidenteDominio = new escaner_incidente_escaner_dominio();
 
-            incidente.escaner_id = inci.escaner_id;
-            incidente.fecha_incidente = inci.fecha_incidente;
-            incidente.fecha_reparacion = inci.fecha_reparacion;
-            incidente.reparacion = inci.reparacion;
-            incidente.escaner_id = inci.escaner_id;
-            incidente.incidente_escaner_id = inci.incidente_escaner_id;
+                incidente.escaner_id = inci.escaner_id;
+                incidente.fecha_incidente = inci.fecha_incidente;
+                incidente.fecha_reparacion = inci.fecha_reparacion;
+                incidente.reparacion = inci.reparacion;
+                incidente.escaner_id = inci.escaner_id;
+                incidente.incidente_escaner_id = inci.incidente_escaner_id;
 
-            incidenteDominio.Guardar(incidente);
+                incidenteDominio.Guardar(incidente);
 
-            //AUDITORIA
-            Auditoria audit = new Auditoria();
-            auditoria_dominio audit_dom = new auditoria_dominio();
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
 
-            audit.fecha_hora = DateTime.Now;
-            audit.tipo_equipo = "escaner";
-            audit.id_equipo = inci.escaner_id;
-            audit.accion = "INCIDENTE";
-            audit.usuario = User.Identity.Name;
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "ESCANER";
+                audit.id_equipo = inci.escaner_id;
+                audit.accion = "INCIDENTE";
+                audit.usuario = User.Identity.Name;
 
-            audit_dom.Guardar(audit);
-            //---//
+                audit_dom.Guardar(audit);
+                //---//
+
+                return View();
+            }
+        }
+
+        public ActionResult ErrorPantalla()
+        {
 
             return View();
         }

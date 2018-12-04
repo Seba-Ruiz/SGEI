@@ -34,29 +34,42 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarincidente(switch_incidente_switch inci)
         {
-            switch_incidente_switch incidente = new switch_incidente_switch();
-            switch_incidente_switch_dominio incidenteDominio = new switch_incidente_switch_dominio();
+            if (inci.fecha_incidente==null || inci.fecha_reparacion==null)
+            {
+                return RedirectToAction("ErrorPantalla");
+            }
+            else
+            {
+                switch_incidente_switch incidente = new switch_incidente_switch();
+                switch_incidente_switch_dominio incidenteDominio = new switch_incidente_switch_dominio();
 
-            incidente.switch_id = inci.switch_id;
-            incidente.fecha_incidente = inci.fecha_incidente;
-            incidente.fecha_reparacion = inci.fecha_reparacion;
-            incidente.reparacion = inci.reparacion;
-            incidente.incidente_switch_id = inci.incidente_switch_id;
+                incidente.switch_id = inci.switch_id;
+                incidente.fecha_incidente = inci.fecha_incidente;
+                incidente.fecha_reparacion = inci.fecha_reparacion;
+                incidente.reparacion = inci.reparacion;
+                incidente.incidente_switch_id = inci.incidente_switch_id;
 
-            incidenteDominio.Guardar(incidente);
+                incidenteDominio.Guardar(incidente);
 
-            //AUDITORIA
-            Auditoria audit = new Auditoria();
-            auditoria_dominio audit_dom = new auditoria_dominio();
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
 
-            audit.fecha_hora = DateTime.Now;
-            audit.tipo_equipo = "SWITCH";
-            audit.id_equipo = inci.switch_id;
-            audit.accion = "INCIDENTE";
-            audit.usuario = User.Identity.Name;
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "SWITCH";
+                audit.id_equipo = inci.switch_id;
+                audit.accion = "INCIDENTE";
+                audit.usuario = User.Identity.Name;
 
-            audit_dom.Guardar(audit);
-            //---//
+                audit_dom.Guardar(audit);
+                //---//
+
+                return View();
+            }
+        }
+
+        public ActionResult ErrorPantalla()
+        {
 
             return View();
         }

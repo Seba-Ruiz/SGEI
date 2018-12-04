@@ -11,47 +11,32 @@
         Sistema para control de insumos e incidentes de telefonos.
     </li>
 </ol>
+
 <div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6">
-        <div class="card-box">
-            <h4 class="m-t-0 m-b-20 header-title"><b>INICIO</b></h4>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <h5><b>Gestion de Telefonos</b></h5>
-                    <p class="text-muted m-b-30 font-13">
-                        Para comenzar seleccione en el combo la ubicacion del telefono, el sistema mostrara los telefonos en esa ubicacion.
-                    </p>
-
-                    @using (Html.BeginForm("Buscar", "Telefonos", FormMethod.Post, new { id = "frm-incidente" }))
-                    {
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-primary panel-border">
+            <div class="panel-heading">
+                <h4 class="panel-title">TELEFONOS</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                        <p class="text-muted m-b-30 font-13">
+                            Para comenzar, seleccione en el combo la ubicación del telefono, el sistema mostrará los telefonos en esa ubicación.
+                        </p>
+                        @using (Html.BeginForm("Buscar", "Telefonos", FormMethod.Post, new { id = "frm-incidente" }))
+                        {
                         <div class="form-group">
                             @Html.Label("Nombre de Ubicacion:")
                             @Html.DropDownList("ubicaciontel", new SelectList(ViewBag.ubicaciontel, "id_ubicacion_tel", "nombre_ubi"), new { @class = "btn dropdown-toggle btn-white", @style = "width:200px;" })
                         </div>
-                        <div class="form-group">
+                           
                             <div class="text-center">
-                                <button type="submit" class="btn-custom btn-inverse">Buscar</button>
+                                <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Buscar</button>
                             </div>
-                        </div>
-                        @*foreach (var item in @ViewBag.insumos)
-                            {
-                                if (item.cantidad == 0)
-                                {
-                                    <div class="alert alert-danger" role="alert">
-                                        <strong>ATENCION</strong> Sin stock disponible para toner del tipo @item.nombre
-                                    </div>
-                                }
-
-                                if (item.cantidad < 10 & item.cantidad > 0)
-                                {
-                                    <div class="alert alert-info" role="alert">
-                                        <strong>ATENCION</strong> Quedan @item.cantidad toner del tipo @item.nombre
-                                    </div>
-                                }
-                            }*@
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
