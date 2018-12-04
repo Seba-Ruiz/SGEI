@@ -43,7 +43,6 @@ namespace login_v6
 
 
                         "~/assets/plugins/datatables/jquery.dataTables.min.js",
-                        "~/assets/plugins/datatables/dataTables.bootstrap.js",
                         "~/assets/plugins/datatables/jszip.min.js",
 
                         "~/assets/plugins/datatables/dataTables.buttons.min.js",
@@ -61,6 +60,7 @@ namespace login_v6
                         "~/assets/plugins/datatables/dataTables.fixedColumns.min.js",
                         "~/assets/pages/datatables.init.js",
                         "~/assets/plugins/jquery.steps/js/jquery.steps.min.js",
+                        "~/assets/plugins/jquery-validation/js/jquery.validate.min.js",
                         "~/assets/pages/jquery.wizard-init.js",
                         "~/assets/pages/datatables.init.js",
                         "~/assets/plugins/moment/moment.js",

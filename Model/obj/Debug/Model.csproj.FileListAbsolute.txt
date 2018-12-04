@@ -35,7 +35,8 @@ C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\bin\Debug\EntityFramework.xml
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\bin\Debug\es\EntityFramework.resources.dll
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\bin\Debug\es\EntityFramework.SqlServer.resources.dll
-C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\obj\Debug\Model.dll
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\obj\Debug\Model.pdb
+C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\obj\Debug\Model.csprojAssemblyReference.cache
+C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\obj\Debug\Model.csproj.CopyComplete

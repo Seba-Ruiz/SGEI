@@ -407,7 +407,8 @@ C:\Users\sebar\Documents\pps\SGEI\SGEI\login v6\bin\es\EntityFramework.SqlServer
 C:\Users\sebar\Documents\pps\SGEI\SGEI\login v6\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
 C:\Users\sebar\Documents\pps\SGEI\SGEI\login v6\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
 C:\Users\sebar\Documents\pps\SGEI\SGEI\login v6\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
-C:\Users\sebar\Documents\pps\SGEI\SGEI\login v6\obj\Debug\SGEI.csprojResolveAssemblyReference.cache
 C:\Users\sebar\Documents\pps\SGEI\SGEI\login v6\obj\Debug\SGEI.csproj.CoreCompileInputs.cache
 C:\Users\sebar\Documents\pps\SGEI\SGEI\login v6\obj\Debug\login v6.dll
 C:\Users\sebar\Documents\pps\SGEI\SGEI\login v6\obj\Debug\login v6.pdb
+C:\Users\sebar\Documents\pps\SGEI\SGEI\login v6\obj\Debug\SGEI.csprojAssemblyReference.cache
+C:\Users\sebar\Documents\pps\SGEI\SGEI\login v6\obj\Debug\SGEI.csproj.CopyComplete
