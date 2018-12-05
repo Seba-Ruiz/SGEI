@@ -34,7 +34,6 @@ namespace login_v6.Controllers
         public ActionResult Detalle(int id)
         {
             var ubic = store.u_computadora_detalle(id);
-
             return View(ubic);
         }
 

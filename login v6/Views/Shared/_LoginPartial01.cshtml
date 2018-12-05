@@ -5,247 +5,269 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="navigation-menu">
+<ul class="navigation-menu">
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-cog"></i>Gestion</a>
+        <ul class="submenu">
             <li class="has-submenu">
-                <a href="#"><i class="glyphicon glyphicon-cog"></i>Gestion</a>
+                <a href="#">Impresoras</a>
                 <ul class="submenu">
-                    <li class="has-submenu">
-                        <a href="#">Impresoras</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="insumos" style="cursor: pointer;">Insumos</a>
-                            </li>
-                            <li>
-                                <a id="impresoras" style="cursor: pointer;">Modelos</a>
-                            </li>
-                            <li>
-                                <a id="ubicacion" style="cursor: pointer;">Ubicacion</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a id="insumos" style="cursor: pointer;">Insumos</a>
                     </li>
-
-                    <li class="has-submenu">
-                        <a href="#">Computadoras</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="insumospc" style="cursor: pointer;">Insumos</a>
-                            </li>
-                            <li>
-                                <a id="rams" style="cursor: pointer;">Memorias</a>
-                            </li>
-                            <li>
-                                <a id="discos" style="cursor: pointer;">Discos</a>
-                            </li>
-                            <li>
-                                <a id="sos" style="cursor: pointer;">Sistemas Operativos</a>
-                            </li>
-                            <li>
-                                <a id="mothers" style="cursor: pointer;">Placas Madre</a>
-                            </li>
-                            <li>
-                                <a id="incidentespc" style="cursor: pointer;">Incidentes</a>
-                            </li>
-                            <li>
-                                <a id="tipospc" style="cursor: pointer;">Tipos</a>
-                            </li>
-                            <li>
-                                <a id="ubicacionespc" style="cursor: pointer;">Ubicaciones</a>
-                            </li>
-                            <li>
-                                <a id="motivospc" style="cursor: pointer;">Motivos de baja</a>
-                            </li>
-                            <li>
-                                <a id="procesadorespc" style="cursor: pointer;">Procesadores</a>
-                            </li>
-
-                        </ul>
+                    <li>
+                        <a id="impresoras" style="cursor: pointer;">Modelos</a>
                     </li>
-
-                    <li class="has-submenu">
-                        <a href="#">Telefonos</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="tipo_telefonos" style="cursor: pointer;">Tipo</a>
-                            </li>
-                            <li>
-                                <a id="ubicacionestel" style="cursor: pointer;">Ubicaciones</a>
-                            </li>
-                            <li>
-                                <a id="mmarcas" style="cursor: pointer;">Modelos</a>
-                            </li>
-                            <li>
-                                <a id="incidentestel" style="cursor: pointer;">Incidentes</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a id="ubicacion" style="cursor: pointer;">Ubicacion</a>
                     </li>
-
-
-
-                    <li class="has-submenu">
-                        <a href="#">Camaras</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="insumocam" style="cursor: pointer;">Insumos</a>
-                            </li>
-                            <li>
-                                <a id="modelocam" style="cursor: pointer;">Modelos</a>
-                            </li>
-                            <li>
-                                <a id="ubicam" style="cursor: pointer;">Ubicaciones</a>
-                            </li>
-                            <li>
-                                <a id="incidentecam" style="cursor: pointer;">Incidentes</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="#">Swichts</a>
-                        <ul class="submenu">
-
-                            <li>
-                                <a id="modelosw" style="cursor: pointer;">Modelos</a>
-                            </li>
-                            <li>
-                                <a id="ubicacionsw" style="cursor: pointer;">Ubicaciones</a>
-                            </li>
-                            <li>
-                                <a id="incidentesw" style="cursor: pointer;">Incidentes</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="#">Escaners</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="modeloes" style="cursor: pointer;">Modelos</a>
-                            </li>
-                            <li>
-                                <a  id="ubicaciones" style="cursor: pointer;">Ubicaciones</a>
-                            </li>
-                            <li>
-                                <a id="incidenteses" style="cursor: pointer;">Incidentes</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </li>
-            <li class="has-submenu">
-                <a href="#"><i class="glyphicon glyphicon-plus"></i>Altas</a>
-                <ul class="submenu">
-                    <li><a id="altaimpresora" style="cursor: pointer;">Impresora</a></li>
-                    <li><a id="altacompu" style="cursor: pointer;">Computadora</a></li>
-                    <li><a id="altatel" style="cursor: pointer;">Telefono</a></li>
-                    <li><a id="altacam" style="cursor: pointer;">Camara</a></li>
-                    <li><a id="altasw" style="cursor: pointer;">Switch</a></li>
-                    <li><a id="altaes" style="cursor: pointer;">Escaner</a></li>
                 </ul>
             </li>
 
             <li class="has-submenu">
-                <a href="#"><i class="fa fa-wpforms"></i>Consultas</a>
+                <a href="#">Computadoras</a>
                 <ul class="submenu">
-
-                    <li class="has-submenu">
-                        <a href="#">Impresoras</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="impresora" style="cursor: pointer;">Informes</a>
-                            </li>
-                            <li>
-                                <a id="impbaja" style="cursor: pointer;">Bajas</a>
-                            </li>
-
-                        </ul>
+                    <li>
+                        <a id="insumospc" style="cursor: pointer;">Insumos</a>
                     </li>
-
-                    <li class="has-submenu">
-                        <a href="#">Computadoras</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="computadoras" style="cursor: pointer;">Informes</a>
-                            </li>
-                            <li>
-                                <a id="compubaja" style="cursor: pointer;">Bajas</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a id="rams" style="cursor: pointer;">Memorias</a>
                     </li>
-
-                    <li class="has-submenu">
-                        <a href="#">Telefonos</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="telefonos" style="cursor: pointer;">Informes</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a id="discos" style="cursor: pointer;">Discos</a>
                     </li>
-                    <li class="has-submenu">
-                        <a href="#">Camaras</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="camaras" style="cursor: pointer;">Informes</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a id="sos" style="cursor: pointer;">Sistemas Operativos</a>
                     </li>
-                    <li class="has-submenu">
-                        <a href="#">Switchs</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="switchs" style="cursor: pointer;">Informes</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a id="mothers" style="cursor: pointer;">Placas Madre</a>
                     </li>
-                    <li class="has-submenu">
-                        <a href="#">Escaners</a>
-                        <ul class="submenu">
-                            <li>
-                                <a id="escaner" style="cursor: pointer;">Informes</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a id="incidentespc" style="cursor: pointer;">Incidentes</a>
                     </li>
-                </ul>
-            </li>
-            <li class="has-submenu">
-                <a href="#"><i class="glyphicon glyphicon-user"></i>Usuarios</a>
-                <ul class="submenu">
-                    <li><a id="usuario" style="cursor: pointer;">Gestionar</a></li>
-                    <li><a id="rol" style="cursor: pointer;">Roles</a></li>
+                    <li>
+                        <a id="tipospc" style="cursor: pointer;">Tipos</a>
+                    </li>
+                    <li>
+                        <a id="ubicacionespc" style="cursor: pointer;">Ubicaciones</a>
+                    </li>
+                    <li>
+                        <a id="motivospc" style="cursor: pointer;">Motivos de baja</a>
+                    </li>
+                    <li>
+                        <a id="procesadorespc" style="cursor: pointer;">Procesadores</a>
+                    </li>
 
                 </ul>
             </li>
 
             <li class="has-submenu">
-                <a href="#"><i class="fa fa-tasks"></i>Ingresos</a>
+                <a href="#">Telefonos</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="tipo_telefonos" style="cursor: pointer;">Tipo</a>
+                    </li>
+                    <li>
+                        <a id="ubicacionestel" style="cursor: pointer;">Ubicaciones</a>
+                    </li>
+                    <li>
+                        <a id="mmarcas" style="cursor: pointer;">Modelos</a>
+                    </li>
+                    <li>
+                        <a id="incidentestel" style="cursor: pointer;">Incidentes</a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li class="has-submenu">
+                <a href="#">Camaras</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="insumocam" style="cursor: pointer;">Insumos</a>
+                    </li>
+                    <li>
+                        <a id="modelocam" style="cursor: pointer;">Modelos</a>
+                    </li>
+                    <li>
+                        <a id="ubicam" style="cursor: pointer;">Ubicaciones</a>
+                    </li>
+                    <li>
+                        <a id="incidentecam" style="cursor: pointer;">Incidentes</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Swichts</a>
                 <ul class="submenu">
 
-                    <li class="has-submenu">
-                        <a href="#">Impresora</a>
-                        <ul class="submenu">
-                            <li><a id="ingreso" style="cursor: pointer;">Insumos</a></li>
-                            <li><a id="veringreso" style="cursor: pointer;">Ver Ingresos</a></li>
-                        </ul>
+                    <li>
+                        <a id="modelosw" style="cursor: pointer;">Modelos</a>
                     </li>
-                    <li class="has-submenu">
-                        <a href="#">Computadora</a>
-                        <ul class="submenu">
-                            <li><a id="ingresoPC" style="cursor: pointer;">Insumos</a></li>
-                            <li><a id="veringresoPC" style="cursor: pointer;">Ver Ingresos</a></li>
-                        </ul>
+                    <li>
+                        <a id="ubicacionsw" style="cursor: pointer;">Ubicaciones</a>
                     </li>
-                    <li class="has-submenu">
-                        <a href="#">Camara</a>
-                        <ul class="submenu">
-                            <li><a id="ingresoCam" style="cursor: pointer;">Insumos</a></li>
-                            <li><a id="veringresoCam" style="cursor: pointer;">Ver Ingresos</a></li>
-                        </ul>
+                    <li>
+                        <a id="incidentesw" style="cursor: pointer;">Incidentes</a>
                     </li>
-                    <li><a id="proveedores" style="cursor: pointer;">Proveedores</a></li>
-
-
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Escaners</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="modeloes" style="cursor: pointer;">Modelos</a>
+                    </li>
+                    <li>
+                        <a id="ubicaciones" style="cursor: pointer;">Ubicaciones</a>
+                    </li>
+                    <li>
+                        <a id="incidenteses" style="cursor: pointer;">Incidentes</a>
+                    </li>
                 </ul>
             </li>
 
         </ul>
+    </li>
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-plus"></i>Altas</a>
+        <ul class="submenu">
+            <li><a id="altaimpresora" style="cursor: pointer;">Impresora</a></li>
+            <li><a id="altacompu" style="cursor: pointer;">Computadora</a></li>
+            <li><a id="altatel" style="cursor: pointer;">Telefono</a></li>
+            <li><a id="altacam" style="cursor: pointer;">Camara</a></li>
+            <li><a id="altasw" style="cursor: pointer;">Switch</a></li>
+            <li><a id="altaes" style="cursor: pointer;">Escaner</a></li>
+        </ul>
+    </li>
+
+    <li class="has-submenu">
+        <a href="#"><i class="fa fa-wpforms"></i>Consultas</a>
+        <ul class="submenu">
+
+            <li class="has-submenu">
+                <a href="#">Impresoras</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="impresora" style="cursor: pointer;">Informes</a>
+                    </li>
+                    <li>
+                        <a id="impbaja" style="cursor: pointer;">Bajas</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#">Computadoras</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="computadoras" style="cursor: pointer;">Informes</a>
+                    </li>
+                    <li>
+                        <a id="compubaja" style="cursor: pointer;">Bajas</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#">Telefonos</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="telefonos" style="cursor: pointer;">Informes</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Camaras</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="camaras" style="cursor: pointer;">Informes</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Switchs</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="switchs" style="cursor: pointer;">Informes</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Escaners</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="escaner" style="cursor: pointer;">Informes</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-user"></i>Usuarios</a>
+        <ul class="submenu">
+            <li><a id="usuario" style="cursor: pointer;">Gestionar</a></li>
+            <li><a id="rol" style="cursor: pointer;">Roles</a></li>
+
+        </ul>
+    </li>
+
+    <li class="has-submenu">
+        <a href="#"><i class="fa fa-tasks"></i>Ingresos</a>
+        <ul class="submenu">
+
+            <li class="has-submenu">
+                <a href="#">Impresora</a>
+                <ul class="submenu">
+                    <li><a id="ingreso" style="cursor: pointer;">Insumos</a></li>
+                    <li><a id="veringreso" style="cursor: pointer;">Ver Ingresos</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Computadora</a>
+                <ul class="submenu">
+                    <li><a id="ingresoPC" style="cursor: pointer;">Insumos</a></li>
+                    <li><a id="veringresoPC" style="cursor: pointer;">Ver Ingresos</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Camara</a>
+                <ul class="submenu">
+                    <li><a id="ingresoCam" style="cursor: pointer;">Insumos</a></li>
+                    <li><a id="veringresoCam" style="cursor: pointer;">Ver Ingresos</a></li>
+                </ul>
+            </li>
+            <li><a id="proveedores" style="cursor: pointer;">Proveedores</a></li>
+
+
+        </ul>
+    </li>
+
+    <li class="has-submenu">
+        <a href="#"><i class="fa fa-search"></i>Buscar</a>
+        <ul class="submenu">
+            <li class="has-submenu">
+                <a href="#">Computadora</a>
+                <ul class="submenu">
+                    <li><a id="buscar_compu" style="cursor: pointer;" title="Buscar computadora por número">Por número</a></li>
+                    <li><a id="buscar_compu_ip" style="cursor: pointer;" title="Buscar computadora por IP">Por IP</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Insumo</a>
+                <ul class="submenu">
+                    <li><a id="buscar_insumo" style="cursor: pointer;" title="Buscar insumo">Por número</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+    </li>
+
+
+</ul>
 
     }
 }
@@ -279,6 +301,32 @@ else
 
 <script src="~/assets/js/spiner.js"></script>
 <script>
+    $("#buscar_compu").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Buscar_PC","Buscar")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+    $("#buscar_compu_ip").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Buscar_PC_IP","Buscar")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+    $("#buscar_insumo").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Buscar_Insu","Buscar")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
 
     $("#rol").click(function () {
         $('#spiner').modal('show');
