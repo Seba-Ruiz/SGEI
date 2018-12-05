@@ -1174,8 +1174,6 @@ namespace Negocio.Servicio
             }
         }
 
-
-
         public List<DTO_incidente_sw> incidente_sw(int sw_id)
         {
             var dto_incidente_sw = new List<DTO_incidente_sw>();
@@ -1225,7 +1223,6 @@ namespace Negocio.Servicio
             }
 
         }
-
 
         public List<DTO_u_escaner_01> u_escaner_01(int ubicacion)
         {
@@ -1286,10 +1283,6 @@ namespace Negocio.Servicio
             }
         }
 
-
-
-
-
         public List<DTO_incidente_es> incidente_es(int sw_id)
         {
             var dto_incidente_es = new List<DTO_incidente_es>();
@@ -1340,8 +1333,238 @@ namespace Negocio.Servicio
 
         }
 
+        public DTO_buscar_pc buscar_pc(int id_pc)
+        {
+            var dto_buscar_pc = new List<DTO_buscar_pc>();
 
 
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.pc
+                               from b in ctx.ubicacionPC
+                               from c in ctx.pc_ubicacionpc
+                               from d in ctx.detallePC
+                               from e in ctx.tipoPC
+                               from f in ctx.ramPC
+                               from g in ctx.discoPC
+                               from h in ctx.soPC
+                               from i in ctx.motherPC
+                               from j in ctx.procesadorPC
+
+                               where
+
+                               d.pc_id == id_pc &&
+                               c.pc_id == a.id_pc &&
+                               c.ubicacionpc_id == b.id_ubicacion &&
+                               a.id_pc == d.pc_id &&
+                               a.tipo_id == e.id_tipo &&
+                               d.disco_id == g.id_disco &&
+                               d.mother_id == i.id_mother &&
+                               d.so_id == h.id_so &&
+                               d.ram_id == f.id_ram &&
+                               d.procesador_id == j.id_procesador &&
+                               a.fecha_baja == null
+
+                               select new
+                               {
+                                   nombre = a.nombre,
+                                   id_pc = a.id_pc,
+                                   ip = a.ip,
+                                   descripcion = a.descripcion,
+                                   ubicacion = b.nombre,
+                                   fecha_ubicacion = c.fecha_ubicacion,
+                                   responsablepc = d.responsablepc,
+                                   observacion = d.observacion,
+                                   nombre_tipo = e.nombre_tipo,
+                                   ram = f.descripcion,
+                                   disco = g.descripcion,
+                                   so = h.descripcion,
+                                   procesador = j.descripcion,
+                                   mother = i.descripcion,
+                                   id_detalle = d.id_detalle
+
+                               }).FirstOrDefault();
+
+                if (detalle==null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var dto = new DTO_buscar_pc();
+
+                    dto.nombre = detalle.nombre;
+                    dto.ip = detalle.ip;
+                    dto.descripcion = detalle.descripcion;
+                    dto.id_pc = detalle.id_pc;
+                    dto.ubicacion = detalle.ubicacion;
+                    dto.fecha_ubicacion = detalle.fecha_ubicacion;
+                    dto.responsablepc = detalle.responsablepc;
+                    dto.observacion = detalle.observacion;
+                    dto.nombre_tipo = detalle.nombre_tipo;
+                    dto.ram = detalle.ram;
+                    dto.disco = detalle.disco;
+                    dto.so = detalle.so;
+                    dto.procesador = detalle.procesador;
+                    dto.mother = detalle.mother;
+                    dto.id_detalle = detalle.id_detalle;
+
+                    return dto;
+                }
+                
+            }
+
+
+        }
+
+        public DTO_buscar_pc buscar_pc_ip(string ip)
+        {
+            var dto_buscar_pc = new List<DTO_buscar_pc>();
+
+
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.pc
+                               from b in ctx.ubicacionPC
+                               from c in ctx.pc_ubicacionpc
+                               from d in ctx.detallePC
+                               from e in ctx.tipoPC
+                               from f in ctx.ramPC
+                               from g in ctx.discoPC
+                               from h in ctx.soPC
+                               from i in ctx.motherPC
+                               from j in ctx.procesadorPC
+
+                               where
+
+                               a.ip == ip &&
+                               d.pc_id == a.id_pc &&
+                               c.pc_id == a.id_pc &&
+                               c.ubicacionpc_id == b.id_ubicacion &&
+                               a.id_pc == d.pc_id &&
+                               a.tipo_id == e.id_tipo &&
+                               d.disco_id == g.id_disco &&
+                               d.mother_id == i.id_mother &&
+                               d.so_id == h.id_so &&
+                               d.ram_id == f.id_ram &&
+                               d.procesador_id == j.id_procesador &&
+                               a.fecha_baja == null
+
+                               select new
+                               {
+                                   nombre = a.nombre,
+                                   id_pc = a.id_pc,
+                                   ip = a.ip,
+                                   descripcion = a.descripcion,
+                                   ubicacion = b.nombre,
+                                   fecha_ubicacion = c.fecha_ubicacion,
+                                   responsablepc = d.responsablepc,
+                                   observacion = d.observacion,
+                                   nombre_tipo = e.nombre_tipo,
+                                   ram = f.descripcion,
+                                   disco = g.descripcion,
+                                   so = h.descripcion,
+                                   procesador = j.descripcion,
+                                   mother = i.descripcion,
+                                   id_detalle = d.id_detalle
+
+                               }).FirstOrDefault();
+
+                if (detalle == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var dto = new DTO_buscar_pc();
+
+                    dto.nombre = detalle.nombre;
+                    dto.ip = detalle.ip;
+                    dto.descripcion = detalle.descripcion;
+                    dto.id_pc = detalle.id_pc;
+                    dto.ubicacion = detalle.ubicacion;
+                    dto.fecha_ubicacion = detalle.fecha_ubicacion;
+                    dto.responsablepc = detalle.responsablepc;
+                    dto.observacion = detalle.observacion;
+                    dto.nombre_tipo = detalle.nombre_tipo;
+                    dto.ram = detalle.ram;
+                    dto.disco = detalle.disco;
+                    dto.so = detalle.so;
+                    dto.procesador = detalle.procesador;
+                    dto.mother = detalle.mother;
+                    dto.id_detalle = detalle.id_detalle;
+
+                    return dto;
+                }
+
+            }
+
+
+        }
+
+        public DTO_buscar_insumo_serie buscar_insumo_serie(string nro)
+        {
+            
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.pc_insumo_pc
+                               from b in ctx.insumo_pc
+                               from c in ctx.pc
+                               from d in ctx.ubicacionPC
+                               from e in ctx.pc_ubicacionpc
+                               from f in ctx.detallePC
+
+                               where
+
+                                a.nro_serie == nro &&
+                                a.insumo_id == b.id_insumo &&
+                                a.detalle_pc_id == f.id_detalle &&
+                                f.pc_id == c.id_pc &&
+                                e.pc_id == c.id_pc &&
+                                e.ubicacionpc_id == d.id_ubicacion
+
+
+                               
+
+                               select new
+                               {
+                                   nombre_pc = c.nombre,
+                                   ip_pc = c.ip,
+                                   nombre_insumo = b.nombre,
+                                   nro_serie = a.nro_serie,
+                                   ubicacion = d.nombre,
+                                   fecha_colocacion = a.fecha_insumo,
+                                   observacion_pc = f.observacion,
+                                   responsable = f.responsablepc
+
+                               }).FirstOrDefault();
+
+                if (detalle == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var dto = new DTO_buscar_insumo_serie();
+
+                    dto.nombre_insumo = detalle.nombre_insumo;
+                    dto.nombre_equipo = detalle.nombre_pc;
+                    dto.nro_serie = detalle.nro_serie;
+                    dto.ubicado_en = detalle.ubicacion;
+                    dto.fecha_colocacion = detalle.fecha_colocacion;
+                    dto.ip_equipo = detalle.ip_pc;
+                    dto.observacion_pc = detalle.observacion_pc;
+                    dto.responsable = detalle.responsable;
+
+
+
+                    return dto;
+                }
+
+            }
+
+
+        }
 
 
     }

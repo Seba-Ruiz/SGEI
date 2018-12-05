@@ -97,29 +97,44 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarincidente(camara_incidente_camara inci)
         {
-            camara_incidente_camara incidente = new camara_incidente_camara();
-            camara_incidente_camara_dominio incidenteDominio = new camara_incidente_camara_dominio();
 
-            incidente.camara_id = inci.camara_id;
-            incidente.fecha_incidente = inci.fecha_incidente;
-            incidente.fecha_reparacion = inci.fecha_reparacion;
-            incidente.reparacion = inci.reparacion;
-            incidente.incidente_id = inci.incidente_id;
+            if (inci.fecha_incidente == null || inci.fecha_reparacion == null)
+            {
+                return RedirectToAction("ErrorPantalla");
+            }
+            else
+            {
+                camara_incidente_camara incidente = new camara_incidente_camara();
+                camara_incidente_camara_dominio incidenteDominio = new camara_incidente_camara_dominio();
 
-            incidenteDominio.Guardar(incidente);
+                incidente.camara_id = inci.camara_id;
+                incidente.fecha_incidente = inci.fecha_incidente;
+                incidente.fecha_reparacion = inci.fecha_reparacion;
+                incidente.reparacion = inci.reparacion;
+                incidente.incidente_id = inci.incidente_id;
 
-            //AUDITORIA
-            Auditoria audit = new Auditoria();
-            auditoria_dominio audit_dom = new auditoria_dominio();
+                incidenteDominio.Guardar(incidente);
 
-            audit.fecha_hora = DateTime.Now;
-            audit.tipo_equipo = "CAMARA";
-            audit.id_equipo = inci.camara_id;
-            audit.accion = "INCIDENTE";
-            audit.usuario = User.Identity.Name;
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
 
-            audit_dom.Guardar(audit);
-            //---//
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "CAMARA";
+                audit.id_equipo = inci.camara_id;
+                audit.accion = "INCIDENTE";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
+                return View();
+            }
+
+        }
+
+        public ActionResult ErrorPantalla()
+        {
 
             return View();
         }

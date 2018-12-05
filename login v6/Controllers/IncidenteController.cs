@@ -21,24 +21,42 @@ namespace login_v6.Controllers
 
         public ActionResult Guardar(incidente model)
         {
+            if (model.fecha_accion==null || model.fecha_incidente==null)
+            {
+                return RedirectToAction("ErrorPantalla");
+            }
+            else
+            {
+                inci.Guardar(model);
 
-            inci.Guardar(model);
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
 
-            //AUDITORIA
-            Auditoria audit = new Auditoria();
-            auditoria_dominio audit_dom = new auditoria_dominio();
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "IMPRESORA";
+                audit.id_equipo = model.ubicacion_impresora_id;
+                audit.accion = "INCIDENTE";
+                audit.usuario = User.Identity.Name;
 
-            audit.fecha_hora = DateTime.Now;
-            audit.tipo_equipo = "IMPRESORA";
-            audit.id_equipo = model.ubicacion_impresora_id;
-            audit.accion = "INCIDENTE";
-            audit.usuario = User.Identity.Name;
+                audit_dom.Guardar(audit);
+                //---//
 
-            audit_dom.Guardar(audit);
-            //---//
+                TempData["id_incidente"] = model.id;
+                return RedirectToAction("AgregarImagen");
+            }
+            
+        }
 
-            TempData["id_incidente"] = model.id;
-            return RedirectToAction("AgregarImagen");
+        public ActionResult ErrorPantalla()
+        {
+
+            return View();
+        }
+        public ActionResult Volver()
+        {
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult AgregarImagen()

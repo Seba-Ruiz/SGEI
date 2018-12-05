@@ -12,7 +12,6 @@ namespace Negocio.DTO
         public int id_pc { get; set; }
         public string ip { get; set; }
         public string descripcion { get; set; }
-       
         public string ubicacion { get; set; }
         public DateTime? fecha_ubicacion { get; set; }
         public string responsablepc { get; set; }

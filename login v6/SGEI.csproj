@@ -196,6 +196,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\ABMController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BuscarController.cs" />
     <Compile Include="Controllers\CamaraController.cs" />
     <Compile Include="Controllers\ComputadoraController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
@@ -9551,6 +9552,21 @@
     <Content Include="Views\Insumo\ErrorPantalla.cshtml" />
     <Content Include="Views\Computadora\ErrorPantalla.cshtml" />
     <Content Include="Views\Insumo\ErrorPantallaImpre.cshtml" />
+    <Content Include="Views\Incidente\ErrorPantalla.cshtml" />
+    <Content Include="Views\Telefonos\ErrorPantalla.cshtml" />
+    <Content Include="Views\Camara\ErrorPantalla.cshtml" />
+    <Content Include="Views\Swichs\ErrorPantalla.cshtml" />
+    <Content Include="Views\Escaner\ErrorPantalla.cshtml" />
+    <Content Include="Views\Consulta\ErrorPantallaTel.cshtml" />
+    <Content Include="Views\Buscar\Buscar_PC.cshtml" />
+    <Content Include="Views\Buscar\BuscarNumero.cshtml" />
+    <Content Include="Views\Buscar\ErrorPantalla.cshtml" />
+    <Content Include="Views\Buscar\BuscarIP.cshtml" />
+    <Content Include="Views\Buscar\Buscar_PC_IP.cshtml" />
+    <Content Include="Views\Buscar\ErrorPantallaIP.cshtml" />
+    <Content Include="Views\Buscar\Buscar_Insu.cshtml" />
+    <Content Include="Views\Buscar\ErrorPantallaInsumo.cshtml" />
+    <Content Include="Views\Buscar\BuscarInsumoSerie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

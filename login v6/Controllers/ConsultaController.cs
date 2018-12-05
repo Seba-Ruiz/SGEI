@@ -304,6 +304,11 @@ namespace login_v6.Controllers
 
             return View();
         }
+        public ActionResult ErrorPantallaTel()
+        {
+
+            return View();
+        }
 
         public ActionResult IncidentesPcporFecha(int ubicacion)
         {
@@ -414,7 +419,7 @@ namespace login_v6.Controllers
         {
             if (FechaDesde > FechaHasta || FechaHasta == null || FechaDesde == null)
             {
-                return RedirectToAction("ErrorPantalla");
+                return RedirectToAction("ErrorPantallaTel");
             }
             else
             {
