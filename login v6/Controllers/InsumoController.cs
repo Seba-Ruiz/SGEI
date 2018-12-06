@@ -16,7 +16,7 @@ namespace login_v6.Controllers
         public ActionResult Index()
         {
 
-            return View();
+            return RedirectToAction("Index", "Computadora");
         }
 
         public ActionResult AgregarInsumo(int id)

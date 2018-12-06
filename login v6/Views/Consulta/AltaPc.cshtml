@@ -18,18 +18,18 @@
     <div class="col-md-3"></div>
     <div class="col-md-6">
         <div class="card-box">
-            <h4 class="m-t-0 header-title"><b>NUEVA UBICACION DE PC</b></h4>
+            <h4 class="m-t-0 header-title"><b>NUEVA UBICACIÓN DE PC</b></h4>
             <p class="text-muted m-b-30 font-13">
-                Seleccione la nueva ubicacion de la computadora
+                Seleccione la nueva ubicación de la computadora.
             </p>
             <div class="form-group">
-                @Html.Label("Nombre de Ubicacion")
+                @Html.Label("Nombre de ubicación")
                 @Html.DropDownListFor(x => x.ubicacionpc_id, new SelectList(ViewBag.ubicaciones, "id_ubicacion", "nombre"), new { @class = "form-control", @style = "width:200px;" })
                 @Html.ValidationMessageFor(x => x.ubicacionpc_id, null, new { @class = "label label-danger" })
             </div>
 
             <div class="form-group">
-                @Html.Label("Fecha de Ubicacion")
+                @Html.Label("Fecha de ubicación")
                 @Html.TextBoxFor(x => x.fecha_ubicacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
                 @Html.ValidationMessageFor(x => x.fecha_ubicacion, null, new { @class = "label label-danger" })
             </div>
