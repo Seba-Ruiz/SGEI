@@ -39,3 +39,17 @@ C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\obj\Debug\Model.csprojResolveAssemb
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\obj\Debug\Model.dll
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\obj\Debug\Model.pdb
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\bin\Debug\Model.dll.config
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\bin\Debug\Model.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\bin\Debug\Model.pdb
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\bin\Debug\EntityFramework.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\bin\Debug\EntityFramework.xml
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\obj\Debug\Model.csprojAssemblyReference.cache
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\obj\Debug\Model.csproj.CopyComplete
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\obj\Debug\Model.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\obj\Debug\Model.pdb
