@@ -437,7 +437,7 @@ namespace login_v6.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Landing", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //

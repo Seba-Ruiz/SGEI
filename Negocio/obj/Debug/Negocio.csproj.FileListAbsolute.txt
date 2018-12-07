@@ -48,3 +48,20 @@ C:\Users\sebar\Documents\pps\SGEI\SGEI\Negocio\obj\Debug\Negocio.csprojResolveAs
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Negocio\obj\Debug\Negocio.dll
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Negocio\obj\Debug\Negocio.pdb
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\Negocio.dll.config
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\Negocio.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\Negocio.pdb
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\EntityFramework.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\Model.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\Model.pdb
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\Model.dll.config
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\EntityFramework.xml
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\obj\Debug\Negocio.csprojAssemblyReference.cache
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\obj\Debug\Negocio.csproj.CopyComplete
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\obj\Debug\Negocio.dll
+C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\obj\Debug\Negocio.pdb
