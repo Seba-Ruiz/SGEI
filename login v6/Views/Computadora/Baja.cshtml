@@ -13,7 +13,50 @@
 @using (Html.BeginForm("BajaAceptada", "Computadora", FormMethod.Post))
 {
     @Html.HiddenFor(x => x.detallepc_id)
-    <div class="row">
+    
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="panel panel-primary panel-border">
+            <div class="panel-heading">
+                <h4 class="panel-title">DAR DE BAJA UNA COMPUTADORA</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-muted m-b-30 font-13">
+                                    Rellene los campos que siguen para especificar el motivo de la baja.
+                                </p>
+                                <div class="form-group">
+                                    @Html.Label("Seleccione la ultima ubicación de la computadora.")
+                                    @Html.DropDownListFor(x => x.ultima_ubicacion, new SelectList(ViewBag.ubicacion, "nombre", "nombre"), new { @class = "form-control", @style = "width:300px;" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Seleccione el motivo de baja.")
+                                    @Html.DropDownListFor(x => x.motivobaja_id, new SelectList(ViewBag.motivobaja, "id_motivobaja", "descripcion"), new { @class = "form-control", @style = "width:300px;" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Dar de baja</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+    
+    
+    
+    @*<div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
             <div class="card-box">
@@ -41,7 +84,7 @@
 
     <div class="text-center">
         <button type="submit" class="btn-custom btn-inverse">Dar de Baja</button>
-    </div>
+    </div>*@
 
 }
 
