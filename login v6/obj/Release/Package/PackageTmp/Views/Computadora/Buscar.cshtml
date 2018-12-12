@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Negocio.DTO.DTO_u_computadora>
+@{
+    ViewBag.Title = "Buscar";
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Detalle de la Consulta") </li>
+</ol>
+
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:60px;">Nº PC</th>
+                <th style="width:200px;">NOMBRE PC</th>
+                <th style="width:150px;">Nº IP</th>
+                <th style="width:220px;">DESCRIPCION</th>
+                <th style="width:200px;">FECHA UBICACION</th>
+                @*<th style="width:200px;">id</th>*@
+
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+            <tr>
+                <th>@a.id_pc</th>
+                <th>@a.nombre</th>
+                <th>@a.ip</th>
+                <th>@a.descripcion</th>
+                <th>@a.fecha_ubicacion</th>
+                <th>
+                    <a class="glyphicon glyphicon-zoom-in" title="Detalle de la computadora" href="~/Computadora/Detalle/@a.id_detalle"></a>
+                </th>
+                <th>
+                    <a class="glyphicon glyphicon-retweet" title="Agregar Insumo" href="~/Insumo/AgregarInsumoPC/@a.id_detalle"></a>
+                </th>
+                <th>
+                    <a onclick="return confirm('¿Desea agregar incidente a esta computadora?');" class="glyphicon glyphicon-tag" title="Cargar incidente" href="~/Computadora/Incidente/@a.id_detalle"></a>
+                </th>
+                <th>
+                    <a onclick="return confirm('¿Desea mover de ubicación esta computadora?');" class="glyphicon glyphicon-random" title="Mover a otra ubicacion la PC" href="~/Computadora/BuscarParaMover/@a.id_detalle"></a>
+                </th>
+                <th>
+                    <a onclick="return confirm('¿Desea dar de BAJA esta computadora?');" class="glyphicon glyphicon-circle-arrow-down" title="Dar de baja a la PC" href="~/Computadora/Baja/@a.id_detalle"></a>
+                </th>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

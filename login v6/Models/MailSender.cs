@@ -19,7 +19,7 @@ namespace login_v6.Models
             mail.Subject = subject;
             mail.IsBodyHtml = true;
             mail.Body = htmlMessage;
-            SmtpServer.Port = 587;
+            SmtpServer.Port = 25;
             SmtpServer.UseDefaultCredentials = false;
             SmtpServer.Credentials = new System.Net.NetworkCredential("antivirushospi@gmail.com", "hospital2015");
             SmtpServer.EnableSsl = true;

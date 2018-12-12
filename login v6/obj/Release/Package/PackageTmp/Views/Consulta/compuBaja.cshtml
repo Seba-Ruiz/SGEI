@@ -1,0 +1,47 @@
+﻿@model List<Model.pc>
+
+<h4 class="page-title">Consulta!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Pcs De Baja") </li>
+</ol>
+@{
+    ViewBag.Title = "Buscar";
+}
+
+
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:200px;">NOMBRE PC</th>
+                <th style="width:150px;">ULTIMA IP</th>
+                <th style="width:220px;">DESCRIPCION</th>
+                <th style="width:200px;">FECHA BAJA</th>
+                @*<th style="width:200px;">id</th>*@
+
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <th>@a.nombre</th>
+                    <th>@a.ip</th>
+                    <th>@a.descripcion</th>
+                    <th>@a.fecha_baja</th>
+                    <th>
+                        <a onclick="return confirm('¿Desea dar de ALTA esta computadora?');" title="Dar de alta nuevamente" class="glyphicon glyphicon-upload" href="~/Consulta/AltaPc/@a.id_pc"></a>
+                    </th>
+                    
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

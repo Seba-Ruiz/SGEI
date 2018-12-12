@@ -1,0 +1,39 @@
+﻿@model Model.ubicacion_impresora
+@{
+    ViewBag.Title = "Alta";
+}
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/home">ALTA</a></li>
+    <li class="active">@(Model.id > 0 ? Model.descripcion : "Volver a dar de ALTA a impresora") </li>
+</ol>
+
+@using (Html.BeginForm("Alta_aceptada", "Home", FormMethod.Post, new { id = "frm-ubicacion" }))
+{
+
+    @Html.HiddenFor(x => x.descripcion)
+    @Html.HiddenFor(x => x.id)
+    @Html.HiddenFor(x => x.impresora_id)
+    <div class="panel panel-primary">
+        <div class="panel-heading text-center">Seleccione en que servicio se ubicará la impresora</div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.Label("Nombre de Ubicacion")
+                @Html.DropDownListFor(x => x.ubicacion_id, new SelectList(ViewBag.ubicaciones, "id", "nombreUbicacion"), new { @class = "form-control", @style = "width:200px;" })
+                @Html.ValidationMessageFor(x => x.ubicacion_id, null, new { @class = "label label-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Fecha de Ubicacion")
+                @Html.TextBoxFor(x => x.fecha_ubicacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
+                @Html.ValidationMessageFor(x => x.fecha_ubicacion, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-danger">Guardar</button>
+    </div>
+
+}
+

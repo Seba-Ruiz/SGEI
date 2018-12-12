@@ -1,0 +1,17 @@
+D:\SGEI\SGEI\Negocio\bin\Release\Negocio.dll.config
+D:\SGEI\SGEI\Negocio\bin\Release\Negocio.dll
+D:\SGEI\SGEI\Negocio\bin\Release\Negocio.pdb
+D:\SGEI\SGEI\Negocio\bin\Release\EntityFramework.dll
+D:\SGEI\SGEI\Negocio\bin\Release\EntityFramework.SqlServer.dll
+D:\SGEI\SGEI\Negocio\bin\Release\Model.dll
+D:\SGEI\SGEI\Negocio\bin\Release\Model.pdb
+D:\SGEI\SGEI\Negocio\bin\Release\Model.dll.config
+D:\SGEI\SGEI\Negocio\bin\Release\EntityFramework.xml
+D:\SGEI\SGEI\Negocio\bin\Release\EntityFramework.SqlServer.xml
+D:\SGEI\SGEI\Negocio\bin\Release\es\EntityFramework.resources.dll
+D:\SGEI\SGEI\Negocio\bin\Release\es\EntityFramework.SqlServer.resources.dll
+D:\SGEI\SGEI\Negocio\obj\Release\Negocio.csprojAssemblyReference.cache
+D:\SGEI\SGEI\Negocio\obj\Release\Negocio.csproj.CoreCompileInputs.cache
+D:\SGEI\SGEI\Negocio\obj\Release\Negocio.csproj.CopyComplete
+D:\SGEI\SGEI\Negocio\obj\Release\Negocio.dll
+D:\SGEI\SGEI\Negocio\obj\Release\Negocio.pdb

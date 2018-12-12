@@ -1,0 +1,53 @@
+﻿@model List<Model.marca_modelo_camara>
+@{
+    ViewBag.Title = "Marcas y modelos de Camaras";
+}
+<h4 class="page-title">Marcas y modelos de Camaras</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Modelos Camaras") </li>
+</ol>
+
+@using (Html.BeginForm("Crudmmaarcacam", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
+{
+    <div class="vakata-context-left">
+        <button type="submit" class="btn btn-inverse waves-effect waves-light">
+            <span class="btn btn-label">
+                <i class="md md-queue"></i>
+            </span>
+            Agregar
+        </button>
+    </div>
+
+}
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="card-box table-responsive">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">Descripcion</th>
+                    <th style="width:50px;">Cantidad</th>
+                    <th style="width:10px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <th>@a.marca_modelo</th>
+                        <th>
+                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/EditarmodeloCam/@a.id_mmarca"></a>
+
+                            <a onclick="return confirm('¿Desea eliminar el modelo?');" class="md md-clear" title="Eliminar" href="~/ABM/EliminarmodeloCam/@a.id_mmarca"></a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<div class="col-md-2"></div>
+
+

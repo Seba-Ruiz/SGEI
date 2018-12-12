@@ -1,0 +1,789 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
+    {
+        @Html.AntiForgeryToken()
+
+<ul class="navigation-menu">
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-cog"></i>Gestion</a>
+        <ul class="submenu">
+            <li class="has-submenu">
+                <a href="#">Impresoras</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="insumos" style="cursor: pointer;">Insumos</a>
+                    </li>
+                    <li>
+                        <a id="impresoras" style="cursor: pointer;">Modelos</a>
+                    </li>
+                    <li>
+                        <a id="ubicacion" style="cursor: pointer;">Ubicacion</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#">Computadoras</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="insumospc" style="cursor: pointer;">Insumos</a>
+                    </li>
+                    <li>
+                        <a id="rams" style="cursor: pointer;">Memorias</a>
+                    </li>
+                    <li>
+                        <a id="discos" style="cursor: pointer;">Discos</a>
+                    </li>
+                    <li>
+                        <a id="sos" style="cursor: pointer;">Sistemas Operativos</a>
+                    </li>
+                    <li>
+                        <a id="mothers" style="cursor: pointer;">Placas Madre</a>
+                    </li>
+                    <li>
+                        <a id="incidentespc" style="cursor: pointer;">Incidentes</a>
+                    </li>
+                    <li>
+                        <a id="tipospc" style="cursor: pointer;">Tipos</a>
+                    </li>
+                    <li>
+                        <a id="ubicacionespc" style="cursor: pointer;">Ubicaciones</a>
+                    </li>
+                    <li>
+                        <a id="motivospc" style="cursor: pointer;">Motivos de baja</a>
+                    </li>
+                    <li>
+                        <a id="procesadorespc" style="cursor: pointer;">Procesadores</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#">Telefonos</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="tipo_telefonos" style="cursor: pointer;">Tipo</a>
+                    </li>
+                    <li>
+                        <a id="ubicacionestel" style="cursor: pointer;">Ubicaciones</a>
+                    </li>
+                    <li>
+                        <a id="mmarcas" style="cursor: pointer;">Modelos</a>
+                    </li>
+                    <li>
+                        <a id="incidentestel" style="cursor: pointer;">Incidentes</a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li class="has-submenu">
+                <a href="#">Camaras</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="insumocam" style="cursor: pointer;">Insumos</a>
+                    </li>
+                    <li>
+                        <a id="modelocam" style="cursor: pointer;">Modelos</a>
+                    </li>
+                    <li>
+                        <a id="ubicam" style="cursor: pointer;">Ubicaciones</a>
+                    </li>
+                    <li>
+                        <a id="incidentecam" style="cursor: pointer;">Incidentes</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Swichts</a>
+                <ul class="submenu">
+
+                    <li>
+                        <a id="modelosw" style="cursor: pointer;">Modelos</a>
+                    </li>
+                    <li>
+                        <a id="ubicacionsw" style="cursor: pointer;">Ubicaciones</a>
+                    </li>
+                    <li>
+                        <a id="incidentesw" style="cursor: pointer;">Incidentes</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Escaners</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="modeloes" style="cursor: pointer;">Modelos</a>
+                    </li>
+                    <li>
+                        <a id="ubicaciones" style="cursor: pointer;">Ubicaciones</a>
+                    </li>
+                    <li>
+                        <a id="incidenteses" style="cursor: pointer;">Incidentes</a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </li>
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-plus"></i>Altas</a>
+        <ul class="submenu">
+            <li><a id="altaimpresora" style="cursor: pointer;">Impresora</a></li>
+            <li><a id="altacompu" style="cursor: pointer;">Computadora</a></li>
+            <li><a id="altatel" style="cursor: pointer;">Telefono</a></li>
+            <li><a id="altacam" style="cursor: pointer;">Camara</a></li>
+            <li><a id="altasw" style="cursor: pointer;">Switch</a></li>
+            <li><a id="altaes" style="cursor: pointer;">Escaner</a></li>
+        </ul>
+    </li>
+
+    <li class="has-submenu">
+        <a href="#"><i class="fa fa-wpforms"></i>Consultas</a>
+        <ul class="submenu">
+
+            <li class="has-submenu">
+                <a href="#">Impresoras</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="impresora" style="cursor: pointer;">Informes</a>
+                    </li>
+                    <li>
+                        <a id="impbaja" style="cursor: pointer;">Bajas</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#">Computadoras</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="computadoras" style="cursor: pointer;">Informes</a>
+                    </li>
+                    <li>
+                        <a id="compubaja" style="cursor: pointer;">Bajas</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#">Telefonos</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="telefonos" style="cursor: pointer;">Informes</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Camaras</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="camaras" style="cursor: pointer;">Informes</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Switchs</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="switchs" style="cursor: pointer;">Informes</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Escaners</a>
+                <ul class="submenu">
+                    <li>
+                        <a id="escaner" style="cursor: pointer;">Informes</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-user"></i>Usuarios</a>
+        <ul class="submenu">
+            <li><a id="usuario" style="cursor: pointer;">Gestionar</a></li>
+            <li><a id="rol" style="cursor: pointer;">Roles</a></li>
+
+        </ul>
+    </li>
+
+    <li class="has-submenu">
+        <a href="#"><i class="fa fa-tasks"></i>Ingresos</a>
+        <ul class="submenu">
+
+            <li class="has-submenu">
+                <a href="#">Impresora</a>
+                <ul class="submenu">
+                    <li><a id="ingreso" style="cursor: pointer;">Insumos</a></li>
+                    <li><a id="veringreso" style="cursor: pointer;">Ver Ingresos</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Computadora</a>
+                <ul class="submenu">
+                    <li><a id="ingresoPC" style="cursor: pointer;">Insumos</a></li>
+                    <li><a id="veringresoPC" style="cursor: pointer;">Ver Ingresos</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Camara</a>
+                <ul class="submenu">
+                    <li><a id="ingresoCam" style="cursor: pointer;">Insumos</a></li>
+                    <li><a id="veringresoCam" style="cursor: pointer;">Ver Ingresos</a></li>
+                </ul>
+            </li>
+            <li><a id="proveedores" style="cursor: pointer;">Proveedores</a></li>
+
+
+        </ul>
+    </li>
+
+    <li class="has-submenu">
+        <a href="#"><i class="fa fa-search"></i>Buscar</a>
+        <ul class="submenu">
+            <li class="has-submenu">
+                <a href="#">Computadora</a>
+                <ul class="submenu">
+                    <li><a id="buscar_compu" style="cursor: pointer;" title="Buscar computadora por número">Por número</a></li>
+                    <li><a id="buscar_compu_ip" style="cursor: pointer;" title="Buscar computadora por IP">Por IP</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Insumo</a>
+                <ul class="submenu">
+                    <li><a id="buscar_insumo" style="cursor: pointer;" title="Buscar insumo por número de serie">Por número</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+    </li>
+
+
+</ul>
+
+    }
+}
+else
+{
+    @*<ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        </ul>*@
+}
+
+
+
+<div id="spiner" class="modal fade bs-example-modal-sm in" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm" style="margin-top:200px">
+        <div>
+            <div>
+                <h4 style="text-align:center;color:black;font-weight:bolder;font-size:25px">Espere...</h4>
+            </div>
+            <div class="modal-body text-center">
+
+                <span class="fa fa-spin fa-spinner fa-5x"></span>
+            </div>
+            @*<div class="progress">
+            <div class="progress-bar progress-bar-primary progress-bar-striped progress-animated wow animated" role="progressbar" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+        </div>*@
+        </div>
+    </div>
+</div>
+
+
+<script src="~/assets/js/spiner.js"></script>
+<script>
+    $("#buscar_compu").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Buscar_PC","Buscar")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+    $("#buscar_compu_ip").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Buscar_PC_IP","Buscar")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+    $("#buscar_insumo").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Buscar_Insu","Buscar")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+    $("#rol").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Index","Role")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+    $("#usuario").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Index","Usuario")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+      $("#escaner").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("escaners","Consulta")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#switchs").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("switchs","Consulta")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+     $("#camaras").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("camara","Consulta")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#telefonos").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("telefonos","Consulta")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#computadoras").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("computadoras","Consulta")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#compubaja").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("compuBaja","Consulta")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#impbaja").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("impresoras_baja","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+     $("#impresora").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Index","Consulta")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+ 
+    $("#altaes").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("AltaES","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altasw").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("AltaSW","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altacam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Altacam","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altatel").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Altatel","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altacompu").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("AltaCompu","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altaimpresora").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Crud","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+     $("#incidenteses").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("IncidenteES","ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#ubicaciones").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("UbicacionES","ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#modeloes").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("modeloES","ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#incidentesw").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("incidenteSW","ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+     $("#ubicacionsw").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("ubicacionSW","ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#modelosw").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("modelosw","ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#incidentecam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("incidentecam", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#ubicam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("ubicam", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+
+    $("#modelocam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("modelocam", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#insumocam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("insumoscam", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#incidentestel").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("incidentestel", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#mmarcas").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("mmarcas", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#ubicacionestel").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("ubicacionestel", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#tipo_telefonos").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("tipo_telefonos", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#insumospc").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("insumospc", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#procesadorespc").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("procesadorespc", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#motivospc").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("motivospc", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#ubicacionespc").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("ubicacionespc", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+    $("#tipospc").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("tipospc", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#incidentespc").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("incidentespc", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#mothers").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("mothers", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#sos").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("sos", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#discos").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("discos", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#rams").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("rams", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#ubicacion").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("ubicacion", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#impresoras").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("impresoras", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#insumos").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("insumos", "ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#ingreso").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Index", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#veringreso").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("VerIngresoImpresora", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#proveedores").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("proveedores","ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#ingresoPC").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("IndexCompu", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#veringresoPC").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("VerIngresoPC", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#ingresoCam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("IndexCam", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#veringresoCam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("VerIngresoCam", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+
+
+
+
+
+
+</script>
+
+
+
+<script>
+    //SPINER CON AYAX
+    $("#btnSubmit").click(function () {
+        $("#divLoader").show();
+        $.ajax({
+            url: '/Test/Submit',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: {},
+            //async: true,
+            //processData: false,
+            // cache: false,
+            success: function (data) {
+                $("#divLoader").hide();
+                alert(data);
+            },
+            error: function (xhr) {
+                $("#divLoader").hide();
+                alert('error');
+            }
+        })
+    });
+</script>
+
+
+
+

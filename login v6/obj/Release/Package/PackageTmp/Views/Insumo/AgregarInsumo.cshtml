@@ -1,0 +1,68 @@
+﻿@model Model.detalle_insumo_impresora
+@{
+    ViewBag.Title = "AgregarInsumo";
+    Model.ubicacion_impresora_id = ViewBag.id_ubicacion_impresora;
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Cargar Insumo a Impresora") </li>
+</ol>
+
+@using (Html.BeginForm("Guardar_detalle_insumo_impresora", "Insumo", FormMethod.Post))
+{
+    @*@Html.HiddenFor(x => x.id)*@
+    @Html.HiddenFor(x => x.ubicacion_impresora_id)
+
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="panel panel-purple panel-border">
+                <div class="panel-heading">
+                    <h4 class="panel-title">AGREGAR INSUMO</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                            <p class="text-muted m-b-30 font-13">
+                                Seleccione el insumo perteneciente a la impresora y la fecha de colocación del mismo.
+                            </p>
+                            <div class="form-group">
+                                @Html.Label("Seleccione insumo")
+                                @Html.DropDownListFor(x => x.insumo_id, new SelectList(ViewBag.insumos, "id", "nombre"), new { @class = "form-control", @style = "width:200px;" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Fecha cambio de insumo")
+                                @Html.TextBoxFor(x => x.fechacambioinsumo, new { @class = "form-control", type = "date", @style = "width:200px;" })
+                                @Html.ValidationMessageFor(x => x.fechacambioinsumo, null, new { @class = "label label-danger" })
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                @foreach (var item in ViewBag.insu)
+                {
+                    if (item.cantidad == 0)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <strong>ATENCION</strong> Sin stock disponible para toner del tipo @item.nombre
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+
+}
+
+

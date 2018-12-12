@@ -1,0 +1,79 @@
+﻿@model Model.impresora
+
+@{
+    ViewBag.Title = Model.id + " " + Model.marca_modelo;
+}
+
+<h2>Impresora</h2>
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@(Model.id + " - " + Model.marca_modelo)</li>
+</ol>
+
+<div class="panel panel-primary">
+    <div class="panel-heading text-center">Informacion de la impresora</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>Marca y modelo</dt>
+            <dd>@Model.marca_modelo</dd>
+            <dt>Tipo</dt>
+            <dd>@Model.tipo</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading text-center">Informacion de la Ubicacion</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ubicacion</th>
+                <th>Responsable</th>
+                <th>Fecha</th>
+                <th>Descripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model.ubicacion_impresora)
+            {
+                <tr>
+                    <td>@a.ubicacion.nombreUbicacion</td>
+                    <td>@a.ubicacion.responsable</td>
+                    <td>@a.fecha_ubicacion</td>
+                    <td>@a.descripcion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading text-center">Detalle Impresora</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numero de IP</th>
+                <th>Pc Conectada</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model.detalle_impresora)
+            {
+                <tr>
+                    <td>@a.ip</td>
+                    <td>@a.pc_dondeseconecta</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<a class ="btn btn-xl btn-primary btn-danger" href="~/home/Crud/@Model.id">Editar la impresora seleccionada</a>
+<div >
+    <br />
+    <br />
+    By Seba Ruiz
+    <br />
+</div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Negocio.DTO.DTO_u_impresora_01>
+@{
+    ViewBag.Title = "Buscar";
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Detalle de la Consulta") </li>
+</ol>
+
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:50px;">Nº IMP</th>
+                <th style="width:180px;">MARCA_MODELO</th>
+                <th style="width:50px;">TIPO</th>
+                <th style="width:200px;">DESCRIPCION</th>
+                <th style="width:180px;">FECHA UBICACION</th>
+                <th style="width:180px;">RESPONSABLE</th>
+                <th style="width:180px;">Nº IP</th>
+                <th style="width:180px;">PC_CONECTADA</th>
+                @*<th style="width:200px;">id</th>*@
+
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+            <tr>
+                <th>@a.id_imp</th>
+                <th>@a.marca_modelo</th>
+                <th>@a.tipo</th>
+                <th>@a.descripcion</th>
+                <th>@a.fecha_ubicacion</th>
+                <th>@a.responsable</th>
+                <th>@a.ip</th>
+                <th>@a.pc_dondeseconecta</th>
+
+                <th>
+                    <a class="glyphicon glyphicon-retweet" title="Cargar insumo" href="~/Insumo/AgregarInsumo/@a.id"></a>
+                </th>
+                <th>
+                    <a onclick="return confirm('¿Desea agregar incidente a esta impresora?');" class="glyphicon glyphicon-tag" title="Cargar incidente" href="~/Incidente/Index/@a.id"></a>
+
+                </th>
+                <th>
+                    <a onclick="return confirm('¿Desea mover de ubicacion esta impresora?');" class="glyphicon glyphicon-random" title="Mover a otra ubicacion la impresora" href="~/Home/BuscarParaMover/@a.id"></a>
+                </th>
+                <th>
+                    <a onclick="return confirm('¿Desea dar de BAJA esta impresora?');" class="glyphicon glyphicon-circle-arrow-down" title="Dar de baja a la impresora" href="~/Home/Baja/@a.id"></a>
+                </th>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+    </div>

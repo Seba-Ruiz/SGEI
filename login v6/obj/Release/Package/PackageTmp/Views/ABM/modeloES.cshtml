@@ -1,0 +1,48 @@
+﻿@model List<Model.marca_modelo_escaner>
+@{
+    ViewBag.Title = "Modelo Escaner";
+}
+<h4 class="page-title">Modelo Escaner</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Modelo Escaner") </li>
+</ol>
+@using (Html.BeginForm("CrudmodeloES", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
+{
+    <div class="vakata-context-left">
+        <button type="submit" class="btn btn-inverse waves-effect waves-light">
+            <span class="btn btn-label">
+                <i class="md md-queue"></i>
+            </span>
+            Agregar
+        </button>
+    </div>
+
+}
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="card-box table-responsive">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">Nombre Modelo</th>
+                    <th style="width:10px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <th>@a.descripcion</th>
+                        <th>
+                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/EditarmodeloES/@a.id_marca_modelo_escaner"></a>
+                            <a onclick="return confirm('¿Desea eliminar el modelo?');" class="md md-clear" title="Eliminar" href="~/ABM/EliminarmodeloES/@a.id_marca_modelo_escaner"></a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-2"></div>
+

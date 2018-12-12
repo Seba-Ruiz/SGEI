@@ -12,20 +12,6 @@ D:\PROYECTO SICIT\login v6\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
 D:\PROYECTO SICIT\login v6\Model\obj\Debug\Model.csproj.CopyComplete
 D:\PROYECTO SICIT\login v6\Model\obj\Debug\Model.dll
 D:\PROYECTO SICIT\login v6\Model\obj\Debug\Model.pdb
-D:\SGEI\SGEI\Model\bin\Debug\Model.dll.config
-D:\SGEI\SGEI\Model\bin\Debug\Model.dll
-D:\SGEI\SGEI\Model\bin\Debug\Model.pdb
-D:\SGEI\SGEI\Model\bin\Debug\EntityFramework.dll
-D:\SGEI\SGEI\Model\bin\Debug\EntityFramework.SqlServer.dll
-D:\SGEI\SGEI\Model\bin\Debug\EntityFramework.xml
-D:\SGEI\SGEI\Model\bin\Debug\EntityFramework.SqlServer.xml
-D:\SGEI\SGEI\Model\bin\Debug\es\EntityFramework.resources.dll
-D:\SGEI\SGEI\Model\bin\Debug\es\EntityFramework.SqlServer.resources.dll
-D:\SGEI\SGEI\Model\obj\Debug\Model.csprojAssemblyReference.cache
-D:\SGEI\SGEI\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
-D:\SGEI\SGEI\Model\obj\Debug\Model.csproj.CopyComplete
-D:\SGEI\SGEI\Model\obj\Debug\Model.dll
-D:\SGEI\SGEI\Model\obj\Debug\Model.pdb
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\bin\Debug\Model.dll.config
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\bin\Debug\Model.dll
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Model\bin\Debug\Model.pdb
@@ -53,3 +39,16 @@ C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\obj\Debug\Model.csproj.CoreCompil
 C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\obj\Debug\Model.csproj.CopyComplete
 C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\obj\Debug\Model.dll
 C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Model\obj\Debug\Model.pdb
+D:\SGEI\SGEI\Model\bin\Debug\Model.dll.config
+D:\SGEI\SGEI\Model\bin\Debug\Model.dll
+D:\SGEI\SGEI\Model\bin\Debug\Model.pdb
+D:\SGEI\SGEI\Model\bin\Debug\EntityFramework.dll
+D:\SGEI\SGEI\Model\bin\Debug\EntityFramework.SqlServer.dll
+D:\SGEI\SGEI\Model\bin\Debug\EntityFramework.xml
+D:\SGEI\SGEI\Model\bin\Debug\EntityFramework.SqlServer.xml
+D:\SGEI\SGEI\Model\bin\Debug\es\EntityFramework.resources.dll
+D:\SGEI\SGEI\Model\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+D:\SGEI\SGEI\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+D:\SGEI\SGEI\Model\obj\Debug\Model.csproj.CopyComplete
+D:\SGEI\SGEI\Model\obj\Debug\Model.dll
+D:\SGEI\SGEI\Model\obj\Debug\Model.pdb

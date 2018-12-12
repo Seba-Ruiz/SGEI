@@ -1,0 +1,49 @@
+﻿@model Model.baja
+@{
+    ViewBag.Title = "Baja";
+    Model.ubicacion_impresora_id = ViewBag.ubicacion;
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Baja de impresora") </li>
+</ol>
+
+@using (Html.BeginForm("Baja_aceptada", "Home", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.ubicacion_impresora_id)
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-20 header-title"><b>BAJA</b></h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><b>Dar de baja a impresora del sistema</b></h5>
+                    <p class="text-muted m-b-30 font-13">
+                        Rellene los campos que siguen para especificar el motivo de la baja
+                    </p>
+                    <div class="form-group">
+                        @Html.Label("Ingrese la ultima ubicacion de la impresora")
+                        @Html.TextBoxFor(x => x.ultima_ubicacion, new { @class = "form-control", @style = "width:200px;", @required = "required" })
+                        @Html.ValidationMessageFor(x => x.ultima_ubicacion, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Ingrese el motivo de la baja")
+                        @Html.TextBoxFor(x => x.motivo_baja, new { @class = "form-control", @style = "width:500px;", @required = "required" })
+                        @Html.ValidationMessageFor(x => x.motivo_baja, null, new { @class = "label label-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="text-center">
+                <button type="submit" class="btn-custom btn-inverse">Dar de Baja</button>
+            </div>
+
+            }
+

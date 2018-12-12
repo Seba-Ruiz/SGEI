@@ -1,0 +1,52 @@
+﻿@model List<Model.ramPC>
+@{
+    ViewBag.Title = "Memorias";
+}
+<h4 class="page-title">Memorias!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Memoria RAM") </li>
+</ol>
+
+@using (Html.BeginForm("CrudRam", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
+{
+    <div class="vakata-context-left">
+        <button type="submit" class="btn btn-inverse waves-effect waves-light">
+            <span class="btn btn-label">
+                <i class="md md-queue"></i>
+            </span>
+            Agregar
+        </button>
+    </div>
+
+}
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="card-box table-responsive">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">Descripcion</th>
+                    <th style="width:10px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <th>@a.descripcion</th>
+                        <th>
+                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/EditarRam/@a.id_ram"></a>
+
+                            <a onclick="return confirm('¿Desea eliminar el Insumo?');" class="md md-clear" title="Eliminar" href="~/ABM/EliminarRAM/@a.id_ram"></a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    </div>
+<div class="col-md-2"></div>
+
+

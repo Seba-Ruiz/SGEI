@@ -1,0 +1,210 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
+    {
+        @Html.AntiForgeryToken()
+
+<ul class="navigation-menu">
+
+    <li class="has-submenu">
+        <a href="#"><i class="glyphicon glyphicon-plus"></i>Altas</a>
+        <ul class="submenu">
+            <li><a id="altaimpresora" style="cursor: pointer;">Impresora</a></li>
+            <li><a id="altacompu" style="cursor: pointer;">Computadora</a></li>
+            <li><a id="altatel" style="cursor: pointer;">Telefono</a></li>
+            <li><a id="altacam" style="cursor: pointer;">Camara</a></li>
+            <li><a id="altasw" style="cursor: pointer;">Switch</a></li>
+            <li><a id="altaes" style="cursor: pointer;">Escaner</a></li>
+        </ul>
+    </li>
+    <li class="has-submenu">
+        <a href="#"><i class="fa fa-tasks"></i>Ingresos</a>
+        <ul class="submenu">
+
+            <li class="has-submenu">
+                <a href="#">Impresora</a>
+                <ul class="submenu">
+                    <li><a id="ingreso" style="cursor: pointer;">Insumos</a></li>
+                    <li><a id="veringreso" style="cursor: pointer;">Ver Ingresos</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Computadora</a>
+                <ul class="submenu">
+                    <li><a id="ingresoPC" style="cursor: pointer;">Insumos</a></li>
+                    <li><a id="veringresoPC" style="cursor: pointer;">Ver Ingresos</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Camara</a>
+                <ul class="submenu">
+                    <li><a id="ingresoCam" style="cursor: pointer;">Insumos</a></li>
+                    <li><a id="veringresoCam" style="cursor: pointer;">Ver Ingresos</a></li>
+                </ul>
+            </li>
+            <li><a id="proveedores" style="cursor: pointer;">Proveedores</a></li>
+
+
+        </ul>
+    </li>
+    <li class="has-submenu">
+        <a href="#"><i class="fa fa-search"></i>Buscar</a>
+        <ul class="submenu">
+            <li class="has-submenu">
+                <a href="#">Computadora</a>
+                <ul class="submenu">
+                    <li><a id="buscar_compu" style="cursor: pointer;" title="Buscar computadora por número">Por número</a></li>
+                    <li><a id="buscar_compu_ip" style="cursor: pointer;" title="Buscar computadora por IP">Por IP</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">Insumo</a>
+                <ul class="submenu">
+                    <li><a id="buscar_insumo" style="cursor: pointer;" title="Buscar insumo">Por número</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+    }
+}
+else
+{
+   
+}
+        <script src="~/assets/js/spiner.js"></script>
+<script>
+    $("#ingreso").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Index", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#veringreso").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("VerIngresoImpresora", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#proveedores").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("proveedores","ABM")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#ingresoPC").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("IndexCompu", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#veringresoPC").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("VerIngresoPC", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#ingresoCam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("IndexCam", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#veringresoCam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("VerIngresoCam", "Ingresos")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#buscar_compu").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Buscar_PC","Buscar")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+    $("#buscar_compu_ip").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Buscar_PC_IP","Buscar")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+    $("#buscar_insumo").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Buscar_Insu","Buscar")";
+            $('#spiner').modal('hide');
+        }, 2000);
+    });
+
+    $("#altaes").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("AltaES","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altasw").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("AltaSW","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altacam").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Altacam","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altatel").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Altatel","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altacompu").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("AltaCompu","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#altaimpresora").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Crud","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
+</script>

@@ -264,7 +264,8 @@ namespace Negocio.Servicio
                              c.ubicacion_id == ubicacion &&
                              c.impresora_id == a.id &&
                              c.ubicacion_id == b.id &&
-                             c.id == d.ubicacion_impresora_id
+                             c.id == d.ubicacion_impresora_id &&
+                             c.fecha_baja == null
 
                              select new
                              {

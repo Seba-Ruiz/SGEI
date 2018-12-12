@@ -1,0 +1,45 @@
+﻿@model Model.pc_ubicacionpc
+@{
+    ViewBag.Title = "Alta PC";
+}
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/index">ALTA </a></li>
+    <li class="active">@("Volver a dar de ALTA la computadora") </li>
+</ol>
+
+@using (Html.BeginForm("Alta_aceptada_pc", "Consulta", FormMethod.Post))
+{
+
+    @Html.HiddenFor(x => x.id_upc)
+    @Html.HiddenFor(x => x.pc_id)
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>NUEVA UBICACIÓN DE PC</b></h4>
+            <p class="text-muted m-b-30 font-13">
+                Seleccione la nueva ubicación de la computadora.
+            </p>
+            <div class="form-group">
+                @Html.Label("Nombre de ubicación")
+                @Html.DropDownListFor(x => x.ubicacionpc_id, new SelectList(ViewBag.ubicaciones, "id_ubicacion", "nombre"), new { @class = "form-control", @style = "width:200px;" })
+                @Html.ValidationMessageFor(x => x.ubicacionpc_id, null, new { @class = "label label-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Fecha de ubicación")
+                @Html.TextBoxFor(x => x.fecha_ubicacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
+                @Html.ValidationMessageFor(x => x.fecha_ubicacion, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-danger">Guardar</button>
+    </div>
+
+    }
+

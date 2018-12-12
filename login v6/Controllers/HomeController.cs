@@ -12,7 +12,7 @@ using System.Web.Security;
 
 namespace SGEI.Controllers
 {
-    
+    [Authorize]
     public class HomeController : Controller
     {
         public insumo_dominio insu = new insumo_dominio();
