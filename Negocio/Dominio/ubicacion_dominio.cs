@@ -31,7 +31,7 @@ namespace Negocio.Dominio
         }
 
 
-        public ubicacion Obtener(int id)
+        public ubicacion Obtener(int? id)
         {
             var ubicaciones = new ubicacion();
             try

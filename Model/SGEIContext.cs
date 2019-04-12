@@ -48,6 +48,7 @@ namespace Model
         public virtual DbSet<insumo_camara> insumo_camara { get; set; }
         public virtual DbSet<insumo_pc> insumo_pc { get; set; }
         public virtual DbSet<mantenimiento> mantenimiento { get; set; }
+        public virtual DbSet<mantenimiento_impre> mantenimiento_impre { get; set; }
         public virtual DbSet<marca_modelo_camara> marca_modelo_camara { get; set; }
         public virtual DbSet<marca_modelo_cel> marca_modelo_cel { get; set; }
         public virtual DbSet<marca_modelo_escaner> marca_modelo_escaner { get; set; }
@@ -401,6 +402,11 @@ namespace Model
                 .WithOptional(e => e.ubicacion_impresora)
                 .HasForeignKey(e => e.ubicacion_impresora_id)
                 .WillCascadeOnDelete();
+
+            modelBuilder.Entity<ubicacion_impresora>()
+                .HasMany(e => e.mantenimiento_impre)
+                .WithOptional(e => e.ubicacion_impresora)
+                .HasForeignKey(e => e.id_impresora);
 
             modelBuilder.Entity<ubicacion_switch>()
                 .HasMany(e => e.switch_ubicacion_switch)

@@ -407,6 +407,30 @@ namespace SGEI.Controllers
 
                 audit_dom.Guardar(audit);
                 //---//
+
+                //MANTENIMIENTO INICIAL
+                mantenimiento_impre mante = new mantenimiento_impre();
+                mantenimiento_dominio mante_dom = new mantenimiento_dominio();
+
+                mante.fecha_mantenimiento = DateTime.Now;
+                mante.descripcion = "Inicial";
+
+
+                ubicacion_dominio u = new ubicacion_dominio();
+                var nombre_ubi = u.Obtener(dto.ubicacion);
+                if (nombre_ubi.nombreUbicacion == "ADMISION" || nombre_ubi.nombreUbicacion == "GUARDIA")
+                {
+                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(4);
+                }
+                else
+                {
+                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(6);
+                }
+
+                mante.id_impresora = id;
+
+
+                mante_dom.Guardari(mante);
                 return RedirectToAction("AltaExitosaImp");
             }
             else
@@ -511,7 +535,19 @@ namespace SGEI.Controllers
 
                 mante.fecha_mantenimiento = DateTime.Now;
                 mante.descripcion = "Inicial";
-                mante.proximo_mantenimiento = DateTime.Now.AddDays(180);
+
+                
+                ubicacionpc_dominio u = new ubicacionpc_dominio();
+                var nombre_ubi = u.Obtener(ubicacion);
+                if (nombre_ubi.nombre == "ADMISION" || nombre_ubi.nombre=="GUARDIA")
+                {
+                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(6);
+                }
+                else
+                {
+                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(8);
+                }
+                
                 mante.pc_id = id_compu;
 
 

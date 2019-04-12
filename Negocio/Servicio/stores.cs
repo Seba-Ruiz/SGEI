@@ -1597,6 +1597,29 @@ namespace Negocio.Servicio
 
                                }).ToList();
 
+                var imp_a_mante = (from a in ctx.ubicacion_impresora
+                                  from b in ctx.impresora
+                                  from c in ctx.ubicacion
+                                  from d in ctx.mantenimiento_impre
+
+                                  where
+
+                                  a.impresora_id == b.id &&
+                                  a.ubicacion_id == c.id &&
+                                  a.id == d.id_impresora &&
+                                  d.proximo_mantenimiento <= DateTime.Now &&
+                                  a.fecha_baja == null
+
+                                  select new
+                                  {
+                                      nombre = b.marca_modelo,
+                                      ult_mante = d.fecha_mantenimiento,
+                                      ubica = c.nombreUbicacion,
+                                      descripcion = a.descripcion
+
+
+                                  }).ToList();
+
 
                 foreach (var item in pc_a_mante)
                 {
@@ -1607,6 +1630,19 @@ namespace Negocio.Servicio
                     dto.ubicacion = item.ubica;
                     dto.descripcion = item.descripcion;
                     dto.tipo = "PC";
+
+                    dto_mantenimiento.Add(dto);
+
+                }
+                foreach (var item in imp_a_mante)
+                {
+                    var dto = new DTO_mantenimiento();
+
+                    dto.nombre = item.nombre;
+                    dto.ultimo_mantenimiento = item.ult_mante;
+                    dto.ubicacion = item.ubica;
+                    dto.descripcion = item.descripcion;
+                    dto.tipo = "IMPRESORA";
 
                     dto_mantenimiento.Add(dto);
 

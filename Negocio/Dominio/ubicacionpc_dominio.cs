@@ -49,7 +49,7 @@ namespace Negocio.Dominio
             return ubi;
         }
 
-        public ubicacionPC Obtener(int id)
+        public ubicacionPC Obtener(int? id)
         {
             var ubi = new ubicacionPC();
             try

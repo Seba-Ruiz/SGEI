@@ -124,18 +124,34 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td><img src="~/assets/images/products/macbook.jpg" class="thumb-sm pull-left m-r-10" alt=""> @item.nombre </td>
-                            <td><span class="text-danger">@item.ultimo_mantenimiento</span></td>
-                            <td><span class="text-success">@item.ubicacion</span></td>
-                            <td><span class="text-success">@item.descripcion</span></td>
-                            <td>
-                                <a href="#" title="Realizar Mantenimiento" class="table-action-btn"><i class="md md-done"></i></a>
-                                <a href="#" title="Posponer Mantenimiento" class="table-action-btn"><i class="md md-exit-to-app"></i></a>
-                            </td>
-                        </tr>
+                            if (item.tipo == "PC")
+                            {
+                                <tr>
+                                    <td><img src="~/assets/images/products/macbook.jpg" class="thumb-sm pull-left m-r-10" alt=""> @item.nombre </td>
+                                    <td><span class="text-danger">@item.ultimo_mantenimiento</span></td>
+                                    <td><span class="text-success">@item.ubicacion</span></td>
+                                    <td><span class="text-success">@item.descripcion</span></td>
+                                    <td>
+                                        <a href="#" title="Realizar Mantenimiento" class="table-action-btn"><i class="md md-done"></i></a>
+                                        <a href="#" title="Posponer Mantenimiento" class="table-action-btn"><i class="md md-exit-to-app"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td><img src="~/assets/images/products/hp.jpg" class="thumb-sm pull-left m-r-10" alt=""> @item.nombre </td>
+                                    <td><span class="text-danger">@item.ultimo_mantenimiento</span></td>
+                                    <td><span class="text-success">@item.ubicacion</span></td>
+                                    <td><span class="text-success">@item.descripcion</span></td>
+                                    <td>
+                                        <a href="#" title="Realizar Mantenimiento" class="table-action-btn"><i class="md md-done"></i></a>
+                                        <a href="#" title="Posponer Mantenimiento" class="table-action-btn"><i class="md md-exit-to-app"></i></a>
+                                    </td>
+                                </tr>
+                            }
                         }
-                        
+
 
 
 

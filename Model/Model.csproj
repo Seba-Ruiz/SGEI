@@ -85,6 +85,7 @@
     <Compile Include="insumo_camara.cs" />
     <Compile Include="insumo_pc.cs" />
     <Compile Include="mantenimiento.cs" />
+    <Compile Include="mantenimiento_impre.cs" />
     <Compile Include="marca_modelo_camara.cs" />
     <Compile Include="marca_modelo_cel.cs" />
     <Compile Include="marca_modelo_escaner.cs" />

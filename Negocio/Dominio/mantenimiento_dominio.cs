@@ -33,5 +33,30 @@ namespace Negocio.Dominio
             }
         }
 
+
+
+        public void Guardari(mantenimiento_impre a)
+        {
+            try
+            {
+                using (var ctx = new SGEIContext())
+                {
+                    if (a.id_mante > 0) //Registro que ya existe
+                    {
+                        ctx.Entry(a).State = EntityState.Modified;
+                    }
+                    else // Registro que es nuevo
+                    {
+                        ctx.Entry(a).State = EntityState.Added;
+                    }
+                    ctx.SaveChanges();
+                }
+            }
+            catch (Exception E)
+            {
+                throw;
+            }
+        }
+
     }
 }
