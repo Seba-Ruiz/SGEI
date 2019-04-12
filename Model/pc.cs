@@ -13,6 +13,7 @@ namespace Model
         public pc()
         {
             detallePC = new HashSet<detallePC>();
+            mantenimiento = new HashSet<mantenimiento>();
             pc_incidentepc = new HashSet<pc_incidentepc>();
             pc_ubicacionpc = new HashSet<pc_ubicacionpc>();
         }
@@ -36,6 +37,9 @@ namespace Model
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detallePC> detallePC { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mantenimiento> mantenimiento { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pc_incidentepc> pc_incidentepc { get; set; }

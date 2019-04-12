@@ -76,6 +76,7 @@
     <Compile Include="Dominio\insumo_cam_dominio.cs" />
     <Compile Include="Dominio\insumo_dominio.cs" />
     <Compile Include="Dominio\insumo_pc_dominio.cs" />
+    <Compile Include="Dominio\mantenimiento_dominio.cs" />
     <Compile Include="Dominio\mmarca_camara_dominio.cs" />
     <Compile Include="Dominio\mmarca_dominio.cs" />
     <Compile Include="Dominio\mmarca_escaner_dominio.cs" />
@@ -113,6 +114,9 @@
     <Compile Include="Dominio\usuario_rol_dominio.cs" />
     <Compile Include="Dominio\u_impresora_dominio.cs" />
     <Compile Include="DTO\DTO_buscar_insumo_serie.cs" />
+    <Compile Include="DTO\DTO_Impresora_Editar.cs" />
+    <Compile Include="DTO\DTO_Impresora.cs" />
+    <Compile Include="DTO\DTO_mantenimiento.cs" />
     <Compile Include="DTO\DTO_buscar_pc.cs" />
     <Compile Include="DTO\DTO_camara.cs" />
     <Compile Include="DTO\DTO_consultacam_01a.cs" />

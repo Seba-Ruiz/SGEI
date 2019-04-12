@@ -15,7 +15,6 @@ namespace Model
 
         public int? insumo_id { get; set; }
 
-        [Column(TypeName = "date")]
         public DateTime? fecha_insumo { get; set; }
 
         [StringLength(50)]

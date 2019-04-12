@@ -353,10 +353,27 @@ namespace login_v6.Controllers
             servicios serv = new servicios();
             var pcsdebaja = serv.computadoras_de_baja();
 
-
-
             return View(pcsdebaja);
+
         }
+
+
+        public PartialViewResult VerMotivo(int id)
+        {
+            bajapc_dominio baja = new bajapc_dominio();
+
+            var baja_pc = baja.ObtenerByIdDetalle(id);
+
+            motivobajapc_dominio motivo = new motivobajapc_dominio();
+
+            var moti = motivo.Obtener(Convert.ToInt32(baja_pc.motivobaja_id));
+
+
+            return PartialView("_VerMotivo", moti);
+        }
+
+
+
 
         public ActionResult AltaPc(int id)
         {
@@ -383,7 +400,6 @@ namespace login_v6.Controllers
 
             pc.Guardar(compu);   //Guardo el cambio de la fecha
 
-
             return View();
         }
 
@@ -404,8 +420,6 @@ namespace login_v6.Controllers
             
                 var ubica = store.u_telefono_01(ubicaciontel);
                 return View(ubica);
-            
-
         }
 
         public ActionResult ConsultarRangoFechaTelIncidente(int id)

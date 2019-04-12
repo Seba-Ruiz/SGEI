@@ -27,7 +27,23 @@ namespace Negocio.Dominio
             }
             return detalles;
         }
+        public int ObtenerUltimo()
+        {
+            var imp = new ubicacion_impresora();
+            try
+            {
+                using (var ctx = new SGEIContext())
 
+                    imp = ctx.ubicacion_impresora.OrderByDescending(x => x.id)
+                                                .FirstOrDefault();
+
+            }
+            catch (Exception E)
+            {
+                throw;
+            }
+            return imp.id;
+        }
         public void Guardar(ubicacion_impresora ubi_det)
         {
             try
@@ -49,6 +65,24 @@ namespace Negocio.Dominio
             {
                 throw;
             }
+        }
+        public List<ubicacion_impresora> Listar()
+        {
+            var cam = new List<ubicacion_impresora>();
+            try
+            {
+                using (var ctx = new SGEIContext())
+
+                    cam = ctx.ubicacion_impresora
+                        .Where(x => x.fecha_baja == null)
+                        .ToList();
+            }
+            catch (Exception E)
+            {
+
+                throw;
+            }
+            return cam;
         }
     }
 }

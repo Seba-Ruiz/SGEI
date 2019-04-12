@@ -51,6 +51,24 @@ namespace Negocio.Dominio
             return dt;
         }
 
+        public detallePC ObtenerByIdPc(int? id)
+        {
+            var dt = new detallePC();
+            try
+            {
+                using (var ctx = new SGEIContext())
+
+                    dt = ctx.detallePC.Where(x => x.pc_id == id)
+                                                .SingleOrDefault();
+
+            }
+            catch (Exception E)
+            {
+                throw;
+            }
+            return dt;
+        }
+
         public void mover(int u_pc, int u_nueva_pc, int id_pc)
         {
             using (var ctx = new SGEIContext())

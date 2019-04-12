@@ -49,7 +49,19 @@
 
             </div>
         </div>
-        @if (Convert.ToString(System.Web.HttpContext.Current.Session["userid"]) == "1")
+
+        <div class="navbar-custom">
+            <div class="container">
+                <div id="navigation">
+                    @Html.Partial("_LoginPartial01")
+                </div>
+            </div>
+        </div>
+
+
+
+
+        @*@if (Convert.ToString(System.Web.HttpContext.Current.Session["userid"]) == "1")
         {
             <div class="navbar-custom">
                 <div class="container">
@@ -70,7 +82,7 @@
                     </div>
                 </div>
             </div>
-        }
+        }*@
 
     </header>
 

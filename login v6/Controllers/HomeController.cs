@@ -36,7 +36,7 @@ namespace SGEI.Controllers
             return View();
         }
 
-        
+        //ALTA TELEFONO
         public ActionResult AltaTel()
         {
             tipo_telefono_dominio tipot = new tipo_telefono_dominio();
@@ -354,9 +354,78 @@ namespace SGEI.Controllers
         }
 
 
-
-
         //--------------------------------------------//
+
+        //ALTA IMPRESORA
+        public ActionResult AltaImpr()
+        {
+            ubicacion_dominio ubi_imp = new ubicacion_dominio();
+            impresora_dominio marca_modelo = new impresora_dominio();
+
+            ViewBag.modelo = marca_modelo.Listar();
+            ViewBag.ubicacion = ubi_imp.Listar();
+
+            DTO_Impresora dto = new DTO_Impresora();
+
+            return View(dto);
+        }
+        public ActionResult GuardarImp(DTO_Impresora dto, bool test)
+        {
+            if (test)
+            {
+                ubicacion_impresora impresora = new ubicacion_impresora();
+                ubicacion_impresora_dominio imp = new ubicacion_impresora_dominio();
+
+                impresora.descripcion = dto.descripcion;
+                impresora.fecha_ubicacion = DateTime.Now;
+                impresora.impresora_id = dto.mmarca;
+                impresora.ubicacion_id = dto.ubicacion;
+
+                imp.Guardar(impresora); //Cabecera
+
+                detalle_impresora_ubicacion_dominio dt = new detalle_impresora_ubicacion_dominio();
+                detalle_impresora_ubicacion detalle = new detalle_impresora_ubicacion();
+
+                int id = imp.ObtenerUltimo();
+
+                detalle.ip = Convert.ToString(dto.ip);
+                detalle.pc_dondeseconecta = dto.pc_donde_se_conecta;
+                detalle.ubicacion_impresora_id = id;
+
+
+                dt.Guardar(detalle);  //Detalle
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "IMPRESORA";
+                audit.id_equipo = id;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+                return RedirectToAction("AltaExitosaImp");
+            }
+            else
+            {
+                return Redirect("~/Home/Check");
+            }
+
+        }
+        public ActionResult Check()
+        {
+            return View();
+        }
+
+        public ActionResult AltaExitosaImp()
+        {
+            return View();
+        }
+
+        //ALTA COMPUTADORA
         public ActionResult AltaCompu(int id = 0)
         {
             tipopc_dominio tipo = new tipopc_dominio();
@@ -435,6 +504,19 @@ namespace SGEI.Controllers
 
                 audit_dom.Guardar(audit);
                 //---//
+
+                //MANTENIMIENTO INICIAL
+                mantenimiento mante = new mantenimiento();
+                mantenimiento_dominio mante_dom = new mantenimiento_dominio();
+
+                mante.fecha_mantenimiento = DateTime.Now;
+                mante.descripcion = "Inicial";
+                mante.proximo_mantenimiento = DateTime.Now.AddDays(180);
+                mante.pc_id = id_compu;
+
+
+                mante_dom.Guardar(mante);
+                //
 
 
                 return Redirect("~/home/AltaExitosa");
@@ -587,6 +669,20 @@ namespace SGEI.Controllers
 
             audit_dom.Guardar(audit);
             //---//
+
+            //MANTENIMIENTO INICIAL
+            mantenimiento mante = new mantenimiento();
+            mantenimiento_dominio mante_dom = new mantenimiento_dominio();
+
+            mante.fecha_mantenimiento = DateTime.Now;
+            mante.descripcion = "Inicial";
+            mante.proximo_mantenimiento = DateTime.Now.AddDays(180);
+            mante.pc_id = model.ubicacion_impresora_id;
+
+
+            mante_dom.Guardar(mante);
+
+
             //TempData["id_impre"] = model.impresora_id;
             return Redirect("~/Inicio/Index");
         }

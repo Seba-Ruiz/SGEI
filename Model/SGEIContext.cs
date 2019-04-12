@@ -47,6 +47,7 @@ namespace Model
         public virtual DbSet<insumo> insumo { get; set; }
         public virtual DbSet<insumo_camara> insumo_camara { get; set; }
         public virtual DbSet<insumo_pc> insumo_pc { get; set; }
+        public virtual DbSet<mantenimiento> mantenimiento { get; set; }
         public virtual DbSet<marca_modelo_camara> marca_modelo_camara { get; set; }
         public virtual DbSet<marca_modelo_cel> marca_modelo_cel { get; set; }
         public virtual DbSet<marca_modelo_escaner> marca_modelo_escaner { get; set; }
@@ -65,7 +66,6 @@ namespace Model
         public virtual DbSet<switch_detalle> switch_detalle { get; set; }
         public virtual DbSet<switch_incidente_switch> switch_incidente_switch { get; set; }
         public virtual DbSet<switch_ubicacion_switch> switch_ubicacion_switch { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<telefono> telefono { get; set; }
         public virtual DbSet<tipo_tel> tipo_tel { get; set; }
         public virtual DbSet<tipoPC> tipoPC { get; set; }
@@ -287,6 +287,11 @@ namespace Model
 
             modelBuilder.Entity<pc>()
                 .HasMany(e => e.detallePC)
+                .WithOptional(e => e.pc)
+                .HasForeignKey(e => e.pc_id);
+
+            modelBuilder.Entity<pc>()
+                .HasMany(e => e.mantenimiento)
                 .WithOptional(e => e.pc)
                 .HasForeignKey(e => e.pc_id);
 

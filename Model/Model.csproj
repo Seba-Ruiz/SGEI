@@ -84,6 +84,7 @@
     <Compile Include="insumo.cs" />
     <Compile Include="insumo_camara.cs" />
     <Compile Include="insumo_pc.cs" />
+    <Compile Include="mantenimiento.cs" />
     <Compile Include="marca_modelo_camara.cs" />
     <Compile Include="marca_modelo_cel.cs" />
     <Compile Include="marca_modelo_escaner.cs" />
@@ -104,7 +105,6 @@
     <Compile Include="switch_detalle.cs" />
     <Compile Include="switch_incidente_switch.cs" />
     <Compile Include="switch_ubicacion_switch.cs" />
-    <Compile Include="sysdiagrams.cs" />
     <Compile Include="telefono.cs" />
     <Compile Include="tipoPC.cs" />
     <Compile Include="tipo_tel.cs" />

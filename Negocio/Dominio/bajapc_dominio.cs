@@ -32,5 +32,23 @@ namespace Negocio.Dominio
                 throw;
             }
         }
+
+        public bajaPC ObtenerByIdDetalle(int? id)
+        {
+            var dt = new bajaPC();
+            try
+            {
+                using (var ctx = new SGEIContext())
+
+                    dt = ctx.bajaPC.Where(x => x.detallepc_id == id)
+                                                .SingleOrDefault();
+
+            }
+            catch (Exception E)
+            {
+                throw;
+            }
+            return dt;
+        }
     }
 }

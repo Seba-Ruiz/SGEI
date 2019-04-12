@@ -1567,6 +1567,121 @@ namespace Negocio.Servicio
 
         }
 
+        public List<DTO_mantenimiento> mantenimiento()
+        {
+            var dto_mantenimiento = new List<DTO_mantenimiento>();
+
+
+            using (var ctx = new SGEIContext())
+            {
+                var pc_a_mante = (from a in ctx.pc
+                               from b in ctx.ubicacionPC
+                               from c in ctx.pc_ubicacionpc
+                               from d in ctx.mantenimiento
+
+                               where
+
+                               a.id_pc == c.pc_id &&
+                               b.id_ubicacion == c.ubicacionpc_id &&
+                               d.pc_id == a.id_pc &&
+                               d.proximo_mantenimiento <= DateTime.Now &&
+                               a.fecha_baja == null
+
+                               select new
+                               {
+                                   nombre = a.nombre,
+                                   ult_mante = d.fecha_mantenimiento,
+                                   ubica = b.nombre,
+                                   descripcion = a.descripcion
+
+
+                               }).ToList();
+
+
+                foreach (var item in pc_a_mante)
+                {
+                    var dto = new DTO_mantenimiento();
+
+                    dto.nombre = item.nombre;
+                    dto.ultimo_mantenimiento = item.ult_mante;
+                    dto.ubicacion = item.ubica;
+                    dto.descripcion = item.descripcion;
+                    dto.tipo = "PC";
+
+                    dto_mantenimiento.Add(dto);
+
+                }
+
+                return dto_mantenimiento;
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+        public DTO_Impresora_Editar u_impresora(int ubicacion)
+        {
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.ubicacion_impresora
+                               from b in ctx.detalle_impresora_ubicacion
+
+
+                               where
+
+                               a.id == ubicacion &&
+                               a.id == b.ubicacion_impresora_id &&
+                               a.fecha_baja == null
+
+
+                               select new
+                               {
+                                   id_ubi_imp = a.id,
+                                   id_det_ubi_imp = b.id,
+                                   impresora_id = a.impresora_id,
+                                   ubicacion_id = a.ubicacion_id,
+                                   fecha_ubicacion = a.fecha_ubicacion,
+                                   fecha_baja = a.fecha_baja,
+                                   descripcion = a.descripcion,
+                                   ip = b.ip,
+                                   pc_donde_se_conecta = b.pc_dondeseconecta
+
+
+
+                               }).FirstOrDefault();
+
+
+
+                var dto = new DTO_Impresora_Editar();
+
+                dto.id_ubicacion_impresora = detalle.id_ubi_imp;
+                dto.id_detalle_ubicacion_impresora = detalle.id_det_ubi_imp;
+                dto.mmarca = detalle.impresora_id;
+                dto.ubicacion = detalle.ubicacion_id;
+                dto.descripcion = detalle.descripcion;
+                dto.fecha_ubicacion = detalle.fecha_ubicacion;
+                dto.fecha_baja = detalle.fecha_baja;
+                dto.ip = detalle.ip;
+                dto.pc_donde_se_conecta = detalle.pc_donde_se_conecta;
+                
+
+                return dto;
+            }
+
+        }
+
+
+
+
+
+
+
 
     }
 

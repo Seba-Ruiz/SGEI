@@ -11,6 +11,8 @@ namespace login_v6.Controllers
     public class InicioController : Controller
     {
         servicio serv = new servicio();
+        stores store = new stores();
+
         public ActionResult Index()
         {
             ViewBag.impresoras = serv.sumaImpresora();
@@ -20,7 +22,9 @@ namespace login_v6.Controllers
             ViewBag.sw = serv.sumaSW();
             ViewBag.es = serv.sumaES();
 
-            return View();
+            var a_mantenimiento = store.mantenimiento();
+
+            return View(a_mantenimiento);
         }
     }
 }
