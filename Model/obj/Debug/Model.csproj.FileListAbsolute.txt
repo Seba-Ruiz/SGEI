@@ -48,8 +48,8 @@ D:\SGEI\SGEI\Model\bin\Debug\EntityFramework.xml
 D:\SGEI\SGEI\Model\bin\Debug\EntityFramework.SqlServer.xml
 D:\SGEI\SGEI\Model\bin\Debug\es\EntityFramework.resources.dll
 D:\SGEI\SGEI\Model\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+D:\SGEI\SGEI\Model\obj\Debug\Model.csprojAssemblyReference.cache
 D:\SGEI\SGEI\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
 D:\SGEI\SGEI\Model\obj\Debug\Model.csproj.CopyComplete
 D:\SGEI\SGEI\Model\obj\Debug\Model.dll
 D:\SGEI\SGEI\Model\obj\Debug\Model.pdb
-D:\SGEI\SGEI\Model\obj\Debug\Model.csprojAssemblyReference.cache

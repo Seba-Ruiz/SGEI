@@ -25,7 +25,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
 
@@ -44,7 +44,7 @@ namespace Negocio.Dominio
             catch (Exception E)
             {
 
-                throw;
+                throw E;
             }
             return ubi;
         }
@@ -62,7 +62,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return ubi;
         }
@@ -86,7 +86,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
 

@@ -23,7 +23,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return detalles;
         }
@@ -40,7 +40,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return imp.id;
         }
@@ -63,7 +63,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
         public List<ubicacion_impresora> Listar()
@@ -80,7 +80,7 @@ namespace Negocio.Dominio
             catch (Exception E)
             {
 
-                throw;
+                throw E;
             }
             return cam;
         }

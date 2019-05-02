@@ -626,12 +626,12 @@ namespace SGEI.Controllers
 
         }
 
-        public ActionResult Crud(int id = 0) //Este es el ABM impresora
-        {
-            ViewBag.impresoras = imp.Listar();
-            return View(id == 0 ? new impresora()
-                        : imp.Obtener(id));
-        }
+        //public ActionResult Crud(int id = 0) //Este es el ABM impresora
+        //{
+        //    ViewBag.impresoras = imp.Listar();
+        //    return View(id == 0 ? new impresora()
+        //                : imp.Obtener(id));
+        //}
 
         public ActionResult BuscarParaMover(int id)
         {
@@ -665,70 +665,70 @@ namespace SGEI.Controllers
             return Redirect("~/Inicio/Index");
         }
 
-        public ActionResult CrudDetalle_Impresora_Ubicacion(int id = 0) //Este es el ABM detalle_impresora
-        {
-            ViewBag.id_ubicacion = TempData["id_ubicacion"];
-            return View(id == 0 ? new detalle_impresora_ubicacion()
-                        : deta.Obtener(id));
-        }
+        //public ActionResult CrudDetalle_Impresora_Ubicacion(int id = 0) //Este es el ABM detalle_impresora
+        //{
+        //    ViewBag.id_ubicacion = TempData["id_ubicacion"];
+        //    return View(id == 0 ? new detalle_impresora_ubicacion()
+        //                : deta.Obtener(id));
+        //}
 
-        public ActionResult CrudUbicacion_impresora(int id = 0) //Este es el ABM ubicacion_impresora
-        {
-            ViewBag.id_impr = TempData["id"];
+        //public ActionResult CrudUbicacion_impresora(int id = 0) //Este es el ABM ubicacion_impresora
+        //{
+        //    ViewBag.id_impr = TempData["id"];
 
-            ViewBag.ubicaciones = ubi.Listar();
+        //    ViewBag.ubicaciones = ubi.Listar();
 
-            return View(id == 0 ? new ubicacion_impresora()
-                        : ubi_imp.Obtener(id));
-        }
+        //    return View(id == 0 ? new ubicacion_impresora()
+        //                : ubi_imp.Obtener(id));
+        //}
 
-        public ActionResult Guardar(int impresora)
-        {
-            //model.Guardar();
-            TempData["id"] = impresora;
-            return RedirectToAction("CrudUbicacion_impresora");
-        }
+        //public ActionResult Guardar(int impresora)
+        //{
+        //    //model.Guardar();
+        //    TempData["id"] = impresora;
+        //    return RedirectToAction("CrudUbicacion_impresora");
+        //}
 
-        public ActionResult GuardarDetalle(detalle_impresora_ubicacion model)
-        {
-            deta.Guardar(model);
+        //public ActionResult GuardarDetalle(detalle_impresora_ubicacion model)
+        //{
+        //    deta.Guardar(model);
 
-            //AUDITORIA
-            Auditoria audit = new Auditoria();
-            auditoria_dominio audit_dom = new auditoria_dominio();
+        //    //AUDITORIA
+        //    Auditoria audit = new Auditoria();
+        //    auditoria_dominio audit_dom = new auditoria_dominio();
 
-            audit.fecha_hora = DateTime.Now;
-            audit.tipo_equipo = "IMPRESORA";
-            audit.id_equipo = model.ubicacion_impresora_id;
-            audit.accion = "ALTA";
-            audit.usuario = User.Identity.Name;
+        //    audit.fecha_hora = DateTime.Now;
+        //    audit.tipo_equipo = "IMPRESORA";
+        //    audit.id_equipo = model.ubicacion_impresora_id;
+        //    audit.accion = "ALTA";
+        //    audit.usuario = User.Identity.Name;
 
-            audit_dom.Guardar(audit);
-            //---//
+        //    audit_dom.Guardar(audit);
+        //    //---//
 
-            //MANTENIMIENTO INICIAL
-            mantenimiento mante = new mantenimiento();
-            mantenimiento_dominio mante_dom = new mantenimiento_dominio();
+        //    //MANTENIMIENTO INICIAL
+        //    mantenimiento mante = new mantenimiento();
+        //    mantenimiento_dominio mante_dom = new mantenimiento_dominio();
 
-            mante.fecha_mantenimiento = DateTime.Now;
-            mante.descripcion = "Inicial";
-            mante.proximo_mantenimiento = DateTime.Now.AddDays(180);
-            mante.pc_id = model.ubicacion_impresora_id;
-
-
-            mante_dom.Guardar(mante);
+        //    mante.fecha_mantenimiento = DateTime.Now;
+        //    mante.descripcion = "Inicial";
+        //    mante.proximo_mantenimiento = DateTime.Now.AddDays(180);
+        //    mante.pc_id = model.ubicacion_impresora_id;
 
 
-            //TempData["id_impre"] = model.impresora_id;
-            return Redirect("~/Inicio/Index");
-        }
+        //    mante_dom.Guardar(mante);
 
-        public ActionResult GuardarUbicacion(ubicacion_impresora model)
-        {
-            ubi_imp.Guardar(model);
-            TempData["id_ubicacion"] = model.id;
-            return RedirectToAction("CrudDetalle_Impresora_Ubicacion");
-        }
+
+        //    //TempData["id_impre"] = model.impresora_id;
+        //    return Redirect("~/Inicio/Index");
+        //}
+
+        //public ActionResult GuardarUbicacion(ubicacion_impresora model)
+        //{
+        //    ubi_imp.Guardar(model);
+        //    TempData["id_ubicacion"] = model.id;
+        //    return RedirectToAction("CrudDetalle_Impresora_Ubicacion");
+        //}
 
         public ActionResult Eliminar(impresora model)
         {

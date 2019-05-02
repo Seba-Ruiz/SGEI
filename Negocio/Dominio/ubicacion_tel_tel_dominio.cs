@@ -23,7 +23,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return det.id_detalle;
         }
@@ -44,7 +44,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return ubi;
         }
@@ -68,7 +68,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
     }

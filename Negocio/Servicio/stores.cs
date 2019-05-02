@@ -126,7 +126,7 @@ namespace Negocio.Servicio
 
                                select new
                                {
-                                   nombre = a.nombre,
+                                   a.nombre,
                                    id_pc = a.id_pc,
                                    ip = a.ip,
                                    descripcion = a.descripcion,
@@ -1334,7 +1334,7 @@ namespace Negocio.Servicio
 
         }
 
-        public DTO_buscar_pc buscar_pc(int id_pc)
+        public DTO_buscar_pc buscar_pc(int? id_pc)
         {
             var dto_buscar_pc = new List<DTO_buscar_pc>();
 
@@ -1413,6 +1413,148 @@ namespace Negocio.Servicio
                     return dto;
                 }
                 
+            }
+
+
+        }
+        public DTO_buscar_pc buscar_pc_00(int? id_pc)
+        {
+            var dto_buscar_pc = new List<DTO_buscar_pc>();
+
+
+            using (var ctx = new SGEIContext())
+            {
+                var detalle = (from a in ctx.pc
+                               from b in ctx.ubicacionPC
+                               from c in ctx.pc_ubicacionpc
+                               from d in ctx.detallePC
+                               from e in ctx.tipoPC
+                               from f in ctx.ramPC
+                               from g in ctx.discoPC
+                               from h in ctx.soPC
+                               from i in ctx.motherPC
+                               from j in ctx.procesadorPC
+
+                               where
+
+                               d.pc_id == id_pc &&
+                               c.pc_id == a.id_pc &&
+                               c.ubicacionpc_id == b.id_ubicacion &&
+                               a.id_pc == d.pc_id &&
+                               a.tipo_id == e.id_tipo &&
+                               d.disco_id == g.id_disco &&
+                               d.mother_id == i.id_mother &&
+                               d.so_id == h.id_so &&
+                               d.ram_id == f.id_ram &&
+                               d.procesador_id == j.id_procesador 
+
+                               select new
+                               {
+                                   nombre = a.nombre,
+                                   id_pc = a.id_pc,
+                                   ip = a.ip,
+                                   descripcion = a.descripcion,
+                                   ubicacion = b.nombre,
+                                   fecha_ubicacion = c.fecha_ubicacion,
+                                   responsablepc = d.responsablepc,
+                                   observacion = d.observacion,
+                                   nombre_tipo = e.nombre_tipo,
+                                   ram = f.descripcion,
+                                   disco = g.descripcion,
+                                   so = h.descripcion,
+                                   procesador = j.descripcion,
+                                   mother = i.descripcion,
+                                   id_detalle = d.id_detalle
+
+                               }).FirstOrDefault();
+
+                if (detalle == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var dto = new DTO_buscar_pc();
+
+                    dto.nombre = detalle.nombre;
+                    dto.ip = detalle.ip;
+                    dto.descripcion = detalle.descripcion;
+                    dto.id_pc = detalle.id_pc;
+                    dto.ubicacion = detalle.ubicacion;
+                    dto.fecha_ubicacion = detalle.fecha_ubicacion;
+                    dto.responsablepc = detalle.responsablepc;
+                    dto.observacion = detalle.observacion;
+                    dto.nombre_tipo = detalle.nombre_tipo;
+                    dto.ram = detalle.ram;
+                    dto.disco = detalle.disco;
+                    dto.so = detalle.so;
+                    dto.procesador = detalle.procesador;
+                    dto.mother = detalle.mother;
+                    dto.id_detalle = detalle.id_detalle;
+
+                    return dto;
+                }
+
+            }
+
+
+        }
+
+        public DTO_ubicacion_impre nombreUbicacionImpresora(int? id)
+        {
+           
+            using (var ctx = new SGEIContext())
+            {
+                var ubi = (from a in ctx.ubicacion_impresora
+                               from b in ctx.ubicacion
+
+                               where
+
+                               a.id == id &&
+                               b.id == a.ubicacion_id 
+
+                               select new
+                               {
+                                   nombre = b.nombreUbicacion,
+                                   a.descripcion,
+                                   
+
+                               }).FirstOrDefault();
+
+                var dto = new DTO_ubicacion_impre();
+
+                dto.nombre = ubi.nombre;
+                dto.descripcion = ubi.descripcion;
+
+                return dto;
+
+            }
+
+
+        }
+
+        public string nombreImpresora(int? id)
+        {
+
+            using (var ctx = new SGEIContext())
+            {
+                var ubi = (from a in ctx.ubicacion_impresora
+                           from b in ctx.impresora
+
+                           where
+
+                           a.id == id &&
+                           b.id == a.impresora_id 
+
+                           select new
+                           {
+                               nombre = b.marca_modelo,
+
+
+                           }).FirstOrDefault();
+
+                return ubi.nombre;
+
             }
 
 
@@ -1575,20 +1717,22 @@ namespace Negocio.Servicio
             using (var ctx = new SGEIContext())
             {
                 var pc_a_mante = (from a in ctx.pc
-                               from b in ctx.ubicacionPC
-                               from c in ctx.pc_ubicacionpc
-                               from d in ctx.mantenimiento
+                                  from b in ctx.ubicacionPC
+                                  from c in ctx.pc_ubicacionpc
+                                  from d in ctx.mantenimiento
 
-                               where
+                                  where
 
-                               a.id_pc == c.pc_id &&
-                               b.id_ubicacion == c.ubicacionpc_id &&
-                               d.pc_id == a.id_pc &&
-                               d.proximo_mantenimiento <= DateTime.Now &&
-                               a.fecha_baja == null
+                                  a.id_pc == c.pc_id &&
+                                  b.id_ubicacion == c.ubicacionpc_id &&
+                                  d.pc_id == a.id_pc &&
+                                  d.proximo_mantenimiento <= DateTime.Now &&
+                                  a.fecha_baja == null &&
+                                  d.realizado == false
 
-                               select new
+                                  select new
                                {
+                                   id= a.id_pc,
                                    nombre = a.nombre,
                                    ult_mante = d.fecha_mantenimiento,
                                    ubica = b.nombre,
@@ -1608,10 +1752,12 @@ namespace Negocio.Servicio
                                   a.ubicacion_id == c.id &&
                                   a.id == d.id_impresora &&
                                   d.proximo_mantenimiento <= DateTime.Now &&
-                                  a.fecha_baja == null
+                                  a.fecha_baja == null &&
+                                  d.realizado == false
 
-                                  select new
+                                   select new
                                   {
+                                      id=a.id,
                                       nombre = b.marca_modelo,
                                       ult_mante = d.fecha_mantenimiento,
                                       ubica = c.nombreUbicacion,
@@ -1625,6 +1771,7 @@ namespace Negocio.Servicio
                 {
                     var dto = new DTO_mantenimiento();
 
+                    dto.id = item.id;
                     dto.nombre = item.nombre;
                     dto.ultimo_mantenimiento = item.ult_mante;
                     dto.ubicacion = item.ubica;
@@ -1638,6 +1785,7 @@ namespace Negocio.Servicio
                 {
                     var dto = new DTO_mantenimiento();
 
+                    dto.id = item.id;
                     dto.nombre = item.nombre;
                     dto.ultimo_mantenimiento = item.ult_mante;
                     dto.ubicacion = item.ubica;
@@ -1711,13 +1859,6 @@ namespace Negocio.Servicio
             }
 
         }
-
-
-
-
-
-
-
 
     }
 

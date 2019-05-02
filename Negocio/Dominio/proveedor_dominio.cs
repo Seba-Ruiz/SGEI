@@ -24,7 +24,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
         public int ObtenerUltimo()
@@ -40,7 +40,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return pro.id;
         }
@@ -59,7 +59,7 @@ namespace Negocio.Dominio
             catch (Exception E)
             {
 
-                throw;
+                throw E;
             }
             return pro;
         }
@@ -77,7 +77,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return pro;
         }
@@ -101,7 +101,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
     }

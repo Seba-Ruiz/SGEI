@@ -9,7 +9,8 @@ namespace login_v6
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquerys").Include(
-                
+                        
+                        
                         "~/assets/js/jquery.min.js",
                         "~/assets/js/detect.js",
                         "~/assets/js/fastclick.js",
@@ -17,15 +18,28 @@ namespace login_v6
                         "~/assets/js/jquery.blockUI.js",
                         "~/assets/js/waves.js",
                         "~/assets/js/wow.min.js",
+
+                        "~/assets/plugins/chart.js/chart.min.js",
+                         "~/assets/pages/jquery.chartjs.init.js",
+
                         "~/assets/js/jquery.core.js",
                         "~/assets/js/jquery.app.js",
+
+                         "~/assets/plugins/counterup/jquery.counterup.min.js",
+
+                        "~/assets/plugins/datatables/jquery.dataTables.min.js",
+                        "~/assets/plugins/datatables/dataTables.bootstrap.js",
+                        "~/assets/plugins/datatables/dataTables.buttons.min.js",
+                        "~/assets/plugins/datatables/buttons.bootstrap.min.js",
+
                         "~/assets/plugins/jquery.steps/js/jquery.steps.min.js",
                         "~/assets/pages/jquery.wizard-init.js",
                         "~/assets/js/jquery.nicescroll.js",
+                        
                         "~/assets/js/jquery.scrollTo.min.js",
                         "~/assets/plugins/peity/jquery.peity.min.js",
                         "~/assets/plugins/waypoints/lib/jquery.waypoints.js",
-                        "~/assets/plugins/counterup/jquery.counterup.min.js",
+                       
                         "~/assets/plugins/raphael/raphael-min.js",
                         "~/assets/plugins/jquery-knob/jquery.knob.js",
                         "~/assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js",
@@ -37,14 +51,13 @@ namespace login_v6
                         "~/assets/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js",
                         "~/assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js",
                         "~/assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js",
-                        "~/assets/plugins/datatables/jquery.dataTables.min.js",
-                        "~/assets/plugins/datatables/dataTables.bootstrap.js",
+                        
+                        
                         "~/assets/plugins/bootstrap-sweetalert/sweet-alert.min.js",
                         "~/assets/pages/jquery.sweet-alert.init.js",
-                        "~/assets/plugins/datatables/jquery.dataTables.min.js",
+                        "~/assets/pages/datatables.init.js",
                         "~/assets/plugins/datatables/jszip.min.js",
-                        "~/assets/plugins/datatables/dataTables.buttons.min.js",
-                        "~/assets/plugins/datatables/buttons.bootstrap.min.js",
+                        
                         "~/assets/plugins/datatables/pdfmake.min.js",
                         "~/assets/plugins/datatables/vfs_fonts.js",
                         "~/assets/plugins/datatables/buttons.html5.min.js",
@@ -56,14 +69,17 @@ namespace login_v6
                         "~/assets/plugins/datatables/dataTables.scroller.min.js",
                         "~/assets/plugins/datatables/dataTables.colVis.js",
                         "~/assets/plugins/datatables/dataTables.fixedColumns.min.js",
-                        "~/assets/pages/datatables.init.js",
+                        
                         "~/assets/plugins/moment/moment.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
 
                         "~/assets/js/jquery.min.js"
-                        
+                        //"~/assets/plugins/jquery-validation/jquery.validate.min.js"
+
+
+
                         ));
 
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará
@@ -84,6 +100,10 @@ namespace login_v6
                       "~/assets/css/icons.css",
                       "~/assets/css/pages.css",
                       "~/assets/css/responsive.css",
+
+                     "~/assets/plugins/morris/morris.css",
+
+                      "~/assets/plugins/datatables/jquery.dataTables.min.css",
                       "~/assets/plugins/bootstrap-sweetalert/sweet-alert.css",
                       "~/assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css",
                       "~/assets/plugins/switchery/css/switchery.min.css",
@@ -92,7 +112,7 @@ namespace login_v6
                       "~/assets/plugins/bootstrap-select/css/bootstrap-select.min.css",
                       "~/assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css",
                       "~/assets/plugins/x-editable/css/bootstrap-editable.css",
-                      "~/assets/plugins/datatables/jquery.dataTables.min.css",
+                      
                       "~/assets/plugins/datatables/buttons.bootstrap.min.css",
                       "~/assets/plugins/datatables/fixedHeader.bootstrap.min.css",
                       "~/assets/plugins/datatables/responsive.bootstrap.min.css",

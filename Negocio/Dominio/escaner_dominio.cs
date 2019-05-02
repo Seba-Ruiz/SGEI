@@ -24,7 +24,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
         public int ObtenerUltimo()
@@ -40,7 +40,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return esc.id_escaner;
         }
@@ -59,7 +59,7 @@ namespace Negocio.Dominio
             catch (Exception E)
             {
 
-                throw;
+                throw E;
             }
             return esc;
         }
@@ -77,7 +77,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return esc;
         }
@@ -101,7 +101,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
     }

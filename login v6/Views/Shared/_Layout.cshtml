@@ -4,11 +4,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>@ViewBag.Title - SGEI</title>
-   
+
+    @Scripts.Render("~/bundles/jqueryval")
     @Styles.Render("~/assets/coso")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jqueryval")
+
 
 </head>
 <body>
@@ -23,7 +25,7 @@
                 <!-- Logo container-->
                 <div class="logo">
                     <a id="inicio" style="cursor: pointer;" class="logo">
-                        <span class="text-success">
+                        <span class="text-primary">
                             SGEI - HOSPITAL ALFREDO ITALO PERRUPATO
                         </span>
                     </a>
@@ -62,27 +64,27 @@
 
 
         @*@if (Convert.ToString(System.Web.HttpContext.Current.Session["userid"]) == "1")
-        {
-            <div class="navbar-custom">
-                <div class="container">
-                    <div id="navigation">
-                        @Html.Partial("_LoginPartial01")
+            {
+                <div class="navbar-custom">
+                    <div class="container">
+                        <div id="navigation">
+                            @Html.Partial("_LoginPartial01")
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
 
-        @if (Convert.ToString(System.Web.HttpContext.Current.Session["userid"]) == "2")
-        {
-            <div class="navbar-custom">
-                <div class="container">
-                    <div id="navigation">
-                        @Html.Partial("_LoginPartial02")
+            @if (Convert.ToString(System.Web.HttpContext.Current.Session["userid"]) == "2")
+            {
+                <div class="navbar-custom">
+                    <div class="container">
+                        <div id="navigation">
+                            @Html.Partial("_LoginPartial02")
 
+                        </div>
                     </div>
                 </div>
-            </div>
-        }*@
+            }*@
 
     </header>
 
@@ -139,7 +141,8 @@
             </div>
         </div>
     </div>
-    
+
+
     <script>
     $("#inicio").click(function () {
         $('#spiner').modal('show');
@@ -152,8 +155,11 @@
     </script>
 
 
+
+
+
 </body>
-</html>
+</html >
 
 
 

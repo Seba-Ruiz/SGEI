@@ -1,0 +1,142 @@
+﻿@model IEnumerable<Negocio.DTO.DTO_preventivo_impre>
+
+@{
+    ViewBag.Title = "Preventivo";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box table-responsive">
+            <h4 class="m-t-0 header-title text-primary"><b>MANTENIMIENTO PREVENTIVO DE IMPRESORAS</b></h4>
+            <p class="text-muted font-13 m-b-30">
+                La lista muestra los mantenimientos realizados a las <code>IMPRESORAS</code>. Podrás filtrar la lista mediante el campo buscar.
+            </p>
+
+            <table id="datatable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Ubicación</th>
+                        <th>Detalle</th>
+                        <th>Fecha Mantenimiento</th>
+                        <th>Pospuesto por</th>
+                        <th>Fecha Pospuso</th>
+                        <th>Realizado por</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+
+                        <td><span class="text-dark"><b>@item.nombre</b></span></td>
+                        <td><span class="text-dark"><b>@item.ubicacion</b></span></td>
+                        <td><span class="text-dark"><b>@item.detalle</b></span></td>
+                        <td><span class="text-dark">@item.proximo_mantenimiento</span></td>
+
+                        @if (item.pospuesto_por != null)
+                        {
+                            <td><span class="text-dark">@item.pospuesto_por</span></td>
+                        }
+                        else
+                        {
+                            <td><span class="text-dark">-----</span></td>
+                        }
+                        @if (@item.fecha_pospuso != null)
+                        {
+                            <td><span class="text-dark">@item.fecha_pospuso</span></td>
+                        }
+                        else
+                        {
+                            <td><span class="text-dark">-----</span></td>
+                        }
+                        @if (@item.realizado_por != null)
+                        {
+                            <td><span class="text-dark">@item.realizado_por</span></td>
+                        }
+                        else
+                        {
+                            <td><span class="text-dark">A realizarse</span></td>
+                        }
+
+                        <td>
+                            <a href="#" onclick="abrirModalDescripcion('@item.descripcion')" title="Descripción" class="table-action-btn"><i class="md md-pages"></i></a>
+                        </td>
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div id="descripcion" data-backdrop="static" style="display: none;">
+    <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
+        <h2 class="text-primary">Descripción</h2>
+        <p class="lead text-muted" style="display: block;">
+            Se muestra la descripción de lo que se le realizó durante el mantenimiento a la impresora.
+            
+            <div class="col-lg">
+                <label id="descri"></label>
+            </div>
+        </p>
+        <div class="button-list">
+            <a onclick="cerrar()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+
+            
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({ keys: true });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-colvid').DataTable({
+            "dom": 'C<"clear">lfrtip',
+            "colVis": {
+                "buttonText": "Change columns"
+            }
+        });
+        $('#datatable-scroller').DataTable({
+            ajax: "~/assets/plugins/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+        });
+        var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
+        var table = $('#datatable-fixed-col').DataTable({
+            scrollY: "300px",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: false,
+            fixedColumns: {
+                leftColumns: 1,
+                rightColumns: 1
+            }
+        });
+    });
+   // TableManageButtons.init();
+
+
+
+
+</script>
+<script>
+    function abrirModalDescripcion(e) {
+
+        document.querySelector('#descri').innerText = e;
+        $('#descripcion').modal('show');
+    }
+
+    function cerrar() {
+        $('#descripcion').modal('hide');
+    }
+</script>

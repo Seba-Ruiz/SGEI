@@ -24,7 +24,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
         public int ObtenerUltimo()
@@ -40,7 +40,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return cam.id_camara;
         }
@@ -59,7 +59,7 @@ namespace Negocio.Dominio
             catch (Exception E)
             {
 
-                throw;
+                throw E;
             }
             return cam;
         }
@@ -77,7 +77,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return cam;
         }
@@ -101,7 +101,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
 

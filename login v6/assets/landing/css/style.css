@@ -166,6 +166,7 @@ a:hover,a:focus,.a:active {
   /*background: url("../images/bg.jpg") no-repeat;*/
   background-size: cover;
   position: relative;
+  opacity: 0.4;
 }
 
 /*======= 3.Buttons ======= */

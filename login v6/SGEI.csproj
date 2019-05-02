@@ -2446,6 +2446,7 @@
     <Content Include="assets\plugins\bootstrap-tagsinput\js\bootstrap-tagsinput.min.js" />
     <Content Include="assets\plugins\bootstrap-touchspin\css\jquery.bootstrap-touchspin.min.css" />
     <Content Include="assets\plugins\bootstrap-touchspin\js\jquery.bootstrap-touchspin.min.js" />
+    <Content Include="assets\plugins\chart.js\chart.min.js" />
     <Content Include="assets\plugins\counterup\jquery.counterup.min.js" />
     <Content Include="assets\plugins\datatables\buttons.bootstrap.min.css" />
     <Content Include="assets\plugins\datatables\buttons.bootstrap.min.js" />
@@ -3160,6 +3161,10 @@
     <Content Include="Views\Home\AltaExitosaImp.cshtml" />
     <Content Include="Views\Impresora\Editar.cshtml" />
     <Content Include="Views\Impresora\GuardarImp.cshtml" />
+    <Content Include="Views\Impresora\Preventivo.cshtml" />
+    <Content Include="Views\Computadora\Preventivo.cshtml" />
+    <Content Include="Views\Inicio\Sugeridos.cshtml" />
+    <Content Include="Views\Inicio\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -33,7 +33,8 @@ body {
 
 /* Background Images */
 .bg-img-1 {
-    background: url("../images/bg.jpg") no-repeat;
+    /*background: url("../images/bg.jpg") no-repeat;*/
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%),url("../images/bg.jpg") ;
     background-size: cover;
     position: relative;
     opacity: 0.8;

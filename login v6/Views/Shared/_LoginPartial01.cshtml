@@ -7,6 +7,10 @@
 
 <ul class="navigation-menu">
     <li class="has-submenu">
+        <a id="dashboard" style="cursor: pointer;"><i class="md md-dashboard"></i>Dashboard</a>
+        
+    </li>
+    <li class="has-submenu">
         <a href="#"><i class="glyphicon glyphicon-cog"></i>Gestion</a>
         <ul class="submenu">
             <li class="has-submenu">
@@ -155,6 +159,9 @@
                     <li>
                         <a id="impbaja" style="cursor: pointer;">Bajas</a>
                     </li>
+                    <li>
+                        <a id="preventivo_impre" style="cursor: pointer;">Preventivos</a>
+                    </li>
 
                 </ul>
             </li>
@@ -167,6 +174,9 @@
                     </li>
                     <li>
                         <a id="compubaja" style="cursor: pointer;">Bajas</a>
+                    </li>
+                    <li>
+                        <a id="preventivo_pc" style="cursor: pointer;">Preventivos</a>
                     </li>
                 </ul>
             </li>
@@ -259,10 +269,10 @@
                 <a href="#">Insumo</a>
                 <ul class="submenu">
                     <li><a id="buscar_insumo" style="cursor: pointer;" title="Buscar insumo por número de serie">Por número</a></li>
-                    
+
                 </ul>
             </li>
-            
+
         </ul>
     </li>
 
@@ -301,6 +311,23 @@ else
 
 <script src="~/assets/js/spiner.js"></script>
 <script>
+    $("#preventivo_impre").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Preventivo","Impresora")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#preventivo_pc").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Preventivo","Computadora")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+
     $("#buscar_compu").click(function () {
         $('#spiner').modal('show');
 
@@ -447,6 +474,14 @@ else
 
         setTimeout(function () {
             window.location = "@Url.Action("Altatel","Home")";
+            $('#spiner').modal('hide');
+        }, 1000);
+    });
+    $("#dashboard").click(function () {
+        $('#spiner').modal('show');
+
+        setTimeout(function () {
+            window.location = "@Url.Action("Dashboard","Inicio")";
             $('#spiner').modal('hide');
         }, 1000);
     });

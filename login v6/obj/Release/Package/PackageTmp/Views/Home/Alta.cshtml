@@ -5,7 +5,7 @@
 
 <ol class="breadcrumb">
     <li><a href="~/Inicio/home">ALTA</a></li>
-    <li class="active">@(Model.id > 0 ? Model.descripcion : "Volver a dar de ALTA a impresora") </li>
+    <li class="active">@(Model.id > 0 ? "Volver a dar de ALTA la impresora" : "Volver a dar de ALTA la impresora") </li>
 </ol>
 
 @using (Html.BeginForm("Alta_aceptada", "Home", FormMethod.Post, new { id = "frm-ubicacion" }))
@@ -14,25 +14,40 @@
     @Html.HiddenFor(x => x.descripcion)
     @Html.HiddenFor(x => x.id)
     @Html.HiddenFor(x => x.impresora_id)
-    <div class="panel panel-primary">
-        <div class="panel-heading text-center">Seleccione en que servicio se ubicará la impresora</div>
-        <div class="panel-body">
-            <div class="form-group">
-                @Html.Label("Nombre de Ubicacion")
-                @Html.DropDownListFor(x => x.ubicacion_id, new SelectList(ViewBag.ubicaciones, "id", "nombreUbicacion"), new { @class = "form-control", @style = "width:200px;" })
-                @Html.ValidationMessageFor(x => x.ubicacion_id, null, new { @class = "label label-danger" })
-            </div>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="panel panel-primary panel-border">
+                <div class="panel-heading">
+                    <h4 class="panel-title">ALTA DE IMPRESORA</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-muted m-b-30 font-13">
+                                Ingrese la nueva ubicación de la impresora y la fecha que se colocó la misma.
+                            </p>
+                            <div class="form-group col-lg-offset-3">
+                                @Html.Label("Nombre de Ubicacion")
+                                @Html.DropDownListFor(x => x.ubicacion_id, new SelectList(ViewBag.ubicaciones, "id", "nombreUbicacion"), new { @class = "form-control", @style = "width:250px;" })
+                                @Html.ValidationMessageFor(x => x.ubicacion_id, null, new { @class = "label label-danger" })
+                            </div>
 
-            <div class="form-group">
-                @Html.Label("Fecha de Ubicacion")
-                @Html.TextBoxFor(x => x.fecha_ubicacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
-                @Html.ValidationMessageFor(x => x.fecha_ubicacion, null, new { @class = "label label-danger" })
-            </div>
-        </div>
+                            <div class="form-group col-lg-offset-3">
+                                @Html.Label("Fecha de Ubicacion")
+                                @Html.TextBoxFor(x => x.fecha_ubicacion, new { @class = "form-control", type = "date", @style = "width:250px;" })
+                                @Html.ValidationMessageFor(x => x.fecha_ubicacion, null, new { @class = "label label-danger" })
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                </div>
     </div>
 
+    
+
     <div class="text-center">
-        <button type="submit" class="btn btn-danger">Guardar</button>
+        <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Guardar</button>
     </div>
 
 }

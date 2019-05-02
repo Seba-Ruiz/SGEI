@@ -10,15 +10,46 @@ using Negocio.DTO;
 
 namespace login_v6.Controllers
 {
+    [Authorize]
     public class ImpresoraController : Controller
     {
         stores store = new stores();
+        
         // GET: Impresora
         public ActionResult Index()
         {
             return View();
         }
-        
+
+
+        public ActionResult Preventivo()
+        {
+            mantenimiento_dominio mante = new mantenimiento_dominio();
+            List<DTO_preventivo_impre> lista = new List<DTO_preventivo_impre>();
+            var m = mante.Listari();
+
+            foreach (var a in m)
+            {
+                DTO_preventivo_impre dto = new DTO_preventivo_impre();
+                var nombre = store.nombreImpresora(a.id_impresora);
+                var ubi = store.nombreUbicacionImpresora(a.id_impresora);
+
+                dto.nombre = nombre;
+                dto.fecha_mantenimiento = a.fecha_mantenimiento;
+                dto.pospuesto_por = a.pospuesto_por;
+                dto.fecha_pospuso = a.fecha_pospuesto;
+                dto.descripcion = a.descripcion;
+                dto.realizado_por = a.realizado_por;
+                dto.proximo_mantenimiento = a.proximo_mantenimiento;
+                dto.ubicacion = ubi.nombre;
+                dto.detalle = ubi.descripcion;
+
+                lista.Add(dto);
+            }
+
+            return View(lista);
+        }
+
         public ActionResult Editar(int id)
         {
             var det = store.u_impresora(id);
@@ -78,6 +109,60 @@ namespace login_v6.Controllers
 
         }
 
+
+        [HttpPost]
+        public ActionResult PosponerMante(int id1, int dias)
+        {
+            mantenimiento_dominio mante = new mantenimiento_dominio();
+            var mantenimiento = mante.ObtenerManteImpre(id1);
+
+            mantenimiento.proximo_mantenimiento = DateTime.Now.AddDays(dias);
+            mantenimiento.fecha_pospuesto = DateTime.Now;
+            mantenimiento.pospuesto = true;
+            mantenimiento.pospuesto_por = User.Identity.Name;
+
+            mante.Guardari(mantenimiento);
+            return Redirect("~/Inicio/Index");
+        }
+
+        public ActionResult ManteImpre(int id_impre, string descripcion1)
+        {
+            mantenimiento_dominio mante = new mantenimiento_dominio();
+            var mantenimiento = mante.ObtenerManteImpre(id_impre);
+
+            mantenimiento.realizado = true;
+            mantenimiento.realizado_por = User.Identity.Name;
+            mantenimiento.descripcion = descripcion1;
+            mantenimiento.fecha_mantenimiento = DateTime.Now;
+            mantenimiento.proximo_mantenimiento = DateTime.Now;
+
+            mante.Guardari(mantenimiento);
+
+            var proximo = new mantenimiento_impre();
+
+            proximo.id_impresora = id_impre;
+            proximo.pospuesto = false;
+
+            var ubicacion = store.nombreUbicacionImpresora(id_impre);
+
+            if (ubicacion.nombre == "GUARDIA" || ubicacion.nombre == "ADMISION")
+            {
+                proximo.proximo_mantenimiento = DateTime.Now.AddMonths(4);
+            }
+            else
+            {
+                proximo.proximo_mantenimiento = DateTime.Now.AddMonths(6);
+            }
+
+            
+            proximo.fecha_mantenimiento = DateTime.Now;
+            proximo.descripcion = "A realizarse";
+            proximo.realizado = false;
+
+            mante.Guardari(proximo);
+
+            return Redirect("~/Inicio/Index");
+        }
 
 
 

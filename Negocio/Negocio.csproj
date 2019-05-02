@@ -130,8 +130,11 @@
     <Compile Include="DTO\DTO_incidente_sw.cs" />
     <Compile Include="DTO\DTO_ingreso_impresora.cs" />
     <Compile Include="DTO\DTO_PC.cs" />
+    <Compile Include="DTO\DTO_preventivo_impre.cs" />
+    <Compile Include="DTO\DTO_preventivo_pc.cs" />
     <Compile Include="DTO\DTO_sw.cs" />
     <Compile Include="DTO\DTO_Telefono.cs" />
+    <Compile Include="DTO\DTO_ubicacion_impre.cs" />
     <Compile Include="DTO\DTO_u_camara_01.cs" />
     <Compile Include="DTO\DTO_u_computadora.cs" />
     <Compile Include="DTO\DTO_u_computadora_detalle.cs" />

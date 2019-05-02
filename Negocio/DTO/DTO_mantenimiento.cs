@@ -8,6 +8,7 @@ namespace Negocio.DTO
 {
     public class DTO_mantenimiento
     {
+        public int id { get; set; }
         public string nombre { get; set; }
         public DateTime? ultimo_mantenimiento { get; set; }
         public string ubicacion { get; set; }

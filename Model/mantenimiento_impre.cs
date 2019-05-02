@@ -20,6 +20,18 @@ namespace Model
 
         public int? id_impresora { get; set; }
 
+        public bool? realizado { get; set; }
+
+        public bool? pospuesto { get; set; }
+
+        public DateTime? fecha_pospuesto { get; set; }
+
+        [StringLength(100)]
+        public string pospuesto_por { get; set; }
+
+        [StringLength(150)]
+        public string realizado_por { get; set; }
+
         public virtual ubicacion_impresora ubicacion_impresora { get; set; }
     }
 }
