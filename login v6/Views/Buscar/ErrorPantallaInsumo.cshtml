@@ -1,7 +1,15 @@
-﻿@{
+﻿@using login_v6.Models
+@{
     ViewBag.Title = "Error";
 }
 
-<h2 class="text-danger">Error!</h2>
-<h3>El número ingresado de serie no existe.</h3>
-@Html.ActionLink("Volver", "Buscar_Insu", "Buscar", new { @class = "btn btn-primary" })
+@Html.Partial("_Resultado", new ResultadoViewModel
+{
+    Tipo = TipoResultado.Error,
+    Titulo = "No encontramos ese insumo",
+    Mensaje = "No hay ningún insumo con ese número de serie.",
+    Botones =
+    {
+        new BotonResultado("Buscar otra vez", Url.Content("~/Buscar/Buscar_Insu"))
+    }
+})

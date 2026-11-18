@@ -3178,6 +3178,11 @@
     <Compile Include="Helpers\MenuSgei.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="Models\ResultadoViewModel.cs" />
+    <Content Include="Views\Shared\_Resultado.cshtml" />
+  </ItemGroup>
+
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />

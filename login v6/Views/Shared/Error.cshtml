@@ -1,18 +1,42 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
-
+@using login_v6.Models
 @{
     ViewBag.Title = "Error";
+
+    // ViewBag.errorMessage trae un aviso puntual (por ejemplo "Debe confirmar el correo...");
+    // sin él es un error inesperado (HandleErrorAttribute).
+    var aviso = ViewBag.errorMessage as string;
+    var esAviso = !string.IsNullOrEmpty(aviso);
+    var titulo = esAviso ? "Atención" : "Ocurrió un error";
+    var texto = esAviso ? aviso : "No pudimos procesar tu solicitud. Si el problema continúa, avisale al administrador del sistema.";
+
+    if (!Request.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_LayoutCuenta.cshtml";
+    }
 }
 
-<h1 class="text-danger">Error.</h1>
-@{
-    if (String.IsNullOrEmpty(ViewBag.errorMessage))
+@if (Request.IsAuthenticated)
+{
+    @Html.Partial("_Resultado", new ResultadoViewModel
     {
-        <h2 class="text-danger">An error occurred while processing your request.</h2>
-    }
-    else
-    {
-        <h2 class="text-danger">@ViewBag.errorMessage</h2>
-    }
+        Tipo = esAviso ? TipoResultado.Aviso : TipoResultado.Error,
+        Titulo = titulo,
+        Mensaje = texto,
+        Botones =
+        {
+            new BotonResultado("Volver", "javascript:history.back()"),
+            new BotonResultado("Ir al inicio", Url.Content("~/Inicio/Index"))
+        }
+    })
 }
-
+else
+{
+    @Html.Partial("_MensajeCuenta", new ViewDataDictionary
+    {
+        { "Icono", esAviso ? "bi-exclamation-triangle" : "bi-x-circle" },
+        { "Color", esAviso ? "warning" : "danger" },
+        { "Titulo", titulo },
+        { "Texto", texto }
+    })
+}

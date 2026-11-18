@@ -1,8 +1,17 @@
-﻿
+﻿@using login_v6.Models
 @{
-    ViewBag.Title = "Info";
+    // Se muestra después de dar de alta un usuario (AccountController.Register).
+    ViewBag.Title = "Usuario creado";
 }
 
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
+@Html.Partial("_Resultado", new ResultadoViewModel
+{
+    Tipo = TipoResultado.Exito,
+    Titulo = "Usuario creado",
+    Mensaje = ViewBag.Message as string,
+    Botones =
+    {
+        new BotonResultado("Ver usuarios", Url.Content("~/Usuario/Index")),
+        new BotonResultado("Crear otro usuario", Url.Content("~/Account/Register"))
+    }
+})

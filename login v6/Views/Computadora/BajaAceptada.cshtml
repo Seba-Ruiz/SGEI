@@ -1,22 +1,16 @@
-﻿
+﻿@using login_v6.Models
 @{
-    ViewBag.Title = "Alta Exitosa";
+    ViewBag.Title = "Computadora dada de baja";
 }
 
-            <div class="ex-page-content text-center">
-                <div class="text-error">
-                    <span class="text-primary">ÉXIT</span><i class="bi bi-emoji-smile text-danger"></i><span class="text-info">!</span>
-                </div>
-                <h2>La computadora ha sido dada de baja</h2>
-                <br>
-                <p class="text-muted">
-                    Proceso de guardado exitoso. Podrá consultar las computadoras de baja desde el menu "Consultas".
-                </p>
-                <p class="text-muted">
-                    Use el boton "Inicio" para volver a la pantalla principal.
-                </p>
-                <br>
-                <a class="btn btn-outline-secondary" href="~/Inicio/Index"> Inicio</a>
-
-            </div>
-      
+@Html.Partial("_Resultado", new ResultadoViewModel
+{
+    Tipo = TipoResultado.Exito,
+    Titulo = "Computadora dada de baja",
+    Mensaje = "Podés consultarla desde Consultas › Computadoras › Bajas.",
+    Botones =
+    {
+        new BotonResultado("Ver bajas", Url.Content("~/Consulta/compuBaja")),
+        new BotonResultado("Volver al inicio", Url.Content("~/Inicio/Index"))
+    }
+})

@@ -1,21 +1,16 @@
-﻿@{
-    ViewBag.Title = "Exito";
+﻿@using login_v6.Models
+@{
+    ViewBag.Title = "Ingreso registrado";
 }
 
-            <div class="ex-page-content text-center">
-                <div class="text-error">
-                    <span class="text-primary">ÉXIT</span><i class="bi bi-emoji-smile text-danger"></i><span class="text-info">!</span>
-                </div>
-                <h2>Insumo ingresado correctamente.</h2>
-                <br>
-                <p class="text-muted">
-                    Proceso de guardado exitoso.
-                </p>
-                <p class="text-muted">
-                    Use el boton "Inicio" para volver a ingresar mas insumos para camaras.
-                </p>
-                <br>
-                <a class="btn btn-outline-secondary" href="~/Ingresos/IndexCam"> Inicio</a>
-
-            </div>
-  
+@Html.Partial("_Resultado", new ResultadoViewModel
+{
+    Tipo = TipoResultado.Exito,
+    Titulo = "Ingreso registrado",
+    Mensaje = "El stock del insumo se actualizó.",
+    Botones =
+    {
+        new BotonResultado("Cargar otro ingreso", Url.Content("~/Ingresos/IndexCam")),
+        new BotonResultado("Volver al inicio", Url.Content("~/Inicio/Index"))
+    }
+})

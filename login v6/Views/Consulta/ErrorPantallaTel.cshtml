@@ -1,9 +1,15 @@
-﻿
+﻿@using login_v6.Models
 @{
     ViewBag.Title = "Error";
 }
 
-<h2 class="text-danger">Error!</h2>
-<h3>Ingrese un rango de fechas válido.</h3>
-@Html.ActionLink("Volver", "Telefonos", "Consulta", new { @class = "btn btn-primary" })
-
+@Html.Partial("_Resultado", new ResultadoViewModel
+{
+    Tipo = TipoResultado.Error,
+    Titulo = "Rango de fechas inválido",
+    Mensaje = "Ingresá un rango de fechas válido e intentá de nuevo.",
+    Botones =
+    {
+        new BotonResultado("Volver", Url.Content("~/Consulta/Telefonos"))
+    }
+})

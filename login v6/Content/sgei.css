@@ -395,6 +395,24 @@ body.sgei {
     color: var(--sgei-texto-suave);
 }
 
+/* Pantallas de resultado (Views/Shared/_Resultado.cshtml) */
+.sgei-resultado { margin-top: 2rem; border-top-width: 4px; }
+.sgei-resultado-success { border-top-color: var(--bs-success); }
+.sgei-resultado-danger  { border-top-color: var(--bs-danger); }
+.sgei-resultado-warning { border-top-color: var(--bs-warning); }
+.sgei-resultado .card-body { padding: 2.5rem 2rem; }
+
+.sgei-resultado-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 1.25rem;
+    border-radius: 50%;
+    font-size: 2.25rem;
+}
+
 /* Tarjetas de insumos (Ingresos) */
 .sgei-insumo { box-shadow: none; }
 .sgei-insumo-nombre { font-size: 1.15rem; font-weight: 600; color: var(--sgei-primario); }

@@ -187,8 +187,8 @@ namespace login_v6.Controllers
 
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirme su cuenta");
 
-                    ViewBag.Message = "Revise su correo y confirme la cuenta, debe ser cofirmada "
-                                      + "antes de iniciar sesión.";
+                    ViewBag.Message = "Le enviamos a " + model.Email + " un correo para confirmar la cuenta. "
+                                      + "Podrá iniciar sesión una vez que la confirme.";
 
 
 

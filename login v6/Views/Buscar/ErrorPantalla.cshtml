@@ -1,8 +1,15 @@
-﻿@{
+﻿@using login_v6.Models
+@{
     ViewBag.Title = "Error";
 }
 
-<h2 class="text-danger">Error!</h2>
-<h3>El número ingresado no existe.</h3>
-@Html.ActionLink("Volver", "Buscar_PC", "Buscar", new { @class = "btn btn-primary" })
-
+@Html.Partial("_Resultado", new ResultadoViewModel
+{
+    Tipo = TipoResultado.Error,
+    Titulo = "No encontramos esa computadora",
+    Mensaje = "Revisá el número ingresado e intentá de nuevo.",
+    Botones =
+    {
+        new BotonResultado("Buscar otra vez", Url.Content("~/Buscar/Buscar_PC"))
+    }
+})

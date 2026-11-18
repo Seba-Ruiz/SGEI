@@ -1,24 +1,16 @@
-﻿
+﻿@using login_v6.Models
 @{
-    ViewBag.Title = "Alta Exitosa";
+    ViewBag.Title = "Impresora agregada";
 }
 
-
-<div class="ex-page-content text-center">
-    <div class="text-error">
-        <span class="text-primary">ÉXIT</span><i class="bi bi-emoji-smile text-danger"></i><span class="text-info">!</span>
-    </div>
-    <h2>Impresora Agregada con Éxito!</h2>
-    <br>
-    <p class="text-muted">
-        Proceso de guardado exitoso.
-    </p>
-    <p class="text-muted">
-        Use el boton "Inicio" para volver a la pagina principal.
-    </p>
-    <br>
-    <a class="btn btn-outline-secondary" href="~/Inicio/Index"> Inicio</a>
-
-</div>
-
-
+@Html.Partial("_Resultado", new ResultadoViewModel
+{
+    Tipo = TipoResultado.Exito,
+    Titulo = "Impresora agregada",
+    Mensaje = "La impresora ya está disponible en las consultas.",
+    Botones =
+    {
+        new BotonResultado("Agregar otra", Url.Content("~/Home/AltaImpr")),
+        new BotonResultado("Volver al inicio", Url.Content("~/Inicio/Index"))
+    }
+})

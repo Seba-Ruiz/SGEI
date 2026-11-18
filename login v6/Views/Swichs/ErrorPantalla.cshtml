@@ -1,10 +1,15 @@
-﻿
+﻿@using login_v6.Models
 @{
-    /**/
-
     ViewBag.Title = "Error";
 }
 
-<h2 class="text-danger">Error!</h2>
-<h3>Ingrese fecha válida.</h3>
-@Html.ActionLink("Volver", "Index", "Switchs", new { @class = "btn btn-primary" })
+@Html.Partial("_Resultado", new ResultadoViewModel
+{
+    Tipo = TipoResultado.Error,
+    Titulo = "Fecha inválida",
+    Mensaje = "Ingresá una fecha válida e intentá de nuevo.",
+    Botones =
+    {
+        new BotonResultado("Volver", Url.Content("~/Swichs/Index"))
+    }
+})

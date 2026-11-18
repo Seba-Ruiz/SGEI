@@ -1,0 +1,43 @@
+﻿@model login_v6.Models.ResultadoViewModel
+@using login_v6.Models
+@* Pantalla de resultado de una operación: ícono, título, mensaje y botones. *@
+@{
+    string icono, color;
+    switch (Model.Tipo)
+    {
+        case TipoResultado.Error:
+            icono = "bi-x-circle"; color = "danger"; break;
+        case TipoResultado.Aviso:
+            icono = "bi-exclamation-triangle"; color = "warning"; break;
+        default:
+            icono = "bi-check-circle"; color = "success"; break;
+    }
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6 col-xxl-5">
+        <div class="card sgei-resultado sgei-resultado-@color">
+            <div class="card-body text-center">
+                <span class="sgei-resultado-icono bg-@(color)-subtle text-@(color)">
+                    <i class="bi @icono"></i>
+                </span>
+                <h1 class="h4 fw-semibold mb-2">@Model.Titulo</h1>
+                @if (!string.IsNullOrWhiteSpace(Model.Mensaje))
+                {
+                    <p class="text-muted mb-0">@Model.Mensaje</p>
+                }
+
+                @if (Model.Botones.Count > 0)
+                {
+                    <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                        @for (var i = 0; i < Model.Botones.Count; i++)
+                        {
+                            var boton = Model.Botones[i];
+                            <a class="btn @(i == 0 ? "btn-primary" : "btn-outline-secondary")" href="@boton.Url" data-spinner>@boton.Texto</a>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

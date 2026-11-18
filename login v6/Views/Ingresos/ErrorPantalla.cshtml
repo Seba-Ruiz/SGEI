@@ -1,8 +1,15 @@
-﻿
+﻿@using login_v6.Models
 @{
-    ViewBag.Title = "ErrorPantalla";
+    ViewBag.Title = "Error";
 }
 
-<h2 class="text-danger">Error!</h2>
-<h3>Debe ingresar un valor válido para la cantidad de insumo, como asi también el número de comprobante.</h3>
-@Html.ActionLink("Volver", "Index", "Ingresos", new {@class = "btn btn-primary" })
+@Html.Partial("_Resultado", new ResultadoViewModel
+{
+    Tipo = TipoResultado.Error,
+    Titulo = "Faltan datos del ingreso",
+    Mensaje = "Ingresá una cantidad válida y el número de comprobante.",
+    Botones =
+    {
+        new BotonResultado("Volver", Url.Content("~/Ingresos/Index"))
+    }
+})

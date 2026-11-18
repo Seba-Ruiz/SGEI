@@ -1,23 +1,16 @@
-﻿
+﻿@using login_v6.Models
 @{
-    ViewBag.Title = "Alta Exitosa";
+    ViewBag.Title = "Switch agregado";
 }
 
-
-            <div class="ex-page-content text-center">
-                <div class="text-error">
-                    <span class="text-primary">ÉXIT</span><i class="bi bi-emoji-smile text-danger"></i><span class="text-info">!</span>
-                </div>
-                <h2>SW Agregado con Éxito!</h2>
-                <br>
-                <p class="text-muted">
-                    Proceso de guardado exitoso.
-                </p>
-                <p class="text-muted">
-                    Use el boton "Inicio" para volver a agregar un nuevo Switch
-                </p>
-                <br>
-                <a class="btn btn-outline-secondary" href="~/Inicio/Index"> Inicio</a>
-
-            </div>
-       
+@Html.Partial("_Resultado", new ResultadoViewModel
+{
+    Tipo = TipoResultado.Exito,
+    Titulo = "Switch agregado",
+    Mensaje = "El switch ya está disponible en las consultas.",
+    Botones =
+    {
+        new BotonResultado("Agregar otro", Url.Content("~/Home/Altasw")),
+        new BotonResultado("Volver al inicio", Url.Content("~/Inicio/Index"))
+    }
+})
