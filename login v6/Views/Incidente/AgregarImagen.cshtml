@@ -59,6 +59,7 @@
 
 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
 
     <div class="text-center">
         <input type="submit" value="No agregar foto del Incidente" class="btn-custom btn-inverse" />

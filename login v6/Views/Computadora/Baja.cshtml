@@ -12,6 +12,7 @@
 
 @using (Html.BeginForm("BajaAceptada", "Computadora", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.detallepc_id)
     
 <div class="row">

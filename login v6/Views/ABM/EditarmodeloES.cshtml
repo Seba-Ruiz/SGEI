@@ -8,6 +8,7 @@
 </ol>
 @using (Html.BeginForm("GuardarmodeloES", "ABM", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.id_marca_modelo_escaner)
     <div class="row">
         <div class="col-sm-3"></div>

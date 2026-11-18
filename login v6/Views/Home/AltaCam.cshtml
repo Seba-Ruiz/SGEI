@@ -15,6 +15,7 @@
             </p>
             @using (Html.BeginForm("GuardarCam", "Home", FormMethod.Post, new { id = "basic-form" }))
             {
+                @Html.AntiForgeryToken()
 
 
                 <div>

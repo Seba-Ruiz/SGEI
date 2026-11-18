@@ -12,6 +12,7 @@
 </ol>
 @using (Html.BeginForm("Guardarincidente", "Swichs", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.switch_id)
 
 

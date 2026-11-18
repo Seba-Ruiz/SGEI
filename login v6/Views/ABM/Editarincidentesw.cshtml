@@ -11,6 +11,7 @@
 
 @using (Html.BeginForm("Guardarincidentesw", "ABM", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.id_incidente_switch)
     <div class="row">
         <div class="col-sm-3"></div>

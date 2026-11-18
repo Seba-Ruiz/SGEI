@@ -572,11 +572,6 @@ namespace SGEI.Controllers
         }
 
 
-        public ActionResult Ver(int id)
-        {
-
-            return View(imp.Obtener(id));
-        }
 
         [HttpPost]
         public ActionResult Buscar(int ubicacion)

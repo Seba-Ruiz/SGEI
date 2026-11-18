@@ -29,6 +29,7 @@
 
                         @using (Html.BeginForm("Buscar", "Camara", FormMethod.Post, new { id = "frm-incidente" }))
                         {
+                            @Html.AntiForgeryToken()
                             <div class="form-group">
                                 @Html.Label("Nombre de Ubicacion:")
                                 @Html.DropDownList("ubicacioncam", new SelectList(ViewBag.ubicacioncam, "id_ubicacion_camara", "nombre"), new { @class = "btn dropdown-toggle btn-white", @style = "width:200px;" })
@@ -72,6 +73,7 @@
 
                     @using (Html.BeginForm("Buscar", "Camara", FormMethod.Post, new { id = "frm-incidente" }))
                     {
+                        @Html.AntiForgeryToken()
                         <div class="form-group">
                             @Html.Label("Nombre de Ubicacion:")
                             @Html.DropDownList("ubicacioncam", new SelectList(ViewBag.ubicacioncam, "id_ubicacion_camara", "nombre"), new { @class = "btn dropdown-toggle btn-white", @style = "width:200px;" })

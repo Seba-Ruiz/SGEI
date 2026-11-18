@@ -86,7 +86,7 @@ namespace login_v6.Controllers
             var user = usuario.Obtener(userId);
 
             var tipoRol = usuario.obtenerTipoRol(userId);
-            ViewBag.tipoRol = tipoRol.Name;
+            ViewBag.tipoRol = tipoRol != null ? tipoRol.Name : "Sin rol";
 
             ViewBag.nombre = user.nombre;
             ViewBag.apellido = user.apellido;

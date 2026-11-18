@@ -1,114 +1,139 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Model;
-using Negocio.Servicio;
 using Negocio.Dominio;
-
+using login_v6.Seguridad;
 
 namespace login_v6.Controllers
 {
     /// <summary>
-    /// Este ees el controlador del usuario
+    /// Gestión de usuarios. Listar, ver y editar a otros usuarios (incluido su rol) es solo
+    /// para el Administrador; cada usuario puede editar únicamente sus propios datos personales.
     /// </summary>
-    [Authorize]
     public class UsuarioController : Controller
     {
-        //variable de la capa dominio de la aplicacion para gesion con la bd
-        public usuario_dominio user = new usuario_dominio();
-        
-        /// <summary>
-        /// El metodo index es el que lista los usuarios que existen
-        /// </summary>
-        public ActionResult Index()
+        private readonly usuario_dominio user = new usuario_dominio();
+
+        private ApplicationUserManager UserManager
         {
-            var usuarios = user.Listar();
-            return View(usuarios);
+            get { return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
         }
 
-        /// <summary>
-        /// El metodo Detalle es el que obtiene y muestra en pantalla el detalle del usuario seleccionado en el Index
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Retoran el usuario con todo su detalle</returns>
+        /// <summary>Lista los usuarios existentes.</summary>
+        [SoloAdministrador]
+        public ActionResult Index()
+        {
+            return View(user.Listar());
+        }
+
+        /// <summary>Detalle del usuario seleccionado en el Index.</summary>
+        [SoloAdministrador]
         public ActionResult Detalle(string id)
         {
-            var tipoRol = user.obtenerTipoRol(id);
-            
             var usuario = user.Obtener(id);
-            ViewBag.tipoRol = tipoRol.Name;
-            
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+
+            var tipoRol = user.obtenerTipoRol(id);
+            ViewBag.tipoRol = tipoRol != null ? tipoRol.Name : "Sin rol";
             return View(usuario);
         }
 
-        /// <summary>
-        /// Aqui podremos editar la informacion del usuario como asi tambien el tipo de usuario al que pertenece (Administrador u Operario)
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Retorna el usuario que deseamos editar</returns>
+        /// <summary>Edición de datos y tipo de usuario (Administrador u Operario).</summary>
+        [SoloAdministrador]
         public ActionResult Editar(string id)
         {
             var usuario = user.Obtener(id);
-            
-            var tipoRol = user.obtenerTipoRol(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
 
-            var roles_dominio = new rol_dominio();
-
-            ViewBag.tipo = new SelectList(roles_dominio.Listar(), "Id", "Name", tipoRol.Id);
-            
+            CargarRoles(id);
             return View(usuario);
         }
 
+        /// <summary>Cada usuario edita sus propios datos personales (sin rol).</summary>
         public ActionResult EditarSinRol(string id)
         {
+            if (!EsUsuarioActual(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             var usuario = user.Obtener(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
 
-            var tipoRol = user.obtenerTipoRol(id);
-
-            var roles_dominio = new rol_dominio();
-
-            ViewBag.tipo = new SelectList(roles_dominio.Listar(), "Id", "Name", tipoRol.Id);
-
+            CargarRoles(id);
             return View(usuario);
         }
 
-        /// <summary>
-        /// Este es la confirmacion del la edicion del usuario guardando los cambios seleccionados anteriormente.
-        /// </summary>
-        /// <param name="usu"></param>
-        /// <param name="tipoRol"></param>
+        /// <summary>Guarda los datos personales y, si cambió, el nuevo rol del usuario.</summary>
         [HttpPost]
-        public ActionResult confirmarEditar(AspNetUsers usu, string tipoRol)
+        [SoloAdministrador]
+        public ActionResult confirmarEditar(string id, string PhoneNumber, string nombre, string apellido, string tipoRol)
         {
+            if (!user.ActualizarDatosPersonales(id, PhoneNumber, nombre, apellido))
+            {
+                return HttpNotFound();
+            }
 
-            var roles_dominio = new rol_dominio();
+            var rolesDominio = new rol_dominio();
+            var rolActual = user.obtenerTipoRol(id);
+            var rolValido = rolesDominio.Listar().Any(r => r.Id == tipoRol);
 
-            var usuarioRol = new AspNetUserRoles();
+            if (rolValido && (rolActual == null || rolActual.Id != tipoRol))
+            {
+                rolesDominio.Guardar(new AspNetUserRoles
+                {
+                    RoleId = tipoRol,
+                    UserId = id,
+                    fecha_rol = DateTime.Now
+                });
 
-            usuarioRol.RoleId = tipoRol;
-            usuarioRol.UserId = usu.Id;
-            usuarioRol.fecha_rol = DateTime.Now;
-
-            roles_dominio.Guardar(usuarioRol);
-            
-            user.Guardar(usu);
-
-
-            return View();
-        }
-        [HttpPost]
-        public ActionResult confirmarEditarSinRol(AspNetUsers usu)
-        {
-
-            user.Guardar(usu);
-
+                // Invalida la sesión del usuario para que el nuevo rol se aplique de inmediato.
+                UserManager.UpdateSecurityStamp(id);
+            }
 
             return View();
         }
 
+        /// <summary>Guarda los datos personales del usuario logueado.</summary>
+        [HttpPost]
+        public ActionResult confirmarEditarSinRol(string id, string PhoneNumber, string nombre, string apellido)
+        {
+            if (!EsUsuarioActual(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
 
+            if (!user.ActualizarDatosPersonales(id, PhoneNumber, nombre, apellido))
+            {
+                return HttpNotFound();
+            }
 
+            return View();
+        }
+
+        private bool EsUsuarioActual(string id)
+        {
+            return !string.IsNullOrEmpty(id) && id == User.Identity.GetUserId();
+        }
+
+        private void CargarRoles(string id)
+        {
+            var tipoRol = user.obtenerTipoRol(id);
+            ViewBag.tipo = new SelectList(new rol_dominio().Listar(), "Id", "Name", tipoRol != null ? tipoRol.Id : null);
+        }
     }
 }

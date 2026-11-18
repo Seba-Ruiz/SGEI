@@ -15,6 +15,7 @@
 
             @using (Html.BeginForm("GuardarImp", "Impresora", FormMethod.Post, new { id = "basic-form" }))
             {
+                @Html.AntiForgeryToken()
                 @Html.HiddenFor(x => x.id_ubicacion_impresora)
                 @Html.HiddenFor(x => x.id_detalle_ubicacion_impresora)
                 @Html.HiddenFor(x => x.fecha_ubicacion)

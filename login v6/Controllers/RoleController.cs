@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Negocio.Dominio;
+using login_v6.Seguridad;
 
 namespace login_v6.Controllers
 {
-   [Authorize]
+    [SoloAdministrador]
     public class RoleController : Controller
     {
 

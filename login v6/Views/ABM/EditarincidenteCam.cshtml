@@ -11,6 +11,7 @@
 
 @using (Html.BeginForm("Guardarincidentecam", "ABM", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.id_incidente)
     <div class="row">
         <div class="col-sm-3"></div>

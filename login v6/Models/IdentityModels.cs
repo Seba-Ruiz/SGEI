@@ -1,5 +1,8 @@
 ﻿using System.Data.Entity;
+using System.Linq;
 using System.Security.Claims;
+using login_v6.Seguridad;
+using Negocio.Dominio;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -13,7 +16,21 @@ namespace login_v6.Models
         {
             // Tenga en cuenta que el valor de authenticationType debe coincidir con el definido en CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Agregar aquí notificaciones personalizadas de usuario
+
+            // AspNetUserRoles guarda el historial de roles; solo vale el más reciente.
+            // Se reemplazan los claims de rol que agrega Identity por el rol vigente.
+            foreach (var claim in userIdentity.FindAll(ClaimTypes.Role).ToList())
+            {
+                userIdentity.RemoveClaim(claim);
+            }
+
+            var rolVigente = new usuario_dominio().obtenerTipoRol(Id);
+            if (rolVigente != null)
+            {
+                userIdentity.AddClaim(new Claim(RolesSgei.ClaimRolId, rolVigente.Id));
+                userIdentity.AddClaim(new Claim(ClaimTypes.Role, rolVigente.Name));
+            }
+
             return userIdentity;
         }
     }

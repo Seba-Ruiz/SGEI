@@ -9,6 +9,7 @@
 </ol>
 @using (Html.BeginForm("CrudincidenteES", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
 {
+    @Html.AntiForgeryToken()
     <div class="vakata-context-left">
         <button type="submit" class="btn btn-inverse waves-effect waves-light">
             <span class="btn btn-label">
@@ -36,7 +37,7 @@
                         <th>@a.descripcion</th>
                         <th>
                             <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/EditarincidenteES/@a.id_incidente_escaner"></a>
-                            <a onclick="return confirm('¿Desea eliminar el modelo?');" class="md md-clear" title="Eliminar" href="~/ABM/EliminarmodeloES/@a.id_incidente_escaner"></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarincidenteES/" + a.id_incidente_escaner), "¿Desea eliminar el incidente?", "md md-clear")
                         </th>
                     </tr>
                 }

@@ -8,6 +8,7 @@
 </ol>
 @using (Html.BeginForm("Mover", "Home", FormMethod.Post, new { id = "frm-mover" }))
 {
+    @Html.AntiForgeryToken()
 
 
     <div class="row">

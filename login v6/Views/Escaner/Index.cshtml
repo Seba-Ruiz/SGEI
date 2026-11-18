@@ -26,6 +26,7 @@
                         </p>
                         @using (Html.BeginForm("Buscar", "Escaner", FormMethod.Post, new { id = "frm-incidente" }))
                         {
+                            @Html.AntiForgeryToken()
                             <div class="form-group">
                                 @Html.Label("Nombre de Ubicacion:")
                                 @Html.DropDownList("ubicaciones", new SelectList(ViewBag.ubicaciones, "id_ubicacion_escaner", "nombre"), new { @class = "btn dropdown-toggle btn-white", @style = "width:200px;" })

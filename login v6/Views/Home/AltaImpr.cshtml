@@ -15,6 +15,7 @@
             </p>
             @using (Html.BeginForm("GuardarImp", "Home", FormMethod.Post, new { id = "basic-form" }))
             {
+                @Html.AntiForgeryToken()
                 <div>
                     <h3>Impresora</h3>
 

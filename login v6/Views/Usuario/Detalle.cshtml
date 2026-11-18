@@ -111,6 +111,7 @@
                         </form>
                         @using (Html.BeginForm("Editar", "Usuario", FormMethod.Post))
                         {
+                            @Html.AntiForgeryToken()
                             <div class="modal-footer">
                                 <a class="btn btn-danger btn-custom btn-rounded waves-effect waves-light" title="Editar computadora" href="~/Usuario/Editar/@Model.Id"> Editar </a>
                                 

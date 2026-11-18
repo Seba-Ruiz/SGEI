@@ -6,6 +6,7 @@
 @Html.ValidationSummary("", new { @class = "text-danger" })
 @using (Html.BeginForm("GuardarInsumoImpresora", "Ingresos", FormMethod.Post, new { id = "form-control" }))
 {
+    @Html.AntiForgeryToken()
     <div class="container">
         <!-- Page-Title -->
         <div class="row">

@@ -35,6 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <!-- Compila las vistas Razor al publicar: una vista rota corta el build en vez de fallar en producción. -->
+    <MvcBuildViews>true</MvcBuildViews>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -150,6 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Seguridad\HtmlSeguridadExtensions.cs" />
+    <Compile Include="Seguridad\RolesSgei.cs" />
+    <Compile Include="Seguridad\SoloAdministradorAttribute.cs" />
+    <Compile Include="Seguridad\ValidarAntiforgeryEnPostAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -2845,6 +2851,10 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\AccesoDenegado.cshtml" />
+    <Content Include="Views\Shared\_AntiforgeryAjax.cshtml" />
+    <None Include="connectionStrings.example.config" />
+    <None Include="appSettings.secret.example.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -2987,7 +2997,6 @@
     <Content Include="Views\Home\CrudUbicacion_impresora.cshtml" />
     <Content Include="Views\Home\impresoras_baja.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Ver.cshtml" />
     <Content Include="Views\Shared\_LoginPartial02.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />

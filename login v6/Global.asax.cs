@@ -12,6 +12,9 @@ namespace login_v6
     {
         protected void Application_Start()
         {
+            // No exponer la versión de MVC en los headers de respuesta.
+            MvcHandler.DisableMvcResponseHeader = true;
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
