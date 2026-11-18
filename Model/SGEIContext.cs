@@ -47,6 +47,8 @@ namespace Model
         public virtual DbSet<insumo> insumo { get; set; }
         public virtual DbSet<insumo_camara> insumo_camara { get; set; }
         public virtual DbSet<insumo_pc> insumo_pc { get; set; }
+        public virtual DbSet<mantenimiento> mantenimiento { get; set; }
+        public virtual DbSet<mantenimiento_impre> mantenimiento_impre { get; set; }
         public virtual DbSet<marca_modelo_camara> marca_modelo_camara { get; set; }
         public virtual DbSet<marca_modelo_cel> marca_modelo_cel { get; set; }
         public virtual DbSet<marca_modelo_escaner> marca_modelo_escaner { get; set; }
@@ -65,7 +67,6 @@ namespace Model
         public virtual DbSet<switch_detalle> switch_detalle { get; set; }
         public virtual DbSet<switch_incidente_switch> switch_incidente_switch { get; set; }
         public virtual DbSet<switch_ubicacion_switch> switch_ubicacion_switch { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<telefono> telefono { get; set; }
         public virtual DbSet<tipo_tel> tipo_tel { get; set; }
         public virtual DbSet<tipoPC> tipoPC { get; set; }
@@ -291,6 +292,11 @@ namespace Model
                 .HasForeignKey(e => e.pc_id);
 
             modelBuilder.Entity<pc>()
+                .HasMany(e => e.mantenimiento)
+                .WithOptional(e => e.pc)
+                .HasForeignKey(e => e.pc_id);
+
+            modelBuilder.Entity<pc>()
                 .HasMany(e => e.pc_incidentepc)
                 .WithOptional(e => e.pc)
                 .HasForeignKey(e => e.pc_id);
@@ -396,6 +402,11 @@ namespace Model
                 .WithOptional(e => e.ubicacion_impresora)
                 .HasForeignKey(e => e.ubicacion_impresora_id)
                 .WillCascadeOnDelete();
+
+            modelBuilder.Entity<ubicacion_impresora>()
+                .HasMany(e => e.mantenimiento_impre)
+                .WithOptional(e => e.ubicacion_impresora)
+                .HasForeignKey(e => e.id_impresora);
 
             modelBuilder.Entity<ubicacion_switch>()
                 .HasMany(e => e.switch_ubicacion_switch)

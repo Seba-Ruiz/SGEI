@@ -1,0 +1,158 @@
+﻿@model Negocio.DTO.DTO_buscar_pc
+@{
+    ViewBag.Title = "Detalle";
+}
+
+
+<div class="container">
+
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+
+            <h4 class="page-title">Detalle de la Computadora</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="~/Inicio/index">Inicio</a>
+                </li>
+                <li class="active">
+                    Detalle de computadora.
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
+                <h4 class="m-t-0 header-title"><b>Detalle de la Computadora Seleccionada</b></h4>
+                <p class="text-muted m-b-30 font-13">
+                    Esta pantalla muestra la información detallada de la computadora buscada. 
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <form class="form-horizontal" role="form">
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Nombre de la PC</label>
+                                <div class="col-md-10">
+
+                                    <label class="form-control" readonly="">@Model.nombre</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Numero de IP</label>
+                                <div class="col-md-10">
+
+                                    <label class="form-control" readonly="">@Model.ip</label>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Descripcion</label>
+                                <div class="col-md-10">
+
+                                    <label class="form-control" readonly="">@Model.descripcion</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Ubicacion</label>
+                                <div class="col-md-10">
+
+                                    <label class="form-control" readonly="">@Model.ubicacion</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Fecha de Ubicacion</label>
+                                <div class="col-md-10">
+                                    <label class="form-control" readonly="">@Model.fecha_ubicacion</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Responsable de la PC</label>
+                                <div class="col-md-10">
+                                    <label class="form-control" readonly="">@Model.responsablepc</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-6">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Observacion</label>
+                                <div class="col-md-10">
+                                    <label class="form-control" readonly="">@Model.observacion</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Tipo de PC</label>
+                                <div class="col-md-10">
+                                    <label class="form-control" readonly="">@Model.nombre_tipo</label>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Tamaño de RAM</label>
+                                <div class="col-md-10">
+                                    <label class="form-control" readonly="">@Model.ram</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Tamaño de Disco</label>
+                                <div class="col-md-10">
+                                    <label class="form-control" readonly="">@Model.disco</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Sistema Operativo</label>
+                                <div class="col-md-10">
+                                    <label class="form-control" readonly="">@Model.so</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Procesador</label>
+                                <div class="col-md-10">
+                                    <label class="form-control" readonly="">@Model.procesador</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Placa Madre</label>
+                                <div class="col-md-10">
+                                    @*@Html.DisplayFor(Model => Model.mother, new { @class = "form-control", @readonly = "" })*@
+                                    <label class="form-control" readonly="">@Model.mother</label>
+                                </div>
+                            </div>
+                        </form>
+                        @*@using (Html.BeginForm("EditarPC", "Computadora", FormMethod.Post))
+                        {
+                            <div class="modal-footer">
+                                <a class="btn btn-danger btn-custom btn-rounded waves-effect waves-light" title="Editar computadora" href="~/Computadora/EditarPC/@Model.id_detalle"> Editar </a>
+                                @*<button type="submit" class="btn-custom btn-default">Editar</button>
+                            </div>
+                        }*@
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

@@ -8,7 +8,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <div class="card-box">
-            <h4 class="m-t-0 header-title"><b>EDITAR CAMARA</b></h4>
+            <h4 class="m-t-0 header-title"><b>EDITAR ESCANER</b></h4>
             <p class="text-muted m-b-30 font-13">
                 Use este wizard para editar el escaner seleccionado, recuerde que una vez editada podrá consultar el detalle de dicha camara a travez de la busqueda de la misma como asi tambien volverla a editar.
             </p>
@@ -29,6 +29,7 @@
                         <div class="form-group clearfix">
                             @Html.Label("Seleccione la ubicacion del escaner")
                             @Html.DropDownListFor(x => x.id_ubicacion_escaner, ViewBag.ubicacion as SelectList, new { @class = "form-control", @style = "width:250px;", @disabled = "" })
+                            <span class="help-block"><small>La ubicación se actualizará al mover el equipo de una ubicación a otra.</small></span>
                         </div>
                     </section>
                     <h3>Detalle</h3>

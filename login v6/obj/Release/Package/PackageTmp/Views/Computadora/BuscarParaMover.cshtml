@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Mover";
+}
+<ol class="breadcrumb">
+    <li><a href="~/Home/Index">Inicio</a></li>
+    <li class="active">@("Mover de ubicaciòn la PC") </li>
+</ol>
+@using (Html.BeginForm("Mover", "Computadora", FormMethod.Post, new { id = "frm-mover" }))
+{
+
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="panel panel-primary panel-border">
+                <div class="panel-heading">
+                    <h4 class="panel-title">MOVER DE UBICACIÓN</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                            <p class="text-muted m-b-30 font-13">
+                                Mueve la computadora a otra ubicación. Seleccione la nueva ubicación para la computadora.
+                            </p>
+                            <div class="form-group col-lg-offset-2">
+                                @Html.Label("Nombre de Ubicación")
+                                @Html.DropDownList("id_nueva_ubicacion", new SelectList(ViewBag.ubicacion, "id_ubicacion", "nombre"), new { @class = "form-control", @style = "width:300px;" })
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Mover</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+

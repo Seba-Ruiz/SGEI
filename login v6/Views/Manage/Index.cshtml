@@ -84,7 +84,118 @@
         </dd>*@
     </dl>
 </div>
+
+
 <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="panel panel-purple panel-border">
+            <div class="panel-heading">
+                <h4 class="panel-title">DETALLE DEL USUARIO</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                        <p class="text-muted m-b-30 font-13">
+                            Esta pantalla muestra la información detallada de tu cuenta. Podras editar la misma con el boton editar.
+                        </p>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Email </label>
+                                <div class="col-md-10">
+
+                                    <label class="form-control" style="width:300px" readonly="">@ViewBag.mail</label>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Telefono</label>
+                                <div class="col-md-10">
+                                    @if (Model.PhoneNumber == null)
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">---</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">@ViewBag.telefono</label>
+                                    }
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Tipo de Usuario</label>
+                                <div class="col-md-10">
+
+                                    <label class="form-control" style="width:300px" readonly="">@ViewBag.tipoRol</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Ultimo Ingreso</label>
+                                <div class="col-md-10">
+
+                                    <label class="form-control" style="width:300px" readonly="">@ViewBag.ingreso</label>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Nombre</label>
+                                <div class="col-md-10">
+                                    @if (ViewBag.nombre == null)
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">---</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">@ViewBag.nombre</label>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Apellido</label>
+                                <div class="col-md-10">
+                                    @if (ViewBag.apellido == null)
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">---</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">@ViewBag.apellido</label>
+                                    }
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+            @using (Html.BeginForm("Editar", "Usuario", FormMethod.Post))
+            {
+                <div class="modal-footer">
+                    <a class="btn btn-danger btn-custom btn-rounded waves-effect waves-light" href="~/Usuario/EditarSinRol/@ViewBag.id"> Editar </a>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@*<div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="card-box">
@@ -186,4 +297,4 @@
         </div>
     </div>
 
-</div>
+</div>*@

@@ -1,0 +1,248 @@
+﻿
+@model IEnumerable<Negocio.DTO.DTO_mantenimiento>
+@{
+    ViewBag.Title = "Sugeridos";
+}
+@*@if (Model.Count() == 0)
+    {
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="card-box">
+                <h4 class="text-danger header-title m-t-0">Mantenimiento Sugerido</h4>
+                <p class="text-muted m-b-30 font-13">
+                    Felicitaciones! No existen equipos con mantenimiento sugerido.
+                </p>
+            </div>
+        </div>
+    }
+    else
+    {*@
+<div class="col-lg-10 col-lg-offset-1">
+    <div class="card-box">
+        <h4 class="text-danger header-title m-t-0">Mantenimiento Sugerido</h4>
+        <p class="text-muted m-b-30 font-13">
+            Las siguiente lista muestra las impresoras y computadoras que necesitan mantenimiento.
+        </p>
+
+        <div class="table-responsive">
+            <table id="datatable" class="table table-striped toggle-circle m-b-0">
+                <thead>
+                    <tr>
+
+                        <th>Equipo</th>
+                        <th>Último Mantenimietno</th>
+                        <th>Ubicación</th>
+                        <th>Descripción</th>
+                        <th style="min-width: 80px;">Accion</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        if (item.tipo == "PC")
+                        {
+                            <tr>
+                                <td><img src="~/assets/images/products/macbook.jpg" class="thumb-sm pull-left m-r-10" alt=""><a title="Detalles" href="~/Computadora/Detalle/@item.id" class="text-primary"><b>@item.nombre</b></a> </td>
+                                <td><span class="text-danger">@item.ultimo_mantenimiento</span></td>
+                                <td><span class="text-dark">@item.ubicacion</span></td>
+                                <td><span class="text-dark">@item.descripcion</span></td>
+                                <td>
+                                    <a href="#" onclick="abrirModalManteCompu(@item.id,'@item.nombre')" title="Realizar Mantenimiento" class="table-action-btn"><i class="md md-done"></i></a>
+                                    <a href="#" onclick="abrirModalCompu(@item.id,'@item.nombre')" title="Posponer Mantenimiento" class="table-action-btn"><i class="md md-exit-to-app"></i></a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td><img src="~/assets/images/products/hp.jpg" class="thumb-sm pull-left m-r-10" alt=""><a title="Detalles" href="~/Impresora/Editar/@item.id" class="text-primary"><b>@item.nombre</b></a> </td>
+                                <td><span class="text-danger">@item.ultimo_mantenimiento</span></td>
+                                <td><span class="text-dark">@item.ubicacion</span></td>
+                                <td><span class="text-dark">@item.descripcion</span></td>
+                                <td>
+                                    <a href="#" onclick="abrirModalManteImpre(@item.id,'@item.nombre')" title="Realizar Mantenimiento" class="table-action-btn"><i class="md md-done "></i></a>
+                                    <a href="#" onclick="abrirModalImpre(@item.id,'@item.nombre')" title="Posponer Mantenimiento" class="table-action-btn"><i class="md md-exit-to-app"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+@* } *@
+
+
+
+@using (Html.BeginForm("PosponerMante", "Computadora", FormMethod.Post, new { id = "form-control" }))
+{
+    <div id="coso" data-backdrop="static" style="display: none;">
+        <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
+            <h2 class="text-primary">Posponer Mantenimiento</h2>
+            <p class="lead text-muted" style="display: block;">
+                Ingresá la cantidad de dias que deseas posponer el mantenimiento de la computadora
+                <label id="nombre_p"></label>
+                <div class="col-lg-offset-4">
+                    <input type="number" name="dias" class="form-control" value="0" style="width:150px;">
+                    <input type="number" name="id" id="id" class="form-control" value="0" style="width:150px; display:none">
+                </div>
+            </p>
+
+            <div class="button-list">
+                <a onclick="cerrar()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+                @*<button onclick="cerrar()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</button>*@
+                <button type="submit" class="btn btn-lg btn-primary" tabindex="1" style="display: inline-block;">Aceptar</button>
+            </div>
+        </div>
+    </div>
+}
+@using (Html.BeginForm("PosponerMante", "Impresora", FormMethod.Post, new { id = "form-control" }))
+{
+    <div id="coso1" data-backdrop="static" style="display: none;">
+        <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
+            <h2 class="text-primary">Posponer Mantenimiento</h2>
+            <p class="lead text-muted" style="display: block;">
+                Ingresá la cantidad de dias que deseas posponer el mantenimiento de la impresora
+                <label id="nombre_i"></label>
+                <div class="col-lg-offset-4">
+                    <input type="number" name="dias" class="form-control" value="0" style="width:150px;">
+                    <input type="number" name="id1" id="id1" class="form-control" value="0" style="width:150px; display:none">
+                </div>
+            </p>
+
+            <div class="button-list">
+                <a onclick="cerrar1()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+
+                <button type="submit" class="btn btn-lg btn-primary" tabindex="1" style="display: inline-block;">Aceptar</button>
+            </div>
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm("ManteCompu", "Computadora", FormMethod.Post, new { id = "form-control" }))
+{
+    <div id="manteCompu" data-backdrop="static" style="display: none;">
+        <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
+            <h2 class="text-primary">Realizar Mantenimiento</h2>
+            <p class="lead text-muted" style="display: block;">
+                Ingresá la descripción del mantenimiento que se realizo a la computadora
+                <label id="nombre_pc"></label>
+
+                <div class="col-lg">
+
+                    @Html.TextArea("descripcion", new { @class = "form-control", @required = "required", @placeholder = "Mantenimiento realizado...", cols = 10, rows = 4 })
+                    <input type="number" name="id_pc" id="id_pc" class="form-control" value="0" style="width:150px; display:none">
+                </div>
+            </p>
+
+            <div class="button-list">
+                <a onclick="cerrar2()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+
+                <button type="submit" class="btn btn-lg btn-primary" tabindex="1" style="display: inline-block;">Aceptar</button>
+            </div>
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm("Manteimpre", "Impresora", FormMethod.Post, new { id = "form-control" }))
+{
+    <div id="manteImpre" data-backdrop="static" style="display: none;">
+        <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
+            <h2 class="text-primary">Realizar Mantenimiento</h2>
+            <p class="lead text-muted" style="display: block;">
+                Ingresá la descripción del mantenimiento que se realizo a la impresora
+                <label id="nombre_impre"></label>
+                <div class="col-lg">
+
+                    @Html.TextArea("descripcion1", new { @class = "form-control", @required = "required", @placeholder = "Mantenimiento realizado...", cols = 10, rows = 4 })
+                    <input type="number" name="id_impre" id="id_impre" class="form-control" value="0" style="width:150px; display:none">
+                </div>
+            </p>
+
+            <div class="button-list">
+                <a onclick="cerrar3()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+
+                <button type="submit" class="btn btn-lg btn-primary" tabindex="1" style="display: inline-block;">Aceptar</button>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({ keys: true });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-colvid').DataTable({
+            "dom": 'C<"clear">lfrtip',
+            "colVis": {
+                "buttonText": "Change columns"
+            }
+        });
+        $('#datatable-scroller').DataTable({
+            ajax: "~/assets/plugins/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+        });
+        var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
+        var table = $('#datatable-fixed-col').DataTable({
+            scrollY: "300px",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: false,
+            fixedColumns: {
+                leftColumns: 1,
+                rightColumns: 1
+            }
+        });
+    });
+    //TableManageButtons.init();
+</script>
+
+<script>
+    function abrirModalCompu(e, b) {
+        $("#id").val(e);
+        document.querySelector('#nombre_p').innerText = b;
+        $('#coso').modal('show');
+    }
+
+    function abrirModalImpre(e, b) {
+        $("#id1").val(e);
+        document.querySelector('#nombre_i').innerText = b;
+        $('#coso1').modal('show');
+    }
+
+    function abrirModalManteCompu(e, b) {
+        $("#id_pc").val(e);
+        document.querySelector('#nombre_pc').innerText = b;
+        $('#manteCompu').modal('show');
+    }
+
+    function abrirModalManteImpre(e, b) {
+        $("#id_impre").val(e);
+        document.querySelector('#nombre_impre').innerText = b;
+        $('#manteImpre').modal('show');
+    }
+
+    function cerrar() {
+        $('#coso').modal('hide');
+    }
+    function cerrar1() {
+        $('#coso1').modal('hide');
+    }
+    function cerrar2() {
+        $('#manteCompu').modal('hide');
+    }
+    function cerrar3() {
+        $('#manteImpre').modal('hide');
+    }
+</script>

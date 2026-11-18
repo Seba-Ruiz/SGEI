@@ -1,0 +1,48 @@
+﻿@model List<Model.ubicacion_escaner>
+@{
+    ViewBag.Title = "Ubicacion Escaner";
+}
+<h4 class="page-title">Ubicacion Camara</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Ubicacion de Escaner") </li>
+</ol>
+@using (Html.BeginForm("CrudubicacionES", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
+{
+    <div class="vakata-context-left">
+        <button type="submit" class="btn btn-inverse waves-effect waves-light">
+            <span class="btn btn-label">
+                <i class="md md-queue"></i>
+            </span>
+            Agregar
+        </button>
+    </div>
+
+}
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="card-box table-responsive">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">Nombre Ubicacion</th>
+                    <th style="width:10px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <th>@a.nombre</th>
+                        <th>
+                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/EditarubicacionES/@a.id_ubicacion_escaner"></a>
+                            <a onclick="return confirm('¿Desea eliminar la ubicacion?');" class="md md-clear" title="Eliminar" href="~/ABM/EliminarubicacionES/@a.id_ubicacion_escaner"></a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-2"></div>
+

@@ -1,0 +1,80 @@
+﻿@model Negocio.DTO.DTO_camara
+@{
+    ViewBag.Title = "Alta Camara";
+}
+
+<h2>Alta de Camara</h2>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>ALTA DE CAMARA</b></h4>
+            <p class="text-muted m-b-30 font-13">
+                Use este wizard para dar de alta un camara, recuerde que una vez dada de alta podrá consultar el detalle de dicha camara a travez de la busqueda de la misma como asi tambien editarla.
+            </p>
+            @using (Html.BeginForm("GuardarCam", "Home", FormMethod.Post, new { id = "basic-form" }))
+            {
+
+
+                <div>
+                    <h3>Camara</h3>
+
+                    <section>
+
+
+                        <div class="form-group clearfix">
+                            @Html.Label("Seleccione el Modelo de la camara")
+                            @Html.DropDownListFor(x => x.mmarca, new SelectList(ViewBag.modelo, "id_mmarca", "marca_modelo"), new { @class = "form-control", @style = "width:250px;" })
+                        </div>
+                       
+                        <div class="form-group clearfix">
+                            @Html.Label("Seleccione la ubicacion de la camara")
+                            @Html.DropDownListFor(x => x.ubicacion, new SelectList(ViewBag.ubicacion, "id_ubicacion_camara", "nombre"), new { @class = "form-control", @style = "width:250px;" })
+                        </div>
+
+                    </section>
+
+                    <h3>Detalle</h3>
+                    <section>
+                        <div class="form-group clearfix">
+
+                            <div class="form-group clearfix">
+                                @Html.Label("Ingrese descripcion de la Camara")
+                                @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                                @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "label label-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            @Html.Label("Ingrese numero de IP de la camara")
+                            @Html.TextBoxFor(x => x.ip, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                            @Html.ValidationMessageFor(x => x.ip, null, new { @class = "label label-danger" })
+
+                        </div>
+                    </section>
+
+                    <h3>Finalizar</h3>
+                    <section>
+                        <div class="form-group clearfix">
+                            <div class="col-lg-12">
+
+                                <label for="test">
+                                    Al hacer click en "Finalizar" aceptará guardar la informacion antes descripta. Podra modificar los detalles de la camara en cualquier momento que lo desee.
+                                    <br />
+                                    Por favor active la casilla:
+                                </label>
+                                @Html.CheckBox("test", new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            }
+
+
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>

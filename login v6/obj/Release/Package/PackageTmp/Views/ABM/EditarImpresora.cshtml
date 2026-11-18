@@ -1,0 +1,55 @@
+﻿@model Model.impresora
+
+@{
+    ViewBag.Title = (Model.id > 0 ? Model.marca_modelo : "Nuevo Registro");
+}
+
+<ol class="breadcrumb">
+    <li><a href="~/ABM/Impresoras">Impresoras</a></li>
+    <li class="active">@(Model.id > 0 ? Model.marca_modelo : "Editar") </li>
+</ol>
+
+@using (Html.BeginForm("GuardarImpresora", "ABM", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.id)
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-20 header-title"><b>EDITAR IMPRESORA</b></h4>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><b>Edita las propiedades de la impresora</b></h5>
+                    <p class="text-muted m-b-30 font-13">
+                        Edita las propiedades previamente cargadas de la impresora en el sistema
+                    </p>
+                    <div class="form-group">
+                        @Html.Label("Ingrese marca y modelo de la impresora")
+                        @Html.TextBoxFor(x => x.marca_modelo, new { @class = "form-control", @style = "width:200px;", @required = "required" })
+                        @Html.ValidationMessageFor(x => x.marca_modelo, null, new { @class = "label label-danger" })
+                    </div>
+                    @*<div class="form-group">
+                            @Html.Label("Ingrese tipo")
+                            @Html.TextBoxFor(x => x.tipo, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.tipo, null, new { @class = "label label-danger" })
+                        </div>*@
+                    <div class="form-group">
+                        @Html.Label("Tipo de Conexion")
+                        <select name="Tipo" class="form-control">
+                            <option @(Model.tipo == "LOCAL" ? "selected" : "") value="LOCAL">LOCAL</option>
+                            <option @(Model.tipo == "RED" ? "selected" : "") value="RED">RED</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="text-center">
+            <button type="submit" class="btn-custom btn-inverse">Guardar</button>
+        </div>
+
+        }

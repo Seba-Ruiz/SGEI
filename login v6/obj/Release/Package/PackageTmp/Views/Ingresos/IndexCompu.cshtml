@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@Html.AntiForgeryToken()
+@Html.ValidationSummary("", new { @class = "text-danger" })
+@using (Html.BeginForm("GuardarInsumoComputadora", "Ingresos", FormMethod.Post, new { id = "form-control" }))
+{
+    <div class="container">
+        <!-- Page-Title -->
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="page-title">Nuevo ingreso</h4>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="~/inicio/index">Inicio</a>
+                    </li>
+                    <li class="active">
+                        Nuevo ingreso de Insumos
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10">
+                <div class="card-box">
+                    <div class="row">
+                        <div class="panel panel-primary panel-border">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Ingreso de insumos de computadoras</h3>
+                                <p class="text-muted font-13">
+                                    Seleccione la cantidad que ingresa para cada tipo de insumo existente en el sistema para el tipo de equipo computadora.
+                                </p>
+                            </div>
+                        </div>
+                        @foreach (var item in ViewBag.insumopc)
+                        {
+                            <div class="col-md-6 col-sm-6 col-lg-4">
+                                <div class="card-box widget-box-1 bg-white">
+                                    <h4 class="text-dark">Cantidad actual:  <b class="text-warning">@item.cantidad</b> </h4>
+                                    <h2 class="text-primary text-center">@item.nombre</h2>
+                                    <div class="col-lg-5 col-lg-offset-4">
+                                        <a onclick="abrirModal(@item.id_insumo)" class="btn btn-icon waves-effect waves-light btn-success btn-md"><i class="fa fa-plus"></i></a>
+                                        @*<button onclick="abrirModal(@item.id)" class="btn btn-icon waves-effect waves-light btn-success btn-md"><i class="fa fa-plus"></i></button>*@
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="coso" data-backdrop="static" style="display: none;">
+        <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
+             <h2>Número de comprobante</h2>
+            <p class="lead text-muted" style="display: block;">
+                Ingresá el número de orden de compra o numero de remito.
+                <div class="col-lg-offset-3">
+                    <input type="number" name="od" class="form-control" value="0" style="width:200px;">
+                    <input type="number" name="id" id="id" class="form-control" value="0" style="width:150px; display:none">
+                </div>
+            </p>
+            <p class="lead text-muted" style="display: block;">
+                Seleccioná el proveedor al que se le compró el insumo.
+                <div class="col-lg-offset-3">
+                    @Html.DropDownList("id_proveedor", new SelectList(ViewBag.proveedor, "id", "nombre"), new { @class = "form-control", @style = "width:200px;" })
+
+                </div>
+            </p>
+            <p class="lead text-muted" style="display: block;">
+                Ingresá la cantidad.
+                <div class="col-lg-offset-5">
+                    @Html.TextBox("cantidad", null, new { @class = "form-control", @style = "width:80px", @type = "number" })
+
+                </div>
+            </p>
+            <div class="button-list">
+                <a onclick="cerrar()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+                @*<button onclick="cerrar()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</button>*@
+                <button type="submit" class="btn btn-lg btn-primary" tabindex="1" style="display: inline-block;">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+<script>
+    function abrirModal(e) {
+
+        //$('#coso').on('show.bs.modal', function abrirModal (e) {
+
+        //    var bookId = $(e.relatedTarget).data('book-id');
+        //    $(e.currentTarget).find('input[name="prueba"]').val(bookId);
+
+        //document.f1t1.value = 30
+        $("#id").val(e);
+        $('#coso').modal('show');
+    }
+
+    function cerrar() {
+        $('#coso').modal('hide');
+    }
+
+
+
+
+
+</script>
+
+

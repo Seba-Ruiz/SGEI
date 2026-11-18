@@ -26,7 +26,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return user;
         }
@@ -44,7 +44,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
 
             return user;
@@ -71,7 +71,7 @@ namespace Negocio.Dominio
 
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
 
             try
@@ -86,7 +86,7 @@ namespace Negocio.Dominio
 
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
 
             return tipoRol;
@@ -107,7 +107,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return user;
         }
@@ -132,7 +132,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
 

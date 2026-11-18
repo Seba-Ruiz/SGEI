@@ -1,0 +1,53 @@
+﻿@model List<Model.IngresoInsumo>
+@{
+    /**/
+
+    ViewBag.Title = "Ingreso Impresora";
+}
+<h4 class="page-title">Insumos!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Detalle de ingreso de insumos de impresoras") </li>
+</ol>
+
+
+<div class="col-md-12">
+
+    <div class="card-box table-responsive">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">TIPO EQUIPO</th>
+                    <th style="width:50px;">NOMBRE INSUMO</th>
+                    <th style="width:50px;">FECHA INGRESO</th>
+                    <th style="width:50px;">COMPROBANTE</th>
+                    <th style="width:50px;">PROVEEDOR</th>
+                    <th style="width:50px;">CANTIDAD</th>
+                    <th style="width:10px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                <tr>
+                    <th>@a.tipo_equipo</th>
+                    <th>@a.nombre_insumo</th>
+                    <th>@a.fecha_ingreso</th>
+                    <th>@a.nro_comprobante</th>
+                    <th>@a.proveedor</th>
+                    <th>@a.cantidad</th>
+                </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<div class="col-md-2"></div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

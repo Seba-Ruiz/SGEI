@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Negocio.DTO.DTO_u_impresora_04>
+@{
+    ViewBag.Title = "impresoras_baja";
+}
+
+<h4 class="page-title">Impresoras!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Detalle de impresoras que se dieron de baja") </li>
+</ol>
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:180px;">MARCA_MODELO</th>
+                <th style="width:50px;">TIPO</th>
+                <th style="width:200px;">DESCRIPCION</th>
+                <th style="width:180px;">RESPONSABLE</th>
+                <th style="width:180px;">Nº IP</th>
+                <th style="width:180px;">PC_CONECTADA</th>
+                <th style="width:180px;">FECHA BAJA</th>
+                <th style="width:180px;">MOTIVO BAJA</th>
+                <th style="width:180px;">ULTIMA UBICACION</th>
+                @*<th style="width:200px;">id</th>*@
+
+                <th style="width:180px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <th>@a.marca_modelo</th>
+                    <th>@a.tipo</th>
+                    <th>@a.descripcion</th>
+                    <th>@a.responsable</th>
+                    <th>@a.ip</th>
+                    <th>@a.pc_dondeseconecta</th>
+                    <th>@a.fecha_baja</th>
+                    <th>@a.motivo_baja</th>
+                    <th>@a.ultima_ubicacion</th>
+                    <th>
+                        <a onclick="return confirm('¿Desea dar de ALTA esta impresora?');" title="Dar de alta nuevamente" class="glyphicon glyphicon-upload" href="~/Home/Alta/@a.id"></a>
+                    </th>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

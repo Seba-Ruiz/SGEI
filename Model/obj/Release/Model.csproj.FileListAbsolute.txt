@@ -11,3 +11,17 @@ D:\PROYECTO SICIT\login v6\Model\obj\Release\Model.csproj.CoreCompileInputs.cach
 D:\PROYECTO SICIT\login v6\Model\obj\Release\Model.csproj.CopyComplete
 D:\PROYECTO SICIT\login v6\Model\obj\Release\Model.dll
 D:\PROYECTO SICIT\login v6\Model\obj\Release\Model.pdb
+D:\SGEI\SGEI\Model\bin\Release\Model.dll.config
+D:\SGEI\SGEI\Model\bin\Release\Model.dll
+D:\SGEI\SGEI\Model\bin\Release\Model.pdb
+D:\SGEI\SGEI\Model\bin\Release\EntityFramework.dll
+D:\SGEI\SGEI\Model\bin\Release\EntityFramework.SqlServer.dll
+D:\SGEI\SGEI\Model\bin\Release\EntityFramework.xml
+D:\SGEI\SGEI\Model\bin\Release\EntityFramework.SqlServer.xml
+D:\SGEI\SGEI\Model\bin\Release\es\EntityFramework.resources.dll
+D:\SGEI\SGEI\Model\bin\Release\es\EntityFramework.SqlServer.resources.dll
+D:\SGEI\SGEI\Model\obj\Release\Model.csprojAssemblyReference.cache
+D:\SGEI\SGEI\Model\obj\Release\Model.csproj.CoreCompileInputs.cache
+D:\SGEI\SGEI\Model\obj\Release\Model.csproj.CopyComplete
+D:\SGEI\SGEI\Model\obj\Release\Model.dll
+D:\SGEI\SGEI\Model\obj\Release\Model.pdb

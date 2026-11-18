@@ -15,23 +15,6 @@ D:\PROYECTO SICIT\login v6\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.ca
 D:\PROYECTO SICIT\login v6\Negocio\obj\Debug\Negocio.csproj.CopyComplete
 D:\PROYECTO SICIT\login v6\Negocio\obj\Debug\Negocio.dll
 D:\PROYECTO SICIT\login v6\Negocio\obj\Debug\Negocio.pdb
-D:\SGEI\SGEI\Negocio\bin\Debug\Negocio.dll.config
-D:\SGEI\SGEI\Negocio\bin\Debug\Negocio.dll
-D:\SGEI\SGEI\Negocio\bin\Debug\Negocio.pdb
-D:\SGEI\SGEI\Negocio\bin\Debug\EntityFramework.dll
-D:\SGEI\SGEI\Negocio\bin\Debug\EntityFramework.SqlServer.dll
-D:\SGEI\SGEI\Negocio\bin\Debug\Model.dll
-D:\SGEI\SGEI\Negocio\bin\Debug\Model.pdb
-D:\SGEI\SGEI\Negocio\bin\Debug\Model.dll.config
-D:\SGEI\SGEI\Negocio\bin\Debug\EntityFramework.xml
-D:\SGEI\SGEI\Negocio\bin\Debug\EntityFramework.SqlServer.xml
-D:\SGEI\SGEI\Negocio\bin\Debug\es\EntityFramework.resources.dll
-D:\SGEI\SGEI\Negocio\bin\Debug\es\EntityFramework.SqlServer.resources.dll
-D:\SGEI\SGEI\Negocio\obj\Debug\Negocio.csprojAssemblyReference.cache
-D:\SGEI\SGEI\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
-D:\SGEI\SGEI\Negocio\obj\Debug\Negocio.csproj.CopyComplete
-D:\SGEI\SGEI\Negocio\obj\Debug\Negocio.dll
-D:\SGEI\SGEI\Negocio\obj\Debug\Negocio.pdb
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Negocio\bin\Debug\Negocio.dll.config
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Negocio\bin\Debug\Negocio.dll
 C:\Users\sebar\Documents\pps\SGEI\SGEI\Negocio\bin\Debug\Negocio.pdb
@@ -65,3 +48,20 @@ C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\obj\Debug\Negocio.csproj.CoreCo
 C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\obj\Debug\Negocio.csproj.CopyComplete
 C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\obj\Debug\Negocio.dll
 C:\Users\sebar\Documents\pps\SGEI 1\SGEI\Negocio\obj\Debug\Negocio.pdb
+D:\SGEI\SGEI\Negocio\bin\Debug\Negocio.dll.config
+D:\SGEI\SGEI\Negocio\bin\Debug\Negocio.dll
+D:\SGEI\SGEI\Negocio\bin\Debug\Negocio.pdb
+D:\SGEI\SGEI\Negocio\bin\Debug\EntityFramework.dll
+D:\SGEI\SGEI\Negocio\bin\Debug\EntityFramework.SqlServer.dll
+D:\SGEI\SGEI\Negocio\bin\Debug\Model.dll
+D:\SGEI\SGEI\Negocio\bin\Debug\Model.pdb
+D:\SGEI\SGEI\Negocio\bin\Debug\Model.dll.config
+D:\SGEI\SGEI\Negocio\bin\Debug\EntityFramework.xml
+D:\SGEI\SGEI\Negocio\bin\Debug\EntityFramework.SqlServer.xml
+D:\SGEI\SGEI\Negocio\bin\Debug\es\EntityFramework.resources.dll
+D:\SGEI\SGEI\Negocio\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+D:\SGEI\SGEI\Negocio\obj\Debug\Negocio.csprojAssemblyReference.cache
+D:\SGEI\SGEI\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
+D:\SGEI\SGEI\Negocio\obj\Debug\Negocio.csproj.CopyComplete
+D:\SGEI\SGEI\Negocio\obj\Debug\Negocio.dll
+D:\SGEI\SGEI\Negocio\obj\Debug\Negocio.pdb

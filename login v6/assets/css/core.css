@@ -30,7 +30,7 @@ body {
     max-width: 1180px;
     margin: 0 auto;
     box-shadow: -2px 3px 25px rgba(0, 0, 0, 0.02);
-    background-image: url(~/assets/images/bg.jpg);
+    /*background-image: url("../images/bg.jpg");*/
     /*color: #797979;*/
 }
 html {

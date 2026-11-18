@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Buscar_PC";
+}
+
+<h4 class="page-title">Buscar computadora</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Buscar") </li>
+</ol>
+@using (Html.BeginForm("BuscarIP", "Buscar", FormMethod.Post, new { id = "frm-incidente" }))
+
+{
+
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="panel panel-primary panel-border">
+                <div class="panel-heading">
+                    <h4 class="panel-title">BUSCAR COMPUTADORA POR IP</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                            <p class="text-muted m-b-30 font-13">
+                                Ingrese el número de IP de la computadora para saber los detalles de la misma.
+                            </p>
+                            <div class="form-group col-lg-offset-3">
+                                @Html.Label("Numero de IP  del la computadora")
+                                @Html.TextBox("numero", null, new { @class = "form-control", @style = "width:300px;", @required="required" })
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Buscar</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}

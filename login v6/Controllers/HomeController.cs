@@ -12,7 +12,7 @@ using System.Web.Security;
 
 namespace SGEI.Controllers
 {
-    
+    [Authorize]
     public class HomeController : Controller
     {
         public insumo_dominio insu = new insumo_dominio();
@@ -36,7 +36,7 @@ namespace SGEI.Controllers
             return View();
         }
 
-        
+        //ALTA TELEFONO
         public ActionResult AltaTel()
         {
             tipo_telefono_dominio tipot = new tipo_telefono_dominio();
@@ -354,9 +354,102 @@ namespace SGEI.Controllers
         }
 
 
-
-
         //--------------------------------------------//
+
+        //ALTA IMPRESORA
+        public ActionResult AltaImpr()
+        {
+            ubicacion_dominio ubi_imp = new ubicacion_dominio();
+            impresora_dominio marca_modelo = new impresora_dominio();
+
+            ViewBag.modelo = marca_modelo.Listar();
+            ViewBag.ubicacion = ubi_imp.Listar();
+
+            DTO_Impresora dto = new DTO_Impresora();
+
+            return View(dto);
+        }
+        public ActionResult GuardarImp(DTO_Impresora dto, bool test)
+        {
+            if (test)
+            {
+                ubicacion_impresora impresora = new ubicacion_impresora();
+                ubicacion_impresora_dominio imp = new ubicacion_impresora_dominio();
+
+                impresora.descripcion = dto.descripcion;
+                impresora.fecha_ubicacion = DateTime.Now;
+                impresora.impresora_id = dto.mmarca;
+                impresora.ubicacion_id = dto.ubicacion;
+
+                imp.Guardar(impresora); //Cabecera
+
+                detalle_impresora_ubicacion_dominio dt = new detalle_impresora_ubicacion_dominio();
+                detalle_impresora_ubicacion detalle = new detalle_impresora_ubicacion();
+
+                int id = imp.ObtenerUltimo();
+
+                detalle.ip = Convert.ToString(dto.ip);
+                detalle.pc_dondeseconecta = dto.pc_donde_se_conecta;
+                detalle.ubicacion_impresora_id = id;
+
+
+                dt.Guardar(detalle);  //Detalle
+
+                //AUDITORIA
+                Auditoria audit = new Auditoria();
+                auditoria_dominio audit_dom = new auditoria_dominio();
+
+                audit.fecha_hora = DateTime.Now;
+                audit.tipo_equipo = "IMPRESORA";
+                audit.id_equipo = id;
+                audit.accion = "ALTA";
+                audit.usuario = User.Identity.Name;
+
+                audit_dom.Guardar(audit);
+                //---//
+
+                //MANTENIMIENTO INICIAL
+                mantenimiento_impre mante = new mantenimiento_impre();
+                mantenimiento_dominio mante_dom = new mantenimiento_dominio();
+
+                mante.fecha_mantenimiento = DateTime.Now;
+                mante.descripcion = "Inicial";
+
+
+                ubicacion_dominio u = new ubicacion_dominio();
+                var nombre_ubi = u.Obtener(dto.ubicacion);
+                if (nombre_ubi.nombreUbicacion == "ADMISION" || nombre_ubi.nombreUbicacion == "GUARDIA")
+                {
+                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(4);
+                }
+                else
+                {
+                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(6);
+                }
+
+                mante.id_impresora = id;
+
+
+                mante_dom.Guardari(mante);
+                return RedirectToAction("AltaExitosaImp");
+            }
+            else
+            {
+                return Redirect("~/Home/Check");
+            }
+
+        }
+        public ActionResult Check()
+        {
+            return View();
+        }
+
+        public ActionResult AltaExitosaImp()
+        {
+            return View();
+        }
+
+        //ALTA COMPUTADORA
         public ActionResult AltaCompu(int id = 0)
         {
             tipopc_dominio tipo = new tipopc_dominio();
@@ -436,6 +529,31 @@ namespace SGEI.Controllers
                 audit_dom.Guardar(audit);
                 //---//
 
+                //MANTENIMIENTO INICIAL
+                mantenimiento mante = new mantenimiento();
+                mantenimiento_dominio mante_dom = new mantenimiento_dominio();
+
+                mante.fecha_mantenimiento = DateTime.Now;
+                mante.descripcion = "Inicial";
+
+                
+                ubicacionpc_dominio u = new ubicacionpc_dominio();
+                var nombre_ubi = u.Obtener(ubicacion);
+                if (nombre_ubi.nombre == "ADMISION" || nombre_ubi.nombre=="GUARDIA")
+                {
+                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(6);
+                }
+                else
+                {
+                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(8);
+                }
+                
+                mante.pc_id = id_compu;
+
+
+                mante_dom.Guardar(mante);
+                //
+
 
                 return Redirect("~/home/AltaExitosa");
             }
@@ -508,12 +626,12 @@ namespace SGEI.Controllers
 
         }
 
-        public ActionResult Crud(int id = 0) //Este es el ABM impresora
-        {
-            ViewBag.impresoras = imp.Listar();
-            return View(id == 0 ? new impresora()
-                        : imp.Obtener(id));
-        }
+        //public ActionResult Crud(int id = 0) //Este es el ABM impresora
+        //{
+        //    ViewBag.impresoras = imp.Listar();
+        //    return View(id == 0 ? new impresora()
+        //                : imp.Obtener(id));
+        //}
 
         public ActionResult BuscarParaMover(int id)
         {
@@ -547,56 +665,70 @@ namespace SGEI.Controllers
             return Redirect("~/Inicio/Index");
         }
 
-        public ActionResult CrudDetalle_Impresora_Ubicacion(int id = 0) //Este es el ABM detalle_impresora
-        {
-            ViewBag.id_ubicacion = TempData["id_ubicacion"];
-            return View(id == 0 ? new detalle_impresora_ubicacion()
-                        : deta.Obtener(id));
-        }
+        //public ActionResult CrudDetalle_Impresora_Ubicacion(int id = 0) //Este es el ABM detalle_impresora
+        //{
+        //    ViewBag.id_ubicacion = TempData["id_ubicacion"];
+        //    return View(id == 0 ? new detalle_impresora_ubicacion()
+        //                : deta.Obtener(id));
+        //}
 
-        public ActionResult CrudUbicacion_impresora(int id = 0) //Este es el ABM ubicacion_impresora
-        {
-            ViewBag.id_impr = TempData["id"];
+        //public ActionResult CrudUbicacion_impresora(int id = 0) //Este es el ABM ubicacion_impresora
+        //{
+        //    ViewBag.id_impr = TempData["id"];
 
-            ViewBag.ubicaciones = ubi.Listar();
+        //    ViewBag.ubicaciones = ubi.Listar();
 
-            return View(id == 0 ? new ubicacion_impresora()
-                        : ubi_imp.Obtener(id));
-        }
+        //    return View(id == 0 ? new ubicacion_impresora()
+        //                : ubi_imp.Obtener(id));
+        //}
 
-        public ActionResult Guardar(int impresora)
-        {
-            //model.Guardar();
-            TempData["id"] = impresora;
-            return RedirectToAction("CrudUbicacion_impresora");
-        }
+        //public ActionResult Guardar(int impresora)
+        //{
+        //    //model.Guardar();
+        //    TempData["id"] = impresora;
+        //    return RedirectToAction("CrudUbicacion_impresora");
+        //}
 
-        public ActionResult GuardarDetalle(detalle_impresora_ubicacion model)
-        {
-            deta.Guardar(model);
+        //public ActionResult GuardarDetalle(detalle_impresora_ubicacion model)
+        //{
+        //    deta.Guardar(model);
 
-            //AUDITORIA
-            Auditoria audit = new Auditoria();
-            auditoria_dominio audit_dom = new auditoria_dominio();
+        //    //AUDITORIA
+        //    Auditoria audit = new Auditoria();
+        //    auditoria_dominio audit_dom = new auditoria_dominio();
 
-            audit.fecha_hora = DateTime.Now;
-            audit.tipo_equipo = "IMPRESORA";
-            audit.id_equipo = model.ubicacion_impresora_id;
-            audit.accion = "ALTA";
-            audit.usuario = User.Identity.Name;
+        //    audit.fecha_hora = DateTime.Now;
+        //    audit.tipo_equipo = "IMPRESORA";
+        //    audit.id_equipo = model.ubicacion_impresora_id;
+        //    audit.accion = "ALTA";
+        //    audit.usuario = User.Identity.Name;
 
-            audit_dom.Guardar(audit);
-            //---//
-            //TempData["id_impre"] = model.impresora_id;
-            return Redirect("~/Inicio/Index");
-        }
+        //    audit_dom.Guardar(audit);
+        //    //---//
 
-        public ActionResult GuardarUbicacion(ubicacion_impresora model)
-        {
-            ubi_imp.Guardar(model);
-            TempData["id_ubicacion"] = model.id;
-            return RedirectToAction("CrudDetalle_Impresora_Ubicacion");
-        }
+        //    //MANTENIMIENTO INICIAL
+        //    mantenimiento mante = new mantenimiento();
+        //    mantenimiento_dominio mante_dom = new mantenimiento_dominio();
+
+        //    mante.fecha_mantenimiento = DateTime.Now;
+        //    mante.descripcion = "Inicial";
+        //    mante.proximo_mantenimiento = DateTime.Now.AddDays(180);
+        //    mante.pc_id = model.ubicacion_impresora_id;
+
+
+        //    mante_dom.Guardar(mante);
+
+
+        //    //TempData["id_impre"] = model.impresora_id;
+        //    return Redirect("~/Inicio/Index");
+        //}
+
+        //public ActionResult GuardarUbicacion(ubicacion_impresora model)
+        //{
+        //    ubi_imp.Guardar(model);
+        //    TempData["id_ubicacion"] = model.id;
+        //    return RedirectToAction("CrudDetalle_Impresora_Ubicacion");
+        //}
 
         public ActionResult Eliminar(impresora model)
         {

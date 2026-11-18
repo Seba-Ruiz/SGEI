@@ -15,6 +15,7 @@ namespace Model
             detalle_impresora_ubicacion = new HashSet<detalle_impresora_ubicacion>();
             detalle_insumo_impresora = new HashSet<detalle_insumo_impresora>();
             incidente = new HashSet<incidente>();
+            mantenimiento_impre = new HashSet<mantenimiento_impre>();
         }
 
         public int id { get; set; }
@@ -45,6 +46,9 @@ namespace Model
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<incidente> incidente { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mantenimiento_impre> mantenimiento_impre { get; set; }
 
         public virtual ubicacion ubicacion { get; set; }
     }

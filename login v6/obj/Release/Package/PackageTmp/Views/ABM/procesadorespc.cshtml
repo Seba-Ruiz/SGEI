@@ -1,0 +1,51 @@
+﻿@model List<Model.procesadorPC>
+@{
+    ViewBag.Title = "Procesadores";
+}
+<h4 class="page-title">Procesadores!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Procesadores") </li>
+</ol>
+
+@using (Html.BeginForm("Crudprocesadorpc", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
+{
+    <div class="vakata-context-left">
+        <button type="submit" class="btn btn-inverse waves-effect waves-light">
+            <span class="btn btn-label">
+                <i class="md md-queue"></i>
+            </span>
+            Agregar
+        </button>
+    </div>
+
+}
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="card-box table-responsive">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">Descripcion</th>
+                    <th style="width:10px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <th>@a.descripcion</th>
+                        <th>
+                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/Editarprocesadorpc/@a.id_procesador"></a>
+
+                            <a onclick="return confirm('¿Desea eliminar el Motivo de Baja de PC?');" class="md md-clear" title="Eliminar" href="~/ABM/Eliminarprocesadorpc/@a.id_procesador"></a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    </div>
+<div class="col-md-2"></div>
+

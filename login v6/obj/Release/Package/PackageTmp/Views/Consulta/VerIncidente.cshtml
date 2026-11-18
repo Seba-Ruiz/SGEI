@@ -1,0 +1,43 @@
+﻿@model List<Model.incidente>
+@{
+    ViewBag.Title = "Ver Incidente";
+}
+
+<h4 class="page-title">Incidentes</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Incicentes de la Impresora") </li>
+</ol>
+
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:180px;">INCIDENTE</th>
+                <th style="width:200px;">FECHA DE INCIDENTE</th>
+                <th style="width:180px;">ACCION REALIZADA</th>
+                <th style="width:180px;">FECHA DE ACCION</th>
+                @*<th style="width:200px;">id</th>*@
+
+                <th style="width:180px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <th>@a.incidente1</th>
+                    <th>@a.fecha_incidente</th>
+                    <th>@a.accion</th>
+                    <th>@a.fecha_accion</th>
+
+                    <th>
+                            <a class="btn btn-xs btn-primary" href="~/consulta/VerImagen/@a.id">Ver Imagen del Incidente</a>
+                        </th>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    </div>
+

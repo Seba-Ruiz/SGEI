@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Negocio.DTO.DTO_consulta_tel_incidente>
+@{
+    ViewBag.Title = "Consultar Rango";
+}
+
+<h4 class="page-title">Consulta insumos PC!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Detalle de la Consuta") </li>
+</ol>
+
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:200px;">FECHA INCIDENTE</th>
+                <th style="width:200px;">FECHA REPARACION</th>
+                <th style="width:200px;">INCIDENTE</th>
+                <th style="width:200px;">REPARACION</th>
+                <th style="width:180px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <th>@a.fecha_incidente</th>
+                    <th>@a.fecha_reparacion</th>
+                    <th>@a.nombre_incidente</th>
+                    <th>@a.reparacion</th>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

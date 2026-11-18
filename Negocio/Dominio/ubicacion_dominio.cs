@@ -25,13 +25,13 @@ namespace Negocio.Dominio
             catch (Exception E)
             {
 
-                throw;
+                throw E;
             }
             return ubicaciones;
         }
 
 
-        public ubicacion Obtener(int id)
+        public ubicacion Obtener(int? id)
         {
             var ubicaciones = new ubicacion();
             try
@@ -44,7 +44,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
             return ubicaciones;
         }
@@ -68,7 +68,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
 
@@ -86,7 +86,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
     }

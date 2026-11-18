@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Impresoras";
+
+}
+
+<h4 class="page-title">Bienvenido!</h4>
+<ol class="breadcrumb">
+    
+    <li class="active">
+        Sistema para control de insumos e incidentes de impresoras.
+    </li>
+</ol>
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-primary panel-border">
+            <div class="panel-heading">
+                <h4 class="panel-title">IMPRESORAS</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                        <p class="text-muted m-b-30 font-13">
+                            Para comenzar seleccione en el combo la ubicación de la impresora, el sistema mostrará las impresoras en esa ubicación.
+                        </p>
+                        @using (Html.BeginForm("Buscar", "Home", FormMethod.Post, new { id = "frm-incidente" }))
+                        {
+                            <div class="form-group">
+                                @Html.Label("Nombre de Ubicacion:")
+                                @Html.DropDownList("ubicacion", new SelectList(ViewBag.ubicaciones, "id", "nombreUbicacion"), new { @class = "btn dropdown-toggle btn-white", @style = "width:200px;" })
+                            </div>
+                            <div class="form-group">
+                                
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Buscar</button>
+
+                                </div>
+                            </div>
+                            foreach (var item in @ViewBag.insumos)
+                            {
+                                if (item.cantidad == 0)
+                                {
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>ATENCIÓN</strong> Sin stock disponible para toner del tipo @item.nombre
+                                    </div>
+                                }
+
+                                if (item.cantidad < 10 & item.cantidad > 0)
+                                {
+                                    <div class="alert alert-info" role="alert">
+                                        <strong>ATENCIÓN</strong> Quedan @item.cantidad toner del tipo @item.nombre
+                                    </div>
+                                }
+                            }
+                        }
+
+
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

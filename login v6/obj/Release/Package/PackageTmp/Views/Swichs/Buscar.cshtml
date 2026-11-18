@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Negocio.DTO.DTO_u_sw_01>
+@{
+    ViewBag.Title = "Buscar";
+}
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Detalle de la Consulta") </li>
+</ol>
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:80px;">Nº sw</th>
+                <th style="width:200px;">NRO IP</th>
+                <th style="width:150px;">DESCRIPCION</th>
+                <th style="width:220px;">MODELO</th>
+                <th style="width:220px;">INTERFACES</th>
+                <th style="width:200px;">UBICACION</th>
+                <th style="width:200px;">FECHA UBICACION</th>
+                @*<th style="width:200px;">id</th>*@
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+            <tr>
+                <th>@a.id_sw</th>
+                <th><a href="http://@a.nro_ip" target=”_blank” class="text-danger">@a.nro_ip</a></th>
+                <th>@a.descripcion</th>
+                <th>@a.mmarca</th>
+                <th>@a.interfaces</th>
+                <th>@a.nombre_ubi</th>
+                <th>@a.fecha_ubicacion</th>
+                <th>
+                    <a class="glyphicon  glyphicon-pencil" title="Editar" href="~/Swichs/Editar/@a.id_detalle"></a>
+                </th>
+                <th>
+                    <a onclick="return confirm('¿Desea agregar incidente a este switch?');" class="glyphicon glyphicon-tag" title="Cargar incidente" href="~/Swichs/Incidente/@a.id_detalle"></a>
+                </th>
+                <th>
+                    <a onclick="return confirm('¿Desea dar de BAJA este switch?');" class="glyphicon glyphicon-circle-arrow-down" title="Dar de baja" href="~/Swichs/Baja/@a.id_detalle"></a>
+                </th>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -35,13 +35,39 @@
                     <th>@a.ip</th>
                     <th>@a.descripcion</th>
                     <th>@a.fecha_baja</th>
+
+
                     <th>
                         <a onclick="return confirm('¿Desea dar de ALTA esta computadora?');" title="Dar de alta nuevamente" class="glyphicon glyphicon-upload" href="~/Consulta/AltaPc/@a.id_pc"></a>
                     </th>
-                    
+                    <th>
+                        <a style="cursor: pointer;" title="Ver motivo de baja" onclick="send(@a.id_pc)" class="glyphicon glyphicon-search"></a>
+
+                    </th>
+
                 </tr>
             }
         </tbody>
-
     </table>
 </div>
+
+<div class="modal fade" id="motivo" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+   <div id="resultado"></div>
+</div>
+
+
+@section Scripts {
+        <script>
+
+    function send(e) {
+
+        var url = "@Url.Action("VerMotivo", "Consulta", new { id="param-id"})";
+        url = url.replace("param-id", e);
+
+        $("#resultado").load(url);
+        $("#motivo").modal('show');
+        
+    }
+
+        </script>
+}

@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Telefono";
+
+}
+
+<h4 class="page-title">Bienvenido!</h4>
+<ol class="breadcrumb">
+
+    <li class="active">
+        Sistema para control de insumos e incidentes de telefonos.
+    </li>
+</ol>
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-primary panel-border">
+            <div class="panel-heading">
+                <h4 class="panel-title">TELEFONOS</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                        <p class="text-muted m-b-30 font-13">
+                            Para comenzar, seleccione en el combo la ubicación del telefono, el sistema mostrará los telefonos en esa ubicación.
+                        </p>
+                        @using (Html.BeginForm("Buscar", "Telefonos", FormMethod.Post, new { id = "frm-incidente" }))
+                        {
+                        <div class="form-group">
+                            @Html.Label("Nombre de Ubicacion:")
+                            @Html.DropDownList("ubicaciontel", new SelectList(ViewBag.ubicaciontel, "id_ubicacion_tel", "nombre_ubi"), new { @class = "btn dropdown-toggle btn-white", @style = "width:200px;" })
+                        </div>
+                           
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Buscar</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

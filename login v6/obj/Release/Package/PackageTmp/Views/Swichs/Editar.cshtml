@@ -1,0 +1,75 @@
+﻿
+@model Negocio.DTO.DTO_u_detalle_sw
+@{
+    ViewBag.Title = "Editar Switch";
+}
+<h2>Editar Switch</h2>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>EDITAR SWITCH</b></h4>
+            <p class="text-muted m-b-30 font-13">
+                Use este wizard para editar el switch seleccionada, recuerde que una vez editado podrá consultar el detalle de dicho switch a travez de la busqueda del mismo como asi tambien volverlo a editar.
+            </p>
+
+            @using (Html.BeginForm("GuardarSW", "Swichs", FormMethod.Post, new { id = "basic-form" }))
+            {
+                @Html.HiddenFor(x => x.id_sw)
+                @Html.HiddenFor(x => x.id_detalle)
+                @Html.HiddenFor(x => x.fecha_ubicacion)
+               // @Html.HiddenFor(x => x.id_ubicacion_sw)
+                <div>
+                    <h3>Switch</h3>
+                    <section>
+
+                        <div class="form-group clearfix">
+                            @Html.Label("Seleccione el Modelo del Switch")
+                            @Html.DropDownListFor(x => x.id_mm, ViewBag.modelo as SelectList, new { @class = "form-control", @style = "width:250px;" })
+                        </div>
+                        <div class="form-group clearfix">
+                            @Html.Label("Seleccione la ubicacion del Switch")
+                            @Html.DropDownListFor(x => x.id_ubicacion_sw, ViewBag.ubicacion as SelectList, new { @class = "form-control", @style = "width:250px;", @disabled = "" })
+                        </div>
+                        <div class="form-group clearfix">
+                            @Html.Label("Ingrese cantidad de interfaces")
+                            @Html.TextBoxFor(x => x.interfaces, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                            @Html.ValidationMessageFor(x => x.interfaces, null, new { @class = "label label-danger" })
+                        </div>
+                    </section>
+                    <h3>Detalle</h3>
+                    <section>
+                        <div class="form-group clearfix">
+                            <div class="form-group clearfix">
+                                @Html.Label("Ingrese descripcion del Switch")
+                                @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                                @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "label label-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            @Html.Label("Ingrese numero de IP del switch")
+                            @Html.TextBoxFor(x => x.nro_ip, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                            @Html.ValidationMessageFor(x => x.nro_ip, null, new { @class = "label label-danger" })
+                        </div>
+                    </section>
+                    <h3>Finalizar</h3>
+                    <section>
+                        <div class="form-group clearfix">
+                            <div class="col-lg-12">
+                                <label for="test">
+                                    Al hacer click en "Finalizar" aceptará guardar la informacion antes descripta. Podra modificar los detalles de la camara en cualquier momento que lo desee.
+                                    <br />
+                                    Por favor active la casilla:
+                                </label>
+                                @Html.CheckBox("test", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            }
+            @*</form>*@
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>

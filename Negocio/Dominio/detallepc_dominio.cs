@@ -29,7 +29,7 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
             }
         }
 
@@ -46,7 +46,25 @@ namespace Negocio.Dominio
             }
             catch (Exception E)
             {
-                throw;
+                throw E;
+            }
+            return dt;
+        }
+
+        public detallePC ObtenerByIdPc(int? id)
+        {
+            var dt = new detallePC();
+            try
+            {
+                using (var ctx = new SGEIContext())
+
+                    dt = ctx.detallePC.Where(x => x.pc_id == id)
+                                                .SingleOrDefault();
+
+            }
+            catch (Exception E)
+            {
+                throw E;
             }
             return dt;
         }

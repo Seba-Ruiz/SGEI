@@ -1,0 +1,51 @@
+﻿@model Model.insumo
+
+@{
+    ViewBag.Title = (Model.id > 0 ? Model.nombre : "Nuevo Registro");
+}
+
+<ol class="breadcrumb">
+    <li><a href="~/ABM/Insumos">Insumos</a></li>
+    <li class="active">@(Model.id > 0 ? Model.nombre : "Editar") </li>
+</ol>
+
+@using (Html.BeginForm("Guardar", "ABM", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.id)
+    @Html.HiddenFor(x=>x.cantidad)
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-20 header-title"><b>EDITAR INSUMO</b></h4>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><b>Edita las propiedades del insumo</b></h5>
+                    <p class="text-muted m-b-30 font-13">
+                        Edite el nombre y la cantidad del insumo
+                    </p>
+                    <div class="form-group">
+                        @Html.Label("Ingrese nombre completo del Insumo")
+                        @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @style = "width:200px;", @required = "required" })
+                        @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Cantidad Disponible")
+                        @Html.TextBoxFor(x => x.cantidad, new { @class = "form-control", @style = "width:150px;", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(x => x.cantidad, null, new { @class = "label label-danger" })
+                        <span class="help-block"><small>Para editar la cantidad de insumos vaya al apartado Ingresos.</small></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="text-center">
+                <button type="submit" class="btn-custom btn-inverse">Guardar</button>
+            </div>
+
+            }

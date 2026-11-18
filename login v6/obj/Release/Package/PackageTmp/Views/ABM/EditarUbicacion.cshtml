@@ -1,0 +1,56 @@
+﻿@model Model.ubicacion
+
+@{
+    ViewBag.Title = (Model.id > 0 ? Model.nombreUbicacion : "Nuevo Registro");
+}
+
+<ol class="breadcrumb">
+    <li><a href="~/ABM/ubicacion">Ubicaciones</a></li>
+    <li class="active">@(Model.id > 0 ? Model.nombreUbicacion : "Editar Ubicacion") </li>
+</ol>
+
+@using (Html.BeginForm("GuardarUbicacion", "ABM", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.id)
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-20 header-title"><b>EDITAR UBICACION</b></h4>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><b>Edita las propiedades de la ubicacion</b></h5>
+                    <p class="text-muted m-b-30 font-13">
+                       Edite el nombre de la ubicacion y el responsable de la misma.
+                    </p>
+                    <div class="form-group">
+                        @Html.Label("Ingrese nombre de Ubicacion")
+                        @Html.TextBoxFor(x => x.nombreUbicacion, new { @class = "form-control", @style = "width:200px;", @required = "required" })
+                        @Html.ValidationMessageFor(x => x.nombreUbicacion, null, new { @class = "label label-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Ingrese responsable")
+                        @Html.TextBoxFor(x => x.responsable, new { @class = "form-control", @style = "width:200px;", @required = "required" })
+                        @Html.ValidationMessageFor(x => x.responsable, null, new { @class = "label label-danger" })
+
+                        @*<div class="form-group">
+                                @Html.Label("Tipo de Conexion")
+                                <select name="Tipo" class="form-control">
+                                    <option @(Model.tipo == "LOCAL" ? "selected" : "") value="LOCAL">LOCAL</option>
+                                    <option @(Model.tipo == "RED" ? "selected" : "") value="RED">RED</option>
+                                </select>
+                            </div>*@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="text-center">
+                <button type="submit" class="btn-custom btn-inverse">Guardar</button>
+            </div>
+
+            }

@@ -1,0 +1,300 @@
+﻿@model login_v6.Models.IndexViewModel
+@{
+    ViewBag.Title = "Gestionar";
+}
+
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>Contraseña:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Cambiar la contraseña", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Crear", "SetPassword")
+            }
+            ]
+        </dd>
+        @*<dt>Inicios de sesión externos:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Administrar", "ManageLogins") ]
+        </dd>*@
+        @*
+        Los números de teléfono se pueden usar como una segunda fase de comprobación en un sistema de autenticación en dos fases.
+
+         Consulte <a href="https://go.microsoft.com/fwlink/?LinkId=403804">este artículo</a>
+            para obtener detalles sobre cómo configurar esta aplicación ASP.NET para que sea compatible con la autenticación en dos fases mediante SMS.
+
+         Quite la marca de comentario de los bloques siguientes después de configurar la autenticación en dos fases.
+        *@
+        @*
+        <dt>Número de teléfono:</dt>
+        <dd>
+            @(Model.PhoneNumber ?? "None")
+            @if (Model.PhoneNumber != null)
+            {
+                <br />
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>[<input type="submit" value="Quitar" class="btn-link" />]</text>
+                }
+            }
+            else
+            {
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+            }
+        </dd>
+        *@
+
+        @*<dt>Autenticación de dos factores:</dt>
+        <dd>
+            <p>
+                No hay ningún proveedor de autenticación en dos fases configurado. Consulte <a href="https://go.microsoft.com/fwlink/?LinkId=403804">este artículo</a>
+                para obtener detalles sobre cómo configurar esta aplicación ASP.NET para que sea compatible con la autenticación en dos fases.
+            </p>
+            @if (Model.TwoFactor)
+                {
+                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>Habilitado
+                        <input type="submit" value="Deshabilitar" class="btn btn-link" />
+                        </text>
+                    }
+                }
+                else
+                {
+                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>Deshabilitado
+                        <input type="submit" value="Habilitar" class="btn btn-link" />
+                        </text>
+                    }
+                }
+        </dd>*@
+    </dl>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="panel panel-purple panel-border">
+            <div class="panel-heading">
+                <h4 class="panel-title">DETALLE DEL USUARIO</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
+                        <p class="text-muted m-b-30 font-13">
+                            Esta pantalla muestra la información detallada de tu cuenta. Podras editar la misma con el boton editar.
+                        </p>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Email </label>
+                                <div class="col-md-10">
+
+                                    <label class="form-control" style="width:300px" readonly="">@ViewBag.mail</label>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Telefono</label>
+                                <div class="col-md-10">
+                                    @if (Model.PhoneNumber == null)
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">---</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">@ViewBag.telefono</label>
+                                    }
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Tipo de Usuario</label>
+                                <div class="col-md-10">
+
+                                    <label class="form-control" style="width:300px" readonly="">@ViewBag.tipoRol</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Ultimo Ingreso</label>
+                                <div class="col-md-10">
+
+                                    <label class="form-control" style="width:300px" readonly="">@ViewBag.ingreso</label>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Nombre</label>
+                                <div class="col-md-10">
+                                    @if (ViewBag.nombre == null)
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">---</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">@ViewBag.nombre</label>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Apellido</label>
+                                <div class="col-md-10">
+                                    @if (ViewBag.apellido == null)
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">---</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="width:300px" readonly="">@ViewBag.apellido</label>
+                                    }
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+            @using (Html.BeginForm("Editar", "Usuario", FormMethod.Post))
+            {
+                <div class="modal-footer">
+                    <a class="btn btn-danger btn-custom btn-rounded waves-effect waves-light" href="~/Usuario/EditarSinRol/@ViewBag.id"> Editar </a>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@*<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Detalle del usuario</b></h4>
+            <p class="text-muted m-b-30 font-13">
+                Esta pantalla muestra la informacion detallada de tu cuenta
+            </p>
+            <div class="col-md-2"></div>
+            <div class="row">
+                <div class="col-md-10">
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Email </label>
+                            <div class="col-md-10">
+
+                                <label class="form-control" readonly="">@ViewBag.mail</label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Telefono</label>
+                            <div class="col-md-10">
+                                @if (Model.PhoneNumber == null)
+                                {
+                                    <label class="form-control" readonly="">---</label>
+                                }
+                                else
+                                {
+                                    <label class="form-control" readonly="">@ViewBag.telefono</label>
+                                }
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Tipo de Usuario</label>
+                            <div class="col-md-10">
+
+                                <label class="form-control" readonly="">@ViewBag.tipoRol</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Ultimo Ingreso</label>
+                            <div class="col-md-10">
+
+                                <label class="form-control" readonly="">@ViewBag.ingreso</label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Nombre</label>
+                            <div class="col-md-10">
+                                @if (ViewBag.nombre == null)
+                                {
+                                    <label class="form-control" readonly="">---</label>
+                                }
+                                else
+                                {
+                                    <label class="form-control" readonly="">@ViewBag.nombre</label>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Apellido</label>
+                            <div class="col-md-10">
+                                @if (ViewBag.apellido == null)
+                                {
+                                    <label class="form-control" readonly="">---</label>
+                                }
+                                else
+                                {
+                                    <label class="form-control" readonly="">@ViewBag.apellido</label>
+                                }
+                            </div>
+                        </div>
+                    </form>
+                    @using (Html.BeginForm("Editar", "Usuario", FormMethod.Post))
+                    {
+                        <div class="modal-footer">
+                            <a class="btn btn-danger btn-custom btn-rounded waves-effect waves-light"  href="~/Usuario/EditarSinRol/@ViewBag.id"> Editar </a>
+
+                        </div>
+                    }
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>*@

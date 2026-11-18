@@ -1,0 +1,141 @@
+﻿@model Negocio.DTO.DTO_u_computadora_detalle_id
+@{
+    ViewBag.Title = "Editar PC";
+}
+
+<h2>Editar la Computadora</h2>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>EDITAR COMPUTADORA</b></h4>
+            <p class="text-muted m-b-30 font-13">
+               Use este wizard para modificar los datos de la computadora seleccionada, recuerde que una vez hecha la modificación podrá consultar el detalle de dicha computadora a través de la busqueda de la misma.
+            </p>
+            @using (Html.BeginForm("ConfirmaEditar", "Computadora", FormMethod.Post, new { id = "basic-form" }))
+            {
+
+                @*<form id="basic-form" action="#">*@
+                @Html.HiddenFor(x => x.id_pc)
+                @Html.HiddenFor(x => x.id_detalle)
+                <div>
+                    <h3>Computadora</h3>
+
+                    <section>
+                        <div class="form-group clearfix">
+                            @Html.Label("Ingrese nombre de la PC")
+                            @Html.TextBoxFor(x => x.nombre_pc, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                            @Html.ValidationMessageFor(x => x.nombre_pc, null, new { @class = "label label-danger" })
+
+                        </div>
+                        <div class="form-group clearfix">
+                            @Html.Label("Ingrese número de IP")
+                            @Html.TextBoxFor(x => x.ip, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                            @Html.ValidationMessageFor(x => x.ip, null, new { @class = "label label-danger" })
+                        </div>
+
+                        <div class="form-group clearfix">
+                            @Html.Label("Ingrese descripción")
+                            @Html.TextBoxFor(x => x.descripcion_pc, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                            @Html.ValidationMessageFor(x => x.descripcion_pc, null, new { @class = "label label-danger" })
+                        </div>
+
+                        <div class="form-group clearfix">
+                            @Html.Label("Seleccione el tipo de computadora")
+                            @Html.DropDownListFor(x => x.id_tipo, ViewBag.tipo as SelectList, new { @class = "form-control", @style = "width:250px;" })
+                        </div>
+
+                    </section>
+
+                    <h3>Detalle</h3>
+                    <section>
+                        <div class="form-group clearfix">
+
+                            <div class="form-group clearfix">
+                                @Html.Label("Ingrese responsable de la computadora")
+                                @Html.TextBoxFor(x => x.responsablepc, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                                @Html.ValidationMessageFor(x => x.responsablepc, null, new { @class = "label label-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            @Html.Label("Observación de la PC")
+                            @Html.TextBoxFor(x => x.observacion, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                            @Html.ValidationMessageFor(x => x.observacion, null, new { @class = "label label-danger" })
+
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <div class="form-group clearfix">
+                                @Html.Label("Seleccione la cantidad de RAM")
+                                @Html.DropDownListFor(x => x.id_ram, ViewBag.ram as SelectList, new { @class = "form-control", @style = "width:250px;" })
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <div class="form-group clearfix">
+                                @Html.Label("Seleccione la cantidad de Disco")
+                                @Html.DropDownListFor(x => x.id_disco, ViewBag.disco as SelectList, new { @class = "form-control", @style = "width:250px;" })
+                            </div>
+                        </div>
+
+
+
+
+                    </section>
+                    <h3>SO y HW</h3>
+                    <section>
+                        <div class="form-group clearfix">
+                            <div class="form-group clearfix">
+                                @Html.Label("Seleccione el Sistema Operativo")
+                                @Html.DropDownListFor(x => x.id_so, ViewBag.so as SelectList, new { @class = "form-control", @style = "width:250px;" })
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group clearfix">
+                                @Html.Label("Seleccione marca y modelo de la placa madre")
+                                @Html.DropDownListFor(x => x.id_mother, ViewBag.pm as SelectList, new { @class = "form-control", @style = "width:250px;" })
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group clearfix">
+                                @Html.Label("Ubicación")
+                                @Html.DropDownListFor(x => x.id_ubicacion, ViewBag.ubi as SelectList, new { @class = "form-control", @style = "width:250px;", @disabled = "" })
+                                <span class="help-block"><small>La ubicacion se actualizara al mover el equipo de una ubicacion a otra.</small></span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group clearfix">
+                                @Html.Label("Seleccione Procesador")
+                                @Html.DropDownListFor(x => x.id_procesador, ViewBag.proce as SelectList, new { @class = "form-control", @style = "width:250px;" })
+
+                            </div>
+                        </div>
+                    </section>
+                    <h3>Finalizar</h3>
+                    <section>
+                        <div class="form-group clearfix">
+                            <div class="col-lg-12">
+                                @*<div class="checkbox checkbox-primary">*@
+                                <label for="test">
+                                    Al hacer click en "Finalizar" aceptará guardar la informacion antes descripta. Podrá modificar los detalles de la computadora seleccionada en cualquier momento que lo desee.
+                                    <br />
+                                    Por favor active la casilla:
+                                </label>
+                                    @Html.CheckBox("test", new {@class = "form-control" })
+                                    @*<input id="checkbox-h" name="checkbox" type="checkbox">*@
+                                    
+                                @*</div>*@
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            }
+            @*</form>*@
+
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model Model.ubicacion_tel
+
+@{
+    ViewBag.Title = "Editar Ubicacion";
+}
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/index">Inicio</a></li>
+    <li class="active">@(Model.id_ubicacion_tel > 0 ? Model.nombre_ubi : "Editar Ubicacion") </li>
+</ol>
+
+@using (Html.BeginForm("Guardarubicaciontel", "ABM", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.id_ubicacion_tel)
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="card-box">
+                <h4 class="m-t-0 m-b-20 header-title"><b>EDITAR UBICACION DE TELEFONO</b></h4>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5><b>Edita las propiedades de la ubicacion del telefono </b></h5>
+                        <p class="text-muted m-b-30 font-13">
+                            Edite el tipo.
+                        </p>
+                        <div class="form-group">
+                            @Html.Label("Ingrese Ubicacion del Telefono")
+                            @Html.TextBoxFor(x => x.nombre_ubi, new { @class = "form-control", @style = "width:200px;", @required = "required" })
+                            @Html.ValidationMessageFor(x => x.nombre_ubi, null, new { @class = "label label-danger" })
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn-custom btn-inverse">Guardar</button>
+    </div>
+
+}

@@ -25,6 +25,82 @@ namespace login_v6.Controllers
             return View();
         }
 
+        public ActionResult Preventivo()
+        {
+            mantenimiento_dominio mante = new mantenimiento_dominio();
+            List<DTO_preventivo_pc> lista = new List<DTO_preventivo_pc>();
+            var m = mante.Listar();
+
+            foreach (var a in m)
+            {
+                DTO_preventivo_pc dto = new DTO_preventivo_pc();
+                var nombre = store.buscar_pc_00(a.pc_id);
+
+                dto.nombre = nombre.nombre;
+                dto.fecha_mantenimiento = a.fecha_mantenimiento;
+                dto.pospuesto_por = a.pospuesto_por;
+                dto.fecha_pospuso = a.fecha_pospuesto;
+                dto.descripcion = a.descripcion;
+                dto.realizado_por = a.realizado_por;
+                dto.proximo_mantenimiento = a.proximo_mantenimiento;
+
+                lista.Add(dto);
+            }
+
+            return View(lista);
+        }
+        public ActionResult PosponerMante(int id, int dias)
+        {
+            mantenimiento_dominio mante = new mantenimiento_dominio();
+            var mantenimiento = mante.ObtenerMantePC(id);
+
+            mantenimiento.proximo_mantenimiento = DateTime.Now.AddDays(dias);
+            mantenimiento.fecha_pospuesto = DateTime.Now;
+            mantenimiento.pospuesto = true;
+            mantenimiento.pospuesto_por = User.Identity.Name;
+
+            mante.Guardar(mantenimiento);
+
+            return Redirect("~/Inicio/Index");
+        }
+        public ActionResult ManteCompu(int id_pc, string descripcion)
+        {
+            mantenimiento_dominio mante = new mantenimiento_dominio();
+            var mantenimiento = mante.ObtenerMantePC(id_pc);
+
+            mantenimiento.realizado = true;
+            mantenimiento.realizado_por = User.Identity.Name;
+            mantenimiento.descripcion = descripcion;
+            mantenimiento.fecha_mantenimiento = DateTime.Now;
+            mantenimiento.proximo_mantenimiento = DateTime.Now;
+
+            mante.Guardar(mantenimiento); 
+
+            var proximo = new mantenimiento();
+
+            proximo.pc_id = id_pc;
+            proximo.pospuesto = false;
+
+            var ubicacion = store.buscar_pc(id_pc) ;
+
+            if (ubicacion.ubicacion == "GUARDIA" || ubicacion.ubicacion == "ADMISION")
+            {
+                proximo.proximo_mantenimiento = DateTime.Now.AddMonths(5); 
+            }
+            else
+            {
+                proximo.proximo_mantenimiento = DateTime.Now.AddMonths(8); 
+            }
+
+            proximo.fecha_mantenimiento = DateTime.Now;
+            proximo.descripcion = "A Realizarse";
+            proximo.realizado = false;
+
+            mante.Guardar(proximo);
+
+            return Redirect("~/Inicio/Index");
+        }
+
         public ActionResult Buscar(int ubicacionpc)
         {
             var ubica = store.u_computadora(ubicacionpc);

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Negocio.DTO.DTO_u_computadora>
+@{
+    ViewBag.Title = "Insumos por Fecha";
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Detalle de la Consulta") </li>
+</ol>
+
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:200px;">NOMBRE PC</th>
+                <th style="width:150px;">Nº IP</th>
+                <th style="width:220px;">DESCRIPCION</th>
+                <th style="width:200px;">FECHA UBICACION</th>
+                @*<th style="width:200px;">id</th>*@
+
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+                <th style="width:30px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <th>@a.nombre</th>
+                    <th>@a.ip</th>
+                    <th>@a.descripcion</th>
+                    <th>@a.fecha_ubicacion</th>
+                    <th>
+                        <a class="fa fa-calendar-plus-o" title="Seleccionar Rango de Fechas" href="~/Consulta/ConsultarRangoFechaPC/@a.id_detalle"></a>
+                    </th>
+                    
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

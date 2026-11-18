@@ -2083,7 +2083,7 @@ div.DTFC_Blocker {
   border-top-right-radius: 4px !important;
   padding: 70px 0px;
   background-size: cover;
-  background: url("../images/big/bg.jpg") center right no-repeat;
+  /*background: url("../images/big/bg.jpg") center right no-repeat;*/
 }
 /* Blog styles */
 .blog-box-one {

@@ -1,0 +1,51 @@
+﻿@model List<Model.motivobajaPC>
+@{
+    ViewBag.Title = "Motivo Baja PC";
+}
+<h4 class="page-title">Motivos!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Motivo Baja de PCs") </li>
+</ol>
+
+@using (Html.BeginForm("Crudmotivopc", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
+{
+    <div class="vakata-context-left">
+        <button type="submit" class="btn btn-inverse waves-effect waves-light">
+            <span class="btn btn-label">
+                <i class="md md-queue"></i>
+            </span>
+            Agregar
+        </button>
+    </div>
+
+}
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="card-box table-responsive">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th style="width:50px;">Descripcion</th>
+                    <th style="width:10px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <th>@a.descripcion</th>
+                        <th>
+                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/Editarmotivopc/@a.id_motivobaja"></a>
+
+                            <a onclick="return confirm('¿Desea eliminar el Motivo de Baja de PC?');" class="md md-clear" title="Eliminar" href="~/ABM/Eliminarubipc/@a.id_motivobaja"></a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    </div>
+<div class="col-md-2"></div>
+

@@ -1,0 +1,38 @@
+﻿@model List<Model.telefono>
+@{
+    ViewBag.Title = "Telefonos de Baja";
+}
+
+<h4 class="page-title">Impresoras!</h4>
+<ol class="breadcrumb">
+    <li><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="active">@("Detalle de telefonos que se dieron de baja") </li>
+</ol>
+<div class="card-box table-responsive">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th style="width:50px;">Nº TELEFONO</th>
+                <th style="width:50px;">FECHA BAJA</th>
+                <th style="width:200px;">DESCRIPCION</th>
+                
+                <th style="width:100px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <th>@a.id_telefono</th>
+                    <th>@a.fecha_baja</th>
+                    <th>@a.descripcion</th>
+                    
+                    <th>
+                        <a onclick="return confirm('¿Desea dar de ALTA este telefono?');" title="Dar de alta nuevamente" class="glyphicon glyphicon-upload" href="~/Telefono/AltaTel/@a.id_telefono"></a>
+                    </th>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
