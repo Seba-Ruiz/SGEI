@@ -4,7 +4,9 @@
 
     $(document).on("click", ".js-ver-motivo", function (evento) {
         evento.preventDefault();
-        $("#resultado").load($(this).data("url"));
-        $("#motivo").modal("show");
+        // El contenido llega por AJAX; el modal se abre cuando ya está cargado.
+        $("#resultado").load($(this).data("url"), function () {
+            $("#motivo").modal("show");
+        });
     });
 })(jQuery);
