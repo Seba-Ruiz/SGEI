@@ -10,6 +10,7 @@
 
 @using (Html.BeginForm("Alta_aceptada", "Home", FormMethod.Post, new { id = "frm-ubicacion" }))
 {
+    @Html.AntiForgeryToken()
 
     @Html.HiddenFor(x => x.descripcion)
     @Html.HiddenFor(x => x.id)

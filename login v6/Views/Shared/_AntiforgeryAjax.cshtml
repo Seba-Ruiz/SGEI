@@ -1,0 +1,13 @@
+@* Agrega el token antiforgery (header RequestVerificationToken) a todo POST hecho con jQuery AJAX.
+   El token se toma del div #antiforgery-ajax del layout al momento de enviar. *@
+<script>
+    $(document).ajaxSend(function (evento, xhr, opciones) {
+        if ((opciones.type || "").toUpperCase() !== "POST") {
+            return;
+        }
+        var token = $("#antiforgery-ajax input[name='__RequestVerificationToken']").val();
+        if (token) {
+            xhr.setRequestHeader("@login_v6.Seguridad.ValidarAntiforgeryEnPostAttribute.HeaderToken", token);
+        }
+    });
+</script>

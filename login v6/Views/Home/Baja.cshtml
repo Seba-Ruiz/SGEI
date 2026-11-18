@@ -12,6 +12,7 @@
 
 @using (Html.BeginForm("Baja_aceptada", "Home", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.ubicacion_impresora_id)
 <div class="row">
     <div class="col-sm-3"></div>

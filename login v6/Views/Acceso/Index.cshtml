@@ -42,6 +42,7 @@
 
                 @using (Html.BeginForm("login", "Acceso", FormMethod.Post, new { @class = "form-horizontal m-t-20" }))
                 {
+                    @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "Login fallido, verificar los datos.")
                     <div class="form-group ">
                         <div class="col-xs-12">

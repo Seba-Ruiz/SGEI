@@ -18,6 +18,7 @@
 
             @using (Html.BeginForm("GuardarCam", "Camara", FormMethod.Post, new { id = "basic-form" }))
     {
+        @Html.AntiForgeryToken()
         @Html.HiddenFor(x => x.id_camara)
         @Html.HiddenFor(x => x.id_detalle)
         @Html.HiddenFor(x => x.fecha_ubicacion)

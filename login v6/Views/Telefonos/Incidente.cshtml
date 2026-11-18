@@ -15,6 +15,7 @@
 
 @using (Html.BeginForm("Guardarincidente", "Telefonos", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.detalle_id)
 
     <div class="row">

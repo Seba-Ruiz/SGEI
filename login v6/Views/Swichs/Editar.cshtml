@@ -15,6 +15,7 @@
 
             @using (Html.BeginForm("GuardarSW", "Swichs", FormMethod.Post, new { id = "basic-form" }))
             {
+                @Html.AntiForgeryToken()
                 @Html.HiddenFor(x => x.id_sw)
                 @Html.HiddenFor(x => x.id_detalle)
                 @Html.HiddenFor(x => x.fecha_ubicacion)

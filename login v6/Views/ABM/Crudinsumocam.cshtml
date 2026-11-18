@@ -10,6 +10,7 @@
 </ol>
 @using (Html.BeginForm("GuardarinsumoCam", "ABM", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.cantidad)
     <div class="row">
         <div class="col-sm-3"></div>

@@ -12,6 +12,7 @@
 
 @using (Html.BeginForm("Guardarmotivopc", "ABM", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @*@Html.HiddenFor(x => x.id)*@
     <div class="row">
         <div class="col-sm-3"></div>

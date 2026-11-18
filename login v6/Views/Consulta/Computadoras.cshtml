@@ -38,6 +38,7 @@
                 @using (Html.BeginForm("InsumosPCporFecha", "Consulta", FormMethod.Post, new { id = "frm-incidente" }))
 
                 {
+                    @Html.AntiForgeryToken()
 
                     <div class="row">
                         <div class="col-sm-12">
@@ -113,6 +114,7 @@
                 @using (Html.BeginForm("IncidentesPcporFecha", "Consulta", FormMethod.Post))
 
                 {
+                    @Html.AntiForgeryToken()
 
 
                     <div class="row">

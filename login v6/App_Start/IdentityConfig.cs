@@ -24,14 +24,8 @@ namespace login_v6
 
         private async Task EnviarCorreoAsync(IdentityMessage message)
         {
-            MailSender ms = new MailSender();
-
-            if (await ms.sendMail(message.Destination, message.Subject, message.Body))
-                Console.WriteLine("Email enviado correctamente");
-            else
-                Console.WriteLine("Error al enviar Email");
-
-            await Task.Delay(1000);
+            // MailSender registra el error (Trace) si el envío falla.
+            await new MailSender().sendMail(message.Destination, message.Subject, message.Body);
         }
     }
 
@@ -65,7 +59,7 @@ namespace login_v6
             // Configure la lógica de validación de contraseñas
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
+                RequiredLength = 8,
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,

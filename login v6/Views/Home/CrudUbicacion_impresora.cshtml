@@ -13,6 +13,7 @@
 
 @using (Html.BeginForm("GuardarUbicacion", "Home", FormMethod.Post, new { id = "frm-ubicacion" }))
 {
+    @Html.AntiForgeryToken()
 
     @Html.HiddenFor(x => x.id)
     @Html.HiddenFor(x => x.impresora_id)

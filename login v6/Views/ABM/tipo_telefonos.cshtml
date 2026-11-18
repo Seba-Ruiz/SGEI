@@ -10,6 +10,7 @@
 
 @using (Html.BeginForm("Crudtipo_tel", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
 {
+    @Html.AntiForgeryToken()
     <div class="vakata-context-left">
         <button type="submit" class="btn btn-inverse waves-effect waves-light">
             <span class="btn btn-label">
@@ -38,7 +39,7 @@
                         <th>
                             <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/Editartipo_tel/@a.id_tipo"></a>
 
-                            <a onclick="return confirm('¿Desea eliminar el Insumo?');" class="md md-clear" title="Eliminar" href="~/ABM/Eliminartipo_tel/@a.id_tipo"></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/Eliminartipo_tel/" + a.id_tipo), "¿Desea eliminar el tipo de teléfono?", "md md-clear")
                         </th>
                     </tr>
                 }

@@ -17,6 +17,7 @@
 
             @using (Html.BeginForm("GuardarTel", "Telefonos", FormMethod.Post, new { id = "basic-form" }))
     {
+        @Html.AntiForgeryToken()
                 
             <div>
                 <h3>Telefono</h3>

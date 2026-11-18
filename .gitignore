@@ -32,3 +32,5 @@ login v6/connectionStrings.config
 # Misc
 *.log
 Thumbs.db
+
+login v6/appSettings.secret.config

@@ -12,6 +12,7 @@
 </ol>
 @using (Html.BeginForm("Guardarincidente", "Escaner", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.escaner_id)
 
 

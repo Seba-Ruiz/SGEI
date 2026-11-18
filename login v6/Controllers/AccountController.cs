@@ -11,7 +11,7 @@ using Microsoft.Owin.Security;
 using login_v6.Models;
 using Model;
 using Negocio.Dominio;
-using System.Data.Entity;
+using login_v6.Seguridad;
 
 
 namespace login_v6.Controllers
@@ -78,40 +78,24 @@ namespace login_v6.Controllers
             {
                 return View(model);
             }
-            // Requerir que el usuario confirme el correo antes de iniciar sesión.
-            var user = UserManager.FindByEmail(model.Email); if (user != null) { UserManager.Find(user.UserName, model.Password); }
-            if (user != null)
-            {
-                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
-                {
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Reenvío de confirmación de cuenta");
-
-                    ViewBag.errorMessage = "Debe confirmar el correo antes de iniciar sesión.";
-                    return View("Error");
-                }
-            }
-            // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
-            // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-
-            var usr = new usuario_dominio();
-            var usuario = usr.ObtenerByEmail(model.Email);
+            // Los intentos fallidos cuentan para el bloqueo (5 intentos -> 5 minutos, ver IdentityConfig).
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
 
             switch (result)
             {
                 case SignInStatus.Success:
-                    usuario.ultimo_ingreso = DateTime.Now;
-
-                    using (var ctx = new SGEIContext())
+                    // La contraseña ya fue validada: recién ahora se revisa la confirmación del correo,
+                    // así no se revela qué correos existen ni se envían mails sin conocer la contraseña.
+                    var user = await UserManager.FindByNameAsync(model.Email);
+                    if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                     {
-                            ctx.Entry(usuario).State = EntityState.Modified;
-                       
-                        ctx.SaveChanges();
+                        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                        await SendEmailConfirmationTokenAsync(user.Id, "Reenvío de confirmación de cuenta");
+                        ViewBag.errorMessage = "Debe confirmar el correo antes de iniciar sesión. Le reenviamos el enlace de confirmación.";
+                        return View("Error");
                     }
 
-                    var tipoRol = usr.obtenerTipoRol(usuario.Id);
-                    System.Web.HttpContext.Current.Session["userid"] = tipoRol.Id;
-
+                    new usuario_dominio().RegistrarIngreso(user.Id);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -169,7 +153,8 @@ namespace login_v6.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        // Solo el Administrador da de alta usuarios nuevos.
+        [SoloAdministrador]
         public ActionResult Register()
         {
             return View();
@@ -178,7 +163,7 @@ namespace login_v6.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [SoloAdministrador]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -195,7 +180,7 @@ namespace login_v6.Controllers
                 {
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    ur.RoleId = "2";
+                    ur.RoleId = RolesSgei.OperarioId;
                     ur.fecha_rol = DateTime.Now;
                     ur.UserId = user.Id;
                     usuarioRol.Guardar(ur);

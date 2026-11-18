@@ -1,145 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Model;
 
 namespace Negocio.Dominio
 {
     public class usuario_dominio
     {
-        private SGEIContext db = new SGEIContext();
-        
         public AspNetUsers Obtener(string id)
         {
-            var user = new AspNetUsers();
-            try
+            using (var ctx = new SGEIContext())
             {
-                using (var ctx = new SGEIContext())
-
-                    user = ctx.AspNetUsers
-                                       .Where(x => x.Id == id)
-                                       .SingleOrDefault();
-
+                return ctx.AspNetUsers.AsNoTracking().SingleOrDefault(x => x.Id == id);
             }
-            catch (Exception E)
-            {
-                throw E;
-            }
-            return user;
         }
 
         public List<AspNetUsers> Listar()
         {
-            var user = new List<AspNetUsers>();
-            try
+            using (var ctx = new SGEIContext())
             {
-                using (var ctx = new SGEIContext())
-
-                    user = ctx.AspNetUsers
-                        .OrderBy(x => x.Email)
-                        .ToList();
+                return ctx.AspNetUsers.AsNoTracking().OrderBy(x => x.Email).ToList();
             }
-            catch (Exception E)
-            {
-                throw E;
-            }
-
-            return user;
         }
 
-
-
+        /// <summary>
+        /// Rol vigente del usuario: el registro más reciente de AspNetUserRoles.
+        /// Devuelve null si el usuario no tiene rol asignado.
+        /// </summary>
         public AspNetRoles obtenerTipoRol(string id)
         {
-            var UsuarioRol = new AspNetUserRoles();
-
-            var tipoRol = new AspNetRoles();
-
-            try
+            using (var ctx = new SGEIContext())
             {
-                using (var ctx = new SGEIContext())
+                var rolId = ctx.AspNetUserRoles
+                    .Where(x => x.UserId == id)
+                    .OrderByDescending(x => x.fecha_rol)
+                    .Select(x => x.RoleId)
+                    .FirstOrDefault();
 
-                    UsuarioRol = ctx.AspNetUserRoles
-                                .Where(x => x.UserId == id)
-                                .OrderByDescending(x => x.fecha_rol)
-                                .FirstOrDefault();
+                return rolId == null ? null : ctx.AspNetRoles.Find(rolId);
             }
-
-
-            catch (Exception E)
-            {
-                throw E;
-            }
-
-            try
-            {
-                using (var ctx = new SGEIContext())
-
-                    tipoRol = ctx.AspNetRoles
-                                .Find(UsuarioRol.RoleId);
-                                
-            }
-
-
-            catch (Exception E)
-            {
-                throw E;
-            }
-
-            return tipoRol;
-
         }
 
         public AspNetUsers ObtenerByEmail(string email)
         {
-            var user = new AspNetUsers();
-            try
+            using (var ctx = new SGEIContext())
             {
-                using (var ctx = new SGEIContext())
-
-                    user = ctx.AspNetUsers
-                                       .Where(x => x.Email == email)
-                                       .SingleOrDefault();
-
+                return ctx.AspNetUsers.AsNoTracking().SingleOrDefault(x => x.Email == email);
             }
-            catch (Exception E)
-            {
-                throw E;
-            }
-            return user;
         }
 
-
-        public void Guardar(AspNetUsers user)
+        /// <summary>
+        /// Actualiza solo los datos personales editables. Nunca toca contraseña,
+        /// SecurityStamp, bloqueo ni confirmación de correo.
+        /// </summary>
+        /// <returns>false si el usuario no existe.</returns>
+        public bool ActualizarDatosPersonales(string id, string telefono, string nombre, string apellido)
         {
-            try
+            using (var ctx = new SGEIContext())
             {
-                using (var ctx = new SGEIContext())
+                var usuario = ctx.AspNetUsers.Find(id);
+                if (usuario == null)
                 {
-                    if (user.Id != null) //Registro que ya existe
-                    {
-                        ctx.Entry(user).State = EntityState.Modified;
-                    }
-                    else // Registro que es nuevo
-                    {
-                        ctx.Entry(user).State = EntityState.Added;
-                    }
-                    ctx.SaveChanges();
+                    return false;
                 }
-            }
-            catch (Exception E)
-            {
-                throw E;
+
+                usuario.PhoneNumber = telefono;
+                usuario.nombre = nombre;
+                usuario.apellido = apellido;
+                ctx.SaveChanges();
+                return true;
             }
         }
 
+        public void RegistrarIngreso(string id)
+        {
+            using (var ctx = new SGEIContext())
+            {
+                var usuario = ctx.AspNetUsers.Find(id);
+                if (usuario == null)
+                {
+                    return;
+                }
 
-
-
-
-
+                usuario.ultimo_ingreso = DateTime.Now;
+                ctx.SaveChanges();
+            }
+        }
     }
 }

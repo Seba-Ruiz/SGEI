@@ -80,6 +80,7 @@
 
 @using (Html.BeginForm("PosponerMante", "Computadora", FormMethod.Post, new { id = "form-control" }))
 {
+    @Html.AntiForgeryToken()
     <div id="coso" data-backdrop="static" style="display: none;">
         <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
             <h2 class="text-primary">Posponer Mantenimiento</h2>
@@ -102,6 +103,7 @@
 }
 @using (Html.BeginForm("PosponerMante", "Impresora", FormMethod.Post, new { id = "form-control" }))
 {
+    @Html.AntiForgeryToken()
     <div id="coso1" data-backdrop="static" style="display: none;">
         <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
             <h2 class="text-primary">Posponer Mantenimiento</h2>
@@ -126,6 +128,7 @@
 
 @using (Html.BeginForm("ManteCompu", "Computadora", FormMethod.Post, new { id = "form-control" }))
 {
+    @Html.AntiForgeryToken()
     <div id="manteCompu" data-backdrop="static" style="display: none;">
         <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
             <h2 class="text-primary">Realizar Mantenimiento</h2>
@@ -152,6 +155,7 @@
 
 @using (Html.BeginForm("Manteimpre", "Impresora", FormMethod.Post, new { id = "form-control" }))
 {
+    @Html.AntiForgeryToken()
     <div id="manteImpre" data-backdrop="static" style="display: none;">
         <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
             <h2 class="text-primary">Realizar Mantenimiento</h2>

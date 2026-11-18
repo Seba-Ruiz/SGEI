@@ -10,6 +10,7 @@
 
 @using (Html.BeginForm("Crudubicam", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
 {
+    @Html.AntiForgeryToken()
     <div class="vakata-context-left">
         <button type="submit" class="btn btn-inverse waves-effect waves-light">
             <span class="btn btn-label">
@@ -38,7 +39,7 @@
                         <th>
                             <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/EditarubiCam/@a.id_ubicacion_camara"></a>
 
-                            <a onclick="return confirm('¿Desea eliminar el modelo?');" class="md md-clear" title="Eliminar" href="~/ABM/EliminarubiCam/@a.id_ubicacion_camara"></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarubiCam/" + a.id_ubicacion_camara), "¿Desea eliminar la ubicación?", "md md-clear")
                         </th>
                     </tr>
                 }

@@ -28,6 +28,7 @@
                 @using (Html.BeginForm("BuscarIncidenteSW", "Consulta", FormMethod.Post))
 
                 {
+                    @Html.AntiForgeryToken()
 
 
                     <div class="row">

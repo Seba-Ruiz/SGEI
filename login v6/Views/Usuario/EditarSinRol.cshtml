@@ -41,21 +41,9 @@
 
                                         @using (Html.BeginForm("ConfirmarEditarSinRol", "Usuario", FormMethod.Post, new { id = "form-control" }))
                                         {
-                                            @Html.HiddenFor(x => x.AccessFailedCount)
-                                            @Html.HiddenFor(x => x.AccessFailedCount)
-                                            @Html.HiddenFor(x => x.EmailConfirmed)
-                                            @Html.HiddenFor(x => x.fecha_baja)
+                                            @Html.AntiForgeryToken()
                                             @Html.HiddenFor(x => x.Id)
-                                            @Html.HiddenFor(x => x.Email)
-                                            @Html.HiddenFor(x => x.ultimo_ingreso)
-                                            @Html.HiddenFor(x => x.SecurityStamp)
 
-                                            @Html.HiddenFor(x => x.LockoutEnabled)
-                                            @Html.HiddenFor(x => x.LockoutEndDateUtc)
-                                            @Html.HiddenFor(x => x.PasswordHash)
-                                            @Html.HiddenFor(x => x.PhoneNumberConfirmed)
-                                            @Html.HiddenFor(x => x.TwoFactorEnabled)
-                                            @Html.HiddenFor(x => x.UserName)
 
                                             <div class="form-group">
                                                 @Html.Label("Email del Usuario")
@@ -123,21 +111,9 @@
                         <div class="col-md-10">
                             @using (Html.BeginForm("ConfirmarEditarSinRol", "Usuario", FormMethod.Post, new { id = "form-control" }))
                             {
-                                @Html.HiddenFor(x => x.AccessFailedCount)
-                                @Html.HiddenFor(x => x.AccessFailedCount)
-                                @Html.HiddenFor(x => x.EmailConfirmed)
-                                @Html.HiddenFor(x => x.fecha_baja)
+                                @Html.AntiForgeryToken()
                                 @Html.HiddenFor(x => x.Id)
-                                @Html.HiddenFor(x => x.Email)
-                                @Html.HiddenFor(x => x.ultimo_ingreso)
-                                @Html.HiddenFor(x => x.SecurityStamp)
 
-                                @Html.HiddenFor(x => x.LockoutEnabled)
-                                @Html.HiddenFor(x => x.LockoutEndDateUtc)
-                                @Html.HiddenFor(x => x.PasswordHash)
-                                @Html.HiddenFor(x => x.PhoneNumberConfirmed)
-                                @Html.HiddenFor(x => x.TwoFactorEnabled)
-                                @Html.HiddenFor(x => x.UserName)
 
                                 <div class="form-group">
                                     @Html.Label("Email del Usuario")

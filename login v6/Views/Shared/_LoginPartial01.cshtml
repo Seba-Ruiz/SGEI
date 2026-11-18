@@ -10,6 +10,8 @@
         <a id="dashboard" style="cursor: pointer;"><i class="md md-dashboard"></i>Dashboard</a>
         
     </li>
+    @if (User.EsAdministrador())
+    {
     <li class="has-submenu">
         <a href="#"><i class="glyphicon glyphicon-cog"></i>Gestion</a>
         <ul class="submenu">
@@ -134,6 +136,7 @@
 
         </ul>
     </li>
+    }
     <li class="has-submenu">
         <a href="#"><i class="glyphicon glyphicon-plus"></i>Altas</a>
         <ul class="submenu">
@@ -215,14 +218,17 @@
             </li>
         </ul>
     </li>
+    @if (User.EsAdministrador())
+    {
     <li class="has-submenu">
         <a href="#"><i class="glyphicon glyphicon-user"></i>Usuarios</a>
         <ul class="submenu">
             <li><a id="usuario" style="cursor: pointer;">Gestionar</a></li>
             <li><a id="rol" style="cursor: pointer;">Roles</a></li>
-
+            <li><a href="@Url.Action("Register", "Account")">Nuevo usuario</a></li>
         </ul>
     </li>
+    }
 
     <li class="has-submenu">
         <a href="#"><i class="fa fa-tasks"></i>Ingresos</a>
@@ -249,7 +255,10 @@
                     <li><a id="veringresoCam" style="cursor: pointer;">Ver Ingresos</a></li>
                 </ul>
             </li>
+            @if (User.EsAdministrador())
+            {
             <li><a id="proveedores" style="cursor: pointer;">Proveedores</a></li>
+            }
 
 
         </ul>

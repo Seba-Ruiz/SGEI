@@ -15,6 +15,7 @@
             </p>
             @using (Html.BeginForm("ConfirmaEditar", "Computadora", FormMethod.Post, new { id = "basic-form" }))
             {
+                @Html.AntiForgeryToken()
 
                 @*<form id="basic-form" action="#">*@
                 @Html.HiddenFor(x => x.id_pc)

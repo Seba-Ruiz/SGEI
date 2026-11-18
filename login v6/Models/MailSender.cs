@@ -1,45 +1,61 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
+using System.Diagnostics;
+using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace login_v6.Models
 {
+    /// <summary>
+    /// Envío de correos por SMTP. Los datos del servidor y la cuenta se leen de appSettings
+    /// (claves "Smtp:*"), que viven en appSettings.secret.config (no versionado).
+    /// </summary>
     public class MailSender
     {
-
         public async Task<bool> sendMail(string toEmailAddress, string subject, string htmlMessage)
         {
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            var mail = new MailMessage();
-            mail.From = new MailAddress("antivirushospi@gmail.com");
-            mail.To.Add(toEmailAddress);
-            mail.Subject = subject;
-            mail.IsBodyHtml = true;
-            mail.Body = htmlMessage;
-            SmtpServer.Port = 25;
-            SmtpServer.UseDefaultCredentials = false;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("antivirushospi@gmail.com", "hospital2015");
-            SmtpServer.EnableSsl = true;
+            var host = ConfigurationManager.AppSettings["Smtp:Host"];
+            var usuario = ConfigurationManager.AppSettings["Smtp:Usuario"];
+            var password = ConfigurationManager.AppSettings["Smtp:Password"];
+            var remitente = ConfigurationManager.AppSettings["Smtp:Remitente"] ?? usuario;
 
-            try
+            if (string.IsNullOrEmpty(host) || string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(password))
             {
-                await Task.Run(() => SmtpServer.Send(mail));
-                return true;
+                Trace.TraceError("SMTP sin configurar: complete las claves Smtp:* en appSettings.secret.config.");
+                return false;
             }
-            catch (Exception) { return false; }
+
+            int puerto;
+            if (!int.TryParse(ConfigurationManager.AppSettings["Smtp:Puerto"], out puerto))
+            {
+                puerto = 587;
+            }
+
+            using (var mail = new MailMessage())
+            using (var smtp = new SmtpClient(host, puerto))
+            {
+                mail.From = new MailAddress(remitente);
+                mail.To.Add(toEmailAddress);
+                mail.Subject = subject;
+                mail.IsBodyHtml = true;
+                mail.Body = htmlMessage;
+
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(usuario, password);
+                smtp.EnableSsl = true;
+
+                try
+                {
+                    await smtp.SendMailAsync(mail);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceError("Error al enviar correo a {0}: {1}", toEmailAddress, ex);
+                    return false;
+                }
+            }
         }
-
-
-
     }
-
-
-    
-
-
-
-
 }

@@ -11,6 +11,7 @@
 
 @using (Html.BeginForm("Guardar", "ABM", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.id)
     @Html.HiddenFor(x=>x.cantidad)
 <div class="row">
