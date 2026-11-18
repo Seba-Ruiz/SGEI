@@ -62,7 +62,7 @@
                         }
 
                         <td>
-                            <a href="#" onclick="abrirModalDescripcion('@item.descripcion')" title="Descripción" class="table-action-btn"><i class="md md-pages"></i></a>
+                            <a href="#" data-descripcion="@item.descripcion" title="Descripción" class="js-ver-descripcion table-action-btn"><i class="md md-pages"></i></a>
                         </td>
 
                     </tr>
@@ -85,7 +85,7 @@
             </div>
         </p>
         <div class="button-list">
-            <a onclick="cerrar()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+            <a href="#" data-dismiss="modal" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
 
             
         </div>
@@ -93,50 +93,3 @@
 </div>
 
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#datatable').dataTable();
-        $('#datatable-keytable').DataTable({ keys: true });
-        $('#datatable-responsive').DataTable();
-        $('#datatable-colvid').DataTable({
-            "dom": 'C<"clear">lfrtip',
-            "colVis": {
-                "buttonText": "Change columns"
-            }
-        });
-        $('#datatable-scroller').DataTable({
-            ajax: "~/assets/plugins/datatables/json/scroller-demo.json",
-            deferRender: true,
-            scrollY: 380,
-            scrollCollapse: true,
-            scroller: true
-        });
-        var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
-        var table = $('#datatable-fixed-col').DataTable({
-            scrollY: "300px",
-            scrollX: true,
-            scrollCollapse: true,
-            paging: false,
-            fixedColumns: {
-                leftColumns: 1,
-                rightColumns: 1
-            }
-        });
-    });
-   // TableManageButtons.init();
-
-
-
-
-</script>
-<script>
-    function abrirModalDescripcion(e) {
-
-        document.querySelector('#descri').innerText = e;
-        $('#descripcion').modal('show');
-    }
-
-    function cerrar() {
-        $('#descripcion').modal('hide');
-    }
-</script>

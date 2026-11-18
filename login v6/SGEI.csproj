@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Helpers\ScriptsHelper.cs" />
     <Compile Include="Seguridad\HtmlSeguridadExtensions.cs" />
     <Compile Include="Seguridad\RolesSgei.cs" />
     <Compile Include="Seguridad\SoloAdministradorAttribute.cs" />
@@ -307,7 +308,6 @@
     <Content Include="assets\js\jquery.slimscroll.js" />
     <Content Include="assets\js\modernizr.min.js" />
     <Content Include="assets\js\pace.min.js" />
-    <Content Include="assets\js\spiner.js" />
     <Content Include="assets\js\waves.js" />
     <Content Include="assets\js\wow.min.js" />
     <Content Include="assets\landing\css\bootstrap.min.css" />
@@ -2828,12 +2828,10 @@
     <Content Include="assets\login\fonts\weathericons-regular-webfont.woff" />
     <Content Include="assets\login\fonts\weathericons-regular-webfont.woff2" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-migrate-3.5.2.js" />
+    <Content Include="Scripts\jquery-migrate-3.5.2.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -2852,13 +2850,25 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\AccesoDenegado.cshtml" />
-    <Content Include="Views\Shared\_AntiforgeryAjax.cshtml" />
+    <Content Include="Views\Shared\_ScriptsCuenta.cshtml" />
+    <Content Include="Scripts\app\sgei.js" />
+    <Content Include="Scripts\app\tema-login.js" />
+    <Content Include="Scripts\views\Computadora\EditarPC.js" />
+    <Content Include="Scripts\views\Computadora\Preventivo.js" />
+    <Content Include="Scripts\views\Home\AltaCompu.js" />
+    <Content Include="Scripts\views\Consulta\compuBaja.js" />
+    <Content Include="Scripts\views\Home\Landing.js" />
+    <Content Include="Scripts\views\Impresora\Preventivo.js" />
+    <Content Include="Scripts\views\Ingresos\Index.js" />
+    <Content Include="Scripts\views\Ingresos\IndexCam.js" />
+    <Content Include="Scripts\views\Ingresos\IndexCompu.js" />
+    <Content Include="Scripts\views\Inicio\Dashboard.js" />
+    <Content Include="Scripts\views\Inicio\Sugeridos.js" />
     <None Include="connectionStrings.example.config" />
     <None Include="appSettings.secret.example.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Indexx.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -2932,8 +2942,6 @@
     <Content Include="Views\ABM\Ubicacion.cshtml" />
     <Content Include="Views\ABM\ubicacionespc.cshtml" />
     <Content Include="Views\ABM\ubicacionestel.cshtml" />
-    <Content Include="Views\Acceso\Index.cshtml" />
-    <Content Include="Views\Acceso\login.cshtml" />
     <Content Include="Views\Computadora\Baja.cshtml" />
     <Content Include="Views\Computadora\BajaAceptada.cshtml" />
     <Content Include="Views\Computadora\Buscar.cshtml" />
@@ -2997,7 +3005,6 @@
     <Content Include="Views\Home\CrudUbicacion_impresora.cshtml" />
     <Content Include="Views\Home\impresoras_baja.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial02.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
@@ -3145,8 +3152,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

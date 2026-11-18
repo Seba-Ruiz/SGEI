@@ -42,7 +42,7 @@
                                     <h4 class="text-dark">Cantidad actual:  <b class="text-warning">@item.cantidad</b> </h4>
                                     <h2 class="text-primary text-center">@item.nombre</h2>
                                     <div class="col-lg-5 col-lg-offset-4">
-                                        <a onclick="abrirModal(@item.id_insumo)" class="btn btn-icon waves-effect waves-light btn-success btn-md"><i class="fa fa-plus"></i></a>
+                                        <a href="#" data-id="@item.id_insumo" class="js-agregar-ingreso btn btn-icon waves-effect waves-light btn-success btn-md"><i class="fa fa-plus"></i></a>
                                         @*<button onclick="abrirModal(@item.id)" class="btn btn-icon waves-effect waves-light btn-success btn-md"><i class="fa fa-plus"></i></button>*@
                                     </div>
                                 </div>
@@ -82,8 +82,8 @@
                 </div>
             </p>
             <div class="button-list">
-                <a onclick="cerrar()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
-                @*<button onclick="cerrar()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</button>*@
+                <a href="#" data-dismiss="modal" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+                @*<button href="#" data-dismiss="modal" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</button>*@
                 <button type="submit" class="btn btn-lg btn-primary" tabindex="1" style="display: inline-block;">Aceptar</button>
             </div>
         </div>
@@ -93,27 +93,5 @@
 
 
 
-<script>
-    function abrirModal(e) {
-
-        //$('#coso').on('show.bs.modal', function abrirModal (e) {
-
-        //    var bookId = $(e.relatedTarget).data('book-id');
-        //    $(e.currentTarget).find('input[name="prueba"]').val(bookId);
-
-        //document.f1t1.value = 30
-        $("#id").val(e);
-        $('#coso').modal('show');
-    }
-
-    function cerrar() {
-        $('#coso').modal('hide');
-    }
-
-
-
-
-
-</script>
 
 

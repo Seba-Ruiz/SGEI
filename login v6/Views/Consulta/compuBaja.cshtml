@@ -38,10 +38,10 @@
 
 
                     <th>
-                        <a onclick="return confirm('¿Desea dar de ALTA esta computadora?');" title="Dar de alta nuevamente" class="glyphicon glyphicon-upload" href="~/Consulta/AltaPc/@a.id_pc"></a>
+                        <a data-confirmar="¿Desea dar de ALTA esta computadora?" title="Dar de alta nuevamente" class="glyphicon glyphicon-upload" href="~/Consulta/AltaPc/@a.id_pc"></a>
                     </th>
                     <th>
-                        <a style="cursor: pointer;" title="Ver motivo de baja" onclick="send(@a.id_pc)" class="glyphicon glyphicon-search"></a>
+                        <a href="#" title="Ver motivo de baja" data-url="@Url.Action("VerMotivo", "Consulta", new { id = a.id_pc })" class="js-ver-motivo glyphicon glyphicon-search"></a>
 
                     </th>
 
@@ -57,17 +57,4 @@
 
 
 @section Scripts {
-        <script>
-
-    function send(e) {
-
-        var url = "@Url.Action("VerMotivo", "Consulta", new { id="param-id"})";
-        url = url.replace("param-id", e);
-
-        $("#resultado").load(url);
-        $("#motivo").modal('show');
-        
-    }
-
-        </script>
 }

@@ -18,8 +18,8 @@ namespace login_v6.Seguridad
             form.MergeAttribute("action", url);
             form.MergeAttribute("method", "post");
             form.MergeAttribute("style", "display:inline");
+            // La confirmación la maneja Scripts/app/sgei.js (form[data-confirmar]).
             form.MergeAttribute("data-confirmar", mensajeConfirmacion);
-            form.MergeAttribute("onsubmit", "return confirm(this.getAttribute('data-confirmar'));");
 
             var boton = new TagBuilder("button");
             boton.MergeAttribute("type", "submit");

@@ -1,13 +1,10 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
-    {
-        @Html.AntiForgeryToken()
 
 <ul class="navigation-menu">
     <li class="has-submenu">
-        <a id="dashboard" style="cursor: pointer;"><i class="md md-dashboard"></i>Dashboard</a>
+        <a id="dashboard" href="@Url.Action("Dashboard","Inicio")" data-spinner><i class="md md-dashboard"></i>Dashboard</a>
         
     </li>
     @if (User.EsAdministrador())
@@ -19,13 +16,13 @@
                 <a href="#">Impresoras</a>
                 <ul class="submenu">
                     <li>
-                        <a id="insumos" style="cursor: pointer;">Insumos</a>
+                        <a id="insumos" href="@Url.Action("insumos", "ABM")" data-spinner>Insumos</a>
                     </li>
                     <li>
-                        <a id="impresoras" style="cursor: pointer;">Modelos</a>
+                        <a id="impresoras" href="@Url.Action("impresoras", "ABM")" data-spinner>Modelos</a>
                     </li>
                     <li>
-                        <a id="ubicacion" style="cursor: pointer;">Ubicacion</a>
+                        <a id="ubicacion" href="@Url.Action("ubicacion", "ABM")" data-spinner>Ubicacion</a>
                     </li>
                 </ul>
             </li>
@@ -34,34 +31,34 @@
                 <a href="#">Computadoras</a>
                 <ul class="submenu">
                     <li>
-                        <a id="insumospc" style="cursor: pointer;">Insumos</a>
+                        <a id="insumospc" href="@Url.Action("insumospc", "ABM")" data-spinner>Insumos</a>
                     </li>
                     <li>
-                        <a id="rams" style="cursor: pointer;">Memorias</a>
+                        <a id="rams" href="@Url.Action("rams", "ABM")" data-spinner>Memorias</a>
                     </li>
                     <li>
-                        <a id="discos" style="cursor: pointer;">Discos</a>
+                        <a id="discos" href="@Url.Action("discos", "ABM")" data-spinner>Discos</a>
                     </li>
                     <li>
-                        <a id="sos" style="cursor: pointer;">Sistemas Operativos</a>
+                        <a id="sos" href="@Url.Action("sos", "ABM")" data-spinner>Sistemas Operativos</a>
                     </li>
                     <li>
-                        <a id="mothers" style="cursor: pointer;">Placas Madre</a>
+                        <a id="mothers" href="@Url.Action("mothers", "ABM")" data-spinner>Placas Madre</a>
                     </li>
                     <li>
-                        <a id="incidentespc" style="cursor: pointer;">Incidentes</a>
+                        <a id="incidentespc" href="@Url.Action("incidentespc", "ABM")" data-spinner>Incidentes</a>
                     </li>
                     <li>
-                        <a id="tipospc" style="cursor: pointer;">Tipos</a>
+                        <a id="tipospc" href="@Url.Action("tipospc", "ABM")" data-spinner>Tipos</a>
                     </li>
                     <li>
-                        <a id="ubicacionespc" style="cursor: pointer;">Ubicaciones</a>
+                        <a id="ubicacionespc" href="@Url.Action("ubicacionespc", "ABM")" data-spinner>Ubicaciones</a>
                     </li>
                     <li>
-                        <a id="motivospc" style="cursor: pointer;">Motivos de baja</a>
+                        <a id="motivospc" href="@Url.Action("motivospc", "ABM")" data-spinner>Motivos de baja</a>
                     </li>
                     <li>
-                        <a id="procesadorespc" style="cursor: pointer;">Procesadores</a>
+                        <a id="procesadorespc" href="@Url.Action("procesadorespc", "ABM")" data-spinner>Procesadores</a>
                     </li>
 
                 </ul>
@@ -71,16 +68,16 @@
                 <a href="#">Telefonos</a>
                 <ul class="submenu">
                     <li>
-                        <a id="tipo_telefonos" style="cursor: pointer;">Tipo</a>
+                        <a id="tipo_telefonos" href="@Url.Action("tipo_telefonos", "ABM")" data-spinner>Tipo</a>
                     </li>
                     <li>
-                        <a id="ubicacionestel" style="cursor: pointer;">Ubicaciones</a>
+                        <a id="ubicacionestel" href="@Url.Action("ubicacionestel", "ABM")" data-spinner>Ubicaciones</a>
                     </li>
                     <li>
-                        <a id="mmarcas" style="cursor: pointer;">Modelos</a>
+                        <a id="mmarcas" href="@Url.Action("mmarcas", "ABM")" data-spinner>Modelos</a>
                     </li>
                     <li>
-                        <a id="incidentestel" style="cursor: pointer;">Incidentes</a>
+                        <a id="incidentestel" href="@Url.Action("incidentestel", "ABM")" data-spinner>Incidentes</a>
                     </li>
                 </ul>
             </li>
@@ -91,16 +88,16 @@
                 <a href="#">Camaras</a>
                 <ul class="submenu">
                     <li>
-                        <a id="insumocam" style="cursor: pointer;">Insumos</a>
+                        <a id="insumocam" href="@Url.Action("insumoscam", "ABM")" data-spinner>Insumos</a>
                     </li>
                     <li>
-                        <a id="modelocam" style="cursor: pointer;">Modelos</a>
+                        <a id="modelocam" href="@Url.Action("modelocam", "ABM")" data-spinner>Modelos</a>
                     </li>
                     <li>
-                        <a id="ubicam" style="cursor: pointer;">Ubicaciones</a>
+                        <a id="ubicam" href="@Url.Action("ubicam", "ABM")" data-spinner>Ubicaciones</a>
                     </li>
                     <li>
-                        <a id="incidentecam" style="cursor: pointer;">Incidentes</a>
+                        <a id="incidentecam" href="@Url.Action("incidentecam", "ABM")" data-spinner>Incidentes</a>
                     </li>
                 </ul>
             </li>
@@ -109,13 +106,13 @@
                 <ul class="submenu">
 
                     <li>
-                        <a id="modelosw" style="cursor: pointer;">Modelos</a>
+                        <a id="modelosw" href="@Url.Action("modelosw","ABM")" data-spinner>Modelos</a>
                     </li>
                     <li>
-                        <a id="ubicacionsw" style="cursor: pointer;">Ubicaciones</a>
+                        <a id="ubicacionsw" href="@Url.Action("ubicacionSW","ABM")" data-spinner>Ubicaciones</a>
                     </li>
                     <li>
-                        <a id="incidentesw" style="cursor: pointer;">Incidentes</a>
+                        <a id="incidentesw" href="@Url.Action("incidenteSW","ABM")" data-spinner>Incidentes</a>
                     </li>
                 </ul>
             </li>
@@ -123,13 +120,13 @@
                 <a href="#">Escaners</a>
                 <ul class="submenu">
                     <li>
-                        <a id="modeloes" style="cursor: pointer;">Modelos</a>
+                        <a id="modeloes" href="@Url.Action("modeloES","ABM")" data-spinner>Modelos</a>
                     </li>
                     <li>
-                        <a id="ubicaciones" style="cursor: pointer;">Ubicaciones</a>
+                        <a id="ubicaciones" href="@Url.Action("UbicacionES","ABM")" data-spinner>Ubicaciones</a>
                     </li>
                     <li>
-                        <a id="incidenteses" style="cursor: pointer;">Incidentes</a>
+                        <a id="incidenteses" href="@Url.Action("IncidenteES","ABM")" data-spinner>Incidentes</a>
                     </li>
                 </ul>
             </li>
@@ -140,12 +137,12 @@
     <li class="has-submenu">
         <a href="#"><i class="glyphicon glyphicon-plus"></i>Altas</a>
         <ul class="submenu">
-            <li><a id="altaimpresora" style="cursor: pointer;">Impresora</a></li>
-            <li><a id="altacompu" style="cursor: pointer;">Computadora</a></li>
-            <li><a id="altatel" style="cursor: pointer;">Telefono</a></li>
-            <li><a id="altacam" style="cursor: pointer;">Camara</a></li>
-            <li><a id="altasw" style="cursor: pointer;">Switch</a></li>
-            <li><a id="altaes" style="cursor: pointer;">Escaner</a></li>
+            <li><a id="altaimpresora" href="@Url.Action("AltaImpr","Home")" data-spinner>Impresora</a></li>
+            <li><a id="altacompu" href="@Url.Action("AltaCompu","Home")" data-spinner>Computadora</a></li>
+            <li><a id="altatel" href="@Url.Action("Altatel","Home")" data-spinner>Telefono</a></li>
+            <li><a id="altacam" href="@Url.Action("Altacam","Home")" data-spinner>Camara</a></li>
+            <li><a id="altasw" href="@Url.Action("AltaSW","Home")" data-spinner>Switch</a></li>
+            <li><a id="altaes" href="@Url.Action("AltaES","Home")" data-spinner>Escaner</a></li>
         </ul>
     </li>
 
@@ -157,13 +154,13 @@
                 <a href="#">Impresoras</a>
                 <ul class="submenu">
                     <li>
-                        <a id="impresora" style="cursor: pointer;">Informes</a>
+                        <a id="impresora" href="@Url.Action("Index","Consulta")" data-spinner>Informes</a>
                     </li>
                     <li>
-                        <a id="impbaja" style="cursor: pointer;">Bajas</a>
+                        <a id="impbaja" href="@Url.Action("impresoras_baja","Home")" data-spinner>Bajas</a>
                     </li>
                     <li>
-                        <a id="preventivo_impre" style="cursor: pointer;">Preventivos</a>
+                        <a id="preventivo_impre" href="@Url.Action("Preventivo","Impresora")" data-spinner>Preventivos</a>
                     </li>
 
                 </ul>
@@ -173,13 +170,13 @@
                 <a href="#">Computadoras</a>
                 <ul class="submenu">
                     <li>
-                        <a id="computadoras" style="cursor: pointer;">Informes</a>
+                        <a id="computadoras" href="@Url.Action("computadoras","Consulta")" data-spinner>Informes</a>
                     </li>
                     <li>
-                        <a id="compubaja" style="cursor: pointer;">Bajas</a>
+                        <a id="compubaja" href="@Url.Action("compuBaja","Consulta")" data-spinner>Bajas</a>
                     </li>
                     <li>
-                        <a id="preventivo_pc" style="cursor: pointer;">Preventivos</a>
+                        <a id="preventivo_pc" href="@Url.Action("Preventivo","Computadora")" data-spinner>Preventivos</a>
                     </li>
                 </ul>
             </li>
@@ -188,7 +185,7 @@
                 <a href="#">Telefonos</a>
                 <ul class="submenu">
                     <li>
-                        <a id="telefonos" style="cursor: pointer;">Informes</a>
+                        <a id="telefonos" href="@Url.Action("telefonos","Consulta")" data-spinner>Informes</a>
                     </li>
                 </ul>
             </li>
@@ -196,7 +193,7 @@
                 <a href="#">Camaras</a>
                 <ul class="submenu">
                     <li>
-                        <a id="camaras" style="cursor: pointer;">Informes</a>
+                        <a id="camaras" href="@Url.Action("camara","Consulta")" data-spinner>Informes</a>
                     </li>
                 </ul>
             </li>
@@ -204,7 +201,7 @@
                 <a href="#">Switchs</a>
                 <ul class="submenu">
                     <li>
-                        <a id="switchs" style="cursor: pointer;">Informes</a>
+                        <a id="switchs" href="@Url.Action("switchs","Consulta")" data-spinner>Informes</a>
                     </li>
                 </ul>
             </li>
@@ -212,7 +209,7 @@
                 <a href="#">Escaners</a>
                 <ul class="submenu">
                     <li>
-                        <a id="escaner" style="cursor: pointer;">Informes</a>
+                        <a id="escaner" href="@Url.Action("escaners","Consulta")" data-spinner>Informes</a>
                     </li>
                 </ul>
             </li>
@@ -223,8 +220,8 @@
     <li class="has-submenu">
         <a href="#"><i class="glyphicon glyphicon-user"></i>Usuarios</a>
         <ul class="submenu">
-            <li><a id="usuario" style="cursor: pointer;">Gestionar</a></li>
-            <li><a id="rol" style="cursor: pointer;">Roles</a></li>
+            <li><a id="usuario" href="@Url.Action("Index","Usuario")" data-spinner>Gestionar</a></li>
+            <li><a id="rol" href="@Url.Action("Index","Role")" data-spinner>Roles</a></li>
             <li><a href="@Url.Action("Register", "Account")">Nuevo usuario</a></li>
         </ul>
     </li>
@@ -237,27 +234,27 @@
             <li class="has-submenu">
                 <a href="#">Impresora</a>
                 <ul class="submenu">
-                    <li><a id="ingreso" style="cursor: pointer;">Insumos</a></li>
-                    <li><a id="veringreso" style="cursor: pointer;">Ver Ingresos</a></li>
+                    <li><a id="ingreso" href="@Url.Action("Index", "Ingresos")" data-spinner>Insumos</a></li>
+                    <li><a id="veringreso" href="@Url.Action("VerIngresoImpresora", "Ingresos")" data-spinner>Ver Ingresos</a></li>
                 </ul>
             </li>
             <li class="has-submenu">
                 <a href="#">Computadora</a>
                 <ul class="submenu">
-                    <li><a id="ingresoPC" style="cursor: pointer;">Insumos</a></li>
-                    <li><a id="veringresoPC" style="cursor: pointer;">Ver Ingresos</a></li>
+                    <li><a id="ingresoPC" href="@Url.Action("IndexCompu", "Ingresos")" data-spinner>Insumos</a></li>
+                    <li><a id="veringresoPC" href="@Url.Action("VerIngresoPC", "Ingresos")" data-spinner>Ver Ingresos</a></li>
                 </ul>
             </li>
             <li class="has-submenu">
                 <a href="#">Camara</a>
                 <ul class="submenu">
-                    <li><a id="ingresoCam" style="cursor: pointer;">Insumos</a></li>
-                    <li><a id="veringresoCam" style="cursor: pointer;">Ver Ingresos</a></li>
+                    <li><a id="ingresoCam" href="@Url.Action("IndexCam", "Ingresos")" data-spinner>Insumos</a></li>
+                    <li><a id="veringresoCam" href="@Url.Action("VerIngresoCam", "Ingresos")" data-spinner>Ver Ingresos</a></li>
                 </ul>
             </li>
             @if (User.EsAdministrador())
             {
-            <li><a id="proveedores" style="cursor: pointer;">Proveedores</a></li>
+            <li><a id="proveedores" href="@Url.Action("proveedores","ABM")" data-spinner>Proveedores</a></li>
             }
 
 
@@ -270,14 +267,14 @@
             <li class="has-submenu">
                 <a href="#">Computadora</a>
                 <ul class="submenu">
-                    <li><a id="buscar_compu" style="cursor: pointer;" title="Buscar computadora por número">Por número</a></li>
-                    <li><a id="buscar_compu_ip" style="cursor: pointer;" title="Buscar computadora por IP">Por IP</a></li>
+                    <li><a id="buscar_compu" href="@Url.Action("Buscar_PC","Buscar")" data-spinner title="Buscar computadora por número">Por número</a></li>
+                    <li><a id="buscar_compu_ip" href="@Url.Action("Buscar_PC_IP","Buscar")" data-spinner title="Buscar computadora por IP">Por IP</a></li>
                 </ul>
             </li>
             <li class="has-submenu">
                 <a href="#">Insumo</a>
                 <ul class="submenu">
-                    <li><a id="buscar_insumo" style="cursor: pointer;" title="Buscar insumo por número de serie">Por número</a></li>
+                    <li><a id="buscar_insumo" href="@Url.Action("Buscar_Insu","Buscar")" data-spinner title="Buscar insumo por número de serie">Por número</a></li>
 
                 </ul>
             </li>
@@ -287,8 +284,6 @@
 
 
 </ul>
-
-    }
 }
 else
 {
@@ -297,537 +292,3 @@ else
             <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
         </ul>*@
 }
-
-
-
-<div id="spiner" class="modal fade bs-example-modal-sm in" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-sm" style="margin-top:200px">
-        <div>
-            <div>
-                <h4 style="text-align:center;color:black;font-weight:bolder;font-size:25px">Espere...</h4>
-            </div>
-            <div class="modal-body text-center">
-
-                <span class="fa fa-spin fa-spinner fa-5x"></span>
-            </div>
-            @*<div class="progress">
-            <div class="progress-bar progress-bar-primary progress-bar-striped progress-animated wow animated" role="progressbar" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-        </div>*@
-        </div>
-    </div>
-</div>
-
-
-<script src="~/assets/js/spiner.js"></script>
-<script>
-    $("#preventivo_impre").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Preventivo","Impresora")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#preventivo_pc").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Preventivo","Computadora")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#buscar_compu").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Buscar_PC","Buscar")";
-            $('#spiner').modal('hide');
-        }, 2000);
-    });
-
-    $("#buscar_compu_ip").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Buscar_PC_IP","Buscar")";
-            $('#spiner').modal('hide');
-        }, 2000);
-    });
-
-    $("#buscar_insumo").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Buscar_Insu","Buscar")";
-            $('#spiner').modal('hide');
-        }, 2000);
-    });
-
-    $("#rol").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Index","Role")";
-            $('#spiner').modal('hide');
-        }, 2000);
-    });
-
-    $("#usuario").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Index","Usuario")";
-            $('#spiner').modal('hide');
-        }, 2000);
-    });
-
-      $("#escaner").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("escaners","Consulta")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#switchs").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("switchs","Consulta")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-     $("#camaras").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("camara","Consulta")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#telefonos").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("telefonos","Consulta")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#computadoras").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("computadoras","Consulta")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#compubaja").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("compuBaja","Consulta")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#impbaja").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("impresoras_baja","Home")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-     $("#impresora").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Index","Consulta")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
- 
-    $("#altaes").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("AltaES","Home")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#altasw").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("AltaSW","Home")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#altacam").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Altacam","Home")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#altatel").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Altatel","Home")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#dashboard").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Dashboard","Inicio")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#altacompu").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("AltaCompu","Home")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#altaimpresora").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("AltaImpr","Home")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-     $("#incidenteses").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("IncidenteES","ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#ubicaciones").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("UbicacionES","ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#modeloes").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("modeloES","ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#incidentesw").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("incidenteSW","ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-     $("#ubicacionsw").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("ubicacionSW","ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#modelosw").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("modelosw","ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#incidentecam").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("incidentecam", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#ubicam").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("ubicam", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-
-    $("#modelocam").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("modelocam", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#insumocam").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("insumoscam", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#incidentestel").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("incidentestel", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#mmarcas").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("mmarcas", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#ubicacionestel").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("ubicacionestel", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#tipo_telefonos").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("tipo_telefonos", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#insumospc").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("insumospc", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#procesadorespc").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("procesadorespc", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#motivospc").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("motivospc", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#ubicacionespc").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("ubicacionespc", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-    $("#tipospc").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("tipospc", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#incidentespc").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("incidentespc", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#mothers").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("mothers", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#sos").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("sos", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#discos").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("discos", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#rams").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("rams", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#ubicacion").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("ubicacion", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#impresoras").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("impresoras", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#insumos").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("insumos", "ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#ingreso").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Index", "Ingresos")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#veringreso").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("VerIngresoImpresora", "Ingresos")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#proveedores").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("proveedores","ABM")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#ingresoPC").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("IndexCompu", "Ingresos")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#veringresoPC").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("VerIngresoPC", "Ingresos")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#ingresoCam").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("IndexCam", "Ingresos")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    $("#veringresoCam").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("VerIngresoCam", "Ingresos")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-
-
-
-
-
-
-
-</script>
-
-
-
-<script>
-    //SPINER CON AYAX
-    $("#btnSubmit").click(function () {
-        $("#divLoader").show();
-        $.ajax({
-            url: '/Test/Submit',
-            dataType: "json",
-            type: "POST",
-            contentType: 'application/json; charset=utf-8',
-            data: {},
-            //async: true,
-            //processData: false,
-            // cache: false,
-            success: function (data) {
-                $("#divLoader").hide();
-                alert(data);
-            },
-            error: function (xhr) {
-                $("#divLoader").hide();
-                alert('error');
-            }
-        })
-    });
-</script>
-
-
-
-

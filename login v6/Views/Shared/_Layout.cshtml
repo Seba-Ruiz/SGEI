@@ -7,12 +7,8 @@
 
     <title>@ViewBag.Title - SGEI</title>
 
-    @Scripts.Render("~/bundles/jqueryval")
-    @Html.Partial("_AntiforgeryAjax")
     @Styles.Render("~/assets/coso")
     @Scripts.Render("~/bundles/modernizr")
-
-
 </head>
 <body>
     <div id="antiforgery-ajax" style="display:none">@Html.AntiForgeryToken()</div>
@@ -23,7 +19,7 @@
             <div class="container">
                 <!-- Logo container-->
                 <div class="logo">
-                    <a id="inicio" style="cursor: pointer;" class="logo">
+                    <a id="inicio" href="@Url.Action("Index", "Inicio")" class="logo" data-spinner>
                         <span class="text-primary">
                             SGEI - HOSPITAL ALFREDO ITALO PERRUPATO
                         </span>
@@ -72,11 +68,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-6">
-                            <script type="text/javascript">
-                                copyright = new Date();
-                                update = copyright.getFullYear();
-                                document.write("By Seba Ruiz - " + "© " + update);
-                            </script>.
+                            By Seba Ruiz - &copy; @DateTime.Now.Year.
                         </div>
                         <div class="col-xs-6">
                             <ul class="pull-right list-inline m-b-0">
@@ -97,12 +89,6 @@
             <!-- End Footer -->
         </div>
     </div>
-    @Scripts.Render("~/bundles/jquerys")
-    @Scripts.Render("~/bundles/bootstrap")
-    @* El bundle "jquerys" vuelve a cargar jQuery: se registra otra vez el header antiforgery
-       (se unifica en la rama feature/claude-jquery-js-por-vista). *@
-    @Html.Partial("_AntiforgeryAjax")
-    @RenderSection("scripts", required: false)
 
     <div id="spiner" class="modal fade bs-example-modal-sm in" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm" style="margin-top:200px">
@@ -122,30 +108,17 @@
     </div>
 
 
-    <script>
-    $("#inicio").click(function () {
-        $('#spiner').modal('show');
-
-        setTimeout(function () {
-            window.location = "@Url.Action("Index","Inicio")";
-            $('#spiner').modal('hide');
-        }, 1000);
-    });
-    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/plugins")
+    @Html.Script("~/Scripts/app/sgei.js")
+    @* Script propio de la vista: Scripts/views/<Controlador>/<vista>.js (si existe) *@
+    @Html.ScriptDeVista()
+    @RenderSection("scripts", required: false)
 
 
 
 
 
 </body>
-</html >
-
-
-
-
-
-
-
-
-
-
+</html>

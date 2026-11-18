@@ -48,8 +48,8 @@
                                 <td><span class="text-dark">@item.ubicacion</span></td>
                                 <td><span class="text-dark">@item.descripcion</span></td>
                                 <td>
-                                    <a href="#" onclick="abrirModalManteCompu(@item.id,'@item.nombre')" title="Realizar Mantenimiento" class="table-action-btn"><i class="md md-done"></i></a>
-                                    <a href="#" onclick="abrirModalCompu(@item.id,'@item.nombre')" title="Posponer Mantenimiento" class="table-action-btn"><i class="md md-exit-to-app"></i></a>
+                                    <a href="#" data-accion="mantenimiento-pc" data-id="@item.id" data-nombre="@item.nombre" title="Realizar Mantenimiento" class="js-sugerido table-action-btn"><i class="md md-done"></i></a>
+                                    <a href="#" data-accion="posponer-pc" data-id="@item.id" data-nombre="@item.nombre" title="Posponer Mantenimiento" class="js-sugerido table-action-btn"><i class="md md-exit-to-app"></i></a>
                                 </td>
                             </tr>
                         }
@@ -61,8 +61,8 @@
                                 <td><span class="text-dark">@item.ubicacion</span></td>
                                 <td><span class="text-dark">@item.descripcion</span></td>
                                 <td>
-                                    <a href="#" onclick="abrirModalManteImpre(@item.id,'@item.nombre')" title="Realizar Mantenimiento" class="table-action-btn"><i class="md md-done "></i></a>
-                                    <a href="#" onclick="abrirModalImpre(@item.id,'@item.nombre')" title="Posponer Mantenimiento" class="table-action-btn"><i class="md md-exit-to-app"></i></a>
+                                    <a href="#" data-accion="mantenimiento-impresora" data-id="@item.id" data-nombre="@item.nombre" title="Realizar Mantenimiento" class="js-sugerido table-action-btn"><i class="md md-done "></i></a>
+                                    <a href="#" data-accion="posponer-impresora" data-id="@item.id" data-nombre="@item.nombre" title="Posponer Mantenimiento" class="js-sugerido table-action-btn"><i class="md md-exit-to-app"></i></a>
                                 </td>
                             </tr>
                         }
@@ -94,8 +94,8 @@
             </p>
 
             <div class="button-list">
-                <a onclick="cerrar()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
-                @*<button onclick="cerrar()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</button>*@
+                <a href="#" data-dismiss="modal" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+                @*<button href="#" data-dismiss="modal" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</button>*@
                 <button type="submit" class="btn btn-lg btn-primary" tabindex="1" style="display: inline-block;">Aceptar</button>
             </div>
         </div>
@@ -117,7 +117,7 @@
             </p>
 
             <div class="button-list">
-                <a onclick="cerrar1()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+                <a href="#" data-dismiss="modal" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
 
                 <button type="submit" class="btn btn-lg btn-primary" tabindex="1" style="display: inline-block;">Aceptar</button>
             </div>
@@ -144,7 +144,7 @@
             </p>
 
             <div class="button-list">
-                <a onclick="cerrar2()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+                <a href="#" data-dismiss="modal" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
 
                 <button type="submit" class="btn btn-lg btn-primary" tabindex="1" style="display: inline-block;">Aceptar</button>
             </div>
@@ -170,7 +170,7 @@
             </p>
 
             <div class="button-list">
-                <a onclick="cerrar3()" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
+                <a href="#" data-dismiss="modal" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
 
                 <button type="submit" class="btn btn-lg btn-primary" tabindex="1" style="display: inline-block;">Aceptar</button>
             </div>
@@ -179,74 +179,4 @@
 }
 
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#datatable').dataTable();
-        $('#datatable-keytable').DataTable({ keys: true });
-        $('#datatable-responsive').DataTable();
-        $('#datatable-colvid').DataTable({
-            "dom": 'C<"clear">lfrtip',
-            "colVis": {
-                "buttonText": "Change columns"
-            }
-        });
-        $('#datatable-scroller').DataTable({
-            ajax: "~/assets/plugins/datatables/json/scroller-demo.json",
-            deferRender: true,
-            scrollY: 380,
-            scrollCollapse: true,
-            scroller: true
-        });
-        var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
-        var table = $('#datatable-fixed-col').DataTable({
-            scrollY: "300px",
-            scrollX: true,
-            scrollCollapse: true,
-            paging: false,
-            fixedColumns: {
-                leftColumns: 1,
-                rightColumns: 1
-            }
-        });
-    });
-    //TableManageButtons.init();
-</script>
 
-<script>
-    function abrirModalCompu(e, b) {
-        $("#id").val(e);
-        document.querySelector('#nombre_p').innerText = b;
-        $('#coso').modal('show');
-    }
-
-    function abrirModalImpre(e, b) {
-        $("#id1").val(e);
-        document.querySelector('#nombre_i').innerText = b;
-        $('#coso1').modal('show');
-    }
-
-    function abrirModalManteCompu(e, b) {
-        $("#id_pc").val(e);
-        document.querySelector('#nombre_pc').innerText = b;
-        $('#manteCompu').modal('show');
-    }
-
-    function abrirModalManteImpre(e, b) {
-        $("#id_impre").val(e);
-        document.querySelector('#nombre_impre').innerText = b;
-        $('#manteImpre').modal('show');
-    }
-
-    function cerrar() {
-        $('#coso').modal('hide');
-    }
-    function cerrar1() {
-        $('#coso1').modal('hide');
-    }
-    function cerrar2() {
-        $('#manteCompu').modal('hide');
-    }
-    function cerrar3() {
-        $('#manteImpre').modal('hide');
-    }
-</script>
