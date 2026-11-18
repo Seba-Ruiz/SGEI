@@ -4,16 +4,16 @@
 }
 <h4 class="page-title">Incidente Escaner</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Incidente Escaner") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Incidente Escaner") </li>
 </ol>
 @using (Html.BeginForm("CrudincidenteES", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
 {
     @Html.AntiForgeryToken()
     <div class="vakata-context-left">
-        <button type="submit" class="btn btn-inverse waves-effect waves-light">
-            <span class="btn btn-label">
-                <i class="md md-queue"></i>
+        <button type="submit" class="btn btn-primary">
+            <span class="btn-label">
+                <i class="bi bi-plus-lg"></i>
             </span>
             Agregar
         </button>
@@ -36,8 +36,8 @@
                     <tr>
                         <th>@a.descripcion</th>
                         <th>
-                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/EditarincidenteES/@a.id_incidente_escaner"></a>
-                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarincidenteES/" + a.id_incidente_escaner), "¿Desea eliminar el incidente?", "md md-clear")
+                            <a class="bi bi-pencil-square" title="Editar" href="~/ABM/EditarincidenteES/@a.id_incidente_escaner"></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarincidenteES/" + a.id_incidente_escaner), "¿Desea eliminar el incidente?", "bi bi-trash")
                         </th>
                     </tr>
                 }

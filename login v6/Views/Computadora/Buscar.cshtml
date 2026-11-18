@@ -5,8 +5,8 @@
 
 
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Detalle de la Consulta") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Detalle de la Consulta") </li>
 </ol>
 
 <div class="card-box table-responsive">
@@ -37,19 +37,19 @@
                 <th>@a.descripcion</th>
                 <th>@a.fecha_ubicacion</th>
                 <th>
-                    <a class="glyphicon glyphicon-zoom-in" title="Detalle de la computadora" href="~/Computadora/Detalle/@a.id_detalle"></a>
+                    <a class="bi bi-zoom-in" title="Detalle de la computadora" href="~/Computadora/Detalle/@a.id_detalle"></a>
                 </th>
                 <th>
-                    <a class="glyphicon glyphicon-retweet" title="Agregar Insumo" href="~/Insumo/AgregarInsumoPC/@a.id_detalle"></a>
+                    <a class="bi bi-arrow-repeat" title="Agregar Insumo" href="~/Insumo/AgregarInsumoPC/@a.id_detalle"></a>
                 </th>
                 <th>
-                    <a data-confirmar="¿Desea agregar incidente a esta computadora?" class="glyphicon glyphicon-tag" title="Cargar incidente" href="~/Computadora/Incidente/@a.id_detalle"></a>
+                    <a data-confirmar="¿Desea agregar incidente a esta computadora?" class="bi bi-tag" title="Cargar incidente" href="~/Computadora/Incidente/@a.id_detalle"></a>
                 </th>
                 <th>
-                    <a data-confirmar="¿Desea mover de ubicación esta computadora?" class="glyphicon glyphicon-random" title="Mover a otra ubicacion la PC" href="~/Computadora/BuscarParaMover/@a.id_detalle"></a>
+                    <a data-confirmar="¿Desea mover de ubicación esta computadora?" class="bi bi-arrows-move" title="Mover a otra ubicacion la PC" href="~/Computadora/BuscarParaMover/@a.id_detalle"></a>
                 </th>
                 <th>
-                    <a data-confirmar="¿Desea dar de BAJA esta computadora?" class="glyphicon glyphicon-circle-arrow-down" title="Dar de baja a la PC" href="~/Computadora/Baja/@a.id_detalle"></a>
+                    <a data-confirmar="¿Desea dar de BAJA esta computadora?" class="bi bi-arrow-down-circle" title="Dar de baja a la PC" href="~/Computadora/Baja/@a.id_detalle"></a>
                 </th>
             </tr>
             }

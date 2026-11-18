@@ -5,8 +5,8 @@
 
 
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Detalle de la Consulta") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Detalle de la Consulta") </li>
 </ol>
 
 <div class="card-box table-responsive">
@@ -42,21 +42,21 @@
                 <th>@a.ip</th>
                 <th>@a.pc_dondeseconecta</th>
                 <th>
-                    <a class="glyphicon glyphicon-edit" title="Editar" href="~/Impresora/Editar/@a.id"></a>
+                    <a class="bi bi-pencil-square" title="Editar" href="~/Impresora/Editar/@a.id"></a>
                 </th>
 
                 <th>
-                    <a class="glyphicon glyphicon-retweet" title="Cargar insumo" href="~/Insumo/AgregarInsumo/@a.id"></a>
+                    <a class="bi bi-arrow-repeat" title="Cargar insumo" href="~/Insumo/AgregarInsumo/@a.id"></a>
                 </th>
                 <th>
-                    <a data-confirmar="¿Desea agregar incidente a esta impresora?" class="glyphicon glyphicon-tag" title="Cargar incidente" href="~/Incidente/Index/@a.id"></a>
+                    <a data-confirmar="¿Desea agregar incidente a esta impresora?" class="bi bi-tag" title="Cargar incidente" href="~/Incidente/Index/@a.id"></a>
 
                 </th>
                 <th>
-                    <a data-confirmar="¿Desea mover de ubicacion esta impresora?" class="glyphicon glyphicon-random" title="Mover a otra ubicacion la impresora" href="~/Home/BuscarParaMover/@a.id"></a>
+                    <a data-confirmar="¿Desea mover de ubicacion esta impresora?" class="bi bi-arrows-move" title="Mover a otra ubicacion la impresora" href="~/Home/BuscarParaMover/@a.id"></a>
                 </th>
                 <th>
-                    <a data-confirmar="¿Desea dar de BAJA esta impresora?" class="glyphicon glyphicon-circle-arrow-down" title="Dar de baja a la impresora" href="~/Home/Baja/@a.id"></a>
+                    <a data-confirmar="¿Desea dar de BAJA esta impresora?" class="bi bi-arrow-down-circle" title="Dar de baja a la impresora" href="~/Home/Baja/@a.id"></a>
                 </th>
             </tr>
             }

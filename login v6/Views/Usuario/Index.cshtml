@@ -6,8 +6,8 @@
 }
 <h4 class="page-title">Usuarios</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Detalle de Usuarios del sistema") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Detalle de Usuarios del sistema") </li>
 </ol>
 
 <div class="col-md-2"></div>
@@ -50,9 +50,9 @@
                         }
 
                         <th>
-                            <a class="md md-assignment" title="Detalle" href="~/Usuario/Detalle/@a.Id"></a>
+                            <a class="bi bi-card-list" title="Detalle" href="~/Usuario/Detalle/@a.Id"></a>
 
-                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/Usuario/Editar/@a.Id"></a>
+                            <a class="bi bi-pencil-square" title="Editar" href="~/Usuario/Editar/@a.Id"></a>
 
                         </th>
                     </tr>

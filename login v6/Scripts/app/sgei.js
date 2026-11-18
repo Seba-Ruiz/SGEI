@@ -8,6 +8,7 @@
  *   data-spinner               en <a>: muestra el spinner "Espere..." al navegar.
  *   data-abrir-al-cargar       en un .modal: lo abre cuando carga la página.
  *   data-cerrar-sesion         en <a>: envía el formulario #logoutForm.
+ *   data-wizard                en <form>: arma el formulario por pasos (h3 + section).
  */
 (function ($, window, document) {
     "use strict";
@@ -38,6 +39,14 @@
             headerTag: "h3",
             bodyTag: "section",
             transitionEffect: "slideLeft",
+            labels: {
+                current: "paso actual:",
+                pagination: "Paginación",
+                finish: "Finalizar",
+                next: "Siguiente",
+                previous: "Anterior",
+                loading: "Cargando..."
+            },
             onFinishing: function () {
                 return true;
             },
@@ -93,8 +102,43 @@
         $("#logoutForm").trigger("submit");
     });
 
+    // DataTables: textos en castellano y 25 filas por página en todas las tablas.
+    if ($.fn.dataTable) {
+        $.extend(true, $.fn.dataTable.defaults, {
+            pageLength: 25,
+            language: {
+                decimal: ",",
+                thousands: ".",
+                emptyTable: "No hay datos para mostrar",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                infoEmpty: "Sin registros",
+                infoFiltered: "(filtrado de _MAX_ registros)",
+                lengthMenu: "Mostrar _MENU_ registros",
+                loadingRecords: "Cargando...",
+                processing: "Procesando...",
+                search: "Buscar:",
+                zeroRecords: "No se encontraron resultados",
+                aria: {
+                    orderable: "Ordenar por esta columna",
+                    orderableReverse: "Invertir el orden de esta columna"
+                },
+                paginate: {
+                    first: "Primera",
+                    last: "Última",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            }
+        });
+    }
+
     $(function () {
         $(".modal[data-abrir-al-cargar]").modal("show");
+
+        // Formularios de alta/edición por pasos: <form data-wizard> (BeginForm con data_wizard = "true").
+        $("form[data-wizard]").each(function () {
+            SGEI.crearWizard(this);
+        });
     });
 
 })(jQuery, window, document);

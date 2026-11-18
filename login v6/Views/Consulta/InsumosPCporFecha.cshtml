@@ -5,8 +5,8 @@
 
 
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Detalle de la Consulta") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Detalle de la Consulta") </li>
 </ol>
 
 <div class="card-box table-responsive">
@@ -35,7 +35,7 @@
                     <th>@a.descripcion</th>
                     <th>@a.fecha_ubicacion</th>
                     <th>
-                        <a class="fa fa-calendar-plus-o" title="Seleccionar Rango de Fechas" href="~/Consulta/ConsultarRangoFechaPC/@a.id_detalle"></a>
+                        <a class="bi bi-calendar-plus" title="Seleccionar Rango de Fechas" href="~/Consulta/ConsultarRangoFechaPC/@a.id_detalle"></a>
                     </th>
                     
                 </tr>

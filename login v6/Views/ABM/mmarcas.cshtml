@@ -4,17 +4,17 @@
 }
 <h4 class="page-title">Modelos!</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Modelos") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Modelos") </li>
 </ol>
 
 @using (Html.BeginForm("Crudmmarca", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
 {
     @Html.AntiForgeryToken()
     <div class="vakata-context-left">
-        <button type="submit" class="btn btn-inverse waves-effect waves-light">
-            <span class="btn btn-label">
-                <i class="md md-queue"></i>
+        <button type="submit" class="btn btn-primary">
+            <span class="btn-label">
+                <i class="bi bi-plus-lg"></i>
             </span>
             Agregar
         </button>
@@ -39,9 +39,9 @@
                     <th>@a.descripcion</th>
                     <th>@a.cantidad</th>
                     <th>
-                        <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/Editarmmarca/@a.id_mm"></a>
+                        <a class="bi bi-pencil-square" title="Editar" href="~/ABM/Editarmmarca/@a.id_mm"></a>
 
-                        @Html.BotonEliminar(Url.Content("~/ABM/Eliminarmmarca/" + a.id_mm), "¿Desea eliminar el modelo?", "md md-clear")
+                        @Html.BotonEliminar(Url.Content("~/ABM/Eliminarmmarca/" + a.id_mm), "¿Desea eliminar el modelo?", "bi bi-trash")
                     </th>
                 </tr>
                 }

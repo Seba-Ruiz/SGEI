@@ -6,8 +6,8 @@
 
 <h4 class="page-title">Consultar Incidentes</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Seleccion de Camara") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Seleccion de Camara") </li>
 </ol>
 
 <div class="card-box table-responsive">
@@ -31,7 +31,7 @@
                     <th>@a.nro_ip</th>
 
                     <th>
-                        <a class="btn btn-xs btn-primary" href="~/consulta/VerIncidenteCam/@a.id_camara">Ver Incidentes</a>
+                        <a class="btn btn-sm btn-primary" href="~/consulta/VerIncidenteCam/@a.id_camara">Ver Incidentes</a>
                     </th>
                 </tr>
             }

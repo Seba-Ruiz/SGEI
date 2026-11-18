@@ -1,0 +1,611 @@
+/*
+ * SGEI - estilos de la aplicación sobre Bootstrap 5.3.
+ *
+ * 1. Tokens (colores, tipografía, radios)   -> cambiar acá el look de toda la app
+ * 2. Estructura: menú lateral + barra superior + contenido
+ * 3. Componentes (encabezado de página, tarjetas, tablas, formularios, botones, modales)
+ * 4. Compatibilidad con clases del tema anterior (Ubold / Bootstrap 3) que siguen en las vistas
+ */
+
+/* ---------------------------------------------------------------- 1. Tokens */
+:root {
+    --sgei-primario: #1f5fa8;
+    --sgei-primario-rgb: 31, 95, 168;
+    --sgei-primario-oscuro: #184c87;
+    --sgei-primario-suave: #e8f0fa;
+
+    --sgei-menu-fondo: #0f2a47;
+    --sgei-menu-texto: #b9c6d6;
+    --sgei-menu-texto-activo: #ffffff;
+    --sgei-menu-hover: rgba(255, 255, 255, .06);
+    --sgei-menu-ancho: 260px;
+
+    --sgei-fondo: #f3f5f8;
+    --sgei-borde: #e1e6ec;
+    --sgei-texto: #1f2a37;
+    --sgei-texto-suave: #6b7785;
+    --sgei-sombra: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .08);
+    --sgei-radio: .5rem;
+    --sgei-barra-alto: 60px;
+
+    /* Bootstrap */
+    --bs-primary: var(--sgei-primario);
+    --bs-primary-rgb: var(--sgei-primario-rgb);
+    --bs-primary-text-emphasis: var(--sgei-primario-oscuro);
+    --bs-primary-bg-subtle: var(--sgei-primario-suave);
+    --bs-primary-border-subtle: #b7cde9;
+    --bs-link-color: var(--sgei-primario);
+    --bs-link-color-rgb: var(--sgei-primario-rgb);
+    --bs-link-hover-color: var(--sgei-primario-oscuro);
+    --bs-link-hover-color-rgb: 24, 76, 135;
+    --bs-body-color: var(--sgei-texto);
+    --bs-body-bg: var(--sgei-fondo);
+    --bs-border-color: var(--sgei-borde);
+    --bs-border-radius: var(--sgei-radio);
+    --bs-body-font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    --bs-body-font-size: .9375rem;
+    --bs-focus-ring-color: rgba(var(--sgei-primario-rgb), .25);
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--sgei-primario);
+    --bs-btn-border-color: var(--sgei-primario);
+    --bs-btn-hover-bg: var(--sgei-primario-oscuro);
+    --bs-btn-hover-border-color: var(--sgei-primario-oscuro);
+    --bs-btn-active-bg: var(--sgei-primario-oscuro);
+    --bs-btn-active-border-color: var(--sgei-primario-oscuro);
+    --bs-btn-disabled-bg: var(--sgei-primario);
+    --bs-btn-disabled-border-color: var(--sgei-primario);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--sgei-primario);
+    --bs-btn-border-color: var(--sgei-primario);
+    --bs-btn-hover-bg: var(--sgei-primario);
+    --bs-btn-hover-border-color: var(--sgei-primario);
+    --bs-btn-active-bg: var(--sgei-primario-oscuro);
+    --bs-btn-active-border-color: var(--sgei-primario-oscuro);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #8fb1dc;
+    box-shadow: 0 0 0 .2rem rgba(var(--sgei-primario-rgb), .2);
+}
+
+/* ---------------------------------------------------------------- 2. Estructura */
+body.sgei {
+    min-height: 100vh;
+}
+
+.sgei-app {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sgei-sidebar {
+    --bs-offcanvas-width: var(--sgei-menu-ancho);
+    --bs-offcanvas-bg: var(--sgei-menu-fondo);
+    --bs-offcanvas-color: var(--sgei-menu-texto);
+    background: var(--sgei-menu-fondo);
+    color: var(--sgei-menu-texto);
+}
+
+/* En pantallas grandes Bootstrap convierte el offcanvas-lg en un bloque transparente de ancho/alto
+   automático (con !important); acá se lo vuelve a fijar como columna lateral. */
+@media (min-width: 992px) {
+    .sgei-sidebar.offcanvas-lg {
+        position: sticky;
+        top: 0;
+        flex: 0 0 var(--sgei-menu-ancho);
+        width: var(--sgei-menu-ancho) !important;
+        height: 100vh !important;
+        overflow-y: auto;
+        background-color: var(--sgei-menu-fondo) !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sgei-sidebar { overflow-y: auto; }
+}
+
+.sgei-marca {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    height: var(--sgei-barra-alto);
+    padding: 0 1.25rem;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.sgei-marca:hover { color: #fff; }
+
+.sgei-marca-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: .5rem;
+    background: var(--sgei-primario);
+    font-size: 1.1rem;
+}
+
+.sgei-marca-texto { line-height: 1.1; }
+.sgei-marca-texto strong { display: block; font-size: 1.05rem; letter-spacing: .04em; }
+.sgei-marca-texto small { font-size: .7rem; color: var(--sgei-menu-texto); }
+
+.sgei-menu {
+    list-style: none;
+    margin: 0;
+    padding: .75rem .75rem 2rem;
+}
+
+.sgei-menu-titulo {
+    margin: 1.1rem .75rem .35rem;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #7f93aa;
+}
+
+.sgei-menu-link {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    width: 100%;
+    padding: .55rem .75rem;
+    border: 0;
+    border-radius: .4rem;
+    background: transparent;
+    color: var(--sgei-menu-texto);
+    font-size: .9rem;
+    text-align: left;
+    text-decoration: none;
+}
+
+.sgei-menu-link:hover,
+.sgei-menu-link:focus-visible {
+    background: var(--sgei-menu-hover);
+    color: var(--sgei-menu-texto-activo);
+}
+
+.sgei-menu-link > .bi:first-child { font-size: 1.05rem; opacity: .9; }
+
+.sgei-menu-link.activo {
+    background: var(--sgei-primario);
+    color: var(--sgei-menu-texto-activo);
+}
+
+.sgei-menu-flecha {
+    margin-left: auto;
+    font-size: .75rem;
+    transition: transform .2s ease;
+}
+
+.sgei-menu-link[aria-expanded="true"] .sgei-menu-flecha { transform: rotate(90deg); }
+.sgei-menu-link[aria-expanded="true"] { color: var(--sgei-menu-texto-activo); }
+
+.sgei-submenu {
+    list-style: none;
+    margin: .15rem 0 .35rem;
+    padding: 0 0 0 2.15rem;
+}
+
+.sgei-submenu-grupo {
+    margin: .55rem 0 .15rem;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: #7f93aa;
+}
+
+.sgei-submenu .sgei-menu-link {
+    padding: .35rem .6rem;
+    font-size: .85rem;
+}
+
+.sgei-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.sgei-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: var(--sgei-barra-alto);
+    padding: 0 1.5rem;
+    background: #fff;
+    border-bottom: 1px solid var(--sgei-borde);
+}
+
+.sgei-topbar-titulo {
+    font-weight: 600;
+    color: var(--sgei-texto);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sgei-usuario {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    color: var(--sgei-texto);
+    text-decoration: none;
+}
+
+.sgei-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--sgei-primario-suave);
+    color: var(--sgei-primario);
+    font-weight: 600;
+}
+
+.sgei-content {
+    flex: 1 1 auto;
+    padding: 1.5rem;
+}
+
+.sgei-footer {
+    padding: 1rem 1.5rem;
+    font-size: .8rem;
+    color: var(--sgei-texto-suave);
+    border-top: 1px solid var(--sgei-borde);
+    background: #fff;
+}
+
+/* Pantallas de cuenta (login, recuperar contraseña, confirmaciones) */
+.sgei-cuenta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(var(--sgei-primario-rgb), .12), transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(var(--sgei-primario-rgb), .10), transparent 40%),
+        var(--sgei-fondo);
+}
+
+.sgei-cuenta-contenedor { width: 100%; max-width: 440px; }
+
+.sgei-cuenta-marca {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    margin-bottom: 1.5rem;
+}
+
+.sgei-cuenta-marca .sgei-marca-logo {
+    width: 44px;
+    height: 44px;
+    color: #fff;
+    font-size: 1.35rem;
+}
+
+.sgei-cuenta-tarjeta { margin-bottom: 0; box-shadow: 0 10px 30px rgba(16, 24, 40, .08); }
+
+.sgei-cuenta-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    font-size: 2rem;
+}
+
+/* ---------------------------------------------------------------- 3. Componentes */
+
+/* Encabezado de página: <h4 class="page-title"> + <ol class="breadcrumb"> */
+.page-title {
+    margin: 0 0 .25rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--sgei-texto);
+}
+
+.breadcrumb {
+    --bs-breadcrumb-margin-bottom: 1.5rem;
+    --bs-breadcrumb-font-size: .825rem;
+    --bs-breadcrumb-item-active-color: var(--sgei-texto-suave);
+    background: transparent;
+    padding: 0;
+}
+
+.breadcrumb a { text-decoration: none; }
+
+/* Tarjetas */
+.card,
+.card-box {
+    border: 1px solid var(--sgei-borde);
+    border-radius: var(--sgei-radio);
+    background: #fff;
+    box-shadow: var(--sgei-sombra);
+}
+
+.card { margin-bottom: 1.5rem; }
+
+.card-box {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background: #fff;
+    border-bottom: 1px solid var(--sgei-borde);
+    font-weight: 600;
+}
+
+.card-title { font-size: 1rem; font-weight: 600; }
+
+/* Tarjetas de indicadores (inicio) */
+.sgei-kpi {
+    color: inherit;
+    text-decoration: none;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.sgei-kpi:hover {
+    color: inherit;
+    border-color: #b7cde9;
+    box-shadow: 0 6px 16px rgba(16, 24, 40, .1);
+    transform: translateY(-2px);
+}
+
+.sgei-kpi-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 1rem;
+    border-radius: .6rem;
+    background: var(--sgei-primario-suave);
+    color: var(--sgei-primario);
+    font-size: 1.35rem;
+}
+
+.sgei-kpi-valor {
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.sgei-kpi-titulo {
+    margin-top: .2rem;
+    font-size: .85rem;
+    color: var(--sgei-texto-suave);
+}
+
+/* Tarjetas de insumos (Ingresos) */
+.sgei-insumo { box-shadow: none; }
+.sgei-insumo-nombre { font-size: 1.15rem; font-weight: 600; color: var(--sgei-primario); }
+
+/* Variantes de color de las tarjetas (ex panel-primary, panel-warning, ...) */
+.card-acento-primary { border-top: 3px solid var(--sgei-primario); }
+.card-acento-warning { border-top: 3px solid var(--bs-warning); }
+.card-acento-danger  { border-top: 3px solid var(--bs-danger); }
+.card-acento-success { border-top: 3px solid var(--bs-success); }
+.card-acento-info    { border-top: 3px solid var(--bs-info); }
+
+/* Título de sección dentro de una tarjeta */
+.header-title {
+    font-size: .85rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--sgei-texto);
+}
+
+.header-title b { font-weight: 600; }
+
+/* Tablas */
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: #f7f9fb;
+    --bs-table-hover-bg: var(--sgei-primario-suave);
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.table > thead th {
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--sgei-texto-suave);
+    border-bottom-width: 1px;
+    white-space: nowrap;
+}
+
+.table > tbody th { font-weight: 400; }
+
+/* Íconos de acción en las tablas (editar, eliminar, detalle, baja...) */
+.table a.bi,
+.table button.bi,
+.table-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-right: .15rem;
+    border-radius: .4rem;
+    color: var(--sgei-texto-suave);
+    font-size: 1.05rem;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.table a.bi:hover,
+.table button.bi:hover,
+.table-action-btn:hover {
+    background: var(--sgei-primario-suave);
+    color: var(--sgei-primario);
+}
+
+.table button.bi-trash:hover,
+.table a.bi-arrow-down-circle:hover {
+    background: #fdecec;
+    color: var(--bs-danger);
+}
+
+/* Formularios */
+label:not(.form-check-label):not(.btn) {
+    margin-bottom: .35rem;
+    font-size: .875rem;
+    font-weight: 500;
+    color: #3a4655;
+}
+
+.field-validation-error { display: block; margin-top: .25rem; }
+
+/* Barra de acciones arriba de una lista (botón "Agregar") */
+.vakata-context-left {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+/* Ícono dentro de un botón */
+.btn-label {
+    display: inline-flex;
+    margin-right: .35rem;
+}
+
+.btn > .bi { vertical-align: -.125em; }
+
+/* Modales: el botón de cerrar va a la derecha aunque esté antes del título */
+.modal-header .btn-close { order: 2; margin-left: auto; }
+.modal-header h1, .modal-header h2, .modal-header h3, .modal-header h4, .modal-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.modal-content {
+    border: 0;
+    border-radius: var(--sgei-radio);
+    box-shadow: 0 10px 30px rgba(16, 24, 40, .18);
+}
+
+/* Spinner "Espere..." */
+.sgei-spinner .modal-content {
+    padding: 1.75rem 1rem;
+    text-align: center;
+}
+
+/* Wizard por pasos (jquery.steps): alta y edición de computadoras */
+.wizard > .steps .current a,
+.wizard > .steps .current a:hover,
+.wizard > .steps .current a:active,
+.wizard > .actions a,
+.wizard > .actions a:hover,
+.wizard > .actions a:active {
+    background: var(--sgei-primario);
+    border-radius: .4rem;
+}
+
+.wizard > .steps .done a,
+.wizard > .steps .done a:hover,
+.wizard > .steps .done a:active {
+    background: #8fb1dc;
+    border-radius: .4rem;
+}
+
+.wizard > .steps .disabled a,
+.wizard > .steps .disabled a:hover {
+    background: #eef1f5;
+    color: var(--sgei-texto-suave);
+    border-radius: .4rem;
+}
+
+.wizard > .content {
+    background: #fff;
+    border: 1px solid var(--sgei-borde);
+    border-radius: var(--sgei-radio);
+    min-height: 18rem;
+}
+
+.wizard > .actions .disabled a,
+.wizard > .actions .disabled a:hover {
+    background: #eef1f5;
+    color: #9aa5b1;
+}
+
+/* DataTables */
+div.dt-container .dt-search input { margin-left: .5rem; }
+div.dt-container { font-size: .875rem; }
+
+/* ---------------------------------------------------------------- 4. Compatibilidad con el tema anterior */
+
+/* Muchas vistas usan columnas de Bootstrap 3 fuera de un .row para centrar el contenido
+   (col-md-2 vacía + col-md-8 + col-md-2 vacía). En Bootstrap 5 eso deja el contenido corrido a la
+   izquierda: las columnas sueltas ocupan todo el ancho y los separadores vacíos se ocultan. */
+.sgei-content > [class*="col-"],
+.sgei-content > form > [class*="col-"] {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;  /* anula offset-* fuera de un .row */
+}
+
+.sgei-content > [class*="col-"]:empty,
+.sgei-content > form > [class*="col-"]:empty,
+.row > [class*="col-"]:empty {
+    display: none;
+}
+.font-13 { font-size: .8125rem; }
+.text-custom { color: var(--sgei-primario) !important; }
+
+/* Pantallas de confirmación / error con texto grande ("Excelente!", "Ups!") */
+.ex-page-content { padding: 2rem 1rem; }
+.text-error {
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+/* Widgets del inicio (ícono grande + número) */
+.widget-bg-color-icon,
+.widget-box-1 {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bg-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--sgei-primario-suave);
+    color: var(--sgei-primario);
+    font-size: 1.75rem;
+}
+
+.thumb-sm { width: 36px; height: 36px; border-radius: 50%; }
+
+/* Listas horizontales de botones */
+.button-list > .btn { margin: 0 .35rem .35rem 0; }

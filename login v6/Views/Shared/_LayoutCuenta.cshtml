@@ -1,0 +1,39 @@
+﻿@* Layout de las pantallas de cuenta sin sesión iniciada: login, recuperar y restablecer contraseña,
+   confirmaciones. Tarjeta centrada con la marca del sistema. *@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title - SGEI</title>
+    <link rel="icon" href="~/favicon.ico" />
+    @Styles.Render("~/Content/css")
+</head>
+<body class="sgei sgei-cuenta">
+    <main class="sgei-cuenta-contenedor">
+        <div class="sgei-cuenta-marca">
+            <span class="sgei-marca-logo"><i class="bi bi-hospital"></i></span>
+            <div>
+                <div class="fw-bold fs-5">SGEI</div>
+                <div class="small text-muted">Hospital Alfredo Italo Perrupato</div>
+            </div>
+        </div>
+
+        <div class="card sgei-cuenta-tarjeta">
+            <div class="card-body p-4 p-sm-5">
+                @RenderBody()
+            </div>
+        </div>
+
+        <p class="text-center text-muted small mt-4 mb-0">
+            Sistema de Gestión de Equipos Informáticos &middot; &copy; @DateTime.Now.Year
+        </p>
+    </main>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Html.Script("~/Scripts/app/sgei.js")
+    @Html.ScriptDeVista()
+    @RenderSection("scripts", required: false)
+</body>
+</html>

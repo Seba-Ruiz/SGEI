@@ -4,17 +4,17 @@
 }
 <h4 class="page-title">Ubicacion Telefonos!</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Ubicaciones") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Ubicaciones") </li>
 </ol>
 
 @using (Html.BeginForm("Crudubicaciontel", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
 {
     @Html.AntiForgeryToken()
     <div class="vakata-context-left">
-        <button type="submit" class="btn btn-inverse waves-effect waves-light">
-            <span class="btn btn-label">
-                <i class="md md-queue"></i>
+        <button type="submit" class="btn btn-primary">
+            <span class="btn-label">
+                <i class="bi bi-plus-lg"></i>
             </span>
             Agregar
         </button>
@@ -37,9 +37,9 @@
                     <tr>
                         <th>@a.nombre_ubi</th>
                         <th>
-                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/Editarubicaciontel/@a.id_ubicacion_tel"></a>
+                            <a class="bi bi-pencil-square" title="Editar" href="~/ABM/Editarubicaciontel/@a.id_ubicacion_tel"></a>
 
-                            @Html.BotonEliminar(Url.Content("~/ABM/Eliminarubicaciontel/" + a.id_ubicacion_tel), "¿Desea eliminar la ubicacion?", "md md-clear")
+                            @Html.BotonEliminar(Url.Content("~/ABM/Eliminarubicaciontel/" + a.id_ubicacion_tel), "¿Desea eliminar la ubicacion?", "bi bi-trash")
                         </th>
                     </tr>
                 }

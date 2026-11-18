@@ -5,8 +5,8 @@
 
 <h4 class="page-title">Consulta!</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Seleccion de Fecha") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Seleccion de Fecha") </li>
 </ol>
 
 @using (Html.BeginForm("ConsultarRangoPCIncidente", "Consulta", FormMethod.Post))
@@ -17,22 +17,22 @@
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
             <div class="card-box">
-                <h4 class="m-t-0 m-b-20 header-title"><b>CONSULTA ENTRE FECHAS</b></h4>
+                <h4 class="mt-0 mb-3 header-title"><b>CONSULTA ENTRE FECHAS</b></h4>
 
                 <div class="row">
                     <div class="col-md-12">
                         <h5><b>Insumo por fecha</b></h5>
-                        <p class="text-muted m-b-30 font-13">
+                        <p class="text-muted mb-4 font-13">
                             Seleccione las fechas para la consulta de los incidentes en el rango de fechas que seleccionara.
                         </p>
 
 
-                        <div class="form-group">
+                        <div class="mb-3">
                             @Html.Label("Fecha Desde")
                             <input type="date" id="FechaDesde" name="FechaDesde" class="form-control" style="width:200px;" />
                         </div>
 
-                        <div class="form-group">
+                        <div class="mb-3">
                             @Html.Label("Fecha Hasta")
                             <input type="date" id="FechaHasta" name="FechaHasta" class="form-control" style="width:200px;" />
                         </div>
@@ -44,7 +44,7 @@
     </div>
 
     <div class="text-center">
-        <button type="submit" class="btn-custom btn-inverse">Consultar</button>
+        <button type="submit" class="btn btn-primary">Consultar</button>
     </div>
 
 }

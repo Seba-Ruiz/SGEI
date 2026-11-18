@@ -9,8 +9,8 @@
 
 
 <ol class="breadcrumb">
-    <li><a href="~/Home/Index">Inicio</a></li>
-    <li class="active">@("Cargar Incidente") </li>
+    <li class="breadcrumb-item"><a href="~/Home/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Cargar Incidente") </li>
 </ol>
 
 @using (Html.BeginForm("Guardarincidente", "Computadora", FormMethod.Post))
@@ -21,39 +21,39 @@
 
 
     <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-            <div class="panel panel-primary panel-border">
-                <div class="panel-heading">
-                    <h4 class="panel-title">CARGA DE INCIDENTE</h4>
+        <div class="col-sm-6 offset-sm-3">
+            <div class="card card-acento-primary">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">CARGA DE INCIDENTE</h4>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12">
                             @*<h5><b>INSUMOS POR FECHA</b></h5>*@
-                            <p class="text-muted m-b-30 font-13">
+                            <p class="text-muted mb-4 font-13">
                                 Rellene los campos a continuación para detallar el incidente ocurrido y su acción de reparación.
                             </p>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Seleccione el incidente ocurrido")
-                                @Html.DropDownList("incidentepc", new SelectList(ViewBag.incidentepc, "id_incidentepc", "nombre"), new { @class = "form-control", @style = "width:500px;" })
+                                @Html.DropDownList("incidentepc", new SelectList(ViewBag.incidentepc, "id_incidentepc", "nombre"), new { @class = "form-select", @style = "width:500px;" })
                             </div>
 
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Fecha de Incidente")
                                 @Html.TextBoxFor(x => x.fecha_incidente, new { @class = "form-control", type = "date", @style = "width:200px;" })
-                                @Html.ValidationMessageFor(x => x.fecha_incidente, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.fecha_incidente, null, new { @class = "text-danger small" })
                             </div>
 
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Accion Realizada")
                                 @Html.TextBoxFor(x => x.reparacion, new { @class = "form-control", @style = "width:500px;", @required = "required" })
-                                @Html.ValidationMessageFor(x => x.reparacion, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.reparacion, null, new { @class = "text-danger small" })
                             </div>
 
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Fecha de AcciÓn Realizada")
                                 @Html.TextBoxFor(x => x.fecha_reparacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
-                                @Html.ValidationMessageFor(x => x.fecha_reparacion, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.fecha_reparacion, null, new { @class = "text-danger small" })
                             </div>
 
                             
@@ -69,7 +69,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     <h3>Atención</h3>
                 </div>
                 <div class="modal-body">
@@ -77,8 +77,8 @@
                     Al aceptar se agregara el incidente a la computadora. Luego podrá consultar el incidente dentro del menu consultas.
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn-custom btn-default">Aceptar</button>
-                    @*<a href="#" data-dismiss="modal" class="btn btn-default">Aceptar</a>*@
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                    @*<a href="#" data-bs-dismiss="modal" class="btn btn-outline-secondary">Aceptar</a>*@
                 </div>
             </div>
         </div>
@@ -86,10 +86,10 @@
 }
 
 @*<div class="text-center">
-    <button class="btn-custom btn-inverse" data-toggle="modal" data-target="#mostrarmodal">Agregar</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mostrarmodal">Agregar</button>
 </div>*@
 <div class="text-center">
-    <button class="btn btn-primary btn-custom waves-effect waves-light"  data-toggle="modal" data-target="#mostrarmodal">Agregar</button>
+    <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#mostrarmodal">Agregar</button>
 </div>
 
 

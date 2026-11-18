@@ -2,8 +2,8 @@
 
 <h4 class="page-title">Consulta!</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Pcs De Baja") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Pcs De Baja") </li>
 </ol>
 @{
     ViewBag.Title = "Buscar";
@@ -38,10 +38,10 @@
 
 
                     <th>
-                        <a data-confirmar="¿Desea dar de ALTA esta computadora?" title="Dar de alta nuevamente" class="glyphicon glyphicon-upload" href="~/Consulta/AltaPc/@a.id_pc"></a>
+                        <a data-confirmar="¿Desea dar de ALTA esta computadora?" title="Dar de alta nuevamente" class="bi bi-upload" href="~/Consulta/AltaPc/@a.id_pc"></a>
                     </th>
                     <th>
-                        <a href="#" title="Ver motivo de baja" data-url="@Url.Action("VerMotivo", "Consulta", new { id = a.id_pc })" class="js-ver-motivo glyphicon glyphicon-search"></a>
+                        <a href="#" title="Ver motivo de baja" data-url="@Url.Action("VerMotivo", "Consulta", new { id = a.id_pc })" class="js-ver-motivo bi bi-search"></a>
 
                     </th>
 

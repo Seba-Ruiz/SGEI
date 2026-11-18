@@ -1,0 +1,64 @@
+﻿@using login_v6.Helpers
+@{
+    var controlador = (string)ViewContext.RouteData.Values["controller"];
+    var accion = (string)ViewContext.RouteData.Values["action"];
+    var esAdmin = User.EsAdministrador();
+
+    Func<ItemMenu, string> clase = item => "sgei-menu-link" + (item.EsActual(controlador, accion) ? " activo" : "");
+}
+
+<ul class="sgei-menu">
+    <li>
+        <a class="@clase(MenuSgei.Inicio)" href="@Url.Action(MenuSgei.Inicio.Accion, MenuSgei.Inicio.Controlador)" data-spinner>
+            <i class="bi bi-house"></i> @MenuSgei.Inicio.Texto
+        </a>
+    </li>
+    <li>
+        <a class="@clase(MenuSgei.Dashboard)" href="@Url.Action(MenuSgei.Dashboard.Accion, MenuSgei.Dashboard.Controlador)" data-spinner>
+            <i class="bi bi-speedometer2"></i> @MenuSgei.Dashboard.Texto
+        </a>
+    </li>
+
+    @{ var tituloAdminMostrado = false; }
+    @foreach (var seccion in MenuSgei.Secciones.Where(s => !s.SoloAdministrador || esAdmin))
+    {
+        if (seccion.SoloAdministrador && !tituloAdminMostrado)
+        {
+            tituloAdminMostrado = true;
+            <li class="sgei-menu-titulo">Administración</li>
+        }
+
+        var abierta = seccion.ContieneActual(controlador, accion);
+        var idColapso = "menu-" + seccion.Id;
+
+        <li>
+            <button type="button" class="sgei-menu-link" data-bs-toggle="collapse" data-bs-target="#@idColapso"
+                    aria-expanded="@(abierta ? "true" : "false")" aria-controls="@idColapso">
+                <i class="bi @seccion.Icono"></i> @seccion.Texto
+                <i class="bi bi-chevron-right sgei-menu-flecha"></i>
+            </button>
+            <div class="collapse@(abierta ? " show" : "")" id="@idColapso">
+                <ul class="sgei-submenu">
+                    @foreach (var grupo in seccion.Grupos)
+                    {
+                        var items = grupo.Items.Where(i => !i.SoloAdministrador || esAdmin).ToList();
+                        if (!items.Any())
+                        {
+                            continue;
+                        }
+                        if (grupo.Titulo != null)
+                        {
+                            <li class="sgei-submenu-grupo">@grupo.Titulo</li>
+                        }
+                        foreach (var item in items)
+                        {
+                            <li>
+                                <a class="@clase(item)" href="@Url.Action(item.Accion, item.Controlador)" data-spinner>@item.Texto</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </li>
+    }
+</ul>

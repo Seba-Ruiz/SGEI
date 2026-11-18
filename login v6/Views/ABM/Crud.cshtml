@@ -8,8 +8,8 @@
 
 <h4 class="page-title">Nuevo Insumo!</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Nuevo Insumo") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Nuevo Insumo") </li>
 </ol>
 
 @using (Html.BeginForm("Guardar", "ABM", FormMethod.Post))
@@ -20,24 +20,24 @@
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
             <div class="card-box">
-                <h4 class="m-t-0 m-b-20 header-title"><b>NUEVO INSUMO</b></h4>
+                <h4 class="mt-0 mb-3 header-title"><b>NUEVO INSUMO</b></h4>
 
                 <div class="row">
                     <div class="col-md-12">
                         <h5><b>Agregue un nuevo insumo al sistema</b></h5>
-                        <p class="text-muted m-b-30 font-13">
+                        <p class="text-muted mb-4 font-13">
                             Llene los campos a continuacion para agregar el nuevo insumo.
                         </p>
-                        <div class="form-group">
+                        <div class="mb-3">
                             @Html.Label("Ingrese nombre completo del Insumo")
                             @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @style = "width:150px;", @required = "required" })
-                            @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+                            @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "text-danger small" })
                         </div>
-                        <span class="help-block"><small>La cantidad del insumo debera agregarse en el apartado Ingreso.</small></span>
-                        @*<div class="form-group">
+                        <span class="form-text"><small>La cantidad del insumo debera agregarse en el apartado Ingreso.</small></span>
+                        @*<div class="mb-3">
                             @Html.Label("Cantidad")
                             @Html.TextBoxFor(x => x.cantidad, new { @class = "form-control", @style = "width:150px;", @disabled = "disabled" })
-                            @Html.ValidationMessageFor(x => x.cantidad, null, new { @class = "label label-danger" })
+                            @Html.ValidationMessageFor(x => x.cantidad, null, new { @class = "text-danger small" })
                         </div>*@
                     </div>
                 </div>
@@ -49,7 +49,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     <h3>Atención</h3>
                 </div>
                 <div class="modal-body">
@@ -57,8 +57,8 @@
                     Al aceptar se agregara a la lista de insumos. Podra eliminar el insumo desde dicha lista.
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn-custom btn-default">Aceptar</button>
-                    @*<a href="#" data-dismiss="modal" class="btn btn-default">Aceptar</a>*@
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                    @*<a href="#" data-bs-dismiss="modal" class="btn btn-outline-secondary">Aceptar</a>*@
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
 }
 
 <div class="text-center">
-    <button class="btn-custom btn-inverse" data-toggle="modal" data-target="#mostrarmodal">Agregar</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mostrarmodal">Agregar</button>
 </div>
 
 

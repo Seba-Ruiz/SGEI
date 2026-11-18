@@ -5,8 +5,8 @@
 
 <h4 class="page-title">Incidentes</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Incicentes de la Impresora") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Incicentes de la Impresora") </li>
 </ol>
 
 <div class="card-box table-responsive">
@@ -32,7 +32,7 @@
                     <th>@a.fecha_accion</th>
 
                     <th>
-                            <a class="btn btn-xs btn-primary" href="~/consulta/VerImagen/@a.id">Ver Imagen del Incidente</a>
+                            <a class="btn btn-sm btn-primary" href="~/consulta/VerImagen/@a.id">Ver Imagen del Incidente</a>
                         </th>
                 </tr>
             }

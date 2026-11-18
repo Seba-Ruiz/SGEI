@@ -14,10 +14,10 @@
 
             <h4 class="page-title">Detalle del Usuario</h4>
             <ol class="breadcrumb">
-                <li>
+                <li class="breadcrumb-item">
                     <a href="~/usuario/index">Usuario</a>
                 </li>
-                <li class="active">
+                <li class="breadcrumb-item active" aria-current="page">
                     Detalle
                 </li>
             </ol>
@@ -29,17 +29,17 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
             <div class="card-box">
-                <h4 class="m-t-0 header-title"><b>Detalle del usuario</b></h4>
-                <p class="text-muted m-b-30 font-13">
+                <h4 class="mt-0 header-title"><b>Detalle del usuario</b></h4>
+                <p class="text-muted mb-4 font-13">
                     Esta pantalla muestra la informacion detallada del usuario Seleccionado
                 </p>
                 <div class="col-md-2"></div>
                 <div class="row">
                     <div class="col-md-10">
-                        <form class="form-horizontal" role="form">
+                        <form class="" role="form">
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Email </label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Email </label>
                                 <div class="col-md-10">
 
                                     <label class="form-control" readonly="">@Model.Email</label>
@@ -47,8 +47,8 @@
                             </div>
 
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Telefono</label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Telefono</label>
                                 <div class="col-md-10">
                                     @if (Model.PhoneNumber == null)
                                     {
@@ -63,16 +63,16 @@
                             </div>
 
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Tipo de Usuario</label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Tipo de Usuario</label>
                                 <div class="col-md-10">
 
                                     <label class="form-control" readonly="">@ViewBag.tipoRol</label>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Ultimo Ingreso</label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Ultimo Ingreso</label>
                                 <div class="col-md-10">
 
                                     <label class="form-control" readonly="">@Model.ultimo_ingreso</label>
@@ -81,8 +81,8 @@
 
 
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Nombre</label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Nombre</label>
                                 <div class="col-md-10">
                                     @if (Model.nombre == null)
                                     {
@@ -95,8 +95,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Apellido</label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Apellido</label>
                                 <div class="col-md-10">
                                     @if (Model.apellido == null)
                                     {
@@ -113,7 +113,7 @@
                         {
                             @Html.AntiForgeryToken()
                             <div class="modal-footer">
-                                <a class="btn btn-danger btn-custom btn-rounded waves-effect waves-light" title="Editar computadora" href="~/Usuario/Editar/@Model.Id"> Editar </a>
+                                <a class="btn btn-danger rounded-pill" title="Editar computadora" href="~/Usuario/Editar/@Model.Id"> Editar </a>
                                 
                             </div>
                         }

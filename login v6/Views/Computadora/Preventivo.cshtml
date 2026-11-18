@@ -8,8 +8,8 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box table-responsive">
-            <h4 class="m-t-0 header-title text-primary"><b>MANTENIMIENTO PREVENTIVO DE COMPUTADORAS</b></h4>
-            <p class="text-muted font-13 m-b-30">
+            <h4 class="mt-0 header-title text-primary"><b>MANTENIMIENTO PREVENTIVO DE COMPUTADORAS</b></h4>
+            <p class="text-muted font-13 mb-4">
                 La lista muestra los mantenimientos realizados a las <code>COMPUTADORAS</code>. Podrás filtrar la lista mediante el campo buscar.
             </p>
 
@@ -60,7 +60,7 @@
                             }
 
                             <td>
-                                <a href="#" data-descripcion="@item.descripcion" title="Descripción" class="js-ver-descripcion table-action-btn"><i class="md md-pages"></i></a>
+                                <a href="#" data-descripcion="@item.descripcion" title="Descripción" class="js-ver-descripcion table-action-btn"><i class="bi bi-file-text"></i></a>
                             </td>
 
                         </tr>
@@ -71,20 +71,25 @@
     </div>
 </div>
 
-<div id="descripcion" data-backdrop="static" style="display: none;">
-    <div class="sweet-alert showSweetAlert visible" tabindex="-1" style="display: block; margin-top: -163px;">
-        <h2 class="text-primary">Descripción</h2>
-        <p class="lead text-muted" style="display: block;">
+<div class="modal fade" id="descripcion" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Descripción</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 text-muted">
             Se muestra la descripción de lo que se le realizó durante el mantenimiento a la computadora.
 
-            <div class="col-lg">
+            <div class="mt-2">
                 <label id="descri"></label>
             </div>
-        </p>
-        <div class="button-list">
-            <a href="#" data-dismiss="modal" class="btn btn-lg btn-danger" tabindex="2" style="display: inline-block;">Cerrar</a>
-
-
+        </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" data-bs-dismiss="modal" class="btn btn-outline-secondary">Cerrar</a>
+            </div>
         </div>
     </div>
 </div>

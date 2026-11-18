@@ -11,10 +11,10 @@
 
             <h4 class="page-title">Editar Usuario</h4>
             <ol class="breadcrumb">
-                @*<li>
+                @*<li class="breadcrumb-item">
                     <a href="~/usuario/index">Usuario</a>
                 </li>*@
-                <li class="active">
+                <li class="breadcrumb-item active" aria-current="page">
                     Edite los datos de usuario.
                 </li>
             </ol>
@@ -26,8 +26,8 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
             <div class="card-box">
-                <h4 class="m-t-0 header-title"><b>Detalle del usuario</b></h4>
-                <p class="text-muted m-b-30 font-13">
+                <h4 class="mt-0 header-title"><b>Detalle del usuario</b></h4>
+                <p class="text-muted mb-4 font-13">
                     Esta pantalla podras editar el usuario seleccionado.
                 </p>
                 <div class="col-md-2"></div>
@@ -38,44 +38,44 @@
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(x => x.Id)
 
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Email del Usuario")
                                 @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @style = "width:250px;", @required = "required", @disabled = "disabled" })
-                                @Html.ValidationMessageFor(x => x.Email, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger small" })
 
                             </div>
 
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Telefono")
                                 @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                                @Html.ValidationMessageFor(x => x.PhoneNumber, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.PhoneNumber, null, new { @class = "text-danger small" })
 
                             </div>
 
 
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Tipo Usuario")
 
-                                @Html.DropDownList("tipoRol", ViewBag.tipo as SelectList, new { @class = "form-control", @style = "width:250px;" })
+                                @Html.DropDownList("tipoRol", ViewBag.tipo as SelectList, new { @class = "form-select", @style = "width:250px;" })
 
                                 @*<input class="form-control" name="idusr" type="text" value=@ViewBag.tipoUsuario />*@
-                                @*@Html.DropDownList("tipoUsuario", ViewBag.tipo as SelectList, new { @class = "form-control", @style = "width:250px;" })*@
+                                @*@Html.DropDownList("tipoUsuario", ViewBag.tipo as SelectList, new { @class = "form-select", @style = "width:250px;" })*@
                             </div>
 
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Nombre")
                                 @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                                @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "text-danger small" })
                             </div>
 
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Apellido")
                                 @Html.TextBoxFor(x => x.apellido, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                                @Html.ValidationMessageFor(x => x.apellido, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.apellido, null, new { @class = "text-danger small" })
                             </div>
 
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-danger btn-custom btn-rounded waves-effect waves-light" title="Guardar"> Guardar </button>
+                                <button type="submit" class="btn btn-primary" title="Guardar"> Guardar </button>
                             </div>
                         }
                     </div>

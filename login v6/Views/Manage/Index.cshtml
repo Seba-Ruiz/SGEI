@@ -42,7 +42,7 @@
             {
                 <br />
                 <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     <text>[<input type="submit" value="Quitar" class="btn-link" />]</text>
@@ -63,7 +63,7 @@
             </p>
             @if (Model.TwoFactor)
                 {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
                         <text>Habilitado
@@ -73,7 +73,7 @@
                 }
                 else
                 {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
                         <text>Deshabilitado
@@ -89,20 +89,20 @@
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-        <div class="panel panel-purple panel-border">
-            <div class="panel-heading">
-                <h4 class="panel-title">DETALLE DEL USUARIO</h4>
+        <div class="card card-acento-primary">
+            <div class="card-header">
+                <h4 class="card-title mb-0">DETALLE DEL USUARIO</h4>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12">
                         @*<h5><b>INSUMOS POR FECHA</b></h5>*@
-                        <p class="text-muted m-b-30 font-13">
+                        <p class="text-muted mb-4 font-13">
                             Esta pantalla muestra la información detallada de tu cuenta. Podras editar la misma con el boton editar.
                         </p>
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Email </label>
+                        <form class="" role="form">
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Email </label>
                                 <div class="col-md-10">
 
                                     <label class="form-control" style="width:300px" readonly="">@ViewBag.mail</label>
@@ -110,8 +110,8 @@
                             </div>
 
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Telefono</label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Telefono</label>
                                 <div class="col-md-10">
                                     @if (Model.PhoneNumber == null)
                                     {
@@ -126,16 +126,16 @@
                             </div>
 
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Tipo de Usuario</label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Tipo de Usuario</label>
                                 <div class="col-md-10">
 
                                     <label class="form-control" style="width:300px" readonly="">@ViewBag.tipoRol</label>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Ultimo Ingreso</label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Ultimo Ingreso</label>
                                 <div class="col-md-10">
 
                                     <label class="form-control" style="width:300px" readonly="">@ViewBag.ingreso</label>
@@ -144,8 +144,8 @@
 
 
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Nombre</label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Nombre</label>
                                 <div class="col-md-10">
                                     @if (ViewBag.nombre == null)
                                     {
@@ -158,8 +158,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Apellido</label>
+                            <div class="mb-3">
+                                <label class="col-md-2 form-label">Apellido</label>
                                 <div class="col-md-10">
                                     @if (ViewBag.apellido == null)
                                     {
@@ -182,7 +182,7 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="modal-footer">
-                    <a class="btn btn-danger btn-custom btn-rounded waves-effect waves-light" href="~/Usuario/EditarSinRol/@ViewBag.id"> Editar </a>
+                    <a class="btn btn-danger rounded-pill" href="~/Usuario/EditarSinRol/@ViewBag.id"> Editar </a>
 
                 </div>
             }
@@ -200,17 +200,17 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="card-box">
-            <h4 class="m-t-0 header-title"><b>Detalle del usuario</b></h4>
-            <p class="text-muted m-b-30 font-13">
+            <h4 class="mt-0 header-title"><b>Detalle del usuario</b></h4>
+            <p class="text-muted mb-4 font-13">
                 Esta pantalla muestra la informacion detallada de tu cuenta
             </p>
             <div class="col-md-2"></div>
             <div class="row">
                 <div class="col-md-10">
-                    <form class="form-horizontal" role="form">
+                    <form class="" role="form">
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Email </label>
+                        <div class="mb-3">
+                            <label class="col-md-2 form-label">Email </label>
                             <div class="col-md-10">
 
                                 <label class="form-control" readonly="">@ViewBag.mail</label>
@@ -218,8 +218,8 @@
                         </div>
 
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Telefono</label>
+                        <div class="mb-3">
+                            <label class="col-md-2 form-label">Telefono</label>
                             <div class="col-md-10">
                                 @if (Model.PhoneNumber == null)
                                 {
@@ -234,16 +234,16 @@
                         </div>
 
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Tipo de Usuario</label>
+                        <div class="mb-3">
+                            <label class="col-md-2 form-label">Tipo de Usuario</label>
                             <div class="col-md-10">
 
                                 <label class="form-control" readonly="">@ViewBag.tipoRol</label>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Ultimo Ingreso</label>
+                        <div class="mb-3">
+                            <label class="col-md-2 form-label">Ultimo Ingreso</label>
                             <div class="col-md-10">
 
                                 <label class="form-control" readonly="">@ViewBag.ingreso</label>
@@ -252,8 +252,8 @@
 
 
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Nombre</label>
+                        <div class="mb-3">
+                            <label class="col-md-2 form-label">Nombre</label>
                             <div class="col-md-10">
                                 @if (ViewBag.nombre == null)
                                 {
@@ -266,8 +266,8 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Apellido</label>
+                        <div class="mb-3">
+                            <label class="col-md-2 form-label">Apellido</label>
                             <div class="col-md-10">
                                 @if (ViewBag.apellido == null)
                                 {
@@ -284,7 +284,7 @@
                     {
                         @Html.AntiForgeryToken()
                         <div class="modal-footer">
-                            <a class="btn btn-danger btn-custom btn-rounded waves-effect waves-light"  href="~/Usuario/EditarSinRol/@ViewBag.id"> Editar </a>
+                            <a class="btn btn-danger rounded-pill"  href="~/Usuario/EditarSinRol/@ViewBag.id"> Editar </a>
 
                         </div>
                     }

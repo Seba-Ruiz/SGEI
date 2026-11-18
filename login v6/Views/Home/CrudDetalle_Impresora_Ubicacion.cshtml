@@ -7,8 +7,8 @@
 
 <h4 class="page-title">Nueva Impresora!</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Detalle de impresora") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Detalle de impresora") </li>
 </ol>
 
 @using (Html.BeginForm("GuardarDetalle", "Home", FormMethod.Post, new { id = "frm-detalle" }))
@@ -21,27 +21,27 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
         <div class="card-box">
-            <h4 class="m-t-0 m-b-20 header-title"><b>DETALLE DE IMPRESORA</b></h4>
+            <h4 class="mt-0 mb-3 header-title"><b>DETALLE DE IMPRESORA</b></h4>
 
             <div class="row">
                 <div class="col-md-12">
                     <h5><b>Detalle de la nueva impresora</b></h5>
-                    <p class="text-muted m-b-30 font-13">
+                    <p class="text-muted mb-4 font-13">
                         Llene los campos a continuacion sobre los detalles de la impresora nueva. Si la impresora es local en el campo IP coloque "NO".
                     </p>
-                    <div class="form-group">
+                    <div class="mb-3">
 
                         @Html.Label("Numero de IP")
                         @Html.TextBoxFor(x => x.ip, new { @class = "form-control", @style = "width:200px;", @required = "required" })
-                        @Html.ValidationMessageFor(x => x.ip, null, new { @class = "label label-danger" })
+                        @Html.ValidationMessageFor(x => x.ip, null, new { @class = "text-danger small" })
 
                     </div>
 
-                    <div class="form-group">
+                    <div class="mb-3">
 
                         @Html.Label("Pc donde se conecta")
                         @Html.TextBoxFor(x => x.pc_dondeseconecta, new { @class = "form-control", @style = "width:200px;", @required = "required" })
-                        @Html.ValidationMessageFor(x => x.pc_dondeseconecta, null, new { @class = "label label-danger" })
+                        @Html.ValidationMessageFor(x => x.pc_dondeseconecta, null, new { @class = "text-danger small" })
 
                     </div>
                 </div>
@@ -53,7 +53,7 @@
 
 
             <div class="text-center">
-                <button type="submit" class="btn-custom btn-inverse">Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
 
             }

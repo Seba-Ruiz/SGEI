@@ -6,8 +6,8 @@
 
 <h4 class="page-title">Nueva Ubicacion!</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Nueva Ubicacion") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Nueva Ubicacion") </li>
 </ol>
 
 @using (Html.BeginForm("GuardarUbicacion", "ABM", FormMethod.Post))
@@ -18,27 +18,27 @@
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
             <div class="card-box">
-                <h4 class="m-t-0 m-b-20 header-title"><b>NUEVA UBICACION</b></h4>
+                <h4 class="mt-0 mb-3 header-title"><b>NUEVA UBICACION</b></h4>
 
                 <div class="row">
                     <div class="col-md-12">
                         <h5><b>Agregue una nueva ubicacion al sistema</b></h5>
-                        <p class="text-muted m-b-30 font-13">
+                        <p class="text-muted mb-4 font-13">
                             Llene los campos a continuacion para agregar la nueva ubicacion.
                         </p>
-                        <div class="form-group">
+                        <div class="mb-3">
                             @Html.Label("Ingrese nombre de Ubicacion")
                             @Html.TextBoxFor(x => x.nombreUbicacion, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                            @Html.ValidationMessageFor(x => x.nombreUbicacion, null, new { @class = "label label-danger" })
+                            @Html.ValidationMessageFor(x => x.nombreUbicacion, null, new { @class = "text-danger small" })
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             @Html.Label("Ingrese responsable")
                             @Html.TextBoxFor(x => x.responsable, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                            @Html.ValidationMessageFor(x => x.responsable, null, new { @class = "label label-danger" })
+                            @Html.ValidationMessageFor(x => x.responsable, null, new { @class = "text-danger small" })
 
-                            @*<div class="form-group">
+                            @*<div class="mb-3">
                                     @Html.Label("Tipo de Conexion")
-                                    <select name="Tipo" class="form-control">
+                                    <select name="Tipo" class="form-select">
                                         <option @(Model.tipo == "LOCAL" ? "selected" : "") value="LOCAL">LOCAL</option>
                                         <option @(Model.tipo == "RED" ? "selected" : "") value="RED">RED</option>
                                     </select>
@@ -55,7 +55,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     <h3>Atención</h3>
                 </div>
                 <div class="modal-body">
@@ -63,8 +63,8 @@
                     Al aceptar se agregara a la lista de ubicaciones. Podra eliminar la ubicacion desde dicha lista.
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn-custom btn-default">Aceptar</button>
-                    @*<a href="#" data-dismiss="modal" class="btn btn-default">Aceptar</a>*@
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                    @*<a href="#" data-bs-dismiss="modal" class="btn btn-outline-secondary">Aceptar</a>*@
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
 }
 
 <div class="text-center">
-    <button class="btn-custom btn-inverse" data-toggle="modal" data-target="#mostrarmodal">Agregar</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mostrarmodal">Agregar</button>
 </div>
 
 

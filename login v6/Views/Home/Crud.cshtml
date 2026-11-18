@@ -5,8 +5,8 @@
 
 <h4 class="page-title">Nueva Impresora!</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Modelo de Impresora") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Modelo de Impresora") </li>
 </ol>
 
 @using (Html.BeginForm("Guardar", "Home", FormMethod.Post))
@@ -17,17 +17,17 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
         <div class="card-box">
-            <h4 class="m-t-0 m-b-20 header-title"><b>MODELO DE IMPRESORA</b></h4>
+            <h4 class="mt-0 mb-3 header-title"><b>MODELO DE IMPRESORA</b></h4>
 
             <div class="row">
                 <div class="col-md-12">
                     <h5><b>Seleccion de Modelo</b></h5>
-                    <p class="text-muted m-b-30 font-13">
+                    <p class="text-muted mb-4 font-13">
                         Seleccione el modelo de la impresora que se colocara. Si no esta en la lista vaya a Gestion > Impresora > Agregar para dar de alta una nueva impresora.
                     </p>
-                    <div class="form-group">
+                    <div class="mb-3">
                         @Html.Label("Seleccione la Impresora")
-                        @Html.DropDownList("impresora", new SelectList(ViewBag.impresoras, "id", "marca_modelo"), new { @class = "form-control", @style = "width:200px;" })
+                        @Html.DropDownList("impresora", new SelectList(ViewBag.impresoras, "id", "marca_modelo"), new { @class = "form-select", @style = "width:200px;" })
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
     </div>
 
             <div class="text-center">
-                <button type="submit" class="btn-custom btn-inverse">Siguiente</button>
+                <button type="submit" class="btn btn-primary">Siguiente</button>
             </div>
 
             }

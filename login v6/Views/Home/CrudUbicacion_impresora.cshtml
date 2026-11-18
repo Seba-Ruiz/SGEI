@@ -7,8 +7,8 @@
 
 <h4 class="page-title">Nueva Impresora!</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Ubicacion de la Impresora") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Ubicacion de la Impresora") </li>
 </ol>
 
 @using (Html.BeginForm("GuardarUbicacion", "Home", FormMethod.Post, new { id = "frm-ubicacion" }))
@@ -21,30 +21,30 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
         <div class="card-box">
-            <h4 class="m-t-0 m-b-20 header-title"><b>UBICACION DE LA IMPRESORA</b></h4>
+            <h4 class="mt-0 mb-3 header-title"><b>UBICACION DE LA IMPRESORA</b></h4>
 
             <div class="row">
                 <div class="col-md-12">
                     <h5><b>Seleccion de la ubicacion</b></h5>
-                    <p class="text-muted m-b-30 font-13">
+                    <p class="text-muted mb-4 font-13">
                         Seleccione la ubicacion de la impresora donde se colocara, junto con su fecha de colocacion y una breve descripcion de la ubicacion. Si la ubicacion no esta en la lista vaya a Gestion > Ubicacion > Agregar para dar de alta una nueva ubicacion.
                     </p>
-                    <div class="form-group">
+                    <div class="mb-3">
                         @Html.Label("Nombre de Ubicacion")
-                        @Html.DropDownListFor(x => x.ubicacion_id, new SelectList(ViewBag.ubicaciones, "id", "nombreUbicacion"), new { @class = "form-control", @style = "width:200px;" })
-                        @Html.ValidationMessageFor(x => x.ubicacion_id, null, new { @class = "label label-danger" })
+                        @Html.DropDownListFor(x => x.ubicacion_id, new SelectList(ViewBag.ubicaciones, "id", "nombreUbicacion"), new { @class = "form-select", @style = "width:200px;" })
+                        @Html.ValidationMessageFor(x => x.ubicacion_id, null, new { @class = "text-danger small" })
 
 
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         @Html.Label("Descripcion de la Ubicacion")
                         @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control", @style = "width:500px;", @required = "required" })
-                        @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "label label-danger" })
+                        @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "text-danger small" })
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         @Html.Label("Fecha de Ubicacion")
                         @Html.TextBoxFor(x => x.fecha_ubicacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
-                        @Html.ValidationMessageFor(x => x.fecha_ubicacion, null, new { @class = "label label-danger" })
+                        @Html.ValidationMessageFor(x => x.fecha_ubicacion, null, new { @class = "text-danger small" })
                     </div>
 
 
@@ -55,7 +55,7 @@
 </div>
 
             <div class="text-center">
-                <button type="submit" class="btn-custom btn-inverse">Siguiente</button>
+                <button type="submit" class="btn btn-primary">Siguiente</button>
             </div>
 
             }

@@ -7,8 +7,8 @@
 }
 
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Cargar Incidente") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Cargar Incidente") </li>
 </ol>
 @using (Html.BeginForm("Guardarincidente", "Escaner", FormMethod.Post))
 {
@@ -18,36 +18,36 @@
 
 
     <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-            <div class="panel panel-primary panel-border">
-                <div class="panel-heading">
-                    <h4 class="panel-title">CARGA DE INCIDENTE</h4>
+        <div class="col-sm-6 offset-sm-3">
+            <div class="card card-acento-primary">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">CARGA DE INCIDENTE</h4>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12">
                             @*<h5><b>INSUMOS POR FECHA</b></h5>*@
-                            <p class="text-muted m-b-30 font-13">
+                            <p class="text-muted mb-4 font-13">
                                 Rellene los campos a continuación para detallar el incidente ocurrido y su acción de reparación.
                             </p>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Seleccione el incidente ocurrido")
-                                @Html.DropDownListFor(x => x.incidente_escaner_id, new SelectList(ViewBag.incidente, "id_incidente_escaner", "descripcion"), new { @class = "form-control", @style = "width:500px;" })
+                                @Html.DropDownListFor(x => x.incidente_escaner_id, new SelectList(ViewBag.incidente, "id_incidente_escaner", "descripcion"), new { @class = "form-select", @style = "width:500px;" })
                             </div>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Fecha de Incidente")
                                 @Html.TextBoxFor(x => x.fecha_incidente, new { @class = "form-control", type = "date", @style = "width:200px;" })
-                                @Html.ValidationMessageFor(x => x.fecha_incidente, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.fecha_incidente, null, new { @class = "text-danger small" })
                             </div>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Accion Realizada")
                                 @Html.TextBoxFor(x => x.reparacion, new { @class = "form-control", @style = "width:500px;", @required="required" })
-                                @Html.ValidationMessageFor(x => x.reparacion, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.reparacion, null, new { @class = "text-danger small" })
                             </div>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Fecha de Accion Realizada")
                                 @Html.TextBoxFor(x => x.fecha_reparacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
-                                @Html.ValidationMessageFor(x => x.fecha_reparacion, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.fecha_reparacion, null, new { @class = "text-danger small" })
                             </div>
 
 
@@ -67,31 +67,31 @@
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
             <div class="card-box">
-                <h4 class="m-t-0 m-b-20 header-title"><b>INCIDENTE</b></h4>
+                <h4 class="mt-0 mb-3 header-title"><b>INCIDENTE</b></h4>
                 <div class="row">
                     <div class="col-md-12">
                         <h5><b>Datos del incidente</b></h5>
-                        <p class="text-muted m-b-30 font-13">
+                        <p class="text-muted mb-4 font-13">
                             Rellene los campos a continuacion para detallar el incidente ocurrido y su accion de reparacion.
                         </p>
-                        <div class="form-group">
+                        <div class="mb-3">
                             @Html.Label("Seleccione el incidente ocurrido")
-                            @Html.DropDownListFor(x => x.incidente_escaner_id, new SelectList(ViewBag.incidente, "id_incidente_escaner", "descripcion"), new { @class = "form-control", @style = "width:500px;" })
+                            @Html.DropDownListFor(x => x.incidente_escaner_id, new SelectList(ViewBag.incidente, "id_incidente_escaner", "descripcion"), new { @class = "form-select", @style = "width:500px;" })
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             @Html.Label("Fecha de Incidente")
                             @Html.TextBoxFor(x => x.fecha_incidente, new { @class = "form-control", type = "date", @style = "width:200px;" })
-                            @Html.ValidationMessageFor(x => x.fecha_incidente, null, new { @class = "label label-danger" })
+                            @Html.ValidationMessageFor(x => x.fecha_incidente, null, new { @class = "text-danger small" })
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             @Html.Label("Accion Realizada")
                             @Html.TextBoxFor(x => x.reparacion, new { @class = "form-control", @style = "width:500px;" })
-                            @Html.ValidationMessageFor(x => x.reparacion, null, new { @class = "label label-danger" })
+                            @Html.ValidationMessageFor(x => x.reparacion, null, new { @class = "text-danger small" })
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             @Html.Label("Fecha de Accion Realizada")
                             @Html.TextBoxFor(x => x.fecha_reparacion, new { @class = "form-control", type = "date", @style = "width:200px;" })
-                            @Html.ValidationMessageFor(x => x.fecha_reparacion, null, new { @class = "label label-danger" })
+                            @Html.ValidationMessageFor(x => x.fecha_reparacion, null, new { @class = "text-danger small" })
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     <h3>Atención</h3>
                 </div>
                 <div class="modal-body">
@@ -111,14 +111,14 @@
                     Al aceptar se agregara el incidente al escaner. Luego podra consultar el incidente dentro del menu consultas!
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn-custom btn-default">Aceptar</button>
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
                 </div>
             </div>
         </div>
     </div>
 }
 <div class="text-center">
-    <button class="btn btn-primary btn-custom waves-effect waves-light" data-toggle="modal" data-target="#mostrarmodal">Agregar</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mostrarmodal">Agregar</button>
 </div>
 
 @**@

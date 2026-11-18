@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\SinMinificarTransform.cs" />
     <Compile Include="Helpers\ScriptsHelper.cs" />
     <Compile Include="Seguridad\HtmlSeguridadExtensions.cs" />
     <Compile Include="Seguridad\RolesSgei.cs" />
@@ -2574,16 +2575,9 @@
     <Content Include="assets\plugins\x-editable\img\loading.gif" />
     <Content Include="assets\plugins\x-editable\js\bootstrap-editable.js" />
     <Content Include="assets\plugins\x-editable\js\bootstrap-editable.min.js" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\css\bootstrap.min.css.map" />
     <Content Include="assets\fonts\fontawesome-webfont.eot" />
     <Content Include="assets\fonts\fontawesome-webfont.ttf" />
@@ -2850,12 +2844,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\AccesoDenegado.cshtml" />
-    <Content Include="Views\Shared\_ScriptsCuenta.cshtml" />
     <Content Include="Scripts\app\sgei.js" />
-    <Content Include="Scripts\app\tema-login.js" />
-    <Content Include="Scripts\views\Computadora\EditarPC.js" />
     <Content Include="Scripts\views\Computadora\Preventivo.js" />
-    <Content Include="Scripts\views\Home\AltaCompu.js" />
     <Content Include="Scripts\views\Consulta\compuBaja.js" />
     <Content Include="Scripts\views\Home\Landing.js" />
     <Content Include="Scripts\views\Impresora\Preventivo.js" />
@@ -2888,9 +2878,7 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial01.cshtml" />
     <Content Include="Views\ABM\Crud.cshtml" />
     <Content Include="Views\ABM\CrudDisco.cshtml" />
     <Content Include="Views\ABM\CrudImpresora.cshtml" />
@@ -3147,10 +3135,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
   </ItemGroup>
@@ -3168,6 +3152,32 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Content\lib\bootstrap-icons\LICENSE.txt" />
+    <Content Include="Content\lib\bootstrap-icons\bootstrap-icons.css" />
+    <Content Include="Content\lib\bootstrap-icons\bootstrap-icons.min.css" />
+    <Content Include="Content\lib\bootstrap-icons\fonts\bootstrap-icons.woff" />
+    <Content Include="Content\lib\bootstrap-icons\fonts\bootstrap-icons.woff2" />
+    <Content Include="Content\lib\bootstrap\bootstrap.css" />
+    <Content Include="Content\lib\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\lib\bootstrap\bootstrap.min.css.map" />
+    <Content Include="Content\lib\datatables\dataTables.bootstrap5.css" />
+    <Content Include="Content\lib\datatables\dataTables.bootstrap5.min.css" />
+    <Content Include="Content\sgei.css" />
+    <Content Include="Scripts\lib\datatables\License.txt" />
+    <Content Include="Scripts\lib\datatables\dataTables.bootstrap5.js" />
+    <Content Include="Scripts\lib\datatables\dataTables.bootstrap5.min.js" />
+    <Content Include="Scripts\lib\datatables\dataTables.js" />
+    <Content Include="Scripts\lib\datatables\dataTables.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Views\Shared\_LayoutCuenta.cshtml" />
+    <Content Include="Views\Shared\_MensajeCuenta.cshtml" />
+    <Content Include="Views\Shared\_MenuLateral.cshtml" />
+    <Compile Include="Helpers\MenuSgei.cs" />
+  </ItemGroup>
+
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />

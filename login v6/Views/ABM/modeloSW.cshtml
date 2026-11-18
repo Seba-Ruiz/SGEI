@@ -5,17 +5,17 @@
 
 <h4 class="page-title">Modelos Switchs</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Modelos de SW") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Modelos de SW") </li>
 </ol>
 
 @using (Html.BeginForm("Crudmodelosw", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
 {
     @Html.AntiForgeryToken()
     <div class="vakata-context-left">
-        <button type="submit" class="btn btn-inverse waves-effect waves-light">
-            <span class="btn btn-label">
-                <i class="md md-queue"></i>
+        <button type="submit" class="btn btn-primary">
+            <span class="btn-label">
+                <i class="bi bi-plus-lg"></i>
             </span>
             Agregar
         </button>
@@ -39,8 +39,8 @@
                     <tr>
                         <th>@a.marca_modelo</th>
                         <th>
-                            <a class="glyphicon glyphicon-edit" title="Editar" href="~/ABM/Editarmodelosw/@a.id_mmarca"></a>
-                            @Html.BotonEliminar(Url.Content("~/ABM/Eliminarmodeloswm/" + a.id_mmarca), "¿Desea eliminar el modelo?", "md md-clear")
+                            <a class="bi bi-pencil-square" title="Editar" href="~/ABM/Editarmodelosw/@a.id_mmarca"></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/Eliminarmodeloswm/" + a.id_mmarca), "¿Desea eliminar el modelo?", "bi bi-trash")
                         </th>
                     </tr>
                 }

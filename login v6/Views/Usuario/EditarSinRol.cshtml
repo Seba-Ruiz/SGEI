@@ -11,10 +11,10 @@
 
             <h4 class="page-title">Editar Usuario</h4>
             <ol class="breadcrumb">
-                @*<li>
+                @*<li class="breadcrumb-item">
                         <a href="~/usuario/index">Usuario</a>
                     </li>*@
-                <li class="active">
+                <li class="breadcrumb-item active" aria-current="page">
                     Edite los datos de usuario.
                 </li>
             </ol>
@@ -24,15 +24,15 @@
     <div class="row">
         <div class="col-sm-2"></div>
             <div class="col-sm-8">
-                <div class="panel panel-primary panel-border">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">EDITAR USUARIO</h4>
+                <div class="card card-acento-primary">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">EDITAR USUARIO</h4>
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12">
                                 @*<h5><b>INSUMOS POR FECHA</b></h5>*@
-                                <p class="text-muted m-b-30 font-13">
+                                <p class="text-muted mb-4 font-13">
                                     Edite su usuario desde esta pantalla.
                                 </p>
                                 <div class="col-md-2"></div>
@@ -45,44 +45,44 @@
                                             @Html.HiddenFor(x => x.Id)
 
 
-                                            <div class="form-group">
+                                            <div class="mb-3">
                                                 @Html.Label("Email del Usuario")
                                                 @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @style = "width:350px;", @required = "required", @disabled = "disabled" })
-                                                @Html.ValidationMessageFor(x => x.Email, null, new { @class = "label label-danger" })
+                                                @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger small" })
 
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="mb-3">
                                                 @Html.Label("Teléfono")
                                                 @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @style = "width:350px;", @required = "required" })
-                                                @Html.ValidationMessageFor(x => x.PhoneNumber, null, new { @class = "label label-danger" })
+                                                @Html.ValidationMessageFor(x => x.PhoneNumber, null, new { @class = "text-danger small" })
 
                                             </div>
 
 
-                                            <div class="form-group">
+                                            <div class="mb-3">
                                                 @Html.Label("Tipo Usuario")
 
-                                                @Html.DropDownList("tipoRol", ViewBag.tipo as SelectList, new { @class = "form-control", @style = "width:350px;", @disabled = "disabled" })
-                                                <span class="help-block"><small>El tipo de usuario es gestionado por el Administrador del sistema.</small></span>
+                                                @Html.DropDownList("tipoRol", ViewBag.tipo as SelectList, new { @class = "form-select", @style = "width:350px;", @disabled = "disabled" })
+                                                <span class="form-text"><small>El tipo de usuario es gestionado por el Administrador del sistema.</small></span>
                                                 @*<input class="form-control" name="idusr" type="text" value=@ViewBag.tipoUsuario />*@
-                                                @*@Html.DropDownList("tipoUsuario", ViewBag.tipo as SelectList, new { @class = "form-control", @style = "width:250px;" })*@
+                                                @*@Html.DropDownList("tipoUsuario", ViewBag.tipo as SelectList, new { @class = "form-select", @style = "width:250px;" })*@
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="mb-3">
                                                 @Html.Label("Nombre")
                                                 @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @style = "width:350px;", @required = "required" })
-                                                @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+                                                @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "text-danger small" })
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="mb-3">
                                                 @Html.Label("Apellido")
                                                 @Html.TextBoxFor(x => x.apellido, new { @class = "form-control", @style = "width:350px;", @required = "required" })
-                                                @Html.ValidationMessageFor(x => x.apellido, null, new { @class = "label label-danger" })
+                                                @Html.ValidationMessageFor(x => x.apellido, null, new { @class = "text-danger small" })
                                             </div>
 
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-danger btn-custom btn-rounded waves-effect waves-light" title="Guardar"> Guardar </button>
+                                                <button type="submit" class="btn btn-primary" title="Guardar"> Guardar </button>
                                             </div>
                                         }
                                     </div>
@@ -102,8 +102,8 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
                 <div class="card-box">
-                    <h4 class="m-t-0 header-title"><b>Detalle del usuario</b></h4>
-                    <p class="text-muted m-b-30 font-13">
+                    <h4 class="mt-0 header-title"><b>Detalle del usuario</b></h4>
+                    <p class="text-muted mb-4 font-13">
                         Esta pantalla podras editar el usuario seleccionado.
                     </p>
                     <div class="col-md-2"></div>
@@ -115,42 +115,42 @@
                                 @Html.HiddenFor(x => x.Id)
 
 
-                                <div class="form-group">
+                                <div class="mb-3">
                                     @Html.Label("Email del Usuario")
                                     @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @style = "width:250px;", @required = "required", @disabled = "disabled" })
-                                    @Html.ValidationMessageFor(x => x.Email, null, new { @class = "label label-danger" })
+                                    @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger small" })
 
                                 </div>
 
-                                <div class="form-group">
+                                <div class="mb-3">
                                     @Html.Label("Telefono")
                                     @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                                    @Html.ValidationMessageFor(x => x.PhoneNumber, null, new { @class = "label label-danger" })
+                                    @Html.ValidationMessageFor(x => x.PhoneNumber, null, new { @class = "text-danger small" })
 
                                 </div>
 
 
-                                <div class="form-group">
+                                <div class="mb-3">
                                     @Html.Label("Tipo Usuario")
 
-                                    @Html.DropDownList("tipoRol", ViewBag.tipo as SelectList, new { @class = "form-control", @style = "width:250px;", @disabled = "disabled" })
-                                    <span class="help-block"><small>El tipo de usuario es gestionado por el Administrador del sistema.</small></span>
+                                    @Html.DropDownList("tipoRol", ViewBag.tipo as SelectList, new { @class = "form-select", @style = "width:250px;", @disabled = "disabled" })
+                                    <span class="form-text"><small>El tipo de usuario es gestionado por el Administrador del sistema.</small></span>
                                      </div>
 
-                                <div class="form-group">
+                                <div class="mb-3">
                                     @Html.Label("Nombre")
                                     @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                                    @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+                                    @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "text-danger small" })
                                 </div>
 
-                                <div class="form-group">
+                                <div class="mb-3">
                                     @Html.Label("Apellido")
                                     @Html.TextBoxFor(x => x.apellido, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                                    @Html.ValidationMessageFor(x => x.apellido, null, new { @class = "label label-danger" })
+                                    @Html.ValidationMessageFor(x => x.apellido, null, new { @class = "text-danger small" })
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-danger btn-custom btn-rounded waves-effect waves-light" title="Guardar"> Guardar </button>
+                                    <button type="submit" class="btn btn-primary" title="Guardar"> Guardar </button>
                                 </div>
                             }
                         </div>

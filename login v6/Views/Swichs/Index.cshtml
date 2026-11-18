@@ -5,36 +5,36 @@
 }
 <h4 class="page-title">Bienvenido!</h4>
 <ol class="breadcrumb">
-    <li class="active">
+    <li class="breadcrumb-item active" aria-current="page">
         Sistema para control de insumos e incidentes de switchs.
     </li>
 </ol>
 
 
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-        <div class="panel panel-primary panel-border">
-            <div class="panel-heading">
-                <h4 class="panel-title">SWITCHS</h4>
+    <div class="col-sm-6 offset-sm-3">
+        <div class="card card-acento-primary">
+            <div class="card-header">
+                <h4 class="card-title mb-0">SWITCHS</h4>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-12 ">
+                    <div class="col-sm-12">
                         @*<h5><b>INSUMOS POR FECHA</b></h5>*@
-                        <p class="text-muted m-b-30 font-13">
+                        <p class="text-muted mb-4 font-13">
                             Para comenzar, seleccione en el combo la ubicación de la camara, el sistema mostrará las camaras en esa ubicaciÓn.
                         </p>
 
                         @using (Html.BeginForm("Buscar", "Swichs", FormMethod.Post, new { id = "frm-incidente" }))
                         {
                             @Html.AntiForgeryToken()
-                            <div class="form-group">
+                            <div class="mb-3">
                                 @Html.Label("Nombre de Ubicacion:")
-                                @Html.DropDownList("ubicacionsw", new SelectList(ViewBag.ubicacionsw, "id_ubicacion_switch", "nombre"), new { @class = "btn dropdown-toggle btn-white", @style = "width:200px;" })
+                                @Html.DropDownList("ubicacionsw", new SelectList(ViewBag.ubicacionsw, "id_ubicacion_switch", "nombre"), new { @class = "form-select", @style = "width:200px;" })
                             </div>
 
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-custom waves-effect waves-light">Buscar</button>
+                                <button type="submit" class="btn btn-primary">Buscar</button>
                             </div>
                         }
                     </div>

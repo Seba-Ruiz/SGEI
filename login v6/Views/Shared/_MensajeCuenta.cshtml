@@ -1,0 +1,10 @@
+﻿@* Mensaje de confirmación de las pantallas de cuenta. Usar con ViewData:
+   Icono (clase de Bootstrap Icons), Color (success, primary...), Titulo y Texto. *@
+<div class="text-center">
+    <span class="sgei-cuenta-icono bg-@(ViewData["Color"])-subtle text-@(ViewData["Color"])">
+        <i class="bi @ViewData["Icono"]"></i>
+    </span>
+    <h1 class="h4 fw-semibold">@ViewData["Titulo"]</h1>
+    <p class="text-muted mb-4">@ViewData["Texto"]</p>
+    @Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary px-4" })
+</div>

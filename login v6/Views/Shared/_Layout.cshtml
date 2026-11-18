@@ -1,112 +1,90 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@using Microsoft.AspNet.Identity
+@{
+    var nombreUsuario = User.Identity.GetUserName() ?? "";
+    var inicial = nombreUsuario.Length > 0 ? nombreUsuario.Substring(0, 1).ToUpperInvariant() : "?";
+}
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewBag.Title - SGEI</title>
-
-    @Styles.Render("~/assets/coso")
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="icon" href="~/favicon.ico" />
+    @Styles.Render("~/Content/css")
 </head>
-<body>
-    <div id="antiforgery-ajax" style="display:none">@Html.AntiForgeryToken()</div>
+<body class="sgei">
+    <div id="antiforgery-ajax" hidden>@Html.AntiForgeryToken()</div>
 
-    <!-- Navigation Bar-->
-    <header id="topnav">
-        <div class="topbar-main">
-            <div class="container">
-                <!-- Logo container-->
-                <div class="logo">
-                    <a id="inicio" href="@Url.Action("Index", "Inicio")" class="logo" data-spinner>
-                        <span class="text-primary">
-                            SGEI - HOSPITAL ALFREDO ITALO PERRUPATO
-                        </span>
-                    </a>
-                </div>
-                <!-- End Logo container-->
+    <div class="sgei-app">
+        @* Menú lateral: fijo en pantallas grandes, panel deslizable (offcanvas) en celulares y tablets. *@
+        <aside class="sgei-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="menuLateral" aria-label="Menú principal">
+            <div class="d-flex align-items-center">
+                <a class="sgei-marca flex-grow-1" href="@Url.Action("Index", "Inicio")" data-spinner>
+                    <span class="sgei-marca-logo"><i class="bi bi-hospital"></i></span>
+                    <span class="sgei-marca-texto">
+                        <strong>SGEI</strong>
+                        <small>Hospital Alfredo Italo Perrupato</small>
+                    </span>
+                </a>
+                <button type="button" class="btn-close btn-close-white d-lg-none me-3" data-bs-dismiss="offcanvas"
+                        data-bs-target="#menuLateral" aria-label="Cerrar menú"></button>
+            </div>
+            @if (Request.IsAuthenticated)
+            {
+                @Html.Partial("_MenuLateral")
+            }
+        </aside>
 
+        <div class="sgei-main">
+            <header class="sgei-topbar">
+                <button class="btn btn-light d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral"
+                        aria-controls="menuLateral" aria-label="Abrir menú">
+                    <i class="bi bi-list fs-5"></i>
+                </button>
+                <span class="sgei-topbar-titulo">@ViewBag.Title</span>
 
-                <div class="menu-extras">
-                    @Html.Partial("_LoginPartial")
-
-                    <div class="menu-item">
-                        <!-- Mobile menu toggle-->
-                        <a class="navbar-toggle">
-                            <div class="lines">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="dropdown ms-auto">
+                        <a href="#" class="sgei-usuario dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="sgei-avatar">@inicial</span>
+                            <span class="d-none d-md-inline">@nombreUsuario</span>
                         </a>
-                        <!-- End mobile menu toggle-->
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "Manage")"><i class="bi bi-person-circle me-2"></i>Mi cuenta</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</button>
+                                }
+                            </li>
+                        </ul>
                     </div>
-                </div>
+                }
+            </header>
 
-            </div>
-        </div>
+            <main class="sgei-content">
+                @RenderBody()
+            </main>
 
-        <div class="navbar-custom">
-            <div class="container">
-                <div id="navigation">
-                    @Html.Partial("_LoginPartial01")
-                </div>
-            </div>
-        </div>
-
-
-
-
-    </header>
-
-
-    <div class="wrapper">
-        <div class="container">@RenderBody()</div>
-        <div class="container">
-            <footer class="footer text-right">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            By Seba Ruiz - &copy; @DateTime.Now.Year.
-                        </div>
-                        <div class="col-xs-6">
-                            <ul class="pull-right list-inline m-b-0">
-                                <li>
-                                    <a href="#">Acerca</a>
-                                </li>
-                                <li>
-                                    <a href="#">Ayuda</a>
-                                </li>
-                                <li>
-                                    <a href="#">Contacto</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <footer class="sgei-footer d-flex justify-content-between">
+                <span>SGEI &middot; Sistema de Gestión de Equipos Informáticos</span>
+                <span>&copy; @DateTime.Now.Year Seba Ruiz</span>
             </footer>
-            <!-- End Footer -->
         </div>
     </div>
 
-    <div id="spiner" class="modal fade bs-example-modal-sm in" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-sm" style="margin-top:200px">
-            <div>
-                <div>
-                    <h4 style="text-align:center;color:black;font-weight:bolder;font-size:25px">Espere...</h4>
-                </div>
-                <div class="modal-body text-center">
-
-                    <span class="fa fa-spin fa-spinner fa-5x"></span>
-                </div>
-                @*<div class="progress">
-                        <div class="progress-bar progress-bar-primary progress-bar-striped progress-animated wow animated" role="progressbar" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                    </div>*@
+    @* Spinner "Espere..." al navegar (lo abre Scripts/app/sgei.js) *@
+    <div id="spiner" class="modal fade sgei-spinner" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="spinner-border text-primary mx-auto mb-3" role="status"></div>
+                <div class="fw-semibold">Espere...</div>
             </div>
         </div>
     </div>
-
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -115,10 +93,5 @@
     @* Script propio de la vista: Scripts/views/<Controlador>/<vista>.js (si existe) *@
     @Html.ScriptDeVista()
     @RenderSection("scripts", required: false)
-
-
-
-
-
 </body>
 </html>

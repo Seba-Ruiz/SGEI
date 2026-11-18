@@ -8,12 +8,12 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <div class="card-box">
-            <h4 class="m-t-0 header-title"><b>EDITAR SWITCH</b></h4>
-            <p class="text-muted m-b-30 font-13">
+            <h4 class="mt-0 header-title"><b>EDITAR SWITCH</b></h4>
+            <p class="text-muted mb-4 font-13">
                 Use este wizard para editar el switch seleccionada, recuerde que una vez editado podrá consultar el detalle de dicho switch a travez de la busqueda del mismo como asi tambien volverlo a editar.
             </p>
 
-            @using (Html.BeginForm("GuardarSW", "Swichs", FormMethod.Post, new { id = "basic-form" }))
+            @using (Html.BeginForm("GuardarSW", "Swichs", FormMethod.Post, new { id = "basic-form", data_wizard = "true" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(x => x.id_sw)
@@ -24,38 +24,38 @@
                     <h3>Switch</h3>
                     <section>
 
-                        <div class="form-group clearfix">
+                        <div class="mb-3 clearfix">
                             @Html.Label("Seleccione el Modelo del Switch")
-                            @Html.DropDownListFor(x => x.id_mm, ViewBag.modelo as SelectList, new { @class = "form-control", @style = "width:250px;" })
+                            @Html.DropDownListFor(x => x.id_mm, ViewBag.modelo as SelectList, new { @class = "form-select", @style = "width:250px;" })
                         </div>
-                        <div class="form-group clearfix">
+                        <div class="mb-3 clearfix">
                             @Html.Label("Seleccione la ubicacion del Switch")
-                            @Html.DropDownListFor(x => x.id_ubicacion_sw, ViewBag.ubicacion as SelectList, new { @class = "form-control", @style = "width:250px;", @disabled = "" })
+                            @Html.DropDownListFor(x => x.id_ubicacion_sw, ViewBag.ubicacion as SelectList, new { @class = "form-select", @style = "width:250px;", @disabled = "" })
                         </div>
-                        <div class="form-group clearfix">
+                        <div class="mb-3 clearfix">
                             @Html.Label("Ingrese cantidad de interfaces")
                             @Html.TextBoxFor(x => x.interfaces, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                            @Html.ValidationMessageFor(x => x.interfaces, null, new { @class = "label label-danger" })
+                            @Html.ValidationMessageFor(x => x.interfaces, null, new { @class = "text-danger small" })
                         </div>
                     </section>
                     <h3>Detalle</h3>
                     <section>
-                        <div class="form-group clearfix">
-                            <div class="form-group clearfix">
+                        <div class="mb-3 clearfix">
+                            <div class="mb-3 clearfix">
                                 @Html.Label("Ingrese descripcion del Switch")
                                 @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                                @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "label label-danger" })
+                                @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "text-danger small" })
                             </div>
                         </div>
-                        <div class="form-group clearfix">
+                        <div class="mb-3 clearfix">
                             @Html.Label("Ingrese numero de IP del switch")
                             @Html.TextBoxFor(x => x.nro_ip, new { @class = "form-control", @style = "width:250px;", @required = "required" })
-                            @Html.ValidationMessageFor(x => x.nro_ip, null, new { @class = "label label-danger" })
+                            @Html.ValidationMessageFor(x => x.nro_ip, null, new { @class = "text-danger small" })
                         </div>
                     </section>
                     <h3>Finalizar</h3>
                     <section>
-                        <div class="form-group clearfix">
+                        <div class="mb-3 clearfix">
                             <div class="col-lg-12">
                                 <label for="test">
                                     Al hacer click en "Finalizar" aceptará guardar la informacion antes descripta. Podra modificar los detalles de la camara en cualquier momento que lo desee.

@@ -6,8 +6,8 @@
 
 <h4 class="page-title">Consultar Incidentes</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Seleccion de Impresora") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Seleccion de Impresora") </li>
 </ol>
 
 <div class="card-box table-responsive">
@@ -33,7 +33,7 @@
                     <th>@a.pc_dondeseconecta</th>
 
                     <th>
-                        <a class="btn btn-xs btn-primary" href="~/consulta/VerIncidente/@a.id">Ver Incidentes</a>
+                        <a class="btn btn-sm btn-primary" href="~/consulta/VerIncidente/@a.id">Ver Incidentes</a>
                     </th>
                 </tr>
             }

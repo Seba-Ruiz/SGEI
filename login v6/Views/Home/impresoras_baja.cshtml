@@ -5,8 +5,8 @@
 
 <h4 class="page-title">Impresoras!</h4>
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Detalle de impresoras que se dieron de baja") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Detalle de impresoras que se dieron de baja") </li>
 </ol>
 <div class="card-box table-responsive">
     <table class="table table-striped m-0">
@@ -40,7 +40,7 @@
                     <th>@a.motivo_baja</th>
                     <th>@a.ultima_ubicacion</th>
                     <th>
-                        <a data-confirmar="¿Desea dar de ALTA esta impresora?" title="Dar de alta nuevamente" class="glyphicon glyphicon-upload" href="~/Home/Alta/@a.id"></a>
+                        <a data-confirmar="¿Desea dar de ALTA esta impresora?" title="Dar de alta nuevamente" class="bi bi-upload" href="~/Home/Alta/@a.id"></a>
                     </th>
                 </tr>
             }

@@ -5,8 +5,8 @@
 
 
 <ol class="breadcrumb">
-    <li><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="active">@("Detalle de la Consulta") </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@("Detalle de la Consulta") </li>
 </ol>
 
 <div class="card-box table-responsive">
@@ -41,13 +41,13 @@
                 <th>@a.nombre_ubi</th>
                 <th>@a.fecha_ubicacion</th>
                 <th>
-                    <a class="glyphicon  glyphicon-pencil" title="Editar" href="~/Telefonos/Editar/@a.id_detalle"></a>
+                    <a class="bi bi-pencil" title="Editar" href="~/Telefonos/Editar/@a.id_detalle"></a>
                 </th>
                 <th>
-                    <a data-confirmar="¿Desea agregar incidente a este telefono?" class="glyphicon glyphicon-tag" title="Cargar incidente" href="~/Telefonos/Incidente/@a.id_detalle"></a>
+                    <a data-confirmar="¿Desea agregar incidente a este telefono?" class="bi bi-tag" title="Cargar incidente" href="~/Telefonos/Incidente/@a.id_detalle"></a>
                 </th>
                 <th>
-                    <a data-confirmar="¿Desea dar de BAJA este telefono?" class="glyphicon glyphicon-circle-arrow-down" title="Dar de baja" href="~/Telefonos/Baja/@a.id_detalle"></a>
+                    <a data-confirmar="¿Desea dar de BAJA este telefono?" class="bi bi-arrow-down-circle" title="Dar de baja" href="~/Telefonos/Baja/@a.id_detalle"></a>
                 </th>
             </tr>
             }
