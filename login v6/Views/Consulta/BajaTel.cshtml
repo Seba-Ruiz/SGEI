@@ -8,28 +8,30 @@
     <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
     <li class="breadcrumb-item active" aria-current="page">@("Detalle de telefonos que se dieron de baja") </li>
 </ol>
-<div class="card-box table-responsive">
-    <table class="table table-striped m-0">
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
         <thead>
             <tr>
-                <th style="width:50px;">Nº TELEFONO</th>
-                <th style="width:50px;">FECHA BAJA</th>
-                <th style="width:200px;">DESCRIPCION</th>
+                <th>Nº TELEFONO</th>
+                <th>FECHA BAJA</th>
+                <th>DESCRIPCION</th>
                 
-                <th style="width:100px;"></th>
+                <th class="sgei-col-acciones">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var a in Model)
             {
                 <tr>
-                    <th>@a.id_telefono</th>
-                    <th>@a.fecha_baja</th>
-                    <th>@a.descripcion</th>
+                    <td>@a.id_telefono</td>
+                    <td>@a.fecha_baja</td>
+                    <td>@a.descripcion</td>
                     
-                    <th>
-                        <a data-confirmar="¿Desea dar de ALTA este telefono?" title="Dar de alta nuevamente" class="bi bi-upload" href="~/Telefono/AltaTel/@a.id_telefono"></a>
-                    </th>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion sgei-accion-exito" data-confirmar="¿Desea dar de ALTA este telefono?" title="Dar de alta nuevamente" href="~/Telefono/AltaTel/@a.id_telefono" aria-label="Dar de alta nuevamente"><i class="bi bi-arrow-up-circle" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>

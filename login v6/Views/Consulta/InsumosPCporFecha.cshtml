@@ -9,34 +9,31 @@
     <li class="breadcrumb-item active" aria-current="page">@("Detalle de la Consulta") </li>
 </ol>
 
-<div class="card-box table-responsive">
-    <table class="table table-striped m-0">
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
         <thead>
             <tr>
-                <th style="width:200px;">NOMBRE PC</th>
-                <th style="width:150px;">Nº IP</th>
-                <th style="width:220px;">DESCRIPCION</th>
-                <th style="width:200px;">FECHA UBICACION</th>
-                @*<th style="width:200px;">id</th>*@
+                <th>NOMBRE PC</th>
+                <th>Nº IP</th>
+                <th>DESCRIPCION</th>
+                <th>FECHA UBICACION</th>
 
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
+                <th class="sgei-col-acciones">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var a in Model)
             {
                 <tr>
-                    <th>@a.nombre</th>
-                    <th>@a.ip</th>
-                    <th>@a.descripcion</th>
-                    <th>@a.fecha_ubicacion</th>
-                    <th>
-                        <a class="bi bi-calendar-plus" title="Seleccionar Rango de Fechas" href="~/Consulta/ConsultarRangoFechaPC/@a.id_detalle"></a>
-                    </th>
+                    <td>@a.nombre</td>
+                    <td>@a.ip</td>
+                    <td>@a.descripcion</td>
+                    <td>@a.fecha_ubicacion</td>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion sgei-accion-info" title="Seleccionar Rango de Fechas" href="~/Consulta/ConsultarRangoFechaPC/@a.id_detalle" aria-label="Seleccionar Rango de Fechas"><i class="bi bi-calendar-range" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
                     
                 </tr>
             }

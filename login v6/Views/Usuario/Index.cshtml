@@ -13,48 +13,47 @@
 <div class="col-md-2"></div>
 <div class="col-md-8">
 
-    <div class="card-box table-responsive">
-        <table class="table table-striped m-0">
+    <div class="card-box">
+        <table class="table table-hover sgei-grilla" data-grilla>
             <thead>
                 <tr>
-                    <th style="width:50px;">Email</th>
-                    <th style="width:50px;">Email Confirmado</th>
-                    <th style="width:50px;">Telefono</th>
-                    <th style="width:50px;">Fecha Baja</th>
-                    <th style="width:50px;">Accion</th>
-                    <th style="width:10px;"></th>
+                    <th>Email</th>
+                    <th>Email Confirmado</th>
+                    <th>Telefono</th>
+                    <th>Fecha Baja</th>
+                    <th class="sgei-col-acciones">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var a in Model)
                 {
                     <tr>
-                        <th>@a.Email</th>
+                        <td>@a.Email</td>
                         @if (a.EmailConfirmed)
                         {
-                            <th>Si</th>
+                            <td>Si</td>
                         }
                         else
                         {
-                            <th>No</th>
+                            <td>No</td>
                         }
 
-                        <th>@a.PhoneNumber</th>
+                        <td>@a.PhoneNumber</td>
                         @if (a.fecha_baja == null)
                         {
-                            <th>-</th>
+                            <td>-</td>
                         }
                         else
                         {
-                            <th>a.fecha_baja</th>
+                            <td>@a.fecha_baja</td>
                         }
 
-                        <th>
-                            <a class="bi bi-card-list" title="Detalle" href="~/Usuario/Detalle/@a.Id"></a>
-
-                            <a class="bi bi-pencil-square" title="Editar" href="~/Usuario/Editar/@a.Id"></a>
-
-                        </th>
+                        <td>
+                            <div class="sgei-acciones">
+                                <a class="sgei-accion sgei-accion-info" title="Detalle" href="~/Usuario/Detalle/@a.Id" aria-label="Detalle"><i class="bi bi-eye" aria-hidden="true"></i></a>
+                                <a class="sgei-accion" title="Editar" href="~/Usuario/Editar/@a.Id" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>

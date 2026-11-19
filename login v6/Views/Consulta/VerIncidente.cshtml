@@ -9,31 +9,32 @@
     <li class="breadcrumb-item active" aria-current="page">@("Incicentes de la Impresora") </li>
 </ol>
 
-<div class="card-box table-responsive">
-    <table class="table table-striped m-0">
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
         <thead>
             <tr>
-                <th style="width:180px;">INCIDENTE</th>
-                <th style="width:200px;">FECHA DE INCIDENTE</th>
-                <th style="width:180px;">ACCION REALIZADA</th>
-                <th style="width:180px;">FECHA DE ACCION</th>
-                @*<th style="width:200px;">id</th>*@
+                <th>INCIDENTE</th>
+                <th>FECHA DE INCIDENTE</th>
+                <th>ACCION REALIZADA</th>
+                <th>FECHA DE ACCION</th>
 
-                <th style="width:180px;"></th>
+                <th class="sgei-col-acciones">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var a in Model)
             {
                 <tr>
-                    <th>@a.incidente1</th>
-                    <th>@a.fecha_incidente</th>
-                    <th>@a.accion</th>
-                    <th>@a.fecha_accion</th>
+                    <td>@a.incidente1</td>
+                    <td>@a.fecha_incidente</td>
+                    <td>@a.accion</td>
+                    <td>@a.fecha_accion</td>
 
-                    <th>
-                            <a class="btn btn-sm btn-primary" href="~/consulta/VerImagen/@a.id">Ver Imagen del Incidente</a>
-                        </th>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion sgei-accion-info" title="Ver imagen del incidente" aria-label="Ver imagen del incidente" href="~/consulta/VerImagen/@a.id"><i class="bi bi-image" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>

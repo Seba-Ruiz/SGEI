@@ -23,24 +23,25 @@
 }
 <div class="col-md-2"></div>
 <div class="col-md-8">
-    <div class="card-box table-responsive">
-        <table class="table table-striped m-0">
+    <div class="card-box">
+        <table class="table table-hover sgei-grilla" data-grilla>
             <thead>
                 <tr>
-                    <th style="width:50px;">Nombre Ubicacion</th>
-                    <th style="width:10px;"></th>
+                    <th>Nombre Ubicacion</th>
+                    <th class="sgei-col-acciones">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var a in Model)
                 {
                     <tr>
-                        <th>@a.nombre</th>
-                        <th>
-                            <a class="bi bi-pencil-square" title="Editar" href="~/ABM/EditarubiCam/@a.id_ubicacion_camara"></a>
-
-                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarubiCam/" + a.id_ubicacion_camara), "¿Desea eliminar la ubicación?", "bi bi-trash")
-                        </th>
+                        <td>@a.nombre</td>
+                        <td>
+                            <div class="sgei-acciones">
+                                <a class="sgei-accion" title="Editar" href="~/ABM/EditarubiCam/@a.id_ubicacion_camara" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                                @Html.BotonEliminar(Url.Content("~/ABM/EliminarubiCam/" + a.id_ubicacion_camara), "¿Desea eliminar la ubicación?", "bi bi-trash")
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>
