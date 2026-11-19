@@ -9,23 +9,22 @@
     <li class="breadcrumb-item active" aria-current="page">@("Detalle de la Consuta") </li>
 </ol>
 
-<div class="card-box table-responsive">
-    <table class="table table-striped m-0">
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
         <thead>
             <tr>
-                <th style="width:200px;">FECHA CAMBIO INSUMO</th>
-                <th style="width:200px;">NOMBRE INSUMO</th>
-                <th style="width:200px;">NÚMERO DE SERIE</th>
-                <th style="width:180px;"></th>
+                <th>FECHA CAMBIO INSUMO</th>
+                <th>NOMBRE INSUMO</th>
+                <th>NÚMERO DE SERIE</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var a in Model)
             {
             <tr>
-                <th>@a.fecha_insumo</th>
-                <th>@a.nombre</th>
-                <th>@a.nro_serie</th>
+                <td>@a.fecha_insumo</td>
+                <td>@a.nombre</td>
+                <td>@a.nro_serie</td>
 
             </tr>
             }

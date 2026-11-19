@@ -21,8 +21,4 @@
         $(destino.nombre).text($link.data("nombre"));
         $(destino.modal).modal("show");
     });
-
-    $(function () {
-        $("#datatable").DataTable();
-    });
 })(jQuery);

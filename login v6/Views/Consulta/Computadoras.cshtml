@@ -81,12 +81,12 @@
                                 <p class="text-muted mb-4 font-13">
                                     A continuación se muestra la cantidad de insumos que se dispone.
                                 </p>
-                                <div class="card-box table-responsive">
-                                    <table class="table table-striped m-0">
+                                <div class="card-box">
+                                    <table class="table table-hover sgei-grilla" data-grilla>
                                         <thead>
                                             <tr>
-                                                <th style="width:100px;">Nombre Insumo</th>
-                                                <th style="width:100px;">Cantidad Disponible</th>
+                                                <th>Nombre Insumo</th>
+                                                <th>Cantidad Disponible</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -94,8 +94,8 @@
 
                                             {
                                                 <tr>
-                                                    <th>@a.nombre</th>
-                                                    <th>@a.cantidad</th>
+                                                    <td>@a.nombre</td>
+                                                    <td>@a.cantidad</td>
 
                                                 </tr>
                                             }

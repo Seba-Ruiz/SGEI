@@ -10,40 +10,34 @@
 }
 
 
-<div class="card-box table-responsive">
-    <table class="table table-striped m-0">
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
         <thead>
             <tr>
-                <th style="width:200px;">NOMBRE PC</th>
-                <th style="width:150px;">ULTIMA IP</th>
-                <th style="width:220px;">DESCRIPCION</th>
-                <th style="width:200px;">FECHA BAJA</th>
-                @*<th style="width:200px;">id</th>*@
+                <th>NOMBRE PC</th>
+                <th>ULTIMA IP</th>
+                <th>DESCRIPCION</th>
+                <th>FECHA BAJA</th>
 
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
+                <th class="sgei-col-acciones">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var a in Model)
             {
                 <tr>
-                    <th>@a.nombre</th>
-                    <th>@a.ip</th>
-                    <th>@a.descripcion</th>
-                    <th>@a.fecha_baja</th>
+                    <td>@a.nombre</td>
+                    <td>@a.ip</td>
+                    <td>@a.descripcion</td>
+                    <td>@a.fecha_baja</td>
 
 
-                    <th>
-                        <a data-confirmar="¿Desea dar de ALTA esta computadora?" title="Dar de alta nuevamente" class="bi bi-upload" href="~/Consulta/AltaPc/@a.id_pc"></a>
-                    </th>
-                    <th>
-                        <a href="#" title="Ver motivo de baja" data-url="@Url.Action("VerMotivo", "Consulta", new { id = a.id_pc })" class="js-ver-motivo bi bi-search"></a>
-
-                    </th>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion sgei-accion-exito" data-confirmar="¿Desea dar de ALTA esta computadora?" title="Dar de alta nuevamente" href="~/Consulta/AltaPc/@a.id_pc" aria-label="Dar de alta nuevamente"><i class="bi bi-arrow-up-circle" aria-hidden="true"></i></a>
+                            <a class="js-ver-motivo sgei-accion sgei-accion-info" href="#" title="Ver motivo de baja" data-url="@Url.Action("VerMotivo", "Consulta", new { id = a.id_pc })" aria-label="Ver motivo de baja"><i class="bi bi-chat-left-text" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
 
                 </tr>
             }

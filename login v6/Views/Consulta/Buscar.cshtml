@@ -9,32 +9,32 @@
     <li class="breadcrumb-item active" aria-current="page">@("Detalle de la consulta") </li>
 </ol>
 
-<div class="card-box table-responsive">
-    <table class="table table-striped m-0">
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
         <thead>
             <tr>
-                <th style="width:180px;">MARCA_MODELO</th>
-                <th style="width:200px;">DESCRIPCION</th>
-                <th style="width:180px;">Nº IP</th>
-                <th style="width:180px;">PC_CONECTADA</th>
-                @*<th style="width:200px;">id</th>*@
+                <th>MARCA_MODELO</th>
+                <th>DESCRIPCION</th>
+                <th>Nº IP</th>
+                <th>PC_CONECTADA</th>
 
-                <th style="width:180px;"></th>
+                <th class="sgei-col-acciones">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var a in Model)
             {
                 <tr>
-                    <th>@a.marca_modelo</th>
-                    <th>@a.descripcion</th>
-                    <th>@a.ip</th>
-                    <th>@a.pc_dondeseconecta</th>
+                    <td>@a.marca_modelo</td>
+                    <td>@a.descripcion</td>
+                    <td>@a.ip</td>
+                    <td>@a.pc_dondeseconecta</td>
 
-                    <th>
-                        <a class="bi bi-calendar-plus" title="Seleccionar rango fechas" href="~/consulta/ConsultarFecha/@a.id"></a>
-
-                    </th>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion sgei-accion-info" title="Seleccionar rango fechas" href="~/consulta/ConsultarFecha/@a.id" aria-label="Seleccionar rango fechas"><i class="bi bi-calendar-range" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>

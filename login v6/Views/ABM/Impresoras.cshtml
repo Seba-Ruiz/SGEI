@@ -25,26 +25,28 @@
 <div class="col-md-2"></div>
 <div class="col-md-8">
 
-    <div class="card-box table-responsive">
-        <table class="table table-striped m-0">
+    <div class="card-box">
+        <table class="table table-hover sgei-grilla" data-grilla>
             <thead>
                 <tr>
-                    <th style="width:100px;">Marca y Modelo de la Impresora</th>
-                    <th style="width:100px;">Tipo</th>
-                    <th style="width:100px;"></th>
+                    <th>Marca y Modelo de la Impresora</th>
+                    <th>Tipo</th>
+                    <th class="sgei-col-acciones">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var a in Model)
                 {
                     <tr>
-                        <th>@a.marca_modelo</th>
-                        <th>@a.tipo</th>
+                        <td>@a.marca_modelo</td>
+                        <td>@a.tipo</td>
 
-                        <th>
-                            <a class="bi bi-pencil-square" title="Editar" href="~/ABM/EditarImpresora/@a.id"></a>
-                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarImpresora/" + a.id), "¿Desea eliminar la impresora?", "bi bi-trash")
-                        </th>
+                        <td>
+                            <div class="sgei-acciones">
+                                <a class="sgei-accion" title="Editar" href="~/ABM/EditarImpresora/@a.id" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                                @Html.BotonEliminar(Url.Content("~/ABM/EliminarImpresora/" + a.id), "¿Desea eliminar la impresora?", "bi bi-trash")
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>

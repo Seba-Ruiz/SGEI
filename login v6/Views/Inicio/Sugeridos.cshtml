@@ -24,7 +24,7 @@
         </p>
 
         <div class="table-responsive">
-            <table id="datatable" class="table table-striped toggle-circle mb-0">
+            <table class="table table-hover sgei-grilla" data-grilla>
                 <thead>
                     <tr>
 
@@ -32,7 +32,7 @@
                         <th>Último Mantenimietno</th>
                         <th>Ubicación</th>
                         <th>Descripción</th>
-                        <th style="min-width: 80px;">Accion</th>
+                        <th class="sgei-col-acciones">Acciones</th>
                     </tr>
                 </thead>
 
@@ -48,8 +48,10 @@
                                 <td><span class="text-dark">@item.ubicacion</span></td>
                                 <td><span class="text-dark">@item.descripcion</span></td>
                                 <td>
-                                    <a href="#" data-accion="mantenimiento-pc" data-id="@item.id" data-nombre="@item.nombre" title="Realizar Mantenimiento" class="js-sugerido table-action-btn"><i class="bi bi-check2-circle"></i></a>
-                                    <a href="#" data-accion="posponer-pc" data-id="@item.id" data-nombre="@item.nombre" title="Posponer Mantenimiento" class="js-sugerido table-action-btn"><i class="bi bi-clock-history"></i></a>
+                                    <div class="sgei-acciones">
+                                        <a class="js-sugerido sgei-accion sgei-accion-exito" href="#" data-accion="mantenimiento-pc" data-id="@item.id" data-nombre="@item.nombre" title="Realizar Mantenimiento" aria-label="Realizar Mantenimiento"><i class="bi bi-check2-circle" aria-hidden="true"></i></a>
+                                        <a class="js-sugerido sgei-accion sgei-accion-aviso" href="#" data-accion="posponer-pc" data-id="@item.id" data-nombre="@item.nombre" title="Posponer Mantenimiento" aria-label="Posponer Mantenimiento"><i class="bi bi-clock-history" aria-hidden="true"></i></a>
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -61,8 +63,10 @@
                                 <td><span class="text-dark">@item.ubicacion</span></td>
                                 <td><span class="text-dark">@item.descripcion</span></td>
                                 <td>
-                                    <a href="#" data-accion="mantenimiento-impresora" data-id="@item.id" data-nombre="@item.nombre" title="Realizar Mantenimiento" class="js-sugerido table-action-btn"><i class="bi bi-check2-circle"></i></a>
-                                    <a href="#" data-accion="posponer-impresora" data-id="@item.id" data-nombre="@item.nombre" title="Posponer Mantenimiento" class="js-sugerido table-action-btn"><i class="bi bi-clock-history"></i></a>
+                                    <div class="sgei-acciones">
+                                        <a class="js-sugerido sgei-accion sgei-accion-exito" href="#" data-accion="mantenimiento-impresora" data-id="@item.id" data-nombre="@item.nombre" title="Realizar Mantenimiento" aria-label="Realizar Mantenimiento"><i class="bi bi-check2-circle" aria-hidden="true"></i></a>
+                                        <a class="js-sugerido sgei-accion sgei-accion-aviso" href="#" data-accion="posponer-impresora" data-id="@item.id" data-nombre="@item.nombre" title="Posponer Mantenimiento" aria-label="Posponer Mantenimiento"><i class="bi bi-clock-history" aria-hidden="true"></i></a>
+                                    </div>
                                 </td>
                             </tr>
                         }

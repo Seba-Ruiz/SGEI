@@ -13,29 +13,28 @@
 
 <div class="col-md-12">
 
-    <div class="card-box table-responsive">
-        <table class="table table-striped m-0">
+    <div class="card-box">
+        <table class="table table-hover sgei-grilla" data-grilla>
             <thead>
                 <tr>
-                    <th style="width:50px;">TIPO EQUIPO</th>
-                    <th style="width:50px;">NOMBRE INSUMO</th>
-                    <th style="width:50px;">FECHA INGRESO</th>
-                    <th style="width:50px;">COMPROBANTE</th>
-                    <th style="width:50px;">PROVEEDOR</th>
-                    <th style="width:50px;">CANTIDAD</th>
-                    <th style="width:10px;"></th>
+                    <th>TIPO EQUIPO</th>
+                    <th>NOMBRE INSUMO</th>
+                    <th>FECHA INGRESO</th>
+                    <th>COMPROBANTE</th>
+                    <th>PROVEEDOR</th>
+                    <th>CANTIDAD</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var a in Model)
                 {
                     <tr>
-                        <th>@a.tipo_equipo</th>
-                        <th>@a.nombre_insumo</th>
-                        <th>@a.fecha_ingreso</th>
-                        <th>@a.nro_comprobante</th>
-                        <th>@a.proveedor</th>
-                        <th>@a.cantidad</th>
+                        <td>@a.tipo_equipo</td>
+                        <td>@a.nombre_insumo</td>
+                        <td>@a.fecha_ingreso</td>
+                        <td>@a.nro_comprobante</td>
+                        <td>@a.proveedor</td>
+                        <td>@a.cantidad</td>
                     </tr>
                 }
             </tbody>

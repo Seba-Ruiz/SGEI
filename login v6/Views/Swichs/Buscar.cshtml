@@ -7,45 +7,38 @@
     <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
     <li class="breadcrumb-item active" aria-current="page">@("Detalle de la Consulta") </li>
 </ol>
-<div class="card-box table-responsive">
-    <table class="table table-striped m-0">
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
         <thead>
             <tr>
-                <th style="width:80px;">Nº sw</th>
-                <th style="width:200px;">NRO IP</th>
-                <th style="width:150px;">DESCRIPCION</th>
-                <th style="width:220px;">MODELO</th>
-                <th style="width:220px;">INTERFACES</th>
-                <th style="width:200px;">UBICACION</th>
-                <th style="width:200px;">FECHA UBICACION</th>
-                @*<th style="width:200px;">id</th>*@
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
-                <th style="width:30px;"></th>
+                <th>Nº sw</th>
+                <th>NRO IP</th>
+                <th>DESCRIPCION</th>
+                <th>MODELO</th>
+                <th>INTERFACES</th>
+                <th>UBICACION</th>
+                <th>FECHA UBICACION</th>
+                <th class="sgei-col-acciones">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var a in Model)
             {
             <tr>
-                <th>@a.id_sw</th>
-                <th><a href="http://@a.nro_ip" target=”_blank” class="text-danger">@a.nro_ip</a></th>
-                <th>@a.descripcion</th>
-                <th>@a.mmarca</th>
-                <th>@a.interfaces</th>
-                <th>@a.nombre_ubi</th>
-                <th>@a.fecha_ubicacion</th>
-                <th>
-                    <a class="bi bi-pencil" title="Editar" href="~/Swichs/Editar/@a.id_detalle"></a>
-                </th>
-                <th>
-                    <a data-confirmar="¿Desea agregar incidente a este switch?" class="bi bi-tag" title="Cargar incidente" href="~/Swichs/Incidente/@a.id_detalle"></a>
-                </th>
-                <th>
-                    <a data-confirmar="¿Desea dar de BAJA este switch?" class="bi bi-arrow-down-circle" title="Dar de baja" href="~/Swichs/Baja/@a.id_detalle"></a>
-                </th>
+                <td>@a.id_sw</td>
+                <td><a href="http://@a.nro_ip" target=”_blank” class="text-danger">@a.nro_ip</a></td>
+                <td>@a.descripcion</td>
+                <td>@a.mmarca</td>
+                <td>@a.interfaces</td>
+                <td>@a.nombre_ubi</td>
+                <td>@a.fecha_ubicacion</td>
+                <td>
+                    <div class="sgei-acciones">
+                        <a class="sgei-accion" title="Editar" href="~/Swichs/Editar/@a.id_detalle" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-aviso" data-confirmar="¿Desea agregar incidente a este switch?" title="Cargar incidente" href="~/Swichs/Incidente/@a.id_detalle" aria-label="Cargar incidente"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-peligro" data-confirmar="¿Desea dar de BAJA este switch?" title="Dar de baja" href="~/Swichs/Baja/@a.id_detalle" aria-label="Dar de baja"><i class="bi bi-arrow-down-circle" aria-hidden="true"></i></a>
+                    </div>
+                </td>
             </tr>
             }
         </tbody>

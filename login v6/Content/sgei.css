@@ -456,35 +456,52 @@ body.sgei {
 
 .table > tbody th { font-weight: 400; }
 
-/* Íconos de acción en las tablas (editar, eliminar, detalle, baja...) */
-.table a.bi,
-.table button.bi,
-.table-action-btn {
+/* Botones de acción en las filas (editar, eliminar, detalle, baja...): <a class="sgei-accion"><i class="bi ..."></i></a>.
+   Tono por defecto: primario. Variantes: -peligro (eliminar, baja), -aviso (incidentes), -exito (alta), -info (consultas). */
+.sgei-acciones {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: .3rem;
+}
+
+.sgei-accion {
+    --sgei-accion-color: var(--sgei-primario);
+    --sgei-accion-fondo: var(--sgei-primario-suave);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 32px;
     height: 32px;
-    margin-right: .15rem;
-    border-radius: .4rem;
-    color: var(--sgei-texto-suave);
-    font-size: 1.05rem;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: .5rem;
+    background: var(--sgei-accion-fondo);
+    color: var(--sgei-accion-color);
+    font-size: 1rem;
+    line-height: 1;
     text-decoration: none;
-    vertical-align: middle;
+    cursor: pointer;
+    transition: background-color .15s, color .15s, box-shadow .15s, transform .15s;
 }
 
-.table a.bi:hover,
-.table button.bi:hover,
-.table-action-btn:hover {
-    background: var(--sgei-primario-suave);
-    color: var(--sgei-primario);
+.sgei-accion:hover,
+.sgei-accion:focus-visible {
+    background: var(--sgei-accion-color);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(16, 24, 40, .18);
+    transform: translateY(-1px);
 }
 
-.table button.bi-trash:hover,
-.table a.bi-arrow-down-circle:hover {
-    background: #fdecec;
-    color: var(--bs-danger);
-}
+.sgei-accion:focus-visible { outline: 2px solid var(--sgei-accion-color); outline-offset: 2px; }
+
+.sgei-accion-peligro { --sgei-accion-color: var(--bs-danger);  --sgei-accion-fondo: var(--bs-danger-bg-subtle); }
+.sgei-accion-aviso   { --sgei-accion-color: #b7791f;           --sgei-accion-fondo: var(--bs-warning-bg-subtle); }
+.sgei-accion-exito   { --sgei-accion-color: var(--bs-success); --sgei-accion-fondo: var(--bs-success-bg-subtle); }
+.sgei-accion-info    { --sgei-accion-color: #0e7490;           --sgei-accion-fondo: #e0f4f8; }
+.sgei-accion-neutro  { --sgei-accion-color: #4b5563;           --sgei-accion-fondo: #eef1f5; }
+
+/* El formulario de "Eliminar" (Html.BotonEliminar) va en línea con los demás botones. */
+.sgei-acciones form { display: inline-flex; margin: 0; }
 
 /* Formularios */
 label:not(.form-check-label):not(.btn) {
@@ -569,9 +586,83 @@ label:not(.form-check-label):not(.btn) {
     color: #9aa5b1;
 }
 
-/* DataTables */
-div.dt-container .dt-search input { margin-left: .5rem; }
+/* Grillas (DataTables): <table class="table sgei-grilla" data-grilla> */
+.sgei-grilla > tbody > tr > td { padding-top: .6rem; padding-bottom: .6rem; }
+.sgei-grilla > tbody > tr:last-child > td { border-bottom: 0; }
+.sgei-grilla > thead th.sgei-col-acciones { width: 1%; }
+
 div.dt-container { font-size: .875rem; }
+div.dt-container > .row:first-child { margin-top: 0 !important; margin-bottom: .75rem; }
+div.dt-container > .row:last-child { margin-top: .75rem !important; }
+
+/* La tabla se desplaza sola en pantallas angostas; el buscador y el paginador quedan fijos. */
+div.dt-container .dt-layout-table > div { overflow-x: auto; }
+
+/* Buscador con lupa */
+div.dt-container .dt-search { position: relative; }
+div.dt-container .dt-search::before {
+    content: "\f52a"; /* bi-search */
+    font-family: "bootstrap-icons";
+    position: absolute;
+    left: .75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--sgei-texto-suave);
+    pointer-events: none;
+}
+div.dt-container .dt-search input.form-control {
+    width: 280px;
+    max-width: 100%;
+    margin-left: 0;
+    padding: .45rem .75rem .45rem 2.1rem;
+    font-size: .875rem;
+    border-radius: 2rem;
+    background-color: #f7f9fb;
+}
+div.dt-container .dt-search input.form-control:focus { background-color: #fff; }
+div.dt-container .dt-search label { display: none; }
+
+div.dt-container .dt-length { color: var(--sgei-texto-suave); }
+div.dt-container .dt-length select.form-select { display: inline-block; width: auto; margin-right: .35rem; border-radius: .4rem; }
+div.dt-container .dt-length label { margin: 0; font-weight: 400; color: var(--sgei-texto-suave); }
+div.dt-container .dt-info { color: var(--sgei-texto-suave); padding-top: 0 !important; }
+
+/* Paginador */
+div.dt-container .dt-paging .pagination { margin: 0; gap: .25rem; }
+div.dt-container .dt-paging .page-link {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 .6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: .45rem !important;
+    color: var(--sgei-texto);
+    background: transparent;
+    font-size: .875rem;
+}
+div.dt-container .dt-paging .page-link:hover { background: var(--sgei-primario-suave); color: var(--sgei-primario); }
+div.dt-container .dt-paging .page-item.active .page-link { background: var(--sgei-primario); color: #fff; font-weight: 600; }
+div.dt-container .dt-paging .page-item.disabled .page-link { color: #b5bec9; background: transparent; }
+
+/* Encabezados ordenables */
+div.dt-container thead th.dt-orderable-asc:hover,
+div.dt-container thead th.dt-orderable-desc:hover { color: var(--sgei-primario); }
+div.dt-container thead th.dt-ordering-asc,
+div.dt-container thead th.dt-ordering-desc { color: var(--sgei-primario); }
+
+/* Una sola página: sin paginador ni selector de cantidad. */
+.sgei-grilla-corta .dt-paging,
+.sgei-grilla-corta .dt-length { display: none; }
+
+div.dt-container .dt-empty { padding: 2rem 1rem !important; color: var(--sgei-texto-suave); }
+
+@media (max-width: 767.98px) {
+    div.dt-container .dt-layout-start,
+    div.dt-container .dt-layout-end { margin-bottom: .5rem; }
+    div.dt-container .dt-search input.form-control { width: 100%; }
+}
 
 /* ---------------------------------------------------------------- 4. Compatibilidad con el tema anterior */
 

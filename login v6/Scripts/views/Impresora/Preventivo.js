@@ -8,8 +8,4 @@
         $("#descri").text($(this).data("descripcion"));
         $("#descripcion").modal("show");
     });
-
-    $(function () {
-        $("#datatable").DataTable();
-    });
 })(jQuery);
