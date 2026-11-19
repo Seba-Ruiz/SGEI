@@ -245,20 +245,46 @@
         $("table[data-grilla]").each(function () {
             SGEI.crearGrilla(this);
         });
+    });
 
-        // Tooltips de los botones de acción (también los de filas que DataTables dibuja después).
-        if (window.bootstrap && window.bootstrap.Tooltip) {
-            new window.bootstrap.Tooltip(document.body, {
-                selector: ".sgei-accion[title]",
-                trigger: "hover",
-                container: "body"
-            });
+    // Tooltips de los botones de acción de las grillas. Se manejan a mano (trigger "manual") para que
+    // se cierren siempre al salir el mouse o el foco del botón, al hacer clic (confirm, modal, navegación)
+    // y cuando DataTables vuelve a dibujar la grilla (buscar, paginar, ordenar): en ese caso el botón ya
+    // no está en la página, por eso se guarda el tooltip abierto y se cierra ese.
+    var Tooltip = window.bootstrap && window.bootstrap.Tooltip;
+    var tooltipAbierto = null;
+
+    SGEI.ocultarTooltips = function () {
+        if (tooltipAbierto) {
+            tooltipAbierto.hide();
+            tooltipAbierto = null;
         }
-    });
+        // Por si quedó alguno a medio animar.
+        $("body > .tooltip").remove();
+    };
 
-    // Un tooltip abierto no debe quedar colgado al navegar o abrir un modal desde el botón.
-    $(document).on("click", ".sgei-accion", function () {
-        $(".tooltip").remove();
-    });
+    var esFocoDeTeclado = function (elemento) {
+        try {
+            return elemento.matches(":focus-visible");
+        } catch (e) {
+            return false;
+        }
+    };
+
+    if (Tooltip) {
+        $(document).on("mouseenter focusin", ".sgei-accion[title], .sgei-accion[data-bs-original-title]", function (evento) {
+            // El foco por teclado muestra el tooltip; el que deja el clic del mouse, no.
+            if (evento.type === "focusin" && !esFocoDeTeclado(this)) {
+                return;
+            }
+            SGEI.ocultarTooltips();
+            tooltipAbierto = Tooltip.getOrCreateInstance(this, { trigger: "manual", container: "body", animation: false });
+            tooltipAbierto.show();
+        });
+
+        $(document).on("mouseleave focusout mousedown click", ".sgei-accion", SGEI.ocultarTooltips);
+        $(document).on("draw.dt", SGEI.ocultarTooltips);
+        $(window).on("scroll pagehide", SGEI.ocultarTooltips);
+    }
 
 })(jQuery, window, document);
