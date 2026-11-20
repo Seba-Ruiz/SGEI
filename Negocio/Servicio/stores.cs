@@ -10,7 +10,8 @@ namespace Negocio.Servicio
 {
     public class stores
     {
-        public List<DTO_u_computadora> u_computadora(int ubicacionpc)
+        /// <summary>Computadoras activas (sin fecha de baja); sin ubicación, todas las del sistema.</summary>
+        public List<DTO_u_computadora> u_computadora(int? ubicacionpc = null)
         {
             var dto_u_computadora = new List<DTO_u_computadora>();
 
@@ -29,7 +30,7 @@ namespace Negocio.Servicio
                              from j in ctx.procesadorPC
 
                              where
-                             c.ubicacionpc_id == ubicacionpc &&
+                             (ubicacionpc == null || c.ubicacionpc_id == ubicacionpc) &&
                              c.pc_id == a.id_pc &&
                              c.ubicacionpc_id == b.id_ubicacion &&
                              a.id_pc == d.pc_id &&

@@ -14,15 +14,17 @@ namespace login_v6.Controllers
     public class ComputadoraController : Controller
     {
         stores store = new stores();
-        public insumo_pc_dominio insumo_pc = new insumo_pc_dominio();
 
         // GET: Computadora
-        public ActionResult Index()
+        /// <summary>
+        /// Grilla con todas las computadoras activas. El combo de ubicación filtra la grilla en el
+        /// navegador; ?ubicacion=N lo deja preseleccionado.
+        /// </summary>
+        public ActionResult Index(int? ubicacion)
         {
             ubicacionpc_dominio ubi = new ubicacionpc_dominio();
-            ViewBag.ubicacionpc = ubi.Listar();
-            ViewBag.insu = insumo_pc.Listar();
-            return View();
+            ViewBag.ubicacionpc = new SelectList(ubi.Listar(), "id_ubicacion", "nombre", ubicacion);
+            return View(store.u_computadora());
         }
 
         public ActionResult Preventivo()
@@ -101,12 +103,6 @@ namespace login_v6.Controllers
             return Redirect("~/Inicio/Index");
         }
 
-        public ActionResult Buscar(int ubicacionpc)
-        {
-            var ubica = store.u_computadora(ubicacionpc);
-
-            return View(ubica);
-        }
         public ActionResult Detalle(int id)
         {
             var ubic = store.u_computadora_detalle(id);

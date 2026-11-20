@@ -2845,6 +2845,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\AccesoDenegado.cshtml" />
     <Content Include="Scripts\app\sgei.js" />
+    <Content Include="Scripts\views\Computadora\Index.js" />
     <Content Include="Scripts\views\Computadora\Preventivo.js" />
     <Content Include="Scripts\views\Consulta\compuBaja.js" />
     <Content Include="Scripts\views\Home\Landing.js" />
@@ -2932,7 +2933,6 @@
     <Content Include="Views\ABM\ubicacionestel.cshtml" />
     <Content Include="Views\Computadora\Baja.cshtml" />
     <Content Include="Views\Computadora\BajaAceptada.cshtml" />
-    <Content Include="Views\Computadora\Buscar.cshtml" />
     <Content Include="Views\Computadora\BuscarParaMover.cshtml" />
     <Content Include="Views\Computadora\Check.cshtml" />
     <Content Include="Views\Computadora\ConfirmaEditar.cshtml" />

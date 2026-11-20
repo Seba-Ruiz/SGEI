@@ -622,6 +622,19 @@ div.dt-container .dt-search input.form-control {
 div.dt-container .dt-search input.form-control:focus { background-color: #fff; }
 div.dt-container .dt-search label { display: none; }
 
+/* Filtros extra junto al buscador (por ejemplo, el combo de ubicación de Computadoras). */
+div.dt-container .dt-layout-start:has(.sgei-grilla-filtro) { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.sgei-grilla-filtro select.form-select {
+    width: 240px;
+    max-width: 100%;
+    padding-top: .45rem;
+    padding-bottom: .45rem;
+    font-size: .875rem;
+    border-radius: 2rem;
+    background-color: #f7f9fb;
+}
+.sgei-grilla-filtro select.form-select:focus { background-color: #fff; }
+
 div.dt-container .dt-length { color: var(--sgei-texto-suave); }
 div.dt-container .dt-length select.form-select { display: inline-block; width: auto; margin-right: .35rem; border-radius: .4rem; }
 div.dt-container .dt-length label { margin: 0; font-weight: 400; color: var(--sgei-texto-suave); }
@@ -662,6 +675,8 @@ div.dt-container .dt-empty { padding: 2rem 1rem !important; color: var(--sgei-te
     div.dt-container .dt-layout-start,
     div.dt-container .dt-layout-end { margin-bottom: .5rem; }
     div.dt-container .dt-search input.form-control { width: 100%; }
+    div.dt-container .dt-layout-start:has(.sgei-grilla-filtro) > * { flex: 1 1 100%; }
+    .sgei-grilla-filtro select.form-select { width: 100%; }
 }
 
 /* ---------------------------------------------------------------- 4. Compatibilidad con el tema anterior */
