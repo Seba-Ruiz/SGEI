@@ -1,0 +1,119 @@
+﻿@model Negocio.DTO.DTO_TicketFormulario
+@using Negocio.DTO
+@using Negocio.Servicio
+@{
+    var editando = Model.Id != 0;
+    var titulo = editando ? "Editar ticket #" + Model.Id : "Nuevo ticket";
+    ViewBag.Title = titulo;
+    var usuarios = (List<DTO_Usuario>)ViewBag.Usuarios;
+    var prevista = Model.FechaPrevista.HasValue ? Model.FechaPrevista.Value.ToString("yyyy-MM-dd") : "";
+}
+
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">@titulo</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">Tickets</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@(editando ? "Editar" : "Nuevo")</li>
+        </ol>
+    </div>
+</div>
+
+@* Equipos de cada tipo para Scripts/views/Tickets/Formulario.js *@
+<script type="application/json" id="datos-formulario">@Html.Raw(Json.Encode(ViewBag.Datos))</script>
+
+@using (Html.BeginForm("Guardar", "Tickets", FormMethod.Post, new { @class = "sgei-formulario sgei-formulario-ancho", id = "formulario-ticket" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id)
+
+    <div class="card sgei-form-card">
+        <div class="card-header">
+            <span class="sgei-form-card-icono"><i class="bi bi-kanban" aria-hidden="true"></i></span>
+            <div>
+                <h5 class="sgei-form-card-titulo">@titulo</h5>
+                <p class="sgei-form-card-ayuda">@(editando ? "Los cambios quedan registrados en el historial del ticket." : "El ticket empieza en «Pendiente» y aparece en el board de la persona asignada.")</p>
+            </div>
+        </div>
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger py-2" })
+
+            <div class="row g-3">
+                <div class="col-12">
+                    <label class="form-label sgei-requerido" for="Titulo">Título</label>
+                    @Html.TextBoxFor(x => x.Titulo, new { @class = "form-control", maxlength = Tickets.LargoTitulo, required = "required", autofocus = "autofocus", placeholder = "Ej.: Reemplazar la fuente de la PC de Mesa de Entradas" })
+                    @Html.ValidationMessageFor(x => x.Titulo, null, new { @class = "text-danger small" })
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label sgei-requerido" for="AsignadoId">Asignado a</label>
+                    <select class="form-select" id="AsignadoId" name="AsignadoId" required data-buscable>
+                        <option value="">Elegí un usuario…</option>
+                        @foreach (var u in usuarios)
+                        {
+                            <option value="@u.Id" @(u.Id == Model.AsignadoId ? "selected" : "")>@u.Nombre@(u.Activo ? "" : " (de baja)")</option>
+                        }
+                    </select>
+                    @Html.ValidationMessageFor(x => x.AsignadoId, null, new { @class = "text-danger small" })
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label sgei-requerido" for="FechaPrevista">Fecha de finalización prevista</label>
+                    <input type="date" class="form-control" id="FechaPrevista" name="FechaPrevista" value="@prevista" required
+                           @(editando ? null : Html.Raw("min=\"" + DateTime.Today.ToString("yyyy-MM-dd") + "\"")) />
+                    @Html.ValidationMessageFor(x => x.FechaPrevista, null, new { @class = "text-danger small" })
+                </div>
+
+                <div class="col-12">
+                    <span class="form-label d-block sgei-requerido" id="etiqueta-prioridad">Prioridad</span>
+                    <div class="sgei-prioridades" role="radiogroup" aria-labelledby="etiqueta-prioridad">
+                        @foreach (var p in PrioridadesTicket.Todas)
+                        {
+                            <input type="radio" class="btn-check" name="Prioridad" id="prioridad-@p" value="@p" autocomplete="off" required @(Model.Prioridad == p ? "checked" : "") />
+                            <label class="btn sgei-prioridad-opcion sgei-prioridad-@p" for="prioridad-@p"><i class="bi bi-flag-fill me-1" aria-hidden="true"></i>@PrioridadesTicket.Nombre(p)</label>
+                        }
+                    </div>
+                    @Html.ValidationMessageFor(x => x.Prioridad, null, new { @class = "text-danger small" })
+                </div>
+
+                <div class="col-md-5">
+                    <label class="form-label" for="TipoEquipo">Equipo relacionado <span class="text-muted fw-normal">(opcional)</span></label>
+                    <select class="form-select" id="TipoEquipo" name="TipoEquipo">
+                        <option value="">Sin equipo</option>
+                        @foreach (var t in TiposEquipo.Todos)
+                        {
+                            <option value="@t" @(t == Model.TipoEquipo ? "selected" : "")>@TiposEquipo.Nombre(t)</option>
+                        }
+                    </select>
+                    @Html.ValidationMessageFor(x => x.TipoEquipo, null, new { @class = "text-danger small" })
+                </div>
+                <div class="col-md-7" data-con-equipo>
+                    <label class="form-label sgei-requerido" for="EquipoId">Equipo</label>
+                    <select class="form-select" id="EquipoId" name="EquipoId" data-buscable data-valor="@Model.EquipoId">
+                        <option value="">Elegí el equipo…</option>
+                    </select>
+                    @Html.ValidationMessageFor(x => x.EquipoId, null, new { @class = "text-danger small" })
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label" for="Descripcion">Descripción</label>
+                    <textarea class="form-control" id="Descripcion" name="Descripcion" rows="8" data-editor data-editor-alto="260"
+                              placeholder="Detallá el trabajo a realizar: pasos, contactos, capturas…">@Model.Descripcion</textarea>
+                    <div class="form-text">Podés pegar imágenes (hasta 1 MB cada una), tablas y links.</div>
+                    @Html.ValidationMessageFor(x => x.Descripcion, null, new { @class = "text-danger small" })
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-secondary" href="@(editando ? Url.Action("Ver", new { id = Model.Id }) : Url.Action("Index"))">Cancelar</a>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>@(editando ? "Guardar" : "Crear ticket")</button>
+        </div>
+    </div>
+}
+
+@section estilos {
+    @Styles.Render("~/Content/summernote")
+}
+@section librerias {
+    @Scripts.Render("~/bundles/summernote")
+}

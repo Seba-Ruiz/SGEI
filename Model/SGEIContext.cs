@@ -68,6 +68,9 @@ namespace Model
         public virtual DbSet<switch_incidente_switch> switch_incidente_switch { get; set; }
         public virtual DbSet<switch_ubicacion_switch> switch_ubicacion_switch { get; set; }
         public virtual DbSet<telefono> telefono { get; set; }
+        public virtual DbSet<ticket> ticket { get; set; }
+        public virtual DbSet<ticket_comentario> ticket_comentario { get; set; }
+        public virtual DbSet<ticket_historial> ticket_historial { get; set; }
         public virtual DbSet<tipo_tel> tipo_tel { get; set; }
         public virtual DbSet<tipoPC> tipoPC { get; set; }
         public virtual DbSet<ubicacion> ubicacion { get; set; }
@@ -429,6 +432,27 @@ namespace Model
 
             modelBuilder.Entity<usuario>()
                 .Property(e => e.pass)
+                .IsUnicode(false);
+
+            // Tickets: al borrar un ticket se borran sus comentarios e historial (ON DELETE CASCADE en la base).
+            modelBuilder.Entity<ticket>()
+                .Property(e => e.tipo_equipo)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ticket>()
+                .HasMany(e => e.ticket_comentario)
+                .WithRequired(e => e.ticket)
+                .HasForeignKey(e => e.id_ticket)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<ticket>()
+                .HasMany(e => e.ticket_historial)
+                .WithRequired(e => e.ticket)
+                .HasForeignKey(e => e.id_ticket)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<ticket_historial>()
+                .Property(e => e.campo)
                 .IsUnicode(false);
         }
     }

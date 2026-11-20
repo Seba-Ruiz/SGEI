@@ -1,0 +1,86 @@
+﻿@model List<Negocio.DTO.DTO_TicketTarjeta>
+@using Negocio.Servicio
+@{
+    ViewBag.Title = "Tickets";
+    var usuarioId = (string)ViewBag.UsuarioId;
+    var esAdmin = (bool)ViewBag.EsAdministrador;
+    var asignados = Model.GroupBy(t => t.AsignadoId).Select(g => g.First()).OrderBy(t => t.Asignado).ToList();
+    var vencidos = Model.Count(t => t.Semaforo == "vencido");
+}
+
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Tickets</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tickets</li>
+        </ol>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-secondary" href="@Url.Action("Lista")" data-spinner><i class="bi bi-list-ul me-1"></i>Todos los tickets</a>
+        @if (esAdmin)
+        {
+            <a class="btn btn-primary" href="@Url.Action("Nuevo")" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo ticket</a>
+        }
+    </div>
+</div>
+
+<div class="card sgei-board-filtros">
+    <div class="card-body">
+        <div class="sgei-board-buscar">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <input type="search" class="form-control" id="board-buscar" placeholder="Buscar por número, título, asignado o equipo" aria-label="Buscar tickets" autocomplete="off" />
+        </div>
+        <input type="checkbox" class="btn-check" id="board-mios" autocomplete="off" data-usuario="@usuarioId" />
+        <label class="btn btn-outline-primary" for="board-mios"><i class="bi bi-person-check me-1"></i>Mis tickets</label>
+        <select class="form-select" id="board-asignado" aria-label="Asignado a" autocomplete="off">
+            <option value="">Todos los asignados</option>
+            @foreach (var t in asignados)
+            {
+                <option value="@t.AsignadoId">@t.Asignado</option>
+            }
+        </select>
+        <select class="form-select" id="board-prioridad" aria-label="Prioridad" autocomplete="off">
+            <option value="">Todas las prioridades</option>
+            @foreach (var p in PrioridadesTicket.Todas.Reverse())
+            {
+                <option value="@p">@PrioridadesTicket.Nombre(p)</option>
+            }
+        </select>
+        @if (vencidos > 0)
+        {
+            <span class="sgei-board-alerta" title="Tickets abiertos con la fecha prevista vencida">
+                <i class="bi bi-exclamation-octagon-fill" aria-hidden="true"></i>@vencidos @(vencidos == 1 ? "vencido" : "vencidos")
+            </span>
+        }
+    </div>
+</div>
+
+<div class="sgei-board" id="board" data-url-estado="@Url.Action("Estado")">
+    @foreach (var estado in EstadosTicket.Todos)
+    {
+        var tickets = Model.Where(t => t.Estado == estado).ToList();
+        <section class="sgei-board-columna sgei-estado-@estado" aria-labelledby="columna-@estado">
+            <header class="sgei-board-columna-cabecera">
+                <span class="sgei-estado-punto" aria-hidden="true"></span>
+                <h2 id="columna-@estado">@EstadosTicket.Nombre(estado)</h2>
+                <span class="sgei-board-contador" data-contador>@tickets.Count</span>
+            </header>
+            @if (estado == EstadosTicket.Terminado)
+            {
+                <p class="sgei-board-nota">Últimos @Tickets.DiasTerminadosEnBoard días</p>
+            }
+            <div class="sgei-board-lista" data-estado="@estado" data-nombre="@EstadosTicket.Nombre(estado)">
+                @foreach (var t in tickets)
+                {
+                    @Html.Partial("_Tarjeta", t, new ViewDataDictionary { { "puedeMover", esAdmin || t.AsignadoId == usuarioId } })
+                }
+                <p class="sgei-board-vacio">Sin tickets</p>
+            </div>
+        </section>
+    }
+</div>
+
+@section librerias {
+    @Scripts.Render("~/bundles/sortable")
+}

@@ -56,6 +56,18 @@ namespace login_v6
                         "~/assets/plugins/jquery.steps/js/jquery.steps.min.js",
                         "~/assets/plugins/chart.js/chart.min.js"));
 
+            // Tickets: editor Summernote (descripción y comentarios) y SortableJS (arrastre del board).
+            // Las vistas los incluyen en las secciones "estilos" y "librerias" del layout.
+            bundles.Add(new Bundle("~/Content/summernote", SinMinificarTransform.Css)
+                        .Include("~/Content/lib/summernote/summernote-bs5.css"));
+
+            bundles.Add(new Bundle("~/bundles/summernote", SinMinificarTransform.Js).Include(
+                        "~/Scripts/lib/summernote/summernote-bs5.js",
+                        "~/Scripts/lib/summernote/lang/summernote-es-ES.js"));
+
+            bundles.Add(new Bundle("~/bundles/sortable", SinMinificarTransform.Js).Include(
+                        "~/Scripts/lib/sortable/Sortable.js"));
+
             // Portada (Home/Landing): conserva su propio tema.
             bundles.Add(new ScriptBundle("~/bundles/landing").Include(
                         "~/assets/landing/js/bootstrap.min.js",

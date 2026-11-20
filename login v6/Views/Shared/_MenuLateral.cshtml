@@ -28,6 +28,13 @@
             <i class="bi bi-speedometer2"></i> @MenuSgei.Dashboard.Texto
         </a>
     </li>
+    @{ var enTickets = string.Equals(controlador, MenuSgei.Tickets.Controlador, StringComparison.OrdinalIgnoreCase); }
+    <li>
+        <a class="sgei-menu-link@(enTickets ? " activo" : "")" href="@Url.Action(MenuSgei.Tickets.Accion, MenuSgei.Tickets.Controlador)" data-spinner
+           @(enTickets ? Html.Raw("aria-current=\"page\"") : null)>
+            <i class="bi bi-kanban"></i> @MenuSgei.Tickets.Texto
+        </a>
+    </li>
 
     @* Equipos: plegable como Usuarios; queda abierto y marcado el equipo de la pantalla actual. *@
     <li>

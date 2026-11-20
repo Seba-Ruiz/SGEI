@@ -61,7 +61,7 @@ namespace Negocio.Servicio
         // ------------------------------------------------------------------ Equipos
 
         /// <summary>Equipos de un tipo (activos y dados de baja), por su clave.</summary>
-        private static Dictionary<int, DTO_Equipo> Equipos(SGEIContext ctx, string tipo)
+        internal static Dictionary<int, DTO_Equipo> Equipos(SGEIContext ctx, string tipo)
         {
             var lista = new List<DTO_Equipo>();
             switch (tipo)

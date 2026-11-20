@@ -1,0 +1,83 @@
+﻿@model List<Negocio.DTO.DTO_TicketTarjeta>
+@using Negocio.Servicio
+@{
+    ViewBag.Title = "Todos los tickets";
+    var asignados = Model.Select(t => t.Asignado).Distinct().OrderBy(n => n).ToList();
+}
+
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Todos los tickets</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">Tickets</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Todos</li>
+        </ol>
+    </div>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Index")" data-spinner><i class="bi bi-kanban me-1"></i>Volver al board</a>
+</div>
+
+<div class="card-box">
+    <div class="sgei-grilla-filtro">
+        <label class="visually-hidden" for="grilla-tickets-estado">Estado</label>
+        <select class="form-select" id="grilla-tickets-estado" autocomplete="off" data-filtro-grilla="#grilla-tickets" data-filtro-columna=".col-estado" data-buscable>
+            <option value="">Todos los estados</option>
+            @foreach (var e in EstadosTicket.Todos)
+            {
+                <option value="@e">@EstadosTicket.Nombre(e)</option>
+            }
+        </select>
+    </div>
+    <div class="sgei-grilla-filtro">
+        <label class="visually-hidden" for="grilla-tickets-asignado">Asignado a</label>
+        <select class="form-select" id="grilla-tickets-asignado" autocomplete="off" data-filtro-grilla="#grilla-tickets" data-filtro-columna=".col-asignado" data-buscable>
+            <option value="">Todos los asignados</option>
+            @foreach (var a in asignados)
+            {
+                <option value="@a">@a</option>
+            }
+        </select>
+    </div>
+    <div class="sgei-grilla-fechas" data-filtro-grilla="#grilla-tickets" data-filtro-columna=".col-fecha" role="group" aria-label="Fecha prevista">
+        <i class="bi bi-calendar3" aria-hidden="true"></i>
+        <input type="date" class="form-control" data-desde title="Fecha prevista: desde" aria-label="Fecha prevista: desde" />
+        <span class="text-muted small">a</span>
+        <input type="date" class="form-control" data-hasta title="Fecha prevista: hasta" aria-label="Fecha prevista: hasta" />
+    </div>
+
+    <table class="table table-hover sgei-grilla" data-grilla id="grilla-tickets" data-order='[[0, "desc"]]'>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th class="col-estado">Estado</th>
+                <th>Prioridad</th>
+                <th class="col-asignado">Asignado a</th>
+                <th class="col-fecha">Fecha prevista</th>
+                <th>Plazo</th>
+                <th>Equipo</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model)
+            {
+                <tr>
+                    <td data-order="@t.Id">#@t.Id</td>
+                    <td>@t.Titulo</td>
+                    <td><span class="sgei-estado sgei-estado-@t.Estado">@EstadosTicket.Nombre(t.Estado)</span></td>
+                    <td data-order="@t.Prioridad"><span class="sgei-prioridad sgei-prioridad-@t.Prioridad"><i class="bi bi-flag-fill" aria-hidden="true"></i>@PrioridadesTicket.Nombre(t.Prioridad)</span></td>
+                    <td>@t.Asignado</td>
+                    <td data-order="@t.FechaPrevista.ToString("yyyyMMdd")">@t.FechaPrevista.ToString("dd/MM/yyyy")</td>
+                    <td data-order="@t.DiasDemora"><span class="sgei-plazo sgei-plazo-@t.Semaforo">@t.TextoPlazo</span></td>
+                    <td>@(t.Equipo ?? "—")</td>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion sgei-accion-info" title="Ver detalle" aria-label="Ver detalle" href="@Url.Action("Ver", new { id = t.Id })" data-spinner><i class="bi bi-eye" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

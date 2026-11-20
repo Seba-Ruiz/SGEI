@@ -3094,6 +3094,27 @@
     <Compile Include="Helpers\MenuSgei.cs" />
     <Compile Include="Controllers\ConsultasController.cs" />
     <Compile Include="Helpers\Avisos.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
+    <Content Include="Views\Tickets\Index.cshtml" />
+    <Content Include="Views\Tickets\_Tarjeta.cshtml" />
+    <Content Include="Views\Tickets\Lista.cshtml" />
+    <Content Include="Views\Tickets\Formulario.cshtml" />
+    <Content Include="Views\Tickets\Ver.cshtml" />
+    <Content Include="Scripts\views\Tickets\Index.js" />
+    <Content Include="Scripts\views\Tickets\Formulario.js" />
+    <Content Include="Scripts\views\Tickets\Ver.js" />
+    <Content Include="Content\lib\summernote\summernote-bs5.css" />
+    <Content Include="Content\lib\summernote\summernote-bs5.min.css" />
+    <Content Include="Content\lib\summernote\font\summernote.eot" />
+    <Content Include="Content\lib\summernote\font\summernote.ttf" />
+    <Content Include="Content\lib\summernote\font\summernote.woff" />
+    <Content Include="Content\lib\summernote\font\summernote.woff2" />
+    <Content Include="Scripts\lib\summernote\summernote-bs5.js" />
+    <Content Include="Scripts\lib\summernote\summernote-bs5.min.js" />
+    <Content Include="Scripts\lib\summernote\lang\summernote-es-ES.js" />
+    <Content Include="Scripts\lib\summernote\lang\summernote-es-ES.min.js" />
+    <Content Include="Scripts\lib\sortable\Sortable.js" />
+    <Content Include="Scripts\lib\sortable\Sortable.min.js" />
   </ItemGroup>
 
   <ItemGroup>

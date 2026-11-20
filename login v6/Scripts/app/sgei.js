@@ -495,9 +495,59 @@
         }
     };
 
-    SGEI.mostrarAviso = function (mensaje) {
-        var $toast = $('<div class="toast align-items-center text-bg-success border-0 sgei-aviso" role="status" aria-live="polite" aria-atomic="true">'
-            + '<div class="d-flex"><div class="toast-body"><i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i></div>'
+    /**
+     * Editor Summernote sobre un <textarea data-editor> (requiere el bundle ~/bundles/summernote en la vista).
+     * data-editor-alto: alto en px · data-editor-requerido: no deja enviar el formulario vacío.
+     * Las imágenes se pegan dentro del texto (hasta 1 MB cada una); el servidor sanea el HTML al guardar.
+     */
+    SGEI.MAXIMO_IMAGEN_EDITOR = 1024 * 1024;
+
+    SGEI.crearEditor = function (textarea) {
+        var $t = $(textarea);
+        if (!$.fn.summernote || $t.data("summernote")) { return $t; }
+
+        $t.summernote({
+            lang: "es-ES",
+            height: Number($t.attr("data-editor-alto")) || 200,
+            placeholder: $t.attr("placeholder") || "",
+            dialogsInBody: true,
+            disableDragAndDrop: false,
+            maximumImageFileSize: SGEI.MAXIMO_IMAGEN_EDITOR,
+            toolbar: [
+                ["estilo", ["style"]],
+                ["fuente", ["bold", "italic", "underline", "strikethrough", "clear"]],
+                ["color", ["color"]],
+                ["parrafo", ["ul", "ol", "paragraph"]],
+                ["insertar", ["table", "link", "picture", "hr"]],
+                ["ver", ["fullscreen"]]
+            ],
+            callbacks: {
+                onImageUploadError: function () {
+                    SGEI.mostrarAviso("La imagen supera 1 MB. Achicala o recortala y volvé a pegarla.", "error");
+                }
+            }
+        });
+
+        if ($t.is("[data-editor-requerido]")) {
+            $t.closest("form").on("submit", function (e) {
+                var vacio = $t.summernote("isEmpty") && $t.summernote("code").indexOf("<img") < 0;
+                $t.siblings(".note-editor").toggleClass("is-invalid", vacio);
+                if (vacio) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    $t.summernote("focus");
+                }
+            });
+        }
+        return $t;
+    };
+
+    /** tipo: "exito" (por defecto, verde) o "error" (rojo). */
+    SGEI.mostrarAviso = function (mensaje, tipo) {
+        var error = tipo === "error";
+        var $toast = $('<div class="toast align-items-center ' + (error ? "text-bg-danger" : "text-bg-success") + ' border-0 sgei-aviso" role="'
+            + (error ? "alert" : "status") + '" aria-live="' + (error ? "assertive" : "polite") + '" aria-atomic="true">'
+            + '<div class="d-flex"><div class="toast-body"><i class="bi ' + (error ? "bi-exclamation-triangle-fill" : "bi-check-circle-fill") + ' me-2" aria-hidden="true"></i></div>'
             + '<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button></div></div>');
         $toast.find(".toast-body").append(document.createTextNode(mensaje));
         $toast.on("hidden.bs.toast", function () { $toast.remove(); });
@@ -533,6 +583,10 @@
 
         $("select[data-buscable]").each(function () {
             SGEI.crearComboBuscable(this);
+        });
+
+        $("textarea[data-editor]").each(function () {
+            SGEI.crearEditor(this);
         });
     });
 

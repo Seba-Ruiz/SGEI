@@ -11,6 +11,7 @@
     <title>@ViewBag.Title - SGEI</title>
     <link rel="icon" href="~/favicon.ico" />
     @Styles.Render("~/Content/css")
+    @RenderSection("estilos", required: false)
 </head>
 <body class="sgei">
     <div id="antiforgery-ajax" hidden>@Html.AntiForgeryToken()</div>
@@ -98,6 +99,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/plugins")
     @Html.Script("~/Scripts/app/sgei.js")
+    @* Librerías que usa solo alguna pantalla (Summernote, SortableJS): antes del script de la vista. *@
+    @RenderSection("librerias", required: false)
     @* Script propio de la vista: Scripts/views/<Controlador>/<vista>.js (si existe) *@
     @Html.ScriptDeVista()
     @RenderSection("scripts", required: false)

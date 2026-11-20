@@ -1,0 +1,51 @@
+﻿@model Negocio.DTO.DTO_TicketTarjeta
+@using Negocio.Servicio
+@*
+    Tarjeta de un ticket en el board. data-* para los filtros y el arrastre (Scripts/views/Tickets/Index.js).
+    ViewData["puedeMover"]: el usuario actual puede arrastrarla (asignado o administrador).
+*@
+@{
+    var puedeMover = (bool)ViewData["puedeMover"];
+    var buscar = string.Join(" ", "#" + Model.Id, Model.Titulo, Model.Asignado, Model.Equipo).ToLowerInvariant();
+}
+<article class="sgei-ticket sgei-ticket-prioridad-@Model.Prioridad sgei-ticket-@Model.Semaforo@(puedeMover ? " sgei-ticket-movible" : "")"
+         data-id="@Model.Id" data-asignado="@Model.AsignadoId" data-prioridad="@Model.Prioridad" data-prevista="@Model.FechaPrevista.ToString("yyyyMMdd")" data-buscar="@buscar"
+         aria-label="Ticket #@Model.Id: @Model.Titulo">
+    <div class="sgei-ticket-cabecera">
+        <span class="sgei-ticket-numero">#@Model.Id</span>
+        <span class="sgei-prioridad sgei-prioridad-@Model.Prioridad" title="Prioridad @PrioridadesTicket.Nombre(Model.Prioridad)">
+            <i class="bi bi-flag-fill" aria-hidden="true"></i>@PrioridadesTicket.Nombre(Model.Prioridad)
+        </span>
+        @if (puedeMover)
+        {
+            <i class="bi bi-grip-vertical sgei-ticket-agarre ms-auto" title="Arrastrá para cambiar el estado" aria-hidden="true"></i>
+        }
+    </div>
+
+    <a class="sgei-ticket-titulo stretched-link" href="@Url.Action("Ver", new { id = Model.Id })" data-spinner>@Model.Titulo</a>
+
+    @if (Model.Equipo != null)
+    {
+        <div class="sgei-ticket-equipo" title="@TiposEquipo.Nombre(Model.TipoEquipo): @Model.Equipo">
+            <i class="bi bi-pc-display" aria-hidden="true"></i><span>@Model.Equipo</span>
+        </div>
+    }
+
+    <div class="sgei-ticket-plazo" title="Fecha prevista: @Model.FechaPrevista.ToString("dd/MM/yyyy")">
+        <i class="bi @(Model.Semaforo == "vencido" ? "bi-exclamation-octagon-fill" : Model.Terminado ? "bi-check2-circle" : "bi-calendar-event")" aria-hidden="true"></i>
+        <span class="sgei-ticket-plazo-texto">@Model.TextoPlazo</span>
+        <span class="sgei-ticket-fecha">@Model.FechaPrevista.ToString("dd/MM")</span>
+    </div>
+
+    <div class="sgei-ticket-pie">
+        <span class="sgei-avatar" aria-hidden="true">@Model.AsignadoIniciales</span>
+        <span class="sgei-ticket-asignado" title="Asignado a @Model.Asignado">@Model.Asignado</span>
+        <span class="sgei-ticket-datos ms-auto">
+            <span title="Abierto hace @Model.DiasAbierto @(Model.DiasAbierto == 1 ? "día" : "días")"><i class="bi bi-hourglass-split" aria-hidden="true"></i>@Model.DiasAbierto d</span>
+            @if (Model.Comentarios > 0)
+            {
+                <span title="@Model.Comentarios @(Model.Comentarios == 1 ? "comentario" : "comentarios")"><i class="bi bi-chat-left-text" aria-hidden="true"></i>@Model.Comentarios</span>
+            }
+        </span>
+    </div>
+</article>
