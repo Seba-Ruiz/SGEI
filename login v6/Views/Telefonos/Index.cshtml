@@ -1,53 +1,56 @@
-﻿
+﻿@model IEnumerable<Negocio.DTO.DTO_u_telefono_01>
 @{
-    ViewBag.Title = "Telefono";
-
+    ViewBag.Title = "Teléfonos";
 }
 
-<h4 class="page-title">Bienvenido!</h4>
+<h4 class="page-title">Teléfonos</h4>
 <ol class="breadcrumb">
-
-    <li class="breadcrumb-item active" aria-current="page">
-        Sistema para control de insumos e incidentes de telefonos.
-    </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Teléfonos</li>
 </ol>
 
-<div class="row">
-    <div class="col-sm-6 offset-sm-3">
-        <div class="card card-acento-primary">
-            <div class="card-header">
-                <h4 class="card-title mb-0">TELEFONOS</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
-                        <p class="text-muted mb-4 font-13">
-                            Para comenzar, seleccione en el combo la ubicación del telefono, el sistema mostrará los telefonos en esa ubicación.
-                        </p>
-                        @using (Html.BeginForm("Buscar", "Telefonos", FormMethod.Post, new { id = "frm-incidente" }))
-                        {
-                            @Html.AntiForgeryToken()
-                        <div class="mb-3">
-                            @Html.Label("Nombre de Ubicacion:")
-                            @Html.DropDownList("ubicaciontel", new SelectList(ViewBag.ubicaciontel, "id_ubicacion_tel", "nombre_ubi"), new { @class = "form-select", @style = "width:200px;" })
-                        </div>
-                           
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Buscar</button>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="card-box">
+    @* Combo de ubicación: Scripts/app/sgei.js lo ubica junto al buscador y filtra la columna Ubicación (data-filtro-grilla). *@
+    <div class="sgei-grilla-filtro">
+        <label class="visually-hidden" for="ubicacion">Ubicación</label>
+        @Html.DropDownList("ubicacion", (SelectList)ViewBag.ubicaciones, "Todas las ubicaciones", new { @class = "form-select", autocomplete = "off", data_filtro_grilla = "#grilla-telefonos", data_filtro_columna = ".sgei-col-ubicacion", data_buscable = "" })
     </div>
+
+    <table class="table table-hover sgei-grilla" data-grilla id="grilla-telefonos">
+        <thead>
+            <tr>
+                <th>Nº TEL</th>
+                <th>NRO INTERNO</th>
+                <th>DESCRIPCION</th>
+                <th>MODELO</th>
+                <th>TIPO TELEFONO</th>
+                <th class="sgei-col-ubicacion">UBICACIÓN</th>
+                <th>FECHA UBICACION</th>
+
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+            <tr>
+                <td>@a.id_telefono</td>
+                <td>@a.nro_interno</td>
+                <td>@a.descripcion</td>
+                <td>@a.mmarca</td>
+                <td>@a.nombre_tipo</td>
+                <td>@a.nombre_ubi</td>
+                <td>@a.fecha_ubicacion</td>
+                <td>
+                    <div class="sgei-acciones">
+                        <a class="sgei-accion" title="Editar" href="~/Telefonos/Editar/@a.id_detalle" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-aviso" data-confirmar="¿Desea agregar incidente a este telefono?" title="Cargar incidente" href="~/Telefonos/Incidente/@a.id_detalle" aria-label="Cargar incidente"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-peligro" data-confirmar="¿Desea dar de BAJA este telefono?" title="Dar de baja" href="~/Telefonos/Baja/@a.id_detalle" aria-label="Dar de baja"><i class="bi bi-arrow-down-circle" aria-hidden="true"></i></a>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
 </div>
-
-
-
-
-
-
-
-

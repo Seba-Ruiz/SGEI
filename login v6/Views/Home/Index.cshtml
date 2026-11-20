@@ -1,66 +1,62 @@
-﻿
+﻿@model IEnumerable<Negocio.DTO.DTO_u_impresora_01>
 @{
     ViewBag.Title = "Impresoras";
-
 }
 
-<h4 class="page-title">Bienvenido!</h4>
+<h4 class="page-title">Impresoras</h4>
 <ol class="breadcrumb">
-    
-    <li class="breadcrumb-item active" aria-current="page">
-        Sistema para control de insumos e incidentes de impresoras.
-    </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Impresoras</li>
 </ol>
-<div class="row">
-    <div class="col-sm-6 offset-sm-3">
-        <div class="card card-acento-primary">
-            <div class="card-header">
-                <h4 class="card-title mb-0">IMPRESORAS</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
-                        <p class="text-muted mb-4 font-13">
-                            Para comenzar seleccione en el combo la ubicación de la impresora, el sistema mostrará las impresoras en esa ubicación.
-                        </p>
-                        @using (Html.BeginForm("Buscar", "Home", FormMethod.Post, new { id = "frm-incidente" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <div class="mb-3">
-                                @Html.Label("Nombre de Ubicacion:")
-                                @Html.DropDownList("ubicacion", new SelectList(ViewBag.ubicaciones, "id", "nombreUbicacion"), new { @class = "form-select", @style = "width:200px;" })
-                            </div>
-                            <div class="mb-3">
-                                
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">Buscar</button>
 
-                                </div>
-                            </div>
-                            foreach (var item in @ViewBag.insumos)
-                            {
-                                if (item.cantidad == 0)
-                                {
-                                    <div class="alert alert-danger" role="alert">
-                                        <strong>ATENCIÓN</strong> Sin stock disponible para toner del tipo @item.nombre
-                                    </div>
-                                }
-
-                                if (item.cantidad < 10 & item.cantidad > 0)
-                                {
-                                    <div class="alert alert-info" role="alert">
-                                        <strong>ATENCIÓN</strong> Quedan @item.cantidad toner del tipo @item.nombre
-                                    </div>
-                                }
-                            }
-                        }
-
-
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="card-box">
+    @* Combo de ubicación: Scripts/app/sgei.js lo ubica junto al buscador y filtra la columna Ubicación (data-filtro-grilla). *@
+    <div class="sgei-grilla-filtro">
+        <label class="visually-hidden" for="ubicacion">Ubicación</label>
+        @Html.DropDownList("ubicacion", (SelectList)ViewBag.ubicaciones, "Todas las ubicaciones", new { @class = "form-select", autocomplete = "off", data_filtro_grilla = "#grilla-impresoras", data_filtro_columna = ".sgei-col-ubicacion", data_buscable = "" })
     </div>
+
+    <table class="table table-hover sgei-grilla" data-grilla id="grilla-impresoras">
+        <thead>
+            <tr>
+                <th>Nº IMP</th>
+                <th>MARCA_MODELO</th>
+                <th>TIPO</th>
+                <th class="sgei-col-ubicacion">UBICACIÓN</th>
+                <th>DESCRIPCION</th>
+                <th>FECHA UBICACION</th>
+                <th>RESPONSABLE</th>
+                <th>Nº IP</th>
+                <th>PC_CONECTADA</th>
+
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+            <tr>
+                <td>@a.id_imp</td>
+                <td>@a.marca_modelo</td>
+                <td>@a.tipo</td>
+                <td>@a.ubicacion</td>
+                <td>@a.descripcion</td>
+                <td>@a.fecha_ubicacion</td>
+                <td>@a.responsable</td>
+                <td>@a.ip</td>
+                <td>@a.pc_dondeseconecta</td>
+                <td>
+                    <div class="sgei-acciones">
+                        <a class="sgei-accion" title="Editar" href="~/Impresora/Editar/@a.id" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-neutro" title="Cargar insumo" href="~/Insumo/AgregarInsumo/@a.id" aria-label="Cargar insumo"><i class="bi bi-box-seam" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-aviso" data-confirmar="¿Desea agregar incidente a esta impresora?" title="Cargar incidente" href="~/Incidente/Index/@a.id" aria-label="Cargar incidente"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-neutro" data-confirmar="¿Desea mover de ubicacion esta impresora?" title="Mover a otra ubicacion la impresora" href="~/Home/BuscarParaMover/@a.id" aria-label="Mover a otra ubicacion la impresora"><i class="bi bi-arrows-move" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-peligro" data-confirmar="¿Desea dar de BAJA esta impresora?" title="Dar de baja a la impresora" href="~/Home/Baja/@a.id" aria-label="Dar de baja a la impresora"><i class="bi bi-arrow-down-circle" aria-hidden="true"></i></a>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
 </div>

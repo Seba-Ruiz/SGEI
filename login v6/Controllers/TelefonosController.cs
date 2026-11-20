@@ -16,22 +16,20 @@ namespace login_v6.Controllers
         stores store = new stores();
         
         // GET: Telefonos
-        public ActionResult Index()
+        /// <summary>
+        /// Grilla con todos los teléfonos activos. El combo de ubicación filtra la grilla en el
+        /// navegador; ?ubicacion=N lo deja preseleccionado.
+        /// </summary>
+        public ActionResult Index(int? ubicacion)
         {
-            ubicacion_tel_dominio ubi = new ubicacion_tel_dominio();
-            ViewBag.ubicaciontel = ubi.Listar();
-            return View();
+            var ubi = new ubicacion_tel_dominio();
+            ViewBag.ubicaciones = new SelectList(ubi.Listar(), "id_ubicacion_tel", "nombre_ubi", ubicacion);
+            return View(store.u_telefono_01());
         }
 
         public ActionResult AltaTel(int id)
         {
             return View();
-        }
-
-        public ActionResult Buscar(int ubicaciontel)
-        {
-                var ubica = store.u_telefono_01(ubicaciontel);
-                return View(ubica);   
         }
 
         public ActionResult Incidente(int id)

@@ -10,6 +10,9 @@
  *   data-cerrar-sesion         en <a>: envía el formulario #logoutForm.
  *   data-wizard                en <form>: arma el formulario por pasos (h3 + section).
  *   data-grilla                en <table>: búsqueda, orden y paginación en el navegador.
+ *   data-filtro-grilla="#tabla" en <select>: filtra esa grilla por la columna data-filtro-columna
+ *                              (selector del <th>) con el texto de la opción elegida.
+ *   data-buscable              en <select>: combo con buscador (Select2).
  */
 (function ($, window, document) {
     "use strict";
@@ -233,6 +236,76 @@
         return api;
     };
 
+    /**
+     * Combo que filtra una grilla por una columna, en el navegador (sin recargar la página):
+     *   <div class="sgei-grilla-filtro">
+     *     <select data-filtro-grilla="#grilla" data-filtro-columna=".sgei-col-ubicacion">...</select>
+     *   </div>
+     * La opción con valor vacío ("Todas...") quita el filtro. El contenedor .sgei-grilla-filtro se ubica
+     * junto al buscador de la grilla. Si el combo llega con una opción elegida (?ubicacion=N), se aplica.
+     */
+    SGEI.crearFiltroGrilla = function (combo) {
+        var $combo = $(combo);
+        var $tabla = $($combo.data("filtroGrilla"));
+        if (!$tabla.length || !$.fn.dataTable || !$.fn.dataTable.isDataTable($tabla[0])) {
+            return;
+        }
+
+        var api = $tabla.DataTable();
+        var columna = api.column($combo.data("filtroColumna"));
+        var $contenedor = $combo.closest(".sgei-grilla-filtro");
+        $(api.table().container()).find(".dt-search").first().after($contenedor.length ? $contenedor : $combo);
+
+        // DataTables le quita los acentos a los datos de búsqueda ("ESTERILIZACIÓN" -> "ESTERILIZACION"):
+        // se comparan los dos textos sin acentos.
+        var sinAcentos = function (texto) {
+            return String(texto).normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
+        };
+
+        var filtrar = function () {
+            var texto = $combo.val() ? sinAcentos($combo.find("option:selected").text()) : "";
+            // Coincidencia exacta: "ADMISION" no trae las filas de "ADMISION NUEVA".
+            columna.search(texto ? function (valor) {
+                return sinAcentos(valor) === texto;
+            } : "").draw();
+        };
+
+        $combo.on("change", filtrar);
+        if ($combo.val()) {
+            filtrar();
+        }
+    };
+
+    /** Combo con buscador (Select2, tema Bootstrap 5): <select data-buscable>. */
+    SGEI.crearComboBuscable = function (combo) {
+        var $combo = $(combo);
+        if (!$.fn.select2 || $combo.hasClass("select2-hidden-accessible")) {
+            return;
+        }
+        var $modal = $combo.closest(".modal");
+        $combo.select2({
+            theme: "bootstrap-5",
+            width: "100%",
+            // Dentro de un modal la lista tiene que colgar del modal para poder escribir en el buscador.
+            dropdownParent: $modal.length ? $modal : $(document.body),
+            language: {
+                noResults: function () { return "No se encontraron resultados"; },
+                searching: function () { return "Buscando..."; }
+            }
+        });
+    };
+
+    // Select2 4.1 con jQuery 3.6+ no pone el cursor en el buscador al abrir la lista.
+    // Se espera un ciclo: el evento llega antes de que Select2 termine de armar la lista.
+    $(document).on("select2:open", function () {
+        window.setTimeout(function () {
+            var buscador = document.querySelector(".select2-container--open .select2-search__field");
+            if (buscador) {
+                buscador.focus();
+            }
+        }, 0);
+    });
+
     $(function () {
         $(".modal[data-abrir-al-cargar]").modal("show");
 
@@ -244,6 +317,15 @@
         // Grillas: <table data-grilla>.
         $("table[data-grilla]").each(function () {
             SGEI.crearGrilla(this);
+        });
+
+        // Después de las grillas: el filtro se mueve a la barra de la grilla y recién ahí se arma el Select2.
+        $("select[data-filtro-grilla]").each(function () {
+            SGEI.crearFiltroGrilla(this);
+        });
+
+        $("select[data-buscable]").each(function () {
+            SGEI.crearComboBuscable(this);
         });
     });
 

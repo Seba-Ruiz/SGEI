@@ -7,12 +7,12 @@ namespace login_v6
         // Para obtener más información sobre las uniones, visite https://go.microsoft.com/fwlink/?LinkId=301862
         //
         // Estilos (en el <head>):
-        //   ~/Content/css        -> Bootstrap 5, Bootstrap Icons, DataTables, Content/sgei.css
+        //   ~/Content/css        -> Bootstrap 5, Bootstrap Icons, DataTables, Select2 (tema Bootstrap 5), Content/sgei.css
         //
         // Scripts (al final del <body>, en este orden):
         //   ~/bundles/jquery     -> jQuery (única copia en toda la app) + jQuery Migrate
         //   ~/bundles/bootstrap  -> Bootstrap 5 (incluye Popper)
-        //   ~/bundles/plugins    -> DataTables, jquery.steps (wizard), Chart.js
+        //   ~/bundles/plugins    -> DataTables, Select2, jquery.steps (wizard), Chart.js
         //   Scripts/app/sgei.js  -> comportamiento común (menú, confirmaciones, AJAX)
         //   Scripts/views/...    -> script propio de cada vista, si existe
         public static void RegisterBundles(BundleCollection bundles)
@@ -29,6 +29,8 @@ namespace login_v6
                         .Include("~/Content/lib/bootstrap-icons/bootstrap-icons.css", new CssRewriteUrlTransform())
                         .Include("~/Content/lib/datatables/dataTables.bootstrap5.css")
                         .Include("~/assets/plugins/jquery.steps/css/jquery.steps.css", new CssRewriteUrlTransform())
+                        .Include("~/Content/lib/select2/select2.css")
+                        .Include("~/Content/lib/select2/select2-bootstrap-5-theme.css")
                         .Include("~/Content/sgei.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -49,6 +51,7 @@ namespace login_v6
             bundles.Add(new Bundle("~/bundles/plugins", SinMinificarTransform.Js).Include(
                         "~/Scripts/lib/datatables/dataTables.js",
                         "~/Scripts/lib/datatables/dataTables.bootstrap5.js",
+                        "~/Scripts/lib/select2/select2.js",
                         "~/assets/plugins/jquery.steps/js/jquery.steps.min.js",
                         "~/assets/plugins/chart.js/chart.min.js"));
 

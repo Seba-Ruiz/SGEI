@@ -1,66 +1,54 @@
-﻿
+﻿@model IEnumerable<Negocio.DTO.DTO_u_computadora>
 @{
-    ViewBag.Title = "Computadora";
-
+    ViewBag.Title = "Computadoras";
 }
 
-<h4 class="page-title">Bienvenido!</h4>
+<h4 class="page-title">Computadoras</h4>
 <ol class="breadcrumb">
-
-    <li class="breadcrumb-item active" aria-current="page">
-        Sistema para la gestión de las computadoras en el hospital.
-    </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Computadoras</li>
 </ol>
 
-
-<div class="row">
-    <div class="col-sm-6 offset-sm-3">
-        <div class="card card-acento-primary">
-            <div class="card-header">
-                <h4 class="card-title mb-0">COMPUTADORAS</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
-                        <p class="text-muted mb-4 font-13">
-                            Para comenzar, seleccione en el combo la ubicación de la computadora, el sistema mostrará las computadoras en esa ubicación.
-                        </p>
-                        @using (Html.BeginForm("Buscar", "Computadora", FormMethod.Post, new { id = "frm-incidente" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <div class="mb-3">
-                                @Html.Label("Nombre de Ubicacion:")
-                                @Html.DropDownList("ubicacionpc", new SelectList(ViewBag.ubicacionpc, "id_ubicacion", "nombre"), new { @class = "form-select", @style = "width:200px;" })
-                            </div>
-                            <div class="mb-3">
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">Buscar</button>
-                                </div>
-                            </div>
-                            foreach (var item in @ViewBag.insu)
-                            {
-                                if (item.cantidad == 0)
-                                {
-                                    <div class="alert alert-danger" role="alert">
-                                        <strong>ATENCIÓN</strong> Sin stock disponible para el insumo @item.nombre
-                                    </div>
-                                }
-
-                                if (item.cantidad < 5 & item.cantidad > 0)
-                                {
-                                    <div class="alert alert-info" role="alert">
-                                        <strong>ATENCIÓN</strong> Quedan @item.cantidad insumos @item.nombre
-                                    </div>
-                                }
-                            }
-
-                        }
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="card-box">
+    @* Combo de ubicación: Scripts/app/sgei.js lo ubica junto al buscador y filtra la columna Ubicación (data-filtro-grilla). *@
+    <div class="sgei-grilla-filtro">
+        <label class="visually-hidden" for="ubicacion">Ubicación</label>
+        @Html.DropDownList("ubicacion", (SelectList)ViewBag.ubicaciones, "Todas las ubicaciones", new { @class = "form-select", autocomplete = "off", data_filtro_grilla = "#grilla-computadoras", data_filtro_columna = ".sgei-col-ubicacion", data_buscable = "" })
     </div>
+
+    <table class="table table-hover sgei-grilla" data-grilla id="grilla-computadoras">
+        <thead>
+            <tr>
+                <th>Nº PC</th>
+                <th>NOMBRE PC</th>
+                <th>Nº IP</th>
+                <th class="sgei-col-ubicacion">UBICACIÓN</th>
+                <th>DESCRIPCION</th>
+                <th>FECHA UBICACION</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+            <tr>
+                <td>@a.id_pc</td>
+                <td>@a.nombre</td>
+                <td>@a.ip</td>
+                <td>@a.ubicacion</td>
+                <td>@a.descripcion</td>
+                <td>@a.fecha_ubicacion</td>
+                <td>
+                    <div class="sgei-acciones">
+                        <a class="sgei-accion sgei-accion-info" title="Detalle de la computadora" href="~/Computadora/Detalle/@a.id_detalle" aria-label="Detalle de la computadora"><i class="bi bi-eye" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-neutro" title="Agregar Insumo" href="~/Insumo/AgregarInsumoPC/@a.id_detalle" aria-label="Agregar Insumo"><i class="bi bi-box-seam" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-aviso" data-confirmar="¿Desea agregar incidente a esta computadora?" title="Cargar incidente" href="~/Computadora/Incidente/@a.id_detalle" aria-label="Cargar incidente"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-neutro" data-confirmar="¿Desea mover de ubicación esta computadora?" title="Mover a otra ubicacion la PC" href="~/Computadora/BuscarParaMover/@a.id_detalle" aria-label="Mover a otra ubicacion la PC"><i class="bi bi-arrows-move" aria-hidden="true"></i></a>
+                        <a class="sgei-accion sgei-accion-peligro" data-confirmar="¿Desea dar de BAJA esta computadora?" title="Dar de baja a la PC" href="~/Computadora/Baja/@a.id_detalle" aria-label="Dar de baja a la PC"><i class="bi bi-arrow-down-circle" aria-hidden="true"></i></a>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>

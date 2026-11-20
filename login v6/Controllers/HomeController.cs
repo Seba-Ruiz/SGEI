@@ -21,14 +21,14 @@ namespace SGEI.Controllers
         public detalle_impresora_ubicacion_dominio deta = new detalle_impresora_ubicacion_dominio();
         public ubicacion_impresora_dominio ubi_imp = new ubicacion_impresora_dominio();
 
-        public ActionResult Index()
+        /// <summary>
+        /// Grilla con todas las impresoras activas. El combo de ubicación filtra la grilla en el
+        /// navegador; ?ubicacion=N lo deja preseleccionado.
+        /// </summary>
+        public ActionResult Index(int? ubicacion)
         {
-            var user = User.Identity.Name;
-
-            ViewBag.ubicaciones = ubi.Listar();
-            ViewBag.insumos = insu.Listar();
-
-            return View();
+            ViewBag.ubicaciones = new SelectList(ubi.Listar(), "id", "nombreUbicacion", ubicacion);
+            return View(new stores().u_impresora_01());
         }
 
         public ActionResult Landing()
@@ -569,18 +569,6 @@ namespace SGEI.Controllers
         public ActionResult AltaExitosa()
         {
             return View();
-        }
-
-
-
-        [HttpPost]
-        public ActionResult Buscar(int ubicacion)
-        {
-            stores store = new stores();
-            var datos = store.u_impresora_01(ubicacion);
-
-            return View(datos);
-
         }
 
         public ActionResult Baja(int id)

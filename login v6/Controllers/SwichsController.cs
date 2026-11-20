@@ -16,22 +16,16 @@ namespace login_v6.Controllers
         stores store = new stores();
 
         // GET: Switch
-        public ActionResult Index()
+        /// <summary>
+        /// Grilla con todos los switches activos. El combo de ubicación filtra la grilla en el
+        /// navegador; ?ubicacion=N lo deja preseleccionado.
+        /// </summary>
+        public ActionResult Index(int? ubicacion)
         {
-            ubicacion_sw_dominio ubi = new ubicacion_sw_dominio();
-
-            ViewBag.ubicacionsw = ubi.Listar();
-            return View();
-
+            var ubi = new ubicacion_sw_dominio();
+            ViewBag.ubicaciones = new SelectList(ubi.Listar(), "id_ubicacion_switch", "nombre", ubicacion);
+            return View(store.u_sw_01());
         }
-        public ActionResult Buscar(int ubicacionsw)
-        {
-            var ubica = store.u_sw_01(ubicacionsw);
-            return View(ubica);
-        }
-
-
-
         public ActionResult Guardarincidente(switch_incidente_switch inci)
         {
             if (inci.fecha_incidente==null || inci.fecha_reparacion==null)
