@@ -13,7 +13,7 @@
             <p class="text-muted mb-4 font-13">
                 Use este wizard para dar de alta una impresora, recuerde que una vez dada de alta podrá consultar el detalle de dicha impresora a travez de la busqueda de la misma como asi tambien editarlo.
             </p>
-            @using (Html.BeginForm("GuardarImp", "Home", FormMethod.Post, new { id = "basic-form", data_wizard = "true" }))
+            @using (Html.BeginForm("GuardarImp", "Home", FormMethod.Post, new { id = "basic-form", data_wizard = "alta" }))
             {
                 @Html.AntiForgeryToken()
                 <div>
@@ -58,18 +58,8 @@
 
                     <h3>Finalizar</h3>
                     <section>
-                        <div class="mb-3 clearfix">
-                            <div class="col-lg-12">
-
-                                <label for="test">
-                                    Al hacer click en "Finalizar" aceptará guardar la informacion antes descripta. Podra modificar los detalles de la Impresora en cualquier momento que lo desee.
-                                    <br />
-                                    Por favor active la casilla:
-                                </label>
-                                @Html.CheckBox("test", new { @class = "form-control" })
-
-                            </div>
-                        </div>
+                        @* Resumen de lo cargado (o de los cambios, en una edición): lo arma Scripts/app/sgei.js. *@
+                        <div data-wizard-resumen></div>
                     </section>
                 </div>
 

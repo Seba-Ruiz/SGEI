@@ -40,50 +40,38 @@ namespace login_v6.Controllers
             return View(det);
         }
 
-        public ActionResult Check()
+
+
+        public ActionResult GuardarES(DTO_u_detalle_escaner deta)
         {
+            escaner_dominio es = new escaner_dominio();
+            var escaner = es.Obtener(deta.id_escaner);
+
+            escaner.descripcion = deta.descripcion;
+            es.Guardar(escaner); //Cabecera
+
+            detalle_escaner_dominio dt = new detalle_escaner_dominio();
+            var detalle = dt.Obtener(deta.id_detalle);
+
+            detalle.marca_modelo_id = deta.id_mm;
+            detalle.nroip = deta.nro_ip; //Detalle
+
+            dt.Guardar(detalle);
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "ESCANER";
+            audit.id_equipo = deta.id_escaner;
+            audit.accion = "EDITAR";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
             return View();
-        }
-
-
-
-        public ActionResult GuardarES(DTO_u_detalle_escaner deta, bool test)
-        {
-            if (test)
-            {
-                escaner_dominio es = new escaner_dominio();
-                var escaner = es.Obtener(deta.id_escaner);
-
-                escaner.descripcion = deta.descripcion;
-                es.Guardar(escaner); //Cabecera
-
-                detalle_escaner_dominio dt = new detalle_escaner_dominio();
-                var detalle = dt.Obtener(deta.id_detalle);
-
-                detalle.marca_modelo_id = deta.id_mm;
-                detalle.nroip = deta.nro_ip; //Detalle
-
-                dt.Guardar(detalle);
-
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
-
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "ESCANER";
-                audit.id_equipo = deta.id_escaner;
-                audit.accion = "EDITAR";
-                audit.usuario = User.Identity.Name;
-
-                audit_dom.Guardar(audit);
-                //---//
-
-                return View();
-            }
-            else
-            {
-                return Redirect("~/Escaner/Check");
-            }
         }
 
         public ActionResult Incidente(int id)

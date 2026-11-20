@@ -8,7 +8,8 @@
  *   data-spinner               en <a>: muestra el spinner "Espere..." al navegar.
  *   data-abrir-al-cargar       en un .modal: lo abre cuando carga la página.
  *   data-cerrar-sesion         en <a>: envía el formulario #logoutForm.
- *   data-wizard                en <form>: arma el formulario por pasos (h3 + section).
+ *   data-wizard="alta|edicion" en <form>: arma el formulario por pasos (h3 + section); el último paso
+ *                              muestra el resumen de lo cargado o de los cambios (data-wizard-resumen).
  *   data-grilla                en <table>: búsqueda, orden y paginación en el navegador.
  *   data-filtro-grilla="#tabla" en <select>: filtra esa grilla por la columna data-filtro-columna
  *                              (selector del <th>) con el texto de la opción elegida.
@@ -32,17 +33,129 @@
         $("#spiner").modal("hide");
     };
 
+    var escapar = function (texto) {
+        return $("<div>").text(texto).html();
+    };
+
+    /** "Ingrese nombre de la PC" -> "Nombre de la PC"; "Seleccione la ubicación" -> "Ubicación". */
+    var nombreDeCampo = function (etiqueta) {
+        var texto = String(etiqueta).replace(/\s+/g, " ").trim().replace(/:$/, "");
+        texto = texto.replace(/^(ingrese|seleccione|elija|indique)\s+((el|la|los|las)\s+)?/i, "");
+        return texto.charAt(0).toUpperCase() + texto.slice(1);
+    };
+
+    /** Valor que se ve en un campo: el actual o el que traía la página al cargarse (inicial = true). */
+    var valorDeCampo = function (campo, inicial) {
+        if (campo.tagName === "SELECT") {
+            var elegida = null;
+            for (var i = 0; i < campo.options.length; i++) {
+                if (inicial ? campo.options[i].defaultSelected : campo.options[i].selected) {
+                    elegida = campo.options[i];
+                    break;
+                }
+            }
+            // Sin "selected" en el HTML, el navegador muestra la primera opción.
+            if (!elegida && inicial && campo.options.length) {
+                elegida = campo.options[0];
+            }
+            return elegida ? elegida.text.trim() : "";
+        }
+        return String(inicial ? campo.defaultValue : campo.value).trim();
+    };
+
+    /**
+     * Resumen del último paso del wizard: los datos de todos los pasos anteriores, agrupados por paso.
+     * En un alta muestra lo que se va a guardar; en una edición, el valor anterior y el nuevo de cada campo,
+     * con los cambios resaltados.
+     */
+    SGEI.armarResumenWizard = function ($pasos, titulos, $destino, modo) {
+        var edicion = modo === "edicion";
+        var cambios = 0;
+        var faltantes = 0;
+        var filas = [];
+
+        $pasos.each(function (indice) {
+            if ($(this).find("[data-wizard-resumen]").length) {
+                return;
+            }
+            var campos = $(this).find("input, select, textarea").filter(function () {
+                return this.type !== "hidden" && this.type !== "checkbox" && this.type !== "radio" && this.name;
+            });
+            if (!campos.length) {
+                return;
+            }
+            filas.push('<tr class="sgei-resumen-paso"><th colspan="' + (edicion ? 3 : 2) + '">' + escapar(titulos[indice] || "") + "</th></tr>");
+
+            campos.each(function () {
+                var etiqueta = $(this).closest(".mb-3").find("label").first().text() || this.name;
+                var ahora = valorDeCampo(this, false);
+                var antes = valorDeCampo(this, true);
+                var cambio = edicion && ahora !== antes;
+                var falta = this.required && !ahora;
+                var celda = function (valor, clase) {
+                    return '<td class="' + clase + '">' + (valor ? escapar(valor) : '<span class="text-muted">—</span>') + "</td>";
+                };
+                cambios += cambio ? 1 : 0;
+                faltantes += falta ? 1 : 0;
+
+                filas.push('<tr class="' + (cambio ? "sgei-resumen-cambio" : "") + (falta ? " sgei-resumen-falta" : "") + '">'
+                    + "<th scope=\"row\">" + escapar(nombreDeCampo(etiqueta))
+                    + (cambio ? ' <span class="badge text-bg-warning">Modificado</span>' : "")
+                    + (falta ? ' <span class="badge text-bg-danger">Sin completar</span>' : "")
+                    + "</th>"
+                    + (edicion ? celda(antes, "sgei-resumen-antes") : "")
+                    + celda(ahora, "sgei-resumen-ahora")
+                    + "</tr>");
+            });
+        });
+
+        var aviso;
+        if (edicion) {
+            aviso = cambios
+                ? '<div class="alert alert-warning py-2"><i class="bi bi-pencil-square me-2"></i><strong>' + cambios + (cambios === 1 ? " cambio" : " cambios")
+                    + "</strong> respecto de lo que estaba cargado. Revisalos y presioná <strong>Finalizar</strong> para guardarlos.</div>"
+                : '<div class="alert alert-secondary py-2"><i class="bi bi-info-circle me-2"></i>No modificaste ningún dato. '
+                    + "Si presionás <strong>Finalizar</strong> se guarda igual que estaba.</div>";
+        } else {
+            aviso = '<div class="alert alert-info py-2"><i class="bi bi-clipboard-check me-2"></i>Revisá los datos que se van a guardar. '
+                + "Si algo no está bien, volvé con <strong>Anterior</strong>; si está todo bien, presioná <strong>Finalizar</strong>.</div>";
+        }
+        if (faltantes) {
+            aviso += '<div class="alert alert-danger py-2"><i class="bi bi-exclamation-triangle me-2"></i>'
+                + (faltantes === 1 ? "Hay 1 campo obligatorio sin completar." : "Hay " + faltantes + " campos obligatorios sin completar.") + "</div>";
+        }
+
+        var encabezado = edicion
+            ? '<tr><th scope="col">Campo</th><th scope="col">Antes</th><th scope="col">Ahora</th></tr>'
+            : '<tr><th scope="col">Campo</th><th scope="col">Valor</th></tr>';
+
+        $destino.html(aviso
+            + '<div class="table-responsive"><table class="table table-sm sgei-resumen' + (edicion ? " sgei-resumen-edicion" : "") + '">'
+            + "<thead>" + encabezado + "</thead><tbody>" + filas.join("") + "</tbody></table></div>");
+    };
+
     /**
      * Wizard por pasos (jquery.steps) sobre un formulario: cada paso es un <h3> + <section>
-     * dentro del primer <div> del form. Al finalizar se envía el formulario.
+     * dentro del primer <div> del form. El formulario indica si es un alta o una edición
+     * (data-wizard="alta" | "edicion"); el último paso lleva <div data-wizard-resumen> y ahí se arma
+     * el resumen al llegar. "Finalizar" envía el formulario (una sola vez).
      * Reemplaza a assets/pages/jquery.wizard-init.js, que corría en todas las páginas.
      */
     SGEI.crearWizard = function (selectorFormulario) {
         var $form = $(selectorFormulario);
-        $form.children("div").steps({
+        var $wizard = $form.children("div").first();
+        var modo = $form.attr("data-wizard");
+        var titulos = $wizard.children("h3").map(function () {
+            return $(this).text().trim();
+        }).get();
+        var enviando = false;
+
+        $wizard.steps({
             headerTag: "h3",
             bodyTag: "section",
-            transitionEffect: "slideLeft",
+            // Con "fade" un paso se oculta antes de mostrar el siguiente: cada paso puede tener su propio alto.
+            transitionEffect: "fade",
+            transitionEffectSpeed: 150,
             labels: {
                 current: "paso actual:",
                 pagination: "Paginación",
@@ -51,10 +164,19 @@
                 previous: "Anterior",
                 loading: "Cargando..."
             },
+            onStepChanged: function (evento, actual) {
+                var $pasos = $wizard.find("section");
+                var $resumen = $pasos.eq(actual).find("[data-wizard-resumen]");
+                if ($resumen.length) {
+                    SGEI.armarResumenWizard($pasos, titulos, $resumen, modo);
+                }
+            },
             onFinishing: function () {
-                return true;
+                return !enviando;
             },
             onFinished: function () {
+                enviando = true;
+                SGEI.mostrarSpinner();
                 $form.trigger("submit");
             }
         });

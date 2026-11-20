@@ -63,49 +63,42 @@ namespace login_v6.Controllers
             return View(det);
         }
 
-        public ActionResult GuardarImp(DTO_Impresora_Editar dto, bool test)
+        public ActionResult GuardarImp(DTO_Impresora_Editar dto)
         {
-            if (test)
-            {
-                ubicacion_impresora_dominio im = new ubicacion_impresora_dominio();
-                var impresora = im.Obtener(dto.id_ubicacion_impresora);
+            ubicacion_impresora_dominio im = new ubicacion_impresora_dominio();
+            var impresora = im.Obtener(dto.id_ubicacion_impresora);
 
-                impresora.descripcion = dto.descripcion;
-                impresora.fecha_ubicacion = dto.fecha_ubicacion;
+            impresora.descripcion = dto.descripcion;
+            impresora.fecha_ubicacion = dto.fecha_ubicacion;
 
-                im.Guardar(impresora); //cabecera
+            im.Guardar(impresora); //cabecera
 
 
 
-                detalle_impresora_ubicacion_dominio imp = new detalle_impresora_ubicacion_dominio();
-                var imp_deta = imp.Obtener(dto.id_detalle_ubicacion_impresora);
+            detalle_impresora_ubicacion_dominio imp = new detalle_impresora_ubicacion_dominio();
+            var imp_deta = imp.Obtener(dto.id_detalle_ubicacion_impresora);
 
-                imp_deta.ip = dto.ip;
-                imp_deta.pc_dondeseconecta = dto.pc_donde_se_conecta;
+            imp_deta.ip = dto.ip;
+            imp_deta.pc_dondeseconecta = dto.pc_donde_se_conecta;
 
-                imp.Guardar(imp_deta); //detalle
+            imp.Guardar(imp_deta); //detalle
 
 
-                
+            
 
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
 
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "IMPRESORA";
-                audit.id_equipo = impresora.id;
-                audit.accion = "EDITAR";
-                audit.usuario = User.Identity.Name;
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "IMPRESORA";
+            audit.id_equipo = impresora.id;
+            audit.accion = "EDITAR";
+            audit.usuario = User.Identity.Name;
 
-                audit_dom.Guardar(audit);
-                //---//
-                return View();
-            }
-            else
-            {
-                return Redirect("~/Home/Check");
-            }
+            audit_dom.Guardar(audit);
+            //---//
+            return View();
 
         }
 

@@ -125,7 +125,9 @@ namespace login_v6.Controllers
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()
         {
-            return View();
+            // Con modelo null, los helpers *For(m => ...) disparan una NullReferenceException que MVC atrapa,
+            // pero el depurador de Visual Studio se detiene ahí.
+            return View(new AddPhoneNumberViewModel());
         }
 
         //
@@ -239,7 +241,7 @@ namespace login_v6.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
-            return View();
+            return View(new ChangePasswordViewModel());
         }
 
         //
@@ -270,7 +272,7 @@ namespace login_v6.Controllers
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
         {
-            return View();
+            return View(new SetPasswordViewModel());
         }
 
         //

@@ -101,44 +101,37 @@ namespace login_v6.Controllers
                 return View(det);
         }
 
-        public ActionResult GuardarTel(DTO_u_detalle_telefono deta, bool test)
+        public ActionResult GuardarTel(DTO_u_detalle_telefono deta)
         {
-            if (test)
-            {
-                telefono_dominio tel = new telefono_dominio();
-                var telefono = tel.Obtener(deta.id_telefono);
+            telefono_dominio tel = new telefono_dominio();
+            var telefono = tel.Obtener(deta.id_telefono);
 
-                telefono.descripcion = deta.descripcion;
-                tel.Guardar(telefono); //Cabecera
+            telefono.descripcion = deta.descripcion;
+            tel.Guardar(telefono); //Cabecera
 
-                detalle_tel_dominio dt = new detalle_tel_dominio();
-                var detalle = dt.Obtener(deta.id_detalle);
+            detalle_tel_dominio dt = new detalle_tel_dominio();
+            var detalle = dt.Obtener(deta.id_detalle);
 
-                detalle.marca_modelo_id = deta.id_mm;
-                detalle.nro_interno = deta.nro_interno;
-                detalle.tipo_tel_id = deta.id_tipo; //Detalle
+            detalle.marca_modelo_id = deta.id_mm;
+            detalle.nro_interno = deta.nro_interno;
+            detalle.tipo_tel_id = deta.id_tipo; //Detalle
 
-                dt.Guardar(detalle);
+            dt.Guardar(detalle);
 
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
 
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "TELEFONO";
-                audit.id_equipo = deta.id_telefono;
-                audit.accion = "EDITAR";
-                audit.usuario = User.Identity.Name;
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "TELEFONO";
+            audit.id_equipo = deta.id_telefono;
+            audit.accion = "EDITAR";
+            audit.usuario = User.Identity.Name;
 
-                audit_dom.Guardar(audit);
-                //---//
+            audit_dom.Guardar(audit);
+            //---//
 
-                return View();
-            }
-            else
-            {
-                return Redirect("~/Computadora/Check");
-            }
+            return View();
         }
         public ActionResult Baja(int id)
         {

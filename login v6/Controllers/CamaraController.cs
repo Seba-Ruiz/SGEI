@@ -41,44 +41,37 @@ namespace login_v6.Controllers
 
 
 
-        public ActionResult GuardarCam(DTO_u_detalle_camara deta, bool test)
+        public ActionResult GuardarCam(DTO_u_detalle_camara deta)
         {
-            if (test)
-            {
-                camara_dominio cam = new camara_dominio();
-                var camara = cam.Obtener(deta.id_camara);
+            camara_dominio cam = new camara_dominio();
+            var camara = cam.Obtener(deta.id_camara);
 
-                camara.descripcion = deta.descripcion;
-                cam.Guardar(camara); //Cabecera
+            camara.descripcion = deta.descripcion;
+            cam.Guardar(camara); //Cabecera
 
-                detalle_camara_dominio dt = new detalle_camara_dominio();
-                var detalle = dt.Obtener(deta.id_detalle);
+            detalle_camara_dominio dt = new detalle_camara_dominio();
+            var detalle = dt.Obtener(deta.id_detalle);
 
-                detalle.marca_model_id = deta.id_mm;
-                detalle.nroip = deta.nro_ip; //Detalle
+            detalle.marca_model_id = deta.id_mm;
+            detalle.nroip = deta.nro_ip; //Detalle
 
-                dt.Guardar(detalle);
+            dt.Guardar(detalle);
 
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
 
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "CAMARA";
-                audit.id_equipo = deta.id_camara;
-                audit.accion = "EDITAR";
-                audit.usuario = User.Identity.Name;
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "CAMARA";
+            audit.id_equipo = deta.id_camara;
+            audit.accion = "EDITAR";
+            audit.usuario = User.Identity.Name;
 
-                audit_dom.Guardar(audit);
-                //---//
+            audit_dom.Guardar(audit);
+            //---//
 
 
-                return View();
-            }
-            else
-            {
-                return Redirect("~/Camara/Check");
-            }
+            return View();
         }
 
         public ActionResult Incidente(int id)
@@ -154,11 +147,6 @@ namespace login_v6.Controllers
 
             audit_dom.Guardar(audit);
             //---//
-            return View();
-        }
-
-        public ActionResult Check()
-        {
             return View();
         }
     }

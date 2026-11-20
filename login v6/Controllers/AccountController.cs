@@ -64,7 +64,9 @@ namespace login_v6.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            // Con modelo null, los helpers *For(m => ...) disparan una NullReferenceException que MVC atrapa,
+            // pero el depurador de Visual Studio se detiene ahí.
+            return View(new LoginViewModel());
         }
 
         //
@@ -157,7 +159,7 @@ namespace login_v6.Controllers
         [SoloAdministrador]
         public ActionResult Register()
         {
-            return View();
+            return View(new RegisterViewModel());
         }
 
         //
@@ -220,7 +222,7 @@ namespace login_v6.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
-            return View();
+            return View(new ForgotPasswordViewModel());
         }
 
         //
@@ -264,7 +266,7 @@ namespace login_v6.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+            return code == null ? View("Error") : View(new ResetPasswordViewModel { Code = code });
         }
 
         //
