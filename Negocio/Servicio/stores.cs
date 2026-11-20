@@ -10,85 +10,44 @@ namespace Negocio.Servicio
 {
     public class stores
     {
-        /// <summary>Computadoras activas (sin fecha de baja); sin ubicación, todas las del sistema.</summary>
+        /// <summary>
+        /// Computadoras activas (sin fecha de baja) con su ubicación; sin ubicación, todas las del sistema.
+        /// Solo une las tablas que usan las grillas (pc, ubicación y detalle): sumar las tablas de tipo,
+        /// RAM, disco, SO, mother y procesador hacía que SQL Server pidiera más memoria de la que tiene
+        /// disponible para consultas y esperara ~25 s antes de ejecutarla. Por eso nombre_tipo, ram, disco,
+        /// so, procesador y mother quedan en null: para el detalle completo está u_computadora_detalle.
+        /// </summary>
         public List<DTO_u_computadora> u_computadora(int? ubicacionpc = null)
         {
-            var dto_u_computadora = new List<DTO_u_computadora>();
-
-
             using (var ctx = new SGEIContext())
             {
-                var ubica = (from a in ctx.pc
-                             from b in ctx.ubicacionPC
-                             from c in ctx.pc_ubicacionpc
-                             from d in ctx.detallePC
-                             from e in ctx.tipoPC
-                             from f in ctx.ramPC
-                             from g in ctx.discoPC
-                             from h in ctx.soPC
-                             from i in ctx.motherPC
-                             from j in ctx.procesadorPC
-
-                             where
-                             (ubicacionpc == null || c.ubicacionpc_id == ubicacionpc) &&
-                             c.pc_id == a.id_pc &&
-                             c.ubicacionpc_id == b.id_ubicacion &&
-                             a.id_pc == d.pc_id &&
-                             a.tipo_id == e.id_tipo &&
-                             d.disco_id == g.id_disco &&
-                             d.mother_id == i.id_mother &&
-                             d.so_id == h.id_so &&
-                             d.ram_id == f.id_ram &&
-                             d.procesador_id == j.id_procesador &&
-                             a.fecha_baja == null
-
-                             select new
-                             {
-                                 nombre = a.nombre,
-                                 ip = a.ip,
-                                 descripcion = a.descripcion,
-                                 id_pc = a.id_pc,
-                                 ubicacion = b.nombre,
-                                 fecha_ubicacion = c.fecha_ubicacion,
-                                 responsablepc = d.responsablepc,
-                                 observacion = d.observacion,
-                                 nombre_tipo = e.nombre_tipo,
-                                 ram = f.descripcion,
-                                 disco = g.descripcion,
-                                 so = h.descripcion,
-                                 procesador = j.descripcion,
-                                 mother = i.descripcion,
-                                 id_detalle = d.id_detalle
-
-                             }).ToList();
-
-                foreach (var item in ubica)
+                var ubicaciones = ctx.pc_ubicacionpc.AsQueryable();
+                if (ubicacionpc.HasValue)
                 {
-                    var dto = new DTO_u_computadora();
-
-                    dto.nombre = item.nombre;
-                    dto.ip = item.ip;
-                    dto.descripcion = item.descripcion;
-                    dto.id_pc = item.id_pc;
-                    dto.ubicacion = item.ubicacion;
-                    dto.fecha_ubicacion = item.fecha_ubicacion;
-                    dto.responsablepc = item.responsablepc;
-                    dto.observacion = item.observacion;
-                    dto.nombre_tipo = item.nombre_tipo;
-                    dto.ram = item.ram;
-                    dto.disco = item.disco;
-                    dto.so = item.so;
-                    dto.procesador = item.procesador;
-                    dto.mother = item.mother;
-                    dto.id_detalle = item.id_detalle;
-
-                    dto_u_computadora.Add(dto);
-
+                    ubicaciones = ubicaciones.Where(x => x.ubicacionpc_id == ubicacionpc.Value);
                 }
 
-
-
-                return dto_u_computadora;
+                return (from a in ctx.pc
+                        from c in ubicaciones
+                        from b in ctx.ubicacionPC
+                        from d in ctx.detallePC
+                        where
+                        c.pc_id == a.id_pc &&
+                        c.ubicacionpc_id == b.id_ubicacion &&
+                        d.pc_id == a.id_pc &&
+                        a.fecha_baja == null
+                        select new DTO_u_computadora
+                        {
+                            nombre = a.nombre,
+                            ip = a.ip,
+                            descripcion = a.descripcion,
+                            id_pc = a.id_pc,
+                            ubicacion = b.nombre,
+                            fecha_ubicacion = c.fecha_ubicacion,
+                            responsablepc = d.responsablepc,
+                            observacion = d.observacion,
+                            id_detalle = d.id_detalle
+                        }).ToList();
             }
 
         }
