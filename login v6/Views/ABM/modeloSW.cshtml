@@ -1,56 +1,41 @@
 ﻿@model List<Model.marca_modelo_switch>
 @{
-    ViewBag.Title = "Modelos de SW";
+    ViewBag.Title = "Modelos de switches";
 }
 
-<h4 class="page-title">Modelos Switchs</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Modelos de SW") </li>
-</ol>
-
-@using (Html.BeginForm("Crudmodelosw", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="vakata-context-left">
-        <button type="submit" class="btn btn-primary">
-            <span class="btn-label">
-                <i class="bi bi-plus-lg"></i>
-            </span>
-            Agregar
-        </button>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Modelos de switches</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Swichs/Index">Switches</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modelos</li>
+        </ol>
     </div>
-
-}
-
-<div class="col-md-2"></div>
-<div class="col-md-8">
-    <div class="card-box">
-        <table class="table table-hover sgei-grilla" data-grilla>
-            <thead>
-                <tr>
-                    <th>Marca y Modelo</th>
-                    <th class="sgei-col-acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var a in Model)
-                {
-                    <tr>
-                        <td>@a.marca_modelo</td>
-                        <td>
-                            <div class="sgei-acciones">
-                                <a class="sgei-accion" title="Editar" href="~/ABM/Editarmodelosw/@a.id_mmarca" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
-                                @Html.BotonEliminar(Url.Content("~/ABM/Eliminarmodeloswm/" + a.id_mmarca), "¿Desea eliminar el modelo?", "bi bi-trash")
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-    </div>
+    <a class="btn btn-primary" href="~/ABM/Crudmodelosw" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo modelo</a>
 </div>
-<div class="col-md-2"></div>
 
-
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
+        <thead>
+            <tr>
+                    <th>Marca y modelo</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                        <td>@a.marca_modelo</td>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="~/ABM/Editarmodelosw/@a.id_mmarca" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/Eliminarmodeloswm/" + a.id_mmarca), "¿Eliminar el modelo «" + a.marca_modelo + "»?")
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

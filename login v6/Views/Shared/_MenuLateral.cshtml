@@ -3,10 +3,14 @@
     var controlador = (string)ViewContext.RouteData.Values["controller"];
     var accion = (string)ViewContext.RouteData.Values["action"];
     var esAdmin = User.EsAdministrador();
+    var equipoActual = MenuSgei.EquipoActual(controlador, accion);
 
     Func<ItemMenu, string> clase = item => "sgei-menu-link" + (item.EsActual(controlador, accion) ? " activo" : "");
+    var usuarios = MenuSgei.Usuarios;
+    var usuariosAbierto = usuarios.ContieneActual(controlador, accion);
 }
 
+@* Lo propio de cada equipo (alta, consultas, ingresos, gestión) está en la barra de su pantalla: Views/Shared/_BarraEquipo.cshtml *@
 <ul class="sgei-menu">
     <li>
         <a class="@clase(MenuSgei.Inicio)" href="@Url.Action(MenuSgei.Inicio.Accion, MenuSgei.Inicio.Controlador)" data-spinner>
@@ -19,46 +23,49 @@
         </a>
     </li>
 
-    @{ var tituloAdminMostrado = false; }
-    @foreach (var seccion in MenuSgei.Secciones.Where(s => !s.SoloAdministrador || esAdmin))
+    @* Equipos: plegable como Usuarios; queda abierto y marcado el equipo de la pantalla actual. *@
+    <li>
+        <button type="button" class="sgei-menu-link" data-bs-toggle="collapse" data-bs-target="#menu-equipos"
+                aria-expanded="@(equipoActual != null ? "true" : "false")" aria-controls="menu-equipos">
+            <i class="bi bi-hdd-stack"></i> Equipos
+            <i class="bi bi-chevron-right sgei-menu-flecha"></i>
+        </button>
+        <div class="collapse@(equipoActual != null ? " show" : "")" id="menu-equipos">
+            <ul class="sgei-submenu">
+                @foreach (var equipo in MenuSgei.Equipos)
+                {
+                    <li>
+                        <a class="sgei-menu-link@(equipo == equipoActual ? " activo" : "")" href="@Url.Action(equipo.Grilla.Accion, equipo.Grilla.Controlador)" data-spinner
+                           @(equipo == equipoActual ? Html.Raw("aria-current=\"page\"") : null)>@equipo.Nombre</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </li>
+
+    @if (esAdmin)
     {
-        if (seccion.SoloAdministrador && !tituloAdminMostrado)
-        {
-            tituloAdminMostrado = true;
-            <li class="sgei-menu-titulo">Administración</li>
-        }
-
-        var abierta = seccion.ContieneActual(controlador, accion);
-        var idColapso = "menu-" + seccion.Id;
-
+        var idUsuarios = "menu-" + usuarios.Id;
+        <li class="sgei-menu-titulo">Administración</li>
         <li>
-            <button type="button" class="sgei-menu-link" data-bs-toggle="collapse" data-bs-target="#@idColapso"
-                    aria-expanded="@(abierta ? "true" : "false")" aria-controls="@idColapso">
-                <i class="bi @seccion.Icono"></i> @seccion.Texto
+            <button type="button" class="sgei-menu-link" data-bs-toggle="collapse" data-bs-target="#@idUsuarios"
+                    aria-expanded="@(usuariosAbierto ? "true" : "false")" aria-controls="@idUsuarios">
+                <i class="bi @usuarios.Icono"></i> @usuarios.Texto
                 <i class="bi bi-chevron-right sgei-menu-flecha"></i>
             </button>
-            <div class="collapse@(abierta ? " show" : "")" id="@idColapso">
+            <div class="collapse@(usuariosAbierto ? " show" : "")" id="@idUsuarios">
                 <ul class="sgei-submenu">
-                    @foreach (var grupo in seccion.Grupos)
+                    @foreach (var item in usuarios.Items)
                     {
-                        var items = grupo.Items.Where(i => !i.SoloAdministrador || esAdmin).ToList();
-                        if (!items.Any())
-                        {
-                            continue;
-                        }
-                        if (grupo.Titulo != null)
-                        {
-                            <li class="sgei-submenu-grupo">@grupo.Titulo</li>
-                        }
-                        foreach (var item in items)
-                        {
-                            <li>
-                                <a class="@clase(item)" href="@Url.Action(item.Accion, item.Controlador)" data-spinner>@item.Texto</a>
-                            </li>
-                        }
+                        <li><a class="@clase(item)" href="@Url.Action(item.Accion, item.Controlador)" data-spinner>@item.Texto</a></li>
                     }
                 </ul>
             </div>
+        </li>
+        <li>
+            <a class="@clase(MenuSgei.Proveedores)" href="@Url.Action(MenuSgei.Proveedores.Accion, MenuSgei.Proveedores.Controlador)" data-spinner>
+                <i class="bi bi-truck"></i> @MenuSgei.Proveedores.Texto
+            </a>
         </li>
     }
 </ul>

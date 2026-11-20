@@ -1,54 +1,41 @@
 ﻿@model List<Model.incidente_camara>
 @{
-    ViewBag.Title = "Incidentes de Camaras";
+    ViewBag.Title = "Incidentes de cámaras";
 }
-<h4 class="page-title">Incidentes de Camaras</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Incidentes de Camaras") </li>
-</ol>
 
-@using (Html.BeginForm("Crudincidentecam", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="vakata-context-left">
-        <button type="submit" class="btn btn-primary">
-            <span class="btn-label">
-                <i class="bi bi-plus-lg"></i>
-            </span>
-            Agregar
-        </button>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Incidentes de cámaras</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Camara/Index">Cámaras</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Incidentes</li>
+        </ol>
     </div>
-
-}
-<div class="col-md-2"></div>
-<div class="col-md-8">
-    <div class="card-box">
-        <table class="table table-hover sgei-grilla" data-grilla>
-            <thead>
-                <tr>
-                    <th>Nombre Incidente</th>
-                    <th class="sgei-col-acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var a in Model)
-                {
-                    <tr>
-                        <td>@a.descripcion</td>
-                        <td>
-                            <div class="sgei-acciones">
-                                <a class="sgei-accion" title="Editar" href="~/ABM/EditarincidenteCam/@a.id_incidente" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
-                                @Html.BotonEliminar(Url.Content("~/ABM/EliminarincidenteCam/" + a.id_incidente), "¿Desea eliminar el incidente?", "bi bi-trash")
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-    </div>
+    <a class="btn btn-primary" href="~/ABM/Crudincidentecam" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo incidente</a>
 </div>
-<div class="col-md-2"></div>
 
-
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
+        <thead>
+            <tr>
+                    <th>Incidente</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                        <td>@a.descripcion</td>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="~/ABM/EditarincidenteCam/@a.id_incidente" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarincidenteCam/" + a.id_incidente), "¿Eliminar el incidente «" + a.descripcion + "»?")
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

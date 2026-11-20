@@ -428,7 +428,31 @@
         }, 0);
     });
 
+    /**
+     * Aviso de éxito (toast verde centrado arriba, Views/Shared/_Avisos.cshtml). El servidor lo deja después de
+     * guardar; desde JavaScript se puede mostrar uno con SGEI.mostrarAviso("Se guardó ...").
+     */
+    var mostrarToast = function (toast) {
+        if (window.bootstrap && window.bootstrap.Toast) {
+            window.bootstrap.Toast.getOrCreateInstance(toast, { delay: 5000 }).show();
+        }
+    };
+
+    SGEI.mostrarAviso = function (mensaje) {
+        var $toast = $('<div class="toast align-items-center text-bg-success border-0 sgei-aviso" role="status" aria-live="polite" aria-atomic="true">'
+            + '<div class="d-flex"><div class="toast-body"><i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i></div>'
+            + '<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button></div></div>');
+        $toast.find(".toast-body").append(document.createTextNode(mensaje));
+        $toast.on("hidden.bs.toast", function () { $toast.remove(); });
+        $("#sgei-avisos").append($toast);
+        mostrarToast($toast[0]);
+    };
+
     $(function () {
+        $("[data-sgei-aviso]").each(function () {
+            mostrarToast(this);
+        });
+
         $(".modal[data-abrir-al-cargar]").modal("show");
 
         // Formularios de alta/edición por pasos: <form data-wizard> (BeginForm con data_wizard = "true").

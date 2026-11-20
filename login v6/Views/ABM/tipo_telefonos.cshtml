@@ -1,54 +1,41 @@
 ﻿@model List<Model.tipo_tel>
 @{
-    ViewBag.Title = "Tipos de telefonos";
+    ViewBag.Title = "Tipos de teléfono";
 }
-<h4 class="page-title">Tipos de Telefonos!</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Tipos Telefonos") </li>
-</ol>
 
-@using (Html.BeginForm("Crudtipo_tel", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="vakata-context-left">
-        <button type="submit" class="btn btn-primary">
-            <span class="btn-label">
-                <i class="bi bi-plus-lg"></i>
-            </span>
-            Agregar
-        </button>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Tipos de teléfono</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Telefonos/Index">Teléfonos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tipos</li>
+        </ol>
     </div>
-
-}
-<div class="col-md-2"></div>
-<div class="col-md-8">
-    <div class="card-box">
-        <table class="table table-hover sgei-grilla" data-grilla>
-            <thead>
-                <tr>
-                    <th>Nombre Tipo</th>
-                    <th class="sgei-col-acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var a in Model)
-                {
-                    <tr>
-                        <td>@a.nombre_tipo</td>
-                        <td>
-                            <div class="sgei-acciones">
-                                <a class="sgei-accion" title="Editar" href="~/ABM/Editartipo_tel/@a.id_tipo" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
-                                @Html.BotonEliminar(Url.Content("~/ABM/Eliminartipo_tel/" + a.id_tipo), "¿Desea eliminar el tipo de teléfono?", "bi bi-trash")
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-    </div>
+    <a class="btn btn-primary" href="~/ABM/Crudtipo_tel" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo tipo</a>
 </div>
-<div class="col-md-2"></div>
 
-
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
+        <thead>
+            <tr>
+                    <th>Tipo</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                        <td>@a.nombre_tipo</td>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="~/ABM/Editartipo_tel/@a.id_tipo" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/Eliminartipo_tel/" + a.id_tipo), "¿Eliminar el tipo «" + a.nombre_tipo + "»?")
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

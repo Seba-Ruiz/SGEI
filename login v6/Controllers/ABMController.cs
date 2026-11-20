@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using login_v6.Helpers;
 using Negocio.Dominio;
 using Model;
 using login_v6.Seguridad;
@@ -43,16 +44,19 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarInsumo(int id)
         {
+            var registro = insu.Obtener(id);
             insu.Eliminar(id);
+            this.AvisoEliminado("el insumo", registro != null ? registro.nombre : null);
             return Redirect("~/ABM/insumos");
         }
         [HttpPost]
         public ActionResult EliminarImpresora(int id)
         {
+            var registro = imp.Obtener(id);
             imp.Eliminar(id);
+            this.AvisoEliminado("el modelo de impresora", registro != null ? registro.marca_modelo : null);
             return Redirect("~/ABM/impresoras");
         }
-        [HttpPost]
         public ActionResult Crud(int id = 0) //Este es el ABM insumo
         {
             return View(id == 0 ? new insumo()
@@ -72,13 +76,17 @@ namespace login_v6.Controllers
 
         public ActionResult Guardar(insumo model)
         {
+            var nuevo = !(model.id > 0);
             insu.Guardar(model);
+            this.AvisoGuardado(nuevo, "el insumo", model.nombre);
             return Redirect("~/ABM/Insumos");
         }
 
         public ActionResult GuardarImpresora(impresora model)
         {
+            var nuevo = !(model.id > 0);
             imp.Guardar(model);
+            this.AvisoGuardado(nuevo, "el modelo de impresora", model.marca_modelo);
             return Redirect("~/ABM/Impresoras");
         }
 
@@ -87,7 +95,6 @@ namespace login_v6.Controllers
             return View(imp.Listar());
         }
 
-        [HttpPost]
         public ActionResult CrudImpresora(int id = 0) //Este es el ABM impresora
         {
             return View(id == 0 ? new impresora()
@@ -109,7 +116,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult GuardarUbicacion(ubicacion model)
         {
+            var nuevo = !(model.id > 0);
             ubi.Guardar(model);
+            this.AvisoGuardado(nuevo, "la ubicación", model.nombreUbicacion);
             return Redirect("~/ABM/ubicacion");
         }
 
@@ -123,8 +132,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarUbicacion(int id)
         {
-
+            var registro = ubi.Obtener(id);
             ubi.Eliminar(id);
+            this.AvisoEliminado("la ubicación", registro != null ? registro.nombreUbicacion : null);
             return Redirect("~/ABM/ubicacion");
         }
 
@@ -143,7 +153,9 @@ namespace login_v6.Controllers
 
         public ActionResult GuardarRam(ramPC model)
         {
+            var nuevo = !(model.id_ram > 0);
             ram.Guardar(model);
+            this.AvisoGuardado(nuevo, "la memoria", model.descripcion);
             return Redirect("~/ABM/rams");
         }
 
@@ -156,8 +168,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarRam(int id)
         {
-
+            var registro = ram.Obtener(id);
             ram.Eliminar(id);
+            this.AvisoEliminado("la memoria", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/rams");
         }
 
@@ -176,7 +189,9 @@ namespace login_v6.Controllers
 
         public ActionResult GuardarDisco(discoPC model)
         {
+            var nuevo = !(model.id_disco > 0);
             disco.Guardar(model);
+            this.AvisoGuardado(nuevo, "el disco", model.descripcion);
             return Redirect("~/ABM/discos");
         }
 
@@ -189,8 +204,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarDisco(int id)
         {
-
+            var registro = disco.Obtener(id);
             disco.Eliminar(id);
+            this.AvisoEliminado("el disco", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/discos");
         }
 
@@ -211,7 +227,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarso(soPC model)
         {
+            var nuevo = !(model.id_so > 0);
             so.Guardar(model);
+            this.AvisoGuardado(nuevo, "el sistema operativo", model.descripcion);
             return Redirect("~/ABM/sos");
         }
 
@@ -225,8 +243,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarso(int id)
         {
-
+            var registro = so.Obtener(id);
             so.Eliminar(id);
+            this.AvisoEliminado("el sistema operativo", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/sos");
         }
 
@@ -245,7 +264,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarmoth(motherPC model)
         {
+            var nuevo = !(model.id_mother > 0);
             moth.Guardar(model);
+            this.AvisoGuardado(nuevo, "la placa madre", model.descripcion);
             return Redirect("~/ABM/mothers");
         }
 
@@ -259,8 +280,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarmoth(int id)
         {
-
+            var registro = moth.Obtener(id);
             moth.Eliminar(id);
+            this.AvisoEliminado("la placa madre", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/mothers");
         }
 
@@ -282,7 +304,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarincidentepc(incidentePC model)
         {
+            var nuevo = !(model.id_incidentepc > 0);
             incipc.Guardar(model);
+            this.AvisoGuardado(nuevo, "el incidente", model.nombre);
             return Redirect("~/ABM/incidentespc");
         }
 
@@ -296,8 +320,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarincidentepc(int id)
         {
-
+            var registro = incipc.Obtener(id);
             incipc.Eliminar(id);
+            this.AvisoEliminado("el incidente", registro != null ? registro.nombre : null);
             return Redirect("~/ABM/incidentespc");
         }
 
@@ -316,7 +341,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardartipopc(tipoPC model)
         {
+            var nuevo = !(model.id_tipo > 0);
             tipocp.Guardar(model);
+            this.AvisoGuardado(nuevo, "el tipo de computadora", model.nombre_tipo);
             return Redirect("~/ABM/tipospc");
         }
 
@@ -329,8 +356,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminartipopc(int id)
         {
-
+            var registro = tipocp.Obtener(id);
             tipocp.Eliminar(id);
+            this.AvisoEliminado("el tipo de computadora", registro != null ? registro.nombre_tipo : null);
             return Redirect("~/ABM/tipospc");
         }
 
@@ -350,7 +378,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarubipc(ubicacionPC model)
         {
+            var nuevo = !(model.id_ubicacion > 0);
             ubipc.Guardar(model);
+            this.AvisoGuardado(nuevo, "la ubicación", model.nombre);
             return Redirect("~/ABM/ubicacionespc");
         }
 
@@ -363,8 +393,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarubipc(int id)
         {
-
+            var registro = ubipc.Obtener(id);
             ubipc.Eliminar(id);
+            this.AvisoEliminado("la ubicación", registro != null ? registro.nombre : null);
             return Redirect("~/ABM/ubicacionespc");
         }
 
@@ -383,7 +414,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarmotivopc(motivobajaPC model)
         {
+            var nuevo = !(model.id_motivobaja > 0);
             motivopc.Guardar(model);
+            this.AvisoGuardado(nuevo, "el motivo de baja", model.descripcion);
             return Redirect("~/ABM/motivospc");
         }
 
@@ -396,8 +429,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarmotivopc(int id)
         {
-
+            var registro = motivopc.Obtener(id);
             motivopc.Eliminar(id);
+            this.AvisoEliminado("el motivo de baja", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/motivospc");
         }
 
@@ -416,7 +450,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarprocesadorpc(procesadorPC model)
         {
+            var nuevo = !(model.id_procesador > 0);
             procesador.Guardar(model);
+            this.AvisoGuardado(nuevo, "el procesador", model.descripcion);
             return Redirect("~/ABM/procesadorespc");
         }
 
@@ -429,8 +465,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarprocesadorpc(int id)
         {
-
+            var registro = procesador.Obtener(id);
             procesador.Eliminar(id);
+            this.AvisoEliminado("el procesador", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/procesadorespc");
         }
 
@@ -450,7 +487,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarinsumopc(insumo_pc model)
         {
+            var nuevo = !(model.id_insumo > 0);
             insumo_pc.Guardar(model);
+            this.AvisoGuardado(nuevo, "el insumo", model.nombre);
             return Redirect("~/ABM/insumospc");
         }
 
@@ -465,8 +504,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarinsumopc(int id)
         {
-
+            var registro = insumo_pc.Obtener(id);
             insumo_pc.Eliminar(id);
+            this.AvisoEliminado("el insumo", registro != null ? registro.nombre : null);
             return Redirect("~/ABM/insumospc");
         }
 
@@ -486,7 +526,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardartipo_tel(tipo_tel model)
         {
+            var nuevo = !(model.id_tipo > 0);
             tel.Guardar(model);
+            this.AvisoGuardado(nuevo, "el tipo de teléfono", model.nombre_tipo);
             return Redirect("~/ABM/tipo_telefonos");
         }
 
@@ -500,7 +542,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminartipo_tel(int id)
         {
+            var registro = tel.Obtener(id);
             tel.Eliminar(id);
+            this.AvisoEliminado("el tipo de teléfono", registro != null ? registro.nombre_tipo : null);
             return Redirect("~/ABM/tipo_telefonos");
         }
 
@@ -521,7 +565,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarmmarca(marca_modelo_cel model)
         {
+            var nuevo = !(model.id_mm > 0);
             mm.Guardar(model);
+            this.AvisoGuardado(nuevo, "el modelo de teléfono", model.descripcion);
             return Redirect("~/ABM/mmarcas");
         }
 
@@ -536,7 +582,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarmmarca(int id)
         {
+            var registro = mm.Obtener(id);
             mm.Eliminar(id);
+            this.AvisoEliminado("el modelo de teléfono", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/mmarcas");
         }
 
@@ -557,7 +605,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarubicaciontel(ubicacion_tel model)
         {
+            var nuevo = !(model.id_ubicacion_tel > 0);
             ut.Guardar(model);
+            this.AvisoGuardado(nuevo, "la ubicación", model.nombre_ubi);
             return Redirect("~/ABM/ubicacionestel");
         }
 
@@ -571,7 +621,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarubicaciontel(int id)
         {
+            var registro = ut.Obtener(id);
             ut.Eliminar(id);
+            this.AvisoEliminado("la ubicación", registro != null ? registro.nombre_ubi : null);
             return Redirect("~/ABM/ubicacionestel");
         }
 
@@ -589,7 +641,9 @@ namespace login_v6.Controllers
         }
         public ActionResult Guardarincidentetel(incidente_tel model)
         {
+            var nuevo = !(model.id_incidente_tel > 0);
             incitel.Guardar(model);
+            this.AvisoGuardado(nuevo, "el incidente", model.nombre_incidente);
             return Redirect("~/ABM/incidentestel");
         }
         public ActionResult Editarincidentetel(int id = 0)
@@ -600,7 +654,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarincidentetel(int id)
         {
+            var registro = incitel.Obtener(id);
             incitel.Eliminar(id);
+            this.AvisoEliminado("el incidente", registro != null ? registro.nombre_incidente : null);
             return Redirect("~/ABM/incidentestel");
         }
 
@@ -635,7 +691,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarinsumocam(insumo_camara model)
         {
+            var nuevo = !(model.id_insumo > 0);
             insumocam.Guardar(model);
+            this.AvisoGuardado(nuevo, "el insumo", model.nombre);
             return Redirect("~/ABM/insumosCam");
         }
 
@@ -650,8 +708,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarinsumoCam(int id)
         {
-
+            var registro = insumocam.Obtener(id);
             insumocam.Eliminar(id);
+            this.AvisoEliminado("el insumo", registro != null ? registro.nombre : null);
             return Redirect("~/ABM/insumosCam");
         }
 
@@ -677,7 +736,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarmmarcacam(marca_modelo_camara model)
         {
+            var nuevo = !(model.id_mmarca > 0);
             modelo_cam.Guardar(model);
+            this.AvisoGuardado(nuevo, "el modelo de cámara", model.marca_modelo);
             return Redirect("~/ABM/modeloCam");
         }
 
@@ -692,8 +753,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarmodeloCam(int id)
         {
-
+            var registro = modelo_cam.Obtener(id);
             modelo_cam.Eliminar(id);
+            this.AvisoEliminado("el modelo de cámara", registro != null ? registro.marca_modelo : null);
             return Redirect("~/ABM/modeloCam");
         }
 
@@ -719,7 +781,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarubicam(ubicacion_camara model)
         {
+            var nuevo = !(model.id_ubicacion_camara > 0);
             ubi_cam.Guardar(model);
+            this.AvisoGuardado(nuevo, "la ubicación", model.nombre);
             return Redirect("~/ABM/ubiCam");
         }
 
@@ -734,8 +798,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarubiCam(int id)
         {
-
+            var registro = ubi_cam.Obtener(id);
             ubi_cam.Eliminar(id);
+            this.AvisoEliminado("la ubicación", registro != null ? registro.nombre : null);
             return Redirect("~/ABM/ubiCam");
         }
 
@@ -759,7 +824,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarincidentecam(incidente_camara model)
         {
+            var nuevo = !(model.id_incidente > 0);
             incidente_cam.Guardar(model);
+            this.AvisoGuardado(nuevo, "el incidente", model.descripcion);
             return Redirect("~/ABM/incidenteCam");
         }
 
@@ -772,8 +839,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarincidenteCam(int id)
         {
-
-            ubi_cam.Eliminar(id);
+            var registro = incidente_cam.Obtener(id);
+            incidente_cam.Eliminar(id);
+            this.AvisoEliminado("el incidente", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/incidenteCam");
         }
 
@@ -797,7 +865,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarubicacionsw(ubicacion_switch model)
         {
+            var nuevo = !(model.id_ubicacion_switch > 0);
             ubicacion_sw.Guardar(model);
+            this.AvisoGuardado(nuevo, "la ubicación", model.nombre);
             return Redirect("~/ABM/ubicacionSW");
         }
 
@@ -810,8 +880,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarubicacionsw(int id)
         {
-
+            var registro = ubicacion_sw.Obtener(id);
             ubicacion_sw.Eliminar(id);
+            this.AvisoEliminado("la ubicación", registro != null ? registro.nombre : null);
             return Redirect("~/ABM/ubicacionSW");
         }
 
@@ -833,7 +904,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarincidentesw(incidente_switch model)
         {
+            var nuevo = !(model.id_incidente_switch > 0);
             incidente_sw.Guardar(model);
+            this.AvisoGuardado(nuevo, "el incidente", model.descripcion);
             return Redirect("~/ABM/incidenteSW");
         }
 
@@ -846,8 +919,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarincidentesw(int id)
         {
-
+            var registro = incidente_sw.Obtener(id);
             incidente_sw.Eliminar(id);
+            this.AvisoEliminado("el incidente", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/incidenteSW");
         }
 
@@ -869,7 +943,9 @@ namespace login_v6.Controllers
 
         public ActionResult Guardarmodelosw(marca_modelo_switch model)
         {
+            var nuevo = !(model.id_mmarca > 0);
             modelo_sw.Guardar(model);
+            this.AvisoGuardado(nuevo, "el modelo de switch", model.marca_modelo);
             return Redirect("~/ABM/modeloSW");
         }
 
@@ -882,8 +958,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Eliminarmodeloswm(int id)
         {
-
+            var registro = modelo_sw.Obtener(id);
             modelo_sw.Eliminar(id);
+            this.AvisoEliminado("el modelo de switch", registro != null ? registro.marca_modelo : null);
             return Redirect("~/ABM/modeloSW");
         }
 
@@ -905,7 +982,9 @@ namespace login_v6.Controllers
 
         public ActionResult GuardarubicacionES(ubicacion_escaner model)
         {
+            var nuevo = !(model.id_ubicacion_escaner > 0);
             ubi_es.Guardar(model);
+            this.AvisoGuardado(nuevo, "la ubicación", model.nombre);
             return Redirect("~/ABM/ubicacionES");
         }
 
@@ -918,8 +997,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarubicacionES(int id)
         {
-
+            var registro = ubi_es.Obtener(id);
             ubi_es.Eliminar(id);
+            this.AvisoEliminado("la ubicación", registro != null ? registro.nombre : null);
             return Redirect("~/ABM/ubicacionES");
         }
 
@@ -943,7 +1023,9 @@ namespace login_v6.Controllers
 
         public ActionResult GuardarmodeloES(marca_modelo_escaner model)
         {
+            var nuevo = !(model.id_marca_modelo_escaner > 0);
             modelo_es.Guardar(model);
+            this.AvisoGuardado(nuevo, "el modelo de escáner", model.descripcion);
             return Redirect("~/ABM/modeloES");
         }
 
@@ -956,8 +1038,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarmodeloES(int id)
         {
-
+            var registro = modelo_es.Obtener(id);
             modelo_es.Eliminar(id);
+            this.AvisoEliminado("el modelo de escáner", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/modeloES");
         }
 
@@ -983,7 +1066,9 @@ namespace login_v6.Controllers
 
         public ActionResult GuardarincidenteES(incidente_escaner model)
         {
+            var nuevo = !(model.id_incidente_escaner > 0);
             incidente_es.Guardar(model);
+            this.AvisoGuardado(nuevo, "el incidente", model.descripcion);
             return Redirect("~/ABM/incidenteES");
         }
 
@@ -996,8 +1081,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarincidenteES(int id)
         {
-
+            var registro = incidente_es.Obtener(id);
             incidente_es.Eliminar(id);
+            this.AvisoEliminado("el incidente", registro != null ? registro.descripcion : null);
             return Redirect("~/ABM/incidenteES");
         }
 
@@ -1022,7 +1108,9 @@ namespace login_v6.Controllers
 
         public ActionResult GuardarProveedor(Proveedor model)
         {
+            var nuevo = !(model.id > 0);
             proveedor.Guardar(model);
+            this.AvisoGuardado(nuevo, "el proveedor", model.nombre);
             return Redirect("~/ABM/proveedores");
         }
 
@@ -1035,8 +1123,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult EliminarProveedor(int id)
         {
-
+            var registro = proveedor.Obtener(id);
             proveedor.Eliminar(id);
+            this.AvisoEliminado("el proveedor", registro != null ? registro.nombre : null);
             return Redirect("~/ABM/proveedores");
         }
 

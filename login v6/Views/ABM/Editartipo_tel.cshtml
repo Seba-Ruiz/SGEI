@@ -1,45 +1,43 @@
 ﻿@model Model.tipo_tel
-
 @{
-    ViewBag.Title = "Editar Tipo Telefono";
+    ViewBag.Title = "Editar tipo de teléfono";
 }
 
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@(Model.id_tipo > 0 ? Model.nombre_tipo : "Editar Tipo") </li>
-</ol>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Editar tipo de teléfono</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Telefonos/Index">Teléfonos</a></li>
+            <li class="breadcrumb-item"><a href="~/ABM/tipo_telefonos">Tipos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editar</li>
+        </ol>
+    </div>
+</div>
 
-@using (Html.BeginForm("Guardartipo_tel", "ABM", FormMethod.Post))
+@using (Html.BeginForm("Guardartipo_tel", "ABM", FormMethod.Post, new { @class = "sgei-formulario" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.id_tipo)
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
-            <div class="card-box">
-                <h4 class="mt-0 mb-3 header-title"><b>EDITAR TIPO DE TELEFONO</b></h4>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5><b>Edita las propiedades del tipo de telefono </b></h5>
-                        <p class="text-muted mb-4 font-13">
-                            Edite el tipo.
-                        </p>
-                        <div class="mb-3">
-                            @Html.Label("Ingrese Tipo Telefono")
-                            @Html.TextBoxFor(x => x.nombre_tipo, new { @class = "form-control", @style = "width:200px;", @required = "required" })
-                            @Html.ValidationMessageFor(x => x.nombre_tipo, null, new { @class = "text-danger small" })
-                        </div>
-                        
-
-                    </div>
-                </div>
+    <div class="card sgei-form-card">
+        <div class="card-header">
+            <span class="sgei-form-card-icono"><i class="bi bi-collection" aria-hidden="true"></i></span>
+            <div>
+                <h5 class="sgei-form-card-titulo">Editar tipo de teléfono</h5>
+                <p class="sgei-form-card-ayuda">Modificá los datos y presioná Guardar.</p>
             </div>
         </div>
+        <div class="card-body">
+            <div class="mb-3">
+                @Html.LabelFor(x => x.nombre_tipo, "Tipo de teléfono", new { @class = "form-label sgei-requerido" })
+                @Html.TextBoxFor(x => x.nombre_tipo, new { @class = "form-control", required = "required", autofocus = "autofocus", placeholder = "Ej.: IP", maxlength = "50" })
+                @Html.ValidationMessageFor(x => x.nombre_tipo, null, new { @class = "text-danger small" })
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-secondary" href="~/ABM/tipo_telefonos">Cancelar</a>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar</button>
+        </div>
     </div>
-
-    <div class="text-center">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </div>
-
 }

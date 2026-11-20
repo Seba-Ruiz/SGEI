@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using login_v6.Helpers;
 using Negocio.Dominio;
 using Model;
 using Negocio.Servicio;
@@ -152,7 +153,9 @@ namespace login_v6.Controllers
                 audit_dom.Guardar(audit);
                 //---//
 
-                return View();
+                var equipo = new pc_dominio().Obtener(Convert.ToInt32(inci.pc_id));
+                this.AvisoExito("Se cargó el incidente en la computadora" + Avisos.Nombre(equipo != null ? equipo.nombre : null) + ".");
+                return Redirect("~/Computadora/Index");
             }
         }
 
@@ -210,7 +213,8 @@ namespace login_v6.Controllers
             audit_dom.Guardar(audit);
             //---//
 
-            return View();
+            this.AvisoExito("Se dio de baja la computadora" + Avisos.Nombre(pc.nombre) + ".");
+            return Redirect("~/Computadora/Index");
         }
 
 
@@ -256,7 +260,10 @@ namespace login_v6.Controllers
             audit_dom.Guardar(audit);
             //---//
 
-            return View();
+            var equipo = new pc_dominio().Obtener(id_pc);
+            var destino = new ubicacionpc_dominio().Obtener(id_nueva_ubicacion);
+            this.AvisoExito("Se movió la computadora" + Avisos.Nombre(equipo != null ? equipo.nombre : null) + (destino != null ? " a " + destino.nombre : "") + ".");
+            return Redirect("~/Computadora/Index");
 
         }
 
@@ -324,7 +331,8 @@ namespace login_v6.Controllers
             audit_dom.Guardar(audit);
             //---//
 
-            return View();
+            this.AvisoExito("Se guardaron los cambios de la computadora" + Avisos.Nombre(modelo.nombre_pc) + ".");
+            return Redirect("~/Computadora/Index");
 
         }
     }

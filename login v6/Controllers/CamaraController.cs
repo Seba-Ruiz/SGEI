@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using login_v6.Helpers;
 using Model;
 using Negocio.Dominio;
 using Negocio.DTO;
@@ -71,7 +72,8 @@ namespace login_v6.Controllers
             //---//
 
 
-            return View();
+            this.AvisoExito("Se guardaron los cambios de la cámara" + Avisos.Nombre(deta.descripcion) + ".");
+            return Redirect("~/Camara/Index");
         }
 
         public ActionResult Incidente(int id)
@@ -116,7 +118,9 @@ namespace login_v6.Controllers
                 audit_dom.Guardar(audit);
                 //---//
 
-                return View();
+                var equipo = new camara_dominio().Obtener(Convert.ToInt32(inci.camara_id));
+                this.AvisoExito("Se cargó el incidente en la cámara" + Avisos.Nombre(equipo != null ? equipo.descripcion : null) + ".");
+                return Redirect("~/Camara/Index");
             }
 
         }
@@ -147,7 +151,8 @@ namespace login_v6.Controllers
 
             audit_dom.Guardar(audit);
             //---//
-            return View();
+            this.AvisoExito("Se dio de baja la cámara" + Avisos.Nombre(camara.descripcion) + ".");
+            return Redirect("~/Camara/Index");
         }
     }
 

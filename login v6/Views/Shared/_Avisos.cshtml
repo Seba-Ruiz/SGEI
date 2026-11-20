@@ -1,0 +1,22 @@
+﻿@using login_v6.Helpers
+@*
+    Aviso de éxito de la operación anterior (alta, edición, baja, ...): toast verde centrado arriba.
+    El mensaje lo deja la acción con this.AvisoExito(...) / AvisoGuardado(...) antes de redirigir (Helpers/Avisos.cs);
+    Scripts/app/sgei.js lo muestra y se cierra solo a los pocos segundos.
+*@
+@{
+    var mensaje = TempData[Avisos.Clave] as string;
+}
+<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3 sgei-avisos" id="sgei-avisos">
+    @if (!string.IsNullOrWhiteSpace(mensaje))
+    {
+        <div class="toast align-items-center text-bg-success border-0 sgei-aviso" role="status" aria-live="polite" aria-atomic="true" data-sgei-aviso>
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i>@mensaje
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+        </div>
+    }
+</div>

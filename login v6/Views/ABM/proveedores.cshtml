@@ -1,53 +1,42 @@
 ﻿@model List<Model.Proveedor>
 @{
-    ViewBag.Title = "Proveedor";
+    ViewBag.Title = "Proveedores";
 }
-<h4 class="page-title">Proveedor</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Proveedor") </li>
-</ol>
-@using (Html.BeginForm("CrudProveedor", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="vakata-context-left">
-        <button type="submit" class="btn btn-primary">
-            <span class="btn-label">
-                <i class="bi bi-plus-lg"></i>
-            </span>
-            Agregar
-        </button>
-    </div>
 
-}
-<div class="col-md-2"></div>
-<div class="col-md-8">
-    <div class="card-box">
-        <table class="table table-hover sgei-grilla" data-grilla>
-            <thead>
-                <tr>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Proveedores</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Proveedores</li>
+        </ol>
+    </div>
+    <a class="btn btn-primary" href="~/ABM/CrudProveedor" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo proveedor</a>
+</div>
+
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
+        <thead>
+            <tr>
                     <th>Nombre</th>
-                    <th>Telefono</th>
-                    <th class="sgei-col-acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var a in Model)
-                {
+                    <th>Teléfono</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
                 <tr>
-                    <td>@a.nombre</td>
-                    <td>@a.telefono</td>
+                        <td>@a.nombre</td>
+                        <td>@a.telefono</td>
                     <td>
                         <div class="sgei-acciones">
-                            <a class="sgei-accion" title="Editar" href="~/ABM/EditarProveedor/@a.id" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
-                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarProveedor/" + a.id), "¿Desea eliminar el proveedor?", "bi bi-trash")
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="~/ABM/EditarProveedor/@a.id" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarProveedor/" + a.id), "¿Eliminar el proveedor «" + a.nombre + "»?")
                         </div>
                     </td>
                 </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
 </div>
-<div class="col-md-2"></div>
-

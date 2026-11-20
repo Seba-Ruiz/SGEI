@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using login_v6.Helpers;
 using Model;
 using Negocio;
 using Negocio.Dominio;
@@ -98,12 +99,9 @@ namespace SGEI.Controllers
             audit_dom.Guardar(audit);
             //---//
 
-            return RedirectToAction("AltaExitosaTel");
+            this.AvisoExito("Se agregó el teléfono" + Avisos.Nombre(dto.descripcion) + " (interno " + dto.interno + ").");
+            return Redirect("~/Telefonos/Index");
 
-        }
-        public ActionResult AltaExitosaTel()
-        {
-            return View();
         }
 
 
@@ -170,14 +168,11 @@ namespace SGEI.Controllers
             audit_dom.Guardar(audit);
             //---//
 
-            return RedirectToAction("AltaExitosaCam");
+            this.AvisoExito("Se agregó la cámara" + Avisos.Nombre(dto.descripcion) + " (IP " + dto.ip + ").");
+            return Redirect("~/Camara/Index");
 
         }
 
-        public ActionResult AltaExitosaCam()
-        {
-            return View();
-        }
 
 
 
@@ -246,14 +241,11 @@ namespace SGEI.Controllers
             audit_dom.Guardar(audit);
             //---//
 
-            return RedirectToAction("AltaExitosaSW");
+            this.AvisoExito("Se agregó el switch" + Avisos.Nombre(dto.descripcion) + " (IP " + dto.ip + ").");
+            return Redirect("~/Swichs/Index");
 
         }
 
-        public ActionResult AltaExitosaSW()
-        {
-            return View();
-        }
 
         //----------------------------------------------//
 
@@ -316,14 +308,11 @@ namespace SGEI.Controllers
 
             audit_dom.Guardar(audit);
             //---//
-            return RedirectToAction("AltaExitosaES");
+            this.AvisoExito("Se agregó el escáner" + Avisos.Nombre(dto.descripcion) + " (IP " + dto.ip + ").");
+            return Redirect("~/Escaner/Index");
 
         }
 
-        public ActionResult AltaExitosaES()
-        {
-            return View();
-        }
 
 
         //--------------------------------------------//
@@ -401,14 +390,11 @@ namespace SGEI.Controllers
 
 
             mante_dom.Guardari(mante);
-            return RedirectToAction("AltaExitosaImp");
+            this.AvisoExito("Se agregó la impresora" + Avisos.Nombre(dto.descripcion) + " (IP " + dto.ip + ").");
+            return Redirect("~/Home/Index");
 
         }
 
-        public ActionResult AltaExitosaImp()
-        {
-            return View();
-        }
 
         //ALTA COMPUTADORA
         public ActionResult AltaCompu(int id = 0)
@@ -514,16 +500,13 @@ namespace SGEI.Controllers
             //
 
 
-            return Redirect("~/home/AltaExitosa");
+            this.AvisoExito("Se agregó la computadora" + Avisos.Nombre(dto.nombrepc) + " (IP " + dto.ip + ").");
+            return Redirect("~/Computadora/Index");
 
         }
 
 
 
-        public ActionResult AltaExitosa()
-        {
-            return View();
-        }
 
         public ActionResult Baja(int id)
         {
@@ -559,7 +542,8 @@ namespace SGEI.Controllers
             audit_dom.Guardar(audit);
             //---//
 
-            return Redirect("~/Inicio/Index");
+            this.AvisoExito("Se dio de baja la impresora" + Avisos.Nombre(ubicacion_impr.descripcion) + ".");
+            return Redirect("~/Home/Index");
 
         }
 
@@ -599,7 +583,10 @@ namespace SGEI.Controllers
 
             audit_dom.Guardar(audit);
             //---//
-            return Redirect("~/Inicio/Index");
+            var movida = new ubicacion_impresora_dominio().Obtener(id_ubicacion_impresora);
+            var destino = new ubicacion_dominio().Obtener(id_nueva_ubicacion);
+            this.AvisoExito("Se movió la impresora" + Avisos.Nombre(movida != null ? movida.descripcion : null) + (destino != null ? " a " + destino.nombreUbicacion : "") + ".");
+            return Redirect("~/Home/Index");
         }
 
         //public ActionResult CrudDetalle_Impresora_Ubicacion(int id = 0) //Este es el ABM detalle_impresora
@@ -707,7 +694,8 @@ namespace SGEI.Controllers
 
             //alta.Eliminar(ubi.id);
 
-            return Redirect("~/Inicio/Index");
+            this.AvisoExito("Se volvió a dar de alta la impresora" + Avisos.Nombre(ubi.descripcion) + ".");
+            return Redirect("~/Home/Index");
         }
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using login_v6.Helpers;
 using Model;
 using Negocio.Dominio;
 
@@ -56,7 +57,10 @@ namespace login_v6.Controllers
                 audit_dom.Guardar(audit);
                 //---//
 
-                return View();
+                var insumo = new insumo_dominio().Obtener(insu);
+                var impresora = new ubicacion_impresora_dominio().Obtener(Convert.ToInt32(model.ubicacion_impresora_id));
+                this.AvisoExito("Se registró el insumo" + Avisos.Nombre(insumo != null ? insumo.nombre : null) + " en la impresora" + Avisos.Nombre(impresora != null ? impresora.descripcion : null) + ".");
+                return Redirect("~/Home/Index");
             }
 
             
@@ -109,7 +113,10 @@ namespace login_v6.Controllers
 
 
                 insumo.Restar(Convert.ToInt32(model.insumo_id));
-                return View();
+                var insumoPc = insumo.Obtener(Convert.ToInt32(model.insumo_id));
+                var equipo = new pc_dominio().Obtener(Convert.ToInt32(det.pc_id));
+                this.AvisoExito("Se registró el insumo" + Avisos.Nombre(insumoPc != null ? insumoPc.nombre : null) + " en la computadora" + Avisos.Nombre(equipo != null ? equipo.nombre : null) + ".");
+                return Redirect("~/Computadora/Index");
             }
 
         }

@@ -1,68 +1,42 @@
 ﻿@model Model.soPC
-
 @{
-    ViewBag.Title = "Nuevo Registro";
+    ViewBag.Title = "Nuevo sistema operativo";
 }
 
-<h4 class="page-title">Nuevo Sistema Operativo!</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Sistema Operativo") </li>
-</ol>
-
-@using (Html.BeginForm("Guardarso", "ABM", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @*@Html.HiddenFor(x => x.id)*@
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
-            <div class="card-box">
-                <h4 class="mt-0 mb-3 header-title"><b>NUEVO SISTEMA OPERATIVO</b></h4>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5><b>Agregue un nuevo Sistema Operativo</b></h5>
-                        <p class="text-muted mb-4 font-13">
-                            Llene los campos a continuacion para agregar un nuevo Sistema Operativo.
-                        </p>
-                        <div class="mb-3">
-                            @Html.Label("Ingrese Sistema Operativo")
-                            @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control", @style = "width:200px;", @required = "required" })
-                            @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "text-danger small" })
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Nuevo sistema operativo</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Computadora/Index">Computadoras</a></li>
+            <li class="breadcrumb-item"><a href="~/ABM/sos">Sistemas operativos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nuevo</li>
+        </ol>
     </div>
-
-    <div class="modal fade" id="mostrarmodal" data-abrir-al-cargar tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    <h3>Atención</h3>
-                </div>
-                <div class="modal-body">
-                    <h4>Desea agregar el sistema operativo?</h4>
-                    Al aceptar se agregara a la lista de sistemas operativos. Podra eliminar el mismo desde dicha lista.
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Aceptar</button>
-                    @*<a href="#" data-bs-dismiss="modal" class="btn btn-outline-secondary">Aceptar</a>*@
-                </div>
-            </div>
-        </div>
-    </div>
-}
-
-<div class="text-center">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mostrarmodal">Agregar</button>
 </div>
 
+@using (Html.BeginForm("Guardarso", "ABM", FormMethod.Post, new { @class = "sgei-formulario" }))
+{
+    @Html.AntiForgeryToken()
 
-
-@**@
+    <div class="card sgei-form-card">
+        <div class="card-header">
+            <span class="sgei-form-card-icono"><i class="bi bi-windows" aria-hidden="true"></i></span>
+            <div>
+                <h5 class="sgei-form-card-titulo">Nuevo sistema operativo</h5>
+                <p class="sgei-form-card-ayuda">Completá los datos y presioná Guardar.</p>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                @Html.LabelFor(x => x.descripcion, "Sistema operativo", new { @class = "form-label sgei-requerido" })
+                @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control", required = "required", autofocus = "autofocus", placeholder = "Ej.: Windows 11 Pro", maxlength = "50" })
+                @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "text-danger small" })
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-secondary" href="~/ABM/sos">Cancelar</a>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar</button>
+        </div>
+    </div>
+}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using login_v6.Helpers;
 using Model;
 using Negocio.Dominio;
 using Negocio.DTO;
@@ -78,7 +79,9 @@ namespace login_v6.Controllers
                 audit_dom.Guardar(audit);
                 //---//
 
-                return View();
+                var equipo = new telefono_dominio().Obtener(Convert.ToInt32(det.telefono_id));
+                this.AvisoExito("Se cargó el incidente en el teléfono" + Avisos.Nombre(equipo != null ? equipo.descripcion : null) + ".");
+                return Redirect("~/Telefonos/Index");
             }
            
         }
@@ -131,7 +134,8 @@ namespace login_v6.Controllers
             audit_dom.Guardar(audit);
             //---//
 
-            return View();
+            this.AvisoExito("Se guardaron los cambios del teléfono" + Avisos.Nombre(deta.descripcion) + ".");
+            return Redirect("~/Telefonos/Index");
         }
         public ActionResult Baja(int id)
         {
@@ -152,7 +156,8 @@ namespace login_v6.Controllers
 
             audit_dom.Guardar(audit);
             //---//
-            return View();
+            this.AvisoExito("Se dio de baja el teléfono" + Avisos.Nombre(telefono.descripcion) + ".");
+            return Redirect("~/Telefonos/Index");
         }
 
     }

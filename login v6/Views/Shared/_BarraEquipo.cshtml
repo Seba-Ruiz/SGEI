@@ -1,0 +1,67 @@
+﻿@using login_v6.Helpers
+@*
+    Barra de acciones de un equipo (Computadoras, Impresoras, ...): link a su grilla, alta y desplegables de
+    Consultas, Ingresos, Buscar y Gestión. La agrega el layout arriba de todas las pantallas del equipo;
+    qué pantallas son de cada equipo y qué opciones tiene se define en Helpers/MenuSgei.cs.
+*@
+@{
+    var controlador = (string)ViewContext.RouteData.Values["controller"];
+    var accion = (string)ViewContext.RouteData.Values["action"];
+    var equipo = MenuSgei.EquipoActual(controlador, accion);
+    var esAdmin = User.EsAdministrador();
+}
+@if (equipo != null)
+{
+    var enGrilla = equipo.Grilla.EsActual(controlador, accion);
+    <nav class="sgei-barra-equipo" aria-label="Acciones de @equipo.Nombre">
+        <a class="sgei-barra-equipo-titulo@(enGrilla ? " activo" : "")" href="@Url.Action(equipo.Grilla.Accion, equipo.Grilla.Controlador)" data-spinner
+           @(enGrilla ? Html.Raw("aria-current=\"page\"") : null)>
+            <span class="sgei-barra-equipo-icono"><i class="bi @equipo.Icono"></i></span>
+            <span>@equipo.Nombre</span>
+        </a>
+
+        <div class="sgei-barra-equipo-acciones">
+            <a class="btn btn-primary btn-sm@(equipo.Alta.EsActual(controlador, accion) ? " active" : "")"
+               href="@Url.Action(equipo.Alta.Accion, equipo.Alta.Controlador)" data-spinner>
+                <i class="bi bi-plus-lg me-1"></i>@equipo.Alta.Texto
+            </a>
+
+            @foreach (var menu in equipo.Menus.Where(m => !m.SoloAdministrador || esAdmin))
+            {
+                var items = menu.Items.Where(i => !i.SoloAdministrador || esAdmin).ToList();
+                if (!items.Any())
+                {
+                    continue;
+                }
+                var activo = menu.ContieneActual(controlador, accion);
+
+                if (items.Count == 1)
+                {
+                    @* Una sola opción: botón directo, sin desplegable. *@
+                    <a class="btn btn-outline-primary btn-sm@(activo ? " active" : "")" href="@Url.Action(items[0].Accion, items[0].Controlador)" data-spinner>
+                        <i class="bi @menu.Icono me-1"></i>@menu.Texto
+                    </a>
+                }
+                else
+                {
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle@(activo ? " active" : "")"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi @menu.Icono me-1"></i>@menu.Texto
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                            @foreach (var item in items)
+                            {
+                                var actual = item.EsActual(controlador, accion);
+                                <li>
+                                    <a class="dropdown-item@(actual ? " active" : "")" href="@Url.Action(item.Accion, item.Controlador)" data-spinner
+                                       @(actual ? Html.Raw("aria-current=\"page\"") : null)>@item.Texto</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            }
+        </div>
+    </nav>
+}

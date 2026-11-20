@@ -1,74 +1,45 @@
 ﻿@model Model.insumo_pc
-
 @{
-    ViewBag.Title = "Nuevo Registro";
-    Model.cantidad = 0;
+    ViewBag.Title = "Nuevo insumo de computadora";
 }
 
-<h4 class="page-title">Nuevo Procesador!</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Insumo PC") </li>
-</ol>
-
-@using (Html.BeginForm("Guardarinsumopc", "ABM", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(x => x.cantidad)
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
-            <div class="card-box">
-                <h4 class="mt-0 mb-3 header-title"><b>NUEVO INSUMO PC</b></h4>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5><b>Agregue un nuevo Tipo de PC</b></h5>
-                        <p class="text-muted mb-4 font-13">
-                            Llene los campos a continuacion para agregar un nuevo Insumo de PC.
-                        </p>
-                        <div class="mb-3">
-                            @Html.Label("Ingrese Insumo")
-                            @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @style = "width:200px;", @required = "required" })
-                            @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "text-danger small" })
-                        </div>
-                        <span class="form-text"><small>La cantidad del insumo debera agregarse en el apartado Ingreso.</small></span>
-                        @*<div class="mb-3">
-                            @Html.Label("Ingrese Cantidad")
-                            @Html.TextBoxFor(x => x.cantidad, new { @class = "form-control", @style = "width:200px;", @required = "required" })
-                            @Html.ValidationMessageFor(x => x.cantidad, null, new { @class = "text-danger small" })
-                        </div>*@
-
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Nuevo insumo de computadora</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Computadora/Index">Computadoras</a></li>
+            <li class="breadcrumb-item"><a href="~/ABM/insumospc">Insumos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nuevo</li>
+        </ol>
     </div>
-
-    <div class="modal fade" id="mostrarmodal" data-abrir-al-cargar tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    <h3>Atención</h3>
-                </div>
-                <div class="modal-body">
-                    <h4>Desea agregar el nuevo Insumo?</h4>
-                    Al aceptar se agregara a la lista de insumos de computadoras. Podra eliminar el inusmo de dicha lista.
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Aceptar</button>
-                    @*<a href="#" data-bs-dismiss="modal" class="btn btn-outline-secondary">Aceptar</a>*@
-                </div>
-            </div>
-        </div>
-    </div>
-}
-
-<div class="text-center">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mostrarmodal">Agregar</button>
 </div>
 
+@using (Html.BeginForm("Guardarinsumopc", "ABM", FormMethod.Post, new { @class = "sgei-formulario" }))
+{
+    @Html.AntiForgeryToken()
+    @* La cantidad empieza en 0: se carga desde Ingresos. *@
+    <input type="hidden" name="cantidad" value="0" />
 
-
-@**@
+    <div class="card sgei-form-card">
+        <div class="card-header">
+            <span class="sgei-form-card-icono"><i class="bi bi-box-seam" aria-hidden="true"></i></span>
+            <div>
+                <h5 class="sgei-form-card-titulo">Nuevo insumo de computadora</h5>
+                <p class="sgei-form-card-ayuda">Completá los datos y presioná Guardar.</p>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                @Html.LabelFor(x => x.nombre, "Nombre del insumo", new { @class = "form-label sgei-requerido" })
+                @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", required = "required", autofocus = "autofocus", placeholder = "Ej.: Mouse USB", maxlength = "50" })
+                @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "text-danger small" })
+            </div>
+            <div class="form-text"><i class="bi bi-info-circle me-1"></i>La cantidad empieza en 0 y se carga desde <strong>Ingresos</strong> &gt; Cargar insumos.</div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-secondary" href="~/ABM/insumospc">Cancelar</a>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar</button>
+        </div>
+    </div>
+}
