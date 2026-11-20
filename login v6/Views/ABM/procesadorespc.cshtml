@@ -2,52 +2,40 @@
 @{
     ViewBag.Title = "Procesadores";
 }
-<h4 class="page-title">Procesadores!</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Procesadores") </li>
-</ol>
 
-@using (Html.BeginForm("Crudprocesadorpc", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="vakata-context-left">
-        <button type="submit" class="btn btn-primary">
-            <span class="btn-label">
-                <i class="bi bi-plus-lg"></i>
-            </span>
-            Agregar
-        </button>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Procesadores</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Computadora/Index">Computadoras</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Procesadores</li>
+        </ol>
     </div>
+    <a class="btn btn-primary" href="~/ABM/Crudprocesadorpc" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo procesador</a>
+</div>
 
-}
-<div class="col-md-2"></div>
-<div class="col-md-8">
-    <div class="card-box">
-        <table class="table table-hover sgei-grilla" data-grilla>
-            <thead>
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
+        <thead>
+            <tr>
+                    <th>Procesador</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
                 <tr>
-                    <th>Descripcion</th>
-                    <th class="sgei-col-acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var a in Model)
-                {
-                    <tr>
                         <td>@a.descripcion</td>
-                        <td>
-                            <div class="sgei-acciones">
-                                <a class="sgei-accion" title="Editar" href="~/ABM/Editarprocesadorpc/@a.id_procesador" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
-                                @Html.BotonEliminar(Url.Content("~/ABM/Eliminarprocesadorpc/" + a.id_procesador), "¿Desea eliminar el procesador?", "bi bi-trash")
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-    </div>
-    </div>
-<div class="col-md-2"></div>
-
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="~/ABM/Editarprocesadorpc/@a.id_procesador" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/Eliminarprocesadorpc/" + a.id_procesador), "¿Eliminar el procesador «" + a.descripcion + "»?")
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

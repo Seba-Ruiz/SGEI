@@ -1,54 +1,41 @@
 ﻿@model List<Model.ubicacion_camara>
 @{
-    ViewBag.Title = "Ubicacion de Camaras";
+    ViewBag.Title = "Ubicaciones de cámaras";
 }
-<h4 class="page-title">Ubicaciones de Camaras</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Ubicaciones de Camaras") </li>
-</ol>
 
-@using (Html.BeginForm("Crudubicam", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="vakata-context-left">
-        <button type="submit" class="btn btn-primary">
-            <span class="btn-label">
-                <i class="bi bi-plus-lg"></i>
-            </span>
-            Agregar
-        </button>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Ubicaciones de cámaras</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Camara/Index">Cámaras</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ubicaciones</li>
+        </ol>
     </div>
-
-}
-<div class="col-md-2"></div>
-<div class="col-md-8">
-    <div class="card-box">
-        <table class="table table-hover sgei-grilla" data-grilla>
-            <thead>
-                <tr>
-                    <th>Nombre Ubicacion</th>
-                    <th class="sgei-col-acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var a in Model)
-                {
-                    <tr>
-                        <td>@a.nombre</td>
-                        <td>
-                            <div class="sgei-acciones">
-                                <a class="sgei-accion" title="Editar" href="~/ABM/EditarubiCam/@a.id_ubicacion_camara" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
-                                @Html.BotonEliminar(Url.Content("~/ABM/EliminarubiCam/" + a.id_ubicacion_camara), "¿Desea eliminar la ubicación?", "bi bi-trash")
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-    </div>
+    <a class="btn btn-primary" href="~/ABM/Crudubicam" data-spinner><i class="bi bi-plus-lg me-1"></i>Nueva ubicación</a>
 </div>
-<div class="col-md-2"></div>
 
-
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
+        <thead>
+            <tr>
+                    <th>Nombre</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                        <td>@a.nombre</td>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="~/ABM/EditarubiCam/@a.id_ubicacion_camara" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarubiCam/" + a.id_ubicacion_camara), "¿Eliminar la ubicación «" + a.nombre + "»?")
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

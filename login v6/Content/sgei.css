@@ -314,6 +314,52 @@ body.sgei {
 
 /* ---------------------------------------------------------------- 3. Componentes */
 
+/* Barra de un equipo (Views/Shared/_BarraEquipo.cshtml): link a la grilla, alta y desplegables. */
+.sgei-barra-equipo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    margin-bottom: 1.25rem;
+    padding: .6rem .75rem;
+    background: #fff;
+    border: 1px solid var(--sgei-borde);
+    border-radius: var(--sgei-radio);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .04);
+}
+.sgei-barra-equipo-titulo {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    color: var(--sgei-texto);
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: none;
+}
+.sgei-barra-equipo-titulo:hover { color: var(--sgei-primario); }
+.sgei-barra-equipo-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: .5rem;
+    background: var(--sgei-primario-suave);
+    color: var(--sgei-primario);
+    font-size: 1.1rem;
+}
+.sgei-barra-equipo-titulo.activo .sgei-barra-equipo-icono { background: var(--sgei-primario); color: #fff; }
+.sgei-barra-equipo-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.sgei-barra-equipo .dropdown-menu { font-size: .9rem; }
+.sgei-barra-equipo .dropdown-item.active,
+.sgei-barra-equipo .dropdown-item:active { background-color: var(--sgei-primario); }
+
+@media (max-width: 575.98px) {
+    .sgei-barra-equipo-acciones { width: 100%; }
+    .sgei-barra-equipo-acciones > .btn { flex: 1 1 100%; }
+}
+
 /* Encabezado de página: <h4 class="page-title"> + <ol class="breadcrumb"> */
 .page-title {
     margin: 0 0 .25rem;
@@ -331,6 +377,76 @@ body.sgei {
 }
 
 .breadcrumb a { text-decoration: none; }
+
+/* Encabezado con acción a la derecha: título + migas a la izquierda, botón ("Nuevo ...") a la derecha. */
+.sgei-encabezado {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: .75rem 1rem;
+    margin-bottom: 1.25rem;
+}
+.sgei-encabezado .breadcrumb { --bs-breadcrumb-margin-bottom: 0; }
+.sgei-encabezado > .btn { flex-shrink: 0; }
+
+/* Formulario de alta/edición (Gestión): tarjeta centrada con encabezado, campos y botones al pie. */
+.sgei-formulario { max-width: 640px; }
+.sgei-form-card { overflow: hidden; }
+.sgei-form-card > .card-header {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border-bottom: 1px solid var(--sgei-borde);
+}
+.sgei-form-card-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: .6rem;
+    background: var(--sgei-primario-suave);
+    color: var(--sgei-primario);
+    font-size: 1.25rem;
+}
+.sgei-form-card-titulo { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--sgei-texto); }
+.sgei-form-card-ayuda { margin: .1rem 0 0; font-size: .85rem; color: var(--sgei-texto-suave); }
+.sgei-form-card > .card-body { padding: 1.25rem; }
+.sgei-form-card > .card-body > .mb-3:last-child { margin-bottom: 0 !important; }
+.sgei-form-card .form-label { font-weight: 500; font-size: .9rem; margin-bottom: .35rem; }
+.sgei-form-card .form-control[readonly] { background-color: #f3f5f8; color: var(--sgei-texto-suave); }
+.sgei-form-card > .card-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: .5rem;
+    padding: .85rem 1.25rem;
+    background: #f9fafb;
+    border-top: 1px solid var(--sgei-borde);
+}
+/* Campo obligatorio: asterisco rojo después de la etiqueta. */
+.sgei-requerido::after { content: " *"; color: #dc3545; font-weight: 600; }
+
+/* Aviso de éxito (Views/Shared/_Avisos.cshtml): toast centrado arriba, por encima de la barra superior. */
+.sgei-avisos { z-index: 1095; }
+.sgei-aviso {
+    width: auto;
+    min-width: 320px;
+    max-width: min(560px, calc(100vw - 2rem));
+    border-radius: .6rem;
+    box-shadow: 0 .5rem 1.5rem rgba(16, 24, 40, .18);
+    font-size: .925rem;
+}
+.sgei-aviso .toast-body { padding: .8rem 1rem; line-height: 1.4; }
+.sgei-aviso .bi-check-circle-fill { font-size: 1.05rem; vertical-align: -.1em; }
+
+@media (max-width: 575.98px) {
+    .sgei-encabezado > .btn { width: 100%; }
+    .sgei-form-card > .card-footer > .btn { flex: 1 1 0; }
+}
 
 /* Tarjetas */
 .card,
@@ -654,16 +770,25 @@ div.dt-container .dt-search label { display: none; }
 /* Filtros extra junto al buscador (por ejemplo, el combo de ubicación de Computadoras). */
 div.dt-container .dt-layout-start:has(.sgei-grilla-filtro) { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
 .sgei-grilla-filtro { width: 260px; max-width: 100%; }
-/* Mismo aspecto que el buscador de la grilla, con o sin Select2. */
+/* Mismo aspecto (alto, letra y bordes redondeados) que el buscador de la grilla, con o sin Select2.
+   El tema de Select2 define el padding en .select2-selection--single: hay que pisarlo ahí. */
 .sgei-grilla-filtro select.form-select,
-.sgei-grilla-filtro .select2-container--bootstrap-5 .select2-selection {
+.sgei-grilla-filtro .select2-container--bootstrap-5 .select2-selection--single {
     width: 100%;
     min-height: 0;
-    padding-top: .45rem;
-    padding-bottom: .45rem;
+    height: auto;
+    padding: .45rem 2.25rem .45rem .9rem;
     font-size: .875rem;
+    line-height: 1.5;
     border-radius: 2rem;
     background-color: #f7f9fb;
+    background-position: right .9rem center;
+}
+.sgei-grilla-filtro .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+    padding: 0;
+    font-size: .875rem;
+    line-height: 1.5;
+    color: var(--sgei-texto);
 }
 .sgei-grilla-filtro select.form-select:focus,
 .sgei-grilla-filtro .select2-container--open .select2-selection { background-color: #fff; }

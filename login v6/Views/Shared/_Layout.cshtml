@@ -66,6 +66,11 @@
             </header>
 
             <main class="sgei-content">
+                @if (Request.IsAuthenticated)
+                {
+                    @* Barra del equipo (alta, consultas, ingresos, gestión) en todas sus pantallas. *@
+                    @Html.Partial("_BarraEquipo")
+                }
                 @RenderBody()
             </main>
 
@@ -75,6 +80,9 @@
             </footer>
         </div>
     </div>
+
+    @* Aviso de éxito de la operación anterior (toast centrado arriba) *@
+    @Html.Partial("_Avisos")
 
     @* Spinner "Espere..." al navegar (lo abre Scripts/app/sgei.js) *@
     <div id="spiner" class="modal fade sgei-spinner" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">

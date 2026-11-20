@@ -1,56 +1,43 @@
 ﻿@model List<Model.insumo_camara>
 @{
-    ViewBag.Title = "Insumos de Camaras";
+    ViewBag.Title = "Insumos de cámaras";
 }
-<h4 class="page-title">Insumos de Camaras</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Insumos PC") </li>
-</ol>
 
-@using (Html.BeginForm("CrudinsumoCam", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="vakata-context-left">
-        <button type="submit" class="btn btn-primary">
-            <span class="btn-label">
-                <i class="bi bi-plus-lg"></i>
-            </span>
-            Agregar
-        </button>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Insumos de cámaras</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Camara/Index">Cámaras</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Insumos</li>
+        </ol>
     </div>
+    <a class="btn btn-primary" href="~/ABM/Crudinsumocam" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo insumo</a>
+</div>
 
-}
-<div class="col-md-2"></div>
-<div class="col-md-8">
-    <div class="card-box">
-        <table class="table table-hover sgei-grilla" data-grilla>
-            <thead>
-                <tr>
-                    <th>Descripcion</th>
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
+        <thead>
+            <tr>
+                    <th>Nombre</th>
                     <th>Cantidad</th>
-                    <th class="sgei-col-acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var a in Model)
-                {
-                    <tr>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
                         <td>@a.nombre</td>
                         <td>@a.cantidad</td>
-                        <td>
-                            <div class="sgei-acciones">
-                                <a class="sgei-accion" title="Editar" href="~/ABM/EditarinsumoCam/@a.id_insumo" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
-                                @Html.BotonEliminar(Url.Content("~/ABM/EliminarinsumoCam/" + a.id_insumo), "¿Desea eliminar el Insumo?", "bi bi-trash")
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-    </div>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="~/ABM/EditarinsumoCam/@a.id_insumo" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/EliminarinsumoCam/" + a.id_insumo), "¿Eliminar el insumo «" + a.nombre + "»?")
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-<div class="col-md-2"></div>
-
-

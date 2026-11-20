@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using login_v6.Helpers;
 using Model;
 using Negocio.Dominio;
 using Negocio.DTO;
@@ -58,7 +59,9 @@ namespace login_v6.Controllers
                 audit_dom.Guardar(audit);
                 //---//
 
-                return View();
+                var equipo = new switch_dominio().Obtener(Convert.ToInt32(inci.switch_id));
+                this.AvisoExito("Se cargó el incidente en el switch" + Avisos.Nombre(equipo != null ? equipo.descripcion : null) + ".");
+                return Redirect("~/Swichs/Index");
             }
         }
 
@@ -114,7 +117,8 @@ namespace login_v6.Controllers
 
             audit_dom.Guardar(audit);
             //---//
-            return View();
+            this.AvisoExito("Se guardaron los cambios del switch" + Avisos.Nombre(deta.descripcion) + ".");
+            return Redirect("~/Swichs/Index");
         }
 
 
@@ -146,7 +150,8 @@ namespace login_v6.Controllers
 
             audit_dom.Guardar(audit);
             //---//
-            return View();
+            this.AvisoExito("Se dio de baja el switch" + Avisos.Nombre(switc.descripcion) + ".");
+            return Redirect("~/Swichs/Index");
         }
 
 

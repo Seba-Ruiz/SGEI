@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using login_v6.Helpers;
 using Model;
 
 namespace login_v6.Controllers
@@ -71,7 +72,8 @@ namespace login_v6.Controllers
             audit_dom.Guardar(audit);
             //---//
 
-            return View();
+            this.AvisoExito("Se guardaron los cambios del escáner" + Avisos.Nombre(deta.descripcion) + ".");
+            return Redirect("~/Escaner/Index");
         }
 
         public ActionResult Incidente(int id)
@@ -116,7 +118,9 @@ namespace login_v6.Controllers
                 audit_dom.Guardar(audit);
                 //---//
 
-                return View();
+                var equipo = new escaner_dominio().Obtener(Convert.ToInt32(inci.escaner_id));
+                this.AvisoExito("Se cargó el incidente en el escáner" + Avisos.Nombre(equipo != null ? equipo.descripcion : null) + ".");
+                return Redirect("~/Escaner/Index");
             }
         }
 
@@ -146,7 +150,8 @@ namespace login_v6.Controllers
 
             audit_dom.Guardar(audit);
             //---//
-            return View();
+            this.AvisoExito("Se dio de baja el escáner" + Avisos.Nombre(escaner.descripcion) + ".");
+            return Redirect("~/Escaner/Index");
         }
 
 

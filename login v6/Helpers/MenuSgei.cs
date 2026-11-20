@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace login_v6.Helpers
 {
-    /// <summary>Un link del menú lateral.</summary>
+    /// <summary>Un link del menú lateral o de la barra de un equipo.</summary>
     public sealed class ItemMenu
     {
         public ItemMenu(string texto, string controlador, string accion, bool soloAdministrador = false)
@@ -27,7 +27,7 @@ namespace login_v6.Helpers
         }
     }
 
-    /// <summary>Grupo de links dentro de una sección (por ejemplo "Computadoras" dentro de "Consultas").</summary>
+    /// <summary>Grupo de links dentro de una sección del menú lateral.</summary>
     public sealed class GrupoMenu
     {
         public GrupoMenu(string titulo, params ItemMenu[] items)
@@ -41,7 +41,7 @@ namespace login_v6.Helpers
         public IList<ItemMenu> Items { get; private set; }
     }
 
-    /// <summary>Sección plegable del menú lateral, o link directo si tiene un único item sin grupos.</summary>
+    /// <summary>Sección plegable del menú lateral.</summary>
     public sealed class SeccionMenu
     {
         public SeccionMenu(string id, string texto, string icono, bool soloAdministrador, params GrupoMenu[] grupos)
@@ -67,105 +67,241 @@ namespace login_v6.Helpers
         }
     }
 
+    /// <summary>Desplegable de la barra de un equipo: Consultas, Ingresos, Buscar o Gestión.</summary>
+    public sealed class MenuEquipo
+    {
+        public MenuEquipo(string texto, string icono, bool soloAdministrador, params ItemMenu[] items)
+        {
+            Texto = texto;
+            Icono = icono;
+            SoloAdministrador = soloAdministrador;
+            Items = items;
+        }
+
+        public string Texto { get; private set; }
+        public string Icono { get; private set; }
+        public bool SoloAdministrador { get; private set; }
+        public IList<ItemMenu> Items { get; private set; }
+
+        public bool ContieneActual(string controlador, string accion)
+        {
+            return Items.Any(i => i.EsActual(controlador, accion));
+        }
+    }
+
     /// <summary>
-    /// Estructura del menú lateral. Para agregar una pantalla al menú alcanza con sumarla acá.
+    /// Un tipo de equipo (Computadoras, Impresoras, ...): su grilla, su alta y los desplegables de su barra.
+    /// La barra se muestra en todas las pantallas del equipo: las de sus menús y las de <see cref="Paginas"/>.
+    /// </summary>
+    public sealed class Equipo
+    {
+        private readonly HashSet<string> controladores;
+        private readonly HashSet<string> paginas;
+
+        public Equipo(string id, string nombre, string icono, ItemMenu grilla, ItemMenu alta, MenuEquipo[] menus,
+                      string[] controladoresPropios, params string[] paginas)
+        {
+            Id = id;
+            Nombre = nombre;
+            Icono = icono;
+            Grilla = grilla;
+            Alta = alta;
+            Menus = menus;
+            controladores = new HashSet<string>(controladoresPropios, StringComparer.OrdinalIgnoreCase);
+            this.paginas = new HashSet<string>(paginas, StringComparer.OrdinalIgnoreCase);
+        }
+
+        public string Id { get; private set; }
+        public string Nombre { get; private set; }
+        public string Icono { get; private set; }
+        public ItemMenu Grilla { get; private set; }
+        public ItemMenu Alta { get; private set; }
+        public IList<MenuEquipo> Menus { get; private set; }
+
+        /// <summary>¿La pantalla actual es de este equipo?</summary>
+        public bool Contiene(string controlador, string accion)
+        {
+            return controladores.Contains(controlador ?? "")
+                || paginas.Contains(controlador + "/" + accion)
+                || Grilla.EsActual(controlador, accion)
+                || Alta.EsActual(controlador, accion)
+                || Menus.Any(m => m.ContieneActual(controlador, accion));
+        }
+    }
+
+    /// <summary>
+    /// Navegación de SGEI. Menú lateral: Inicio, Dashboard, Equipos y Administración (Usuarios, Proveedores).
+    /// Lo propio de cada equipo (alta, consultas, ingresos, búsquedas y gestión) está en la barra de ese equipo,
+    /// arriba de sus pantallas (Views/Shared/_BarraEquipo.cshtml). Para sumar una pantalla alcanza con agregarla acá.
     /// </summary>
     public static class MenuSgei
     {
-        private static GrupoMenu G(string titulo, params ItemMenu[] items) { return new GrupoMenu(titulo, items); }
         private static ItemMenu I(string texto, string controlador, string accion, bool soloAdministrador = false)
         {
             return new ItemMenu(texto, controlador, accion, soloAdministrador);
         }
 
+        private static MenuEquipo Consultas(params ItemMenu[] items) { return new MenuEquipo("Consultas", "bi-clipboard-data", false, items); }
+        private static MenuEquipo Ingresos(params ItemMenu[] items) { return new MenuEquipo("Ingresos", "bi-box-seam", false, items); }
+        private static MenuEquipo Buscar(params ItemMenu[] items) { return new MenuEquipo("Buscar", "bi-search", false, items); }
+        private static MenuEquipo Gestion(params ItemMenu[] items) { return new MenuEquipo("Gestión", "bi-gear", true, items); }
+        private static string[] Controladores(params string[] nombres) { return nombres; }
+
         public static readonly ItemMenu Inicio = I("Inicio", "Inicio", "Index");
         public static readonly ItemMenu Dashboard = I("Dashboard", "Inicio", "Dashboard");
+        public static readonly ItemMenu Proveedores = I("Proveedores", "ABM", "proveedores", soloAdministrador: true);
 
-        public static readonly IList<SeccionMenu> Secciones = new[]
+        public static readonly IList<Equipo> Equipos = new[]
         {
-            new SeccionMenu("altas", "Altas", "bi-plus-square", false,
-                G(null,
-                    I("Impresora", "Home", "AltaImpr"),
-                    I("Computadora", "Home", "AltaCompu"),
-                    I("Teléfono", "Home", "Altatel"),
-                    I("Cámara", "Home", "Altacam"),
-                    I("Switch", "Home", "AltaSW"),
-                    I("Escáner", "Home", "AltaES"))),
+            new Equipo("computadoras", "Computadoras", "bi-pc-display",
+                I("Computadoras", "Computadora", "Index"),
+                I("Nueva computadora", "Home", "AltaCompu"),
+                new[]
+                {
+                    Consultas(
+                        I("Informes", "Consulta", "computadoras"),
+                        I("Bajas", "Consulta", "compuBaja"),
+                        I("Preventivos", "Computadora", "Preventivo")),
+                    Ingresos(
+                        I("Cargar insumos", "Ingresos", "IndexCompu"),
+                        I("Ver ingresos", "Ingresos", "VerIngresoPC")),
+                    Buscar(
+                        I("PC por número", "Buscar", "Buscar_PC"),
+                        I("PC por IP", "Buscar", "Buscar_PC_IP"),
+                        I("Insumo por n° de serie", "Buscar", "Buscar_Insu")),
+                    Gestion(
+                        I("Insumos", "ABM", "insumospc"),
+                        I("Memorias", "ABM", "rams"),
+                        I("Discos", "ABM", "discos"),
+                        I("Sistemas operativos", "ABM", "sos"),
+                        I("Placas madre", "ABM", "mothers"),
+                        I("Procesadores", "ABM", "procesadorespc"),
+                        I("Tipos", "ABM", "tipospc"),
+                        I("Ubicaciones", "ABM", "ubicacionespc"),
+                        I("Incidentes", "ABM", "incidentespc"),
+                        I("Motivos de baja", "ABM", "motivospc"))
+                },
+                Controladores("Computadora", "Buscar"),
+                "Consulta/AltaPc", "Consulta/Alta_aceptada_pc", "Consulta/ConsultarRangoFechaPC", "Consulta/ConsultarRangoFechaPCIncidente",
+                "Consulta/ConsultarRangoPC", "Consulta/ConsultarRangoPCIncidente", "Consulta/IncidentesPcporFecha", "Consulta/InsumosPCporFecha",
+                "Insumo/AgregarInsumoPC",
+                "ABM/Crudinsumopc", "ABM/Editarinsumopc", "ABM/CrudRam", "ABM/EditarRam", "ABM/CrudDisco", "ABM/EditarDisco",
+                "ABM/Crudso", "ABM/Editarso", "ABM/Crudmoth", "ABM/Editarmoth", "ABM/Crudprocesadorpc", "ABM/Editarprocesadorpc",
+                "ABM/Crudtipopc", "ABM/Editartipopc", "ABM/Crudubipc", "ABM/Editarubipc", "ABM/Crudincidentepc", "ABM/Editarincidentepc",
+                "ABM/Crudmotivopc", "ABM/Editarmotivopc"),
 
-            new SeccionMenu("consultas", "Consultas", "bi-clipboard-data", false,
-                G("Impresoras",
-                    I("Informes", "Consulta", "Index"),
-                    I("Bajas", "Home", "impresoras_baja"),
-                    I("Preventivos", "Impresora", "Preventivo")),
-                G("Computadoras",
-                    I("Informes", "Consulta", "computadoras"),
-                    I("Bajas", "Consulta", "compuBaja"),
-                    I("Preventivos", "Computadora", "Preventivo")),
-                G("Otros equipos",
-                    I("Teléfonos", "Consulta", "telefonos"),
-                    I("Cámaras", "Consulta", "camara"),
-                    I("Switches", "Consulta", "switchs"),
-                    I("Escáneres", "Consulta", "escaners"))),
+            new Equipo("impresoras", "Impresoras", "bi-printer",
+                I("Impresoras", "Home", "Index"),
+                I("Nueva impresora", "Home", "AltaImpr"),
+                new[]
+                {
+                    Consultas(
+                        I("Informes", "Consulta", "Index"),
+                        I("Bajas", "Home", "impresoras_baja"),
+                        I("Preventivos", "Impresora", "Preventivo")),
+                    Ingresos(
+                        I("Cargar insumos", "Ingresos", "Index"),
+                        I("Ver ingresos", "Ingresos", "VerIngresoImpresora")),
+                    Gestion(
+                        I("Insumos", "ABM", "insumos"),
+                        I("Modelos", "ABM", "impresoras"),
+                        I("Ubicaciones", "ABM", "ubicacion"))
+                },
+                Controladores("Impresora", "Incidente"),
+                "Home/Baja", "Home/Baja_aceptada", "Home/BuscarParaMover", "Home/Mover",
+                "Home/Crud", "Home/CrudDetalle_Impresora_Ubicacion", "Home/CrudUbicacion_impresora",
+                "Consulta/Buscar", "Consulta/BuscarIncidente", "Consulta/VerIncidente", "Consulta/VerImagen",
+                "Consulta/ConsultarFecha", "Consulta/ConsultarRango", "Consulta/ErrorPantallaImp",
+                "Insumo/AgregarInsumo", "Insumo/ErrorPantallaImpre",
+                "ABM/Crud", "ABM/Editar", "ABM/Insumos", "ABM/CrudImpresora", "ABM/EditarImpresora", "ABM/Impresoras",
+                "ABM/CrudUbicacion", "ABM/EditarUbicacion", "ABM/Ubicacion"),
 
-            new SeccionMenu("ingresos", "Ingresos", "bi-box-seam", false,
-                G("Impresoras",
-                    I("Cargar insumos", "Ingresos", "Index"),
-                    I("Ver ingresos", "Ingresos", "VerIngresoImpresora")),
-                G("Computadoras",
-                    I("Cargar insumos", "Ingresos", "IndexCompu"),
-                    I("Ver ingresos", "Ingresos", "VerIngresoPC")),
-                G("Cámaras",
-                    I("Cargar insumos", "Ingresos", "IndexCam"),
-                    I("Ver ingresos", "Ingresos", "VerIngresoCam")),
-                G(null,
-                    I("Proveedores", "ABM", "proveedores", soloAdministrador: true))),
+            new Equipo("telefonos", "Teléfonos", "bi-telephone",
+                I("Teléfonos", "Telefonos", "Index"),
+                I("Nuevo teléfono", "Home", "AltaTel"),
+                new[]
+                {
+                    Consultas(
+                        I("Informes", "Consulta", "telefonos")),
+                    Gestion(
+                        I("Tipos", "ABM", "tipo_telefonos"),
+                        I("Modelos", "ABM", "mmarcas"),
+                        I("Ubicaciones", "ABM", "ubicacionestel"),
+                        I("Incidentes", "ABM", "incidentestel"))
+                },
+                Controladores("Telefonos"),
+                "Consulta/BuscarTel", "Consulta/ConsultarRangoFechaTelIncidente", "Consulta/ConsultarRangoTelIncidente", "Consulta/ErrorPantallaTel",
+                "ABM/Crudtipo_tel", "ABM/Editartipo_tel", "ABM/Crudmmarca", "ABM/Editarmmarca",
+                "ABM/Crudubicaciontel", "ABM/Editarubicaciontel", "ABM/Crudincidentetel", "ABM/Editarincidentetel"),
 
-            new SeccionMenu("buscar", "Buscar", "bi-search", false,
-                G(null,
-                    I("PC por número", "Buscar", "Buscar_PC"),
-                    I("PC por IP", "Buscar", "Buscar_PC_IP"),
-                    I("Insumo por n° de serie", "Buscar", "Buscar_Insu"))),
+            new Equipo("camaras", "Cámaras", "bi-camera-video",
+                I("Cámaras", "Camara", "Index"),
+                I("Nueva cámara", "Home", "AltaCam"),
+                new[]
+                {
+                    Consultas(
+                        I("Informes", "Consulta", "camara")),
+                    Ingresos(
+                        I("Cargar insumos", "Ingresos", "IndexCam"),
+                        I("Ver ingresos", "Ingresos", "VerIngresoCam")),
+                    Gestion(
+                        I("Insumos", "ABM", "insumoscam"),
+                        I("Modelos", "ABM", "modelocam"),
+                        I("Ubicaciones", "ABM", "ubicam"),
+                        I("Incidentes", "ABM", "incidentecam"))
+                },
+                Controladores("Camara"),
+                "Consulta/BuscarCam", "Consulta/BuscarIncidenteCam", "Consulta/VerIncidenteCam", "Consulta/ConsultarFechaCam",
+                "Consulta/ConsultarRangoCam", "Consulta/ErrorPantallaCam",
+                "ABM/Crudinsumocam", "ABM/EditarinsumoCam", "ABM/Crudmmaarcacam", "ABM/EditarmodeloCam",
+                "ABM/Crudubicam", "ABM/EditarubiCam", "ABM/Crudincidentecam", "ABM/EditarincidenteCam"),
 
-            new SeccionMenu("gestion", "Gestión", "bi-gear", true,
-                G("Impresoras",
-                    I("Insumos", "ABM", "insumos"),
-                    I("Modelos", "ABM", "impresoras"),
-                    I("Ubicaciones", "ABM", "ubicacion")),
-                G("Computadoras",
-                    I("Insumos", "ABM", "insumospc"),
-                    I("Memorias", "ABM", "rams"),
-                    I("Discos", "ABM", "discos"),
-                    I("Sistemas operativos", "ABM", "sos"),
-                    I("Placas madre", "ABM", "mothers"),
-                    I("Procesadores", "ABM", "procesadorespc"),
-                    I("Tipos", "ABM", "tipospc"),
-                    I("Ubicaciones", "ABM", "ubicacionespc"),
-                    I("Incidentes", "ABM", "incidentespc"),
-                    I("Motivos de baja", "ABM", "motivospc")),
-                G("Teléfonos",
-                    I("Tipos", "ABM", "tipo_telefonos"),
-                    I("Modelos", "ABM", "mmarcas"),
-                    I("Ubicaciones", "ABM", "ubicacionestel"),
-                    I("Incidentes", "ABM", "incidentestel")),
-                G("Cámaras",
-                    I("Insumos", "ABM", "insumoscam"),
-                    I("Modelos", "ABM", "modelocam"),
-                    I("Ubicaciones", "ABM", "ubicam"),
-                    I("Incidentes", "ABM", "incidentecam")),
-                G("Switches",
-                    I("Modelos", "ABM", "modelosw"),
-                    I("Ubicaciones", "ABM", "ubicacionSW"),
-                    I("Incidentes", "ABM", "incidenteSW")),
-                G("Escáneres",
-                    I("Modelos", "ABM", "modeloES"),
-                    I("Ubicaciones", "ABM", "UbicacionES"),
-                    I("Incidentes", "ABM", "IncidenteES"))),
+            new Equipo("switches", "Switches", "bi-diagram-3",
+                I("Switches", "Swichs", "Index"),
+                I("Nuevo switch", "Home", "Altasw"),
+                new[]
+                {
+                    Consultas(
+                        I("Informes", "Consulta", "switchs")),
+                    Gestion(
+                        I("Modelos", "ABM", "modelosw"),
+                        I("Ubicaciones", "ABM", "ubicacionSW"),
+                        I("Incidentes", "ABM", "incidenteSW"))
+                },
+                Controladores("Swichs"),
+                "Consulta/ConsultarSW", "Consulta/ConsultarRangoSW", "Consulta/BuscarIncidenteSW", "Consulta/VerIncidenteSW", "Consulta/ErrorPantallaSW",
+                "ABM/Crudmodelosw", "ABM/Editarmodelosw", "ABM/Crudubicacionsw", "ABM/Editarubicacionsw",
+                "ABM/Crudincidentesw", "ABM/Editarincidentesw"),
 
-            new SeccionMenu("usuarios", "Usuarios", "bi-people", true,
-                G(null,
-                    I("Gestionar", "Usuario", "Index"),
-                    I("Roles", "Role", "Index"),
-                    I("Nuevo usuario", "Account", "Register")))
+            new Equipo("escaneres", "Escáneres", "bi-upc-scan",
+                I("Escáneres", "Escaner", "Index"),
+                I("Nuevo escáner", "Home", "Altaes"),
+                new[]
+                {
+                    Consultas(
+                        I("Informes", "Consulta", "escaners")),
+                    Gestion(
+                        I("Modelos", "ABM", "modeloES"),
+                        I("Ubicaciones", "ABM", "UbicacionES"),
+                        I("Incidentes", "ABM", "IncidenteES"))
+                },
+                Controladores("Escaner"),
+                "Consulta/BuscarIncidenteES", "Consulta/VerIncidenteES",
+                "ABM/CrudmodeloES", "ABM/EditarmodeloES", "ABM/CrudubicacionES", "ABM/EditarubicacionES",
+                "ABM/CrudincidenteES", "ABM/EditarincidenteES")
         };
+
+        /// <summary>Usuarios (solo administradores), en la parte de administración del menú lateral.</summary>
+        public static readonly SeccionMenu Usuarios = new SeccionMenu("usuarios", "Usuarios", "bi-people", true,
+            new GrupoMenu(null,
+                I("Gestionar", "Usuario", "Index"),
+                I("Roles", "Role", "Index"),
+                I("Nuevo usuario", "Account", "Register")));
+
+        /// <summary>El equipo al que pertenece la pantalla actual, o null (Inicio, Usuarios, cuenta, ...).</summary>
+        public static Equipo EquipoActual(string controlador, string accion)
+        {
+            return Equipos.FirstOrDefault(e => e.Contiene(controlador, accion));
+        }
     }
 }

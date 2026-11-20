@@ -1,55 +1,41 @@
 ﻿@model List<Model.soPC>
 @{
-    ViewBag.Title = "Sistemas Operativos";
+    ViewBag.Title = "Sistemas operativos";
 }
-<h4 class="page-title">Sistemas Operativos!</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Sistemas Operativos") </li>
-</ol>
 
-@using (Html.BeginForm("Crudso", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="vakata-context-left">
-        <button type="submit" class="btn btn-primary">
-            <span class="btn-label">
-                <i class="bi bi-plus-lg"></i>
-            </span>
-            Agregar
-        </button>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Sistemas operativos</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Computadora/Index">Computadoras</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Sistemas operativos</li>
+        </ol>
     </div>
+    <a class="btn btn-primary" href="~/ABM/Crudso" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo sistema operativo</a>
+</div>
 
-}
-<div class="col-md-2"></div>
-<div class="col-md-8">
-    <div class="card-box">
-        <table class="table table-hover sgei-grilla" data-grilla>
-            <thead>
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
+        <thead>
+            <tr>
+                    <th>Sistema operativo</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
                 <tr>
-                    <th>Descripcion</th>
-                    <th class="sgei-col-acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var a in Model)
-                {
-                    <tr>
                         <td>@a.descripcion</td>
-                        <td>
-                            <div class="sgei-acciones">
-                                <a class="sgei-accion" title="Editar" href="~/ABM/Editarso/@a.id_so" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
-                                @Html.BotonEliminar(Url.Content("~/ABM/Eliminarso/" + a.id_so), "¿Desea eliminar el SO?", "bi bi-trash")
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-    </div>
-    </div>
-<div class="col-md-2"></div>
-
-
-
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="~/ABM/Editarso/@a.id_so" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/Eliminarso/" + a.id_so), "¿Eliminar el sistema operativo «" + a.descripcion + "»?")
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

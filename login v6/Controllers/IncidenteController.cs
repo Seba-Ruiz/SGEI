@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using login_v6.Helpers;
 using Model;
 using Negocio.Dominio;
 
@@ -43,6 +44,7 @@ namespace login_v6.Controllers
                 //---//
 
                 TempData["id_incidente"] = model.id;
+                this.AvisoExito("Se cargó el incidente de la impresora. Si querés, agregá una foto.");
                 return RedirectToAction("AgregarImagen");
             }
             
@@ -94,6 +96,10 @@ namespace login_v6.Controllers
 
             }
 
+            if (file != null)
+            {
+                this.AvisoExito("Se agregó la foto del incidente de la impresora.");
+            }
             return RedirectToAction("Index", "Home");
         }
 

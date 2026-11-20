@@ -54,8 +54,11 @@ la publicación no los borra porque el perfil usa `DeleteExistingFiles=False`).
   https://icons.getbootstrap.com). DataTables 2 con estilo Bootstrap 5, en castellano por defecto.
 - Todo el estilo propio está en `Content/sgei.css`. Los colores y medidas son variables al principio
   del archivo (`--sgei-primario: #1f5fa8`, ancho del menú, radios): cambiándolas cambia toda la app.
-- Layout: menú lateral (`Views/Shared/_MenuLateral.cshtml`) + barra superior. **Para agregar una
-  pantalla al menú**, sumarla en `Helpers/MenuSgei.cs` (con `soloAdministrador: true` si corresponde).
+- Layout: menú lateral (`Views/Shared/_MenuLateral.cshtml`: Inicio, Dashboard, Equipos y Administración)
+  + barra superior. Cada equipo tiene su barra de acciones (`Views/Shared/_BarraEquipo.cshtml`: alta,
+  Consultas, Ingresos, Buscar y Gestión) arriba de todas sus pantallas. **Para agregar una pantalla**,
+  sumarla en `Helpers/MenuSgei.cs`: en un desplegable del equipo (con `soloAdministrador: true` si
+  corresponde) o, si es una pantalla interna del equipo, en su lista de páginas para que muestre la barra.
 - Pantallas de cuenta sin sesión (login, recuperar contraseña): `Views/Shared/_LayoutCuenta.cshtml`.
 - Estructura recomendada para una pantalla nueva:
 

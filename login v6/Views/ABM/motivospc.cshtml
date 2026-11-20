@@ -1,53 +1,41 @@
 ﻿@model List<Model.motivobajaPC>
 @{
-    ViewBag.Title = "Motivo Baja PC";
+    ViewBag.Title = "Motivos de baja";
 }
-<h4 class="page-title">Motivos!</h4>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">@("Motivo Baja de PCs") </li>
-</ol>
 
-@using (Html.BeginForm("Crudmotivopc", "ABM", FormMethod.Post, new { id = "frm-insumo" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="vakata-context-left">
-        <button type="submit" class="btn btn-primary">
-            <span class="btn-label">
-                <i class="bi bi-plus-lg"></i>
-            </span>
-            Agregar
-        </button>
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Motivos de baja</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="~/Computadora/Index">Computadoras</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Motivos de baja</li>
+        </ol>
     </div>
+    <a class="btn btn-primary" href="~/ABM/Crudmotivopc" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo motivo</a>
+</div>
 
-}
-<div class="col-md-2"></div>
-<div class="col-md-8">
-    <div class="card-box">
-        <table class="table table-hover sgei-grilla" data-grilla>
-            <thead>
+<div class="card-box">
+    <table class="table table-hover sgei-grilla" data-grilla>
+        <thead>
+            <tr>
+                    <th>Motivo</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
                 <tr>
-                    <th>Descripcion</th>
-                    <th class="sgei-col-acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var a in Model)
-                {
-                    <tr>
                         <td>@a.descripcion</td>
-                        <td>
-                            <div class="sgei-acciones">
-                                <a class="sgei-accion" title="Editar" href="~/ABM/Editarmotivopc/@a.id_motivobaja" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
-                                @Html.BotonEliminar(Url.Content("~/ABM/Eliminarmotivopc/" + a.id_motivobaja), "¿Desea eliminar el Motivo de Baja de PC?", "bi bi-trash")
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-    </div>
-    </div>
-<div class="col-md-2"></div>
-
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="~/ABM/Editarmotivopc/@a.id_motivobaja" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Content("~/ABM/Eliminarmotivopc/" + a.id_motivobaja), "¿Eliminar el motivo de baja «" + a.descripcion + "»?")
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

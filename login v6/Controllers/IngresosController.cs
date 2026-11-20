@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using login_v6.Helpers;
 using Model;
 using Negocio.Dominio;
 using Negocio.DTO;
@@ -91,7 +92,8 @@ namespace login_v6.Controllers
                 insumo.cantidad = insumo.cantidad + Convert.ToInt32(cantidad);
                 insu.Guardar(insumo);
 
-                return View();
+                this.AvisoExito("Se registró el ingreso de " + (Convert.ToInt32(cantidad) == 1 ? "1 unidad" : cantidad + " unidades") + " de" + Avisos.Nombre(insumo.nombre) + " (comprobante " + od + ").");
+                return Redirect("~/Ingresos/VerIngresoImpresora");
             }
            
         }
@@ -144,7 +146,8 @@ namespace login_v6.Controllers
                 insumo.cantidad = insumo.cantidad + Convert.ToInt32(cantidad);
                 insu.Guardar(insumo);
 
-                return View();
+                this.AvisoExito("Se registró el ingreso de " + (Convert.ToInt32(cantidad) == 1 ? "1 unidad" : cantidad + " unidades") + " de" + Avisos.Nombre(insumo.nombre) + " (comprobante " + od + ").");
+                return Redirect("~/Ingresos/VerIngresoPC");
             }
 
         }
@@ -196,7 +199,8 @@ namespace login_v6.Controllers
                 insumo.cantidad = insumo.cantidad + Convert.ToInt32(cantidad);
                 insu.Guardar(insumo);
 
-                return View();
+                this.AvisoExito("Se registró el ingreso de " + (Convert.ToInt32(cantidad) == 1 ? "1 unidad" : cantidad + " unidades") + " de" + Avisos.Nombre(insumo.nombre) + " (comprobante " + od + ").");
+                return Redirect("~/Ingresos/VerIngresoCam");
             }
 
         }
