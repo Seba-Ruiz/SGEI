@@ -1,0 +1,61 @@
+﻿@model List<Negocio.DTO.DTO_InsumoFila>
+@using Negocio.Servicio
+@{
+    ViewBag.Title = "Insumos";
+}
+
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Insumos colocados</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item">Consultas</li>
+            <li class="breadcrumb-item active" aria-current="page">Insumos</li>
+        </ol>
+    </div>
+    <a class="btn btn-primary" href="~/Consultas/NuevoInsumo" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo insumo</a>
+</div>
+
+<div class="card-box">
+    @Html.Partial("_Filtros", new ViewDataDictionary { { "grilla", "#grilla-insumos" }, { "tipos", TiposEquipo.ConInsumos }, { "ubicaciones", ViewBag.Ubicaciones }, { "fechas", "Fecha de colocación" } })
+
+    <table class="table table-hover sgei-grilla" data-grilla id="grilla-insumos">
+        <thead>
+            <tr>
+                <th class="col-fecha">Fecha</th>
+                <th class="col-tipo">Tipo</th>
+                <th>Equipo</th>
+                <th class="col-ubicacion">Ubicación</th>
+                <th>Insumo</th>
+                <th>N° de serie</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td>@(i.Fecha.HasValue ? i.Fecha.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@i.TipoNombre</td>
+                    <td>
+                        @i.Equipo
+                        @if (!string.IsNullOrWhiteSpace(i.Ip))
+                        {
+                            <div class="small text-muted">@i.Ip</div>
+                        }
+                    </td>
+                    <td>@i.Ubicacion</td>
+                    <td>@i.Insumo</td>
+                    <td>@i.NroSerie</td>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion sgei-accion-info" title="Ver detalle" aria-label="Ver detalle" href="@Url.Action("VerInsumo", new { tipo = i.Tipo, id = i.Id })" data-spinner><i class="bi bi-eye" aria-hidden="true"></i></a>
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="@Url.Action("EditarInsumo", new { tipo = i.Tipo, id = i.Id })" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Action("EliminarInsumo", new { tipo = i.Tipo, id = i.Id }), "¿Eliminar el insumo «" + i.Insumo + "» de " + TiposEquipo.ConArticulo(i.Tipo) + " «" + i.Equipo + "»? Se devuelve 1 unidad al stock.")
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

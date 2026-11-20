@@ -1,0 +1,40 @@
+﻿@using Negocio.Servicio
+@*
+    Filtros de las grillas de Consultas (tipo de equipo, ubicación y rango de fechas). Scripts/app/sgei.js los ubica
+    junto al buscador de la grilla y filtra en el navegador. Uso:
+    Html.Partial("_Filtros", new ViewDataDictionary { { "grilla", "#grilla-x" }, { "tipos", TiposEquipo.Todos },
+                 { "ubicaciones", lista }, { "fechas", "Fecha del incidente" } })
+*@
+@{
+    var grilla = (string)ViewData["grilla"];
+    var tipos = (IEnumerable<string>)ViewData["tipos"];
+    var ubicaciones = (IEnumerable<string>)ViewData["ubicaciones"];
+    var fechas = (string)ViewData["fechas"];
+    var prefijo = grilla.TrimStart('#');
+}
+<div class="sgei-grilla-filtro">
+    <label class="visually-hidden" for="@(prefijo)-tipo">Tipo de equipo</label>
+    <select class="form-select" id="@(prefijo)-tipo" autocomplete="off" data-filtro-grilla="@grilla" data-filtro-columna=".col-tipo" data-buscable>
+        <option value="">Todos los equipos</option>
+        @foreach (var t in tipos)
+        {
+            <option value="@t">@TiposEquipo.Nombre(t)</option>
+        }
+    </select>
+</div>
+<div class="sgei-grilla-filtro">
+    <label class="visually-hidden" for="@(prefijo)-ubicacion">Ubicación</label>
+    <select class="form-select" id="@(prefijo)-ubicacion" autocomplete="off" data-filtro-grilla="@grilla" data-filtro-columna=".col-ubicacion" data-buscable>
+        <option value="">Todas las ubicaciones</option>
+        @foreach (var u in ubicaciones)
+        {
+            <option value="@u">@u</option>
+        }
+    </select>
+</div>
+<div class="sgei-grilla-fechas" data-filtro-grilla="@grilla" data-filtro-columna=".col-fecha" role="group" aria-label="@fechas">
+    <i class="bi bi-calendar3" aria-hidden="true"></i>
+    <input type="date" class="form-control" data-desde title="@fechas: desde" aria-label="@fechas: desde" />
+    <span class="text-muted small">a</span>
+    <input type="date" class="form-control" data-hasta title="@fechas: hasta" aria-label="@fechas: hasta" />
+</div>

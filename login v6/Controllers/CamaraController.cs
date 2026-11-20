@@ -36,11 +36,8 @@ namespace login_v6.Controllers
             ViewBag.modelo = new SelectList(modelo.Listar(), "id_mmarca", "marca_modelo", det.id_mm);
             ViewBag.ubicacion = new SelectList(ubi.Listar(), "id_ubicacion_camara", "nombre", det.id_ubicacion_camara);
 
-
             return View(det);
         }
-
-
 
         public ActionResult GuardarCam(DTO_u_detalle_camara deta)
         {
@@ -71,64 +68,8 @@ namespace login_v6.Controllers
             audit_dom.Guardar(audit);
             //---//
 
-
             this.AvisoExito("Se guardaron los cambios de la cámara" + Avisos.Nombre(deta.descripcion) + ".");
             return Redirect("~/Camara/Index");
-        }
-
-        public ActionResult Incidente(int id)
-        {
-            incidente_camara_dominio inci = new incidente_camara_dominio();
-            ViewBag.incidente = inci.Listar();
-            ViewBag.detalle_id = id;
-
-            return View(new camara_incidente_camara());
-        }
-
-        public ActionResult Guardarincidente(camara_incidente_camara inci)
-        {
-
-            if (inci.fecha_incidente == null || inci.fecha_reparacion == null)
-            {
-                return RedirectToAction("ErrorPantalla");
-            }
-            else
-            {
-                camara_incidente_camara incidente = new camara_incidente_camara();
-                camara_incidente_camara_dominio incidenteDominio = new camara_incidente_camara_dominio();
-
-                incidente.camara_id = inci.camara_id;
-                incidente.fecha_incidente = inci.fecha_incidente;
-                incidente.fecha_reparacion = inci.fecha_reparacion;
-                incidente.reparacion = inci.reparacion;
-                incidente.incidente_id = inci.incidente_id;
-
-                incidenteDominio.Guardar(incidente);
-
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
-
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "CAMARA";
-                audit.id_equipo = inci.camara_id;
-                audit.accion = "INCIDENTE";
-                audit.usuario = User.Identity.Name;
-
-                audit_dom.Guardar(audit);
-                //---//
-
-                var equipo = new camara_dominio().Obtener(Convert.ToInt32(inci.camara_id));
-                this.AvisoExito("Se cargó el incidente en la cámara" + Avisos.Nombre(equipo != null ? equipo.descripcion : null) + ".");
-                return Redirect("~/Camara/Index");
-            }
-
-        }
-
-        public ActionResult ErrorPantalla()
-        {
-
-            return View();
         }
 
         public ActionResult Baja(int id)
@@ -137,7 +78,6 @@ namespace login_v6.Controllers
             var camara = cam.Obtener(id);
             camara.fecha_baja = DateTime.Now;
             cam.Guardar(camara);
-
 
             //AUDITORIA
             Auditoria audit = new Auditoria();

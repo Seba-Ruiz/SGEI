@@ -14,6 +14,8 @@
  *   data-filtro-grilla="#tabla" en <select>: filtra esa grilla por la columna data-filtro-columna
  *                              (selector del <th>) con el texto de la opción elegida.
  *   data-buscable              en <select>: combo con buscador (Select2).
+ *   .sgei-grilla-fechas[data-filtro-grilla] con inputs [data-desde]/[data-hasta]: filtra la grilla por un
+ *                              rango de fechas de la columna data-filtro-columna.
  */
 (function ($, window, document) {
     "use strict";
@@ -376,7 +378,7 @@
         var api = $tabla.DataTable();
         var columna = api.column($combo.data("filtroColumna"));
         var $contenedor = $combo.closest(".sgei-grilla-filtro");
-        $(api.table().container()).find(".dt-search").first().after($contenedor.length ? $contenedor : $combo);
+        ubicarJuntoAlBuscador(api, $contenedor.length ? $contenedor : $combo);
 
         // DataTables le quita los acentos a los datos de búsqueda ("ESTERILIZACIÓN" -> "ESTERILIZACION"):
         // se comparan los dos textos sin acentos.
@@ -394,6 +396,61 @@
 
         $combo.on("change", filtrar);
         if ($combo.val()) {
+            filtrar();
+        }
+    };
+
+    /** Pone un filtro en la barra de la grilla: después del buscador y de los filtros que ya estén ahí, en orden. */
+    var ubicarJuntoAlBuscador = function (api, $elemento) {
+        var $barra = $(api.table().container()).find(".dt-search").first().parent();
+        var $ancla = $barra.children(".sgei-grilla-filtro, .sgei-grilla-fechas").last();
+        ($ancla.length ? $ancla : $barra.children(".dt-search").first()).after($elemento);
+    };
+
+    /**
+     * Filtro por rango de fechas sobre una columna con fechas dd/MM/yyyy:
+     *   <div class="sgei-grilla-fechas" data-filtro-grilla="#grilla" data-filtro-columna=".col-fecha">
+     *     <input type="date" data-desde> <input type="date" data-hasta>
+     *   </div>
+     * Cualquiera de las dos puntas puede quedar vacía.
+     */
+    var reFechaCelda = /(\d{1,2})\/(\d{1,2})\/(\d{4})/;
+    SGEI.crearFiltroFechas = function (contenedor) {
+        var $contenedor = $(contenedor);
+        var $tabla = $($contenedor.data("filtroGrilla"));
+        if (!$tabla.length || !$.fn.dataTable || !$.fn.dataTable.isDataTable($tabla[0])) {
+            return;
+        }
+
+        var api = $tabla.DataTable();
+        var columna = api.column($contenedor.data("filtroColumna"));
+        var $desde = $contenedor.find("[data-desde]");
+        var $hasta = $contenedor.find("[data-hasta]");
+        ubicarJuntoAlBuscador(api, $contenedor);
+
+        // "2026-11-20" (input date) o "20/11/2026" (celda) -> 20261120, para comparar como número.
+        var desdeInput = function (v) { return v ? +v.replace(/-/g, "") : null; };
+        var desdeCelda = function (texto) {
+            var m = reFechaCelda.exec(String(texto));
+            return m ? +(m[3] + ("0" + m[2]).slice(-2) + ("0" + m[1]).slice(-2)) : null;
+        };
+
+        var filtrar = function () {
+            var desde = desdeInput($desde.val());
+            var hasta = desdeInput($hasta.val());
+            $hasta.attr("min", $desde.val() || null);
+            $desde.attr("max", $hasta.val() || null);
+            columna.search(desde || hasta ? function (valor) {
+                var fecha = desdeCelda(valor);
+                if (fecha === null) {
+                    return false;
+                }
+                return (desde === null || fecha >= desde) && (hasta === null || fecha <= hasta);
+            } : "").draw();
+        };
+
+        $desde.add($hasta).on("change", filtrar);
+        if ($desde.val() || $hasta.val()) {
             filtrar();
         }
     };
@@ -468,6 +525,10 @@
         // Después de las grillas: el filtro se mueve a la barra de la grilla y recién ahí se arma el Select2.
         $("select[data-filtro-grilla]").each(function () {
             SGEI.crearFiltroGrilla(this);
+        });
+
+        $(".sgei-grilla-fechas[data-filtro-grilla]").each(function () {
+            SGEI.crearFiltroFechas(this);
         });
 
         $("select[data-buscable]").each(function () {

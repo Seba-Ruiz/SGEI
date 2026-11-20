@@ -1,0 +1,52 @@
+﻿@model List<Negocio.DTO.DTO_BajaFila>
+@using Negocio.Servicio
+@{
+    ViewBag.Title = "Bajas";
+}
+
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Equipos dados de baja</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item">Consultas</li>
+            <li class="breadcrumb-item active" aria-current="page">Bajas</li>
+        </ol>
+    </div>
+</div>
+
+<div class="card-box">
+    @Html.Partial("_Filtros", new ViewDataDictionary { { "grilla", "#grilla-bajas" }, { "tipos", TiposEquipo.Todos }, { "ubicaciones", ViewBag.Ubicaciones }, { "fechas", "Fecha de baja" } })
+
+    <table class="table table-hover sgei-grilla" data-grilla id="grilla-bajas">
+        <thead>
+            <tr>
+                <th class="col-fecha">Fecha de baja</th>
+                <th class="col-tipo">Tipo</th>
+                <th>Equipo</th>
+                <th>IP / Interno</th>
+                <th class="col-ubicacion">Última ubicación</th>
+                <th>Motivo</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in Model)
+            {
+                <tr>
+                    <td>@(b.FechaBaja.HasValue ? b.FechaBaja.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@b.TipoNombre</td>
+                    <td>@b.Equipo</td>
+                    <td>@b.Ip</td>
+                    <td>@b.UltimaUbicacion</td>
+                    <td>@b.Motivo</td>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion sgei-accion-exito" title="Volver a dar de alta" aria-label="Volver a dar de alta" href="@Url.Action("Reactivar", new { tipo = b.Tipo, id = b.Id })" data-spinner><i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

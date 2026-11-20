@@ -8,9 +8,15 @@
     Func<ItemMenu, string> clase = item => "sgei-menu-link" + (item.EsActual(controlador, accion) ? " activo" : "");
     var usuarios = MenuSgei.Usuarios;
     var usuariosAbierto = usuarios.ContieneActual(controlador, accion);
+
+    // Consultas: el item queda marcado también en su alta, detalle y edición (NuevoIncidente, VerInsumo, Reactivar, ...).
+    var enConsultas = string.Equals(controlador, "Consultas", StringComparison.OrdinalIgnoreCase);
+    Func<ItemMenu, bool> consultaActual = item => enConsultas && (
+        (accion ?? "").IndexOf(item.Accion.TrimEnd('s'), StringComparison.OrdinalIgnoreCase) >= 0
+        || (item.Accion == "Bajas" && string.Equals(accion, "Reactivar", StringComparison.OrdinalIgnoreCase)));
 }
 
-@* Lo propio de cada equipo (alta, consultas, ingresos, gestión) está en la barra de su pantalla: Views/Shared/_BarraEquipo.cshtml *@
+@* Lo propio de cada equipo (alta, preventivos, ingresos, gestión) está en la barra de su pantalla: Views/Shared/_BarraEquipo.cshtml *@
 <ul class="sgei-menu">
     <li>
         <a class="@clase(MenuSgei.Inicio)" href="@Url.Action(MenuSgei.Inicio.Accion, MenuSgei.Inicio.Controlador)" data-spinner>
@@ -37,6 +43,27 @@
                     <li>
                         <a class="sgei-menu-link@(equipo == equipoActual ? " activo" : "")" href="@Url.Action(equipo.Grilla.Accion, equipo.Grilla.Controlador)" data-spinner
                            @(equipo == equipoActual ? Html.Raw("aria-current=\"page\"") : null)>@equipo.Nombre</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </li>
+
+    @* Consultas: incidentes, insumos y bajas de todos los equipos (ConsultasController). *@
+    <li>
+        <button type="button" class="sgei-menu-link" data-bs-toggle="collapse" data-bs-target="#menu-consultas"
+                aria-expanded="@(enConsultas ? "true" : "false")" aria-controls="menu-consultas">
+            <i class="bi @MenuSgei.Consultas.Icono"></i> @MenuSgei.Consultas.Texto
+            <i class="bi bi-chevron-right sgei-menu-flecha"></i>
+        </button>
+        <div class="collapse@(enConsultas ? " show" : "")" id="menu-consultas">
+            <ul class="sgei-submenu">
+                @foreach (var item in MenuSgei.Consultas.Items)
+                {
+                    var actual = consultaActual(item);
+                    <li>
+                        <a class="sgei-menu-link@(actual ? " activo" : "")" href="@Url.Action(item.Accion, item.Controlador)" data-spinner
+                           @(actual ? Html.Raw("aria-current=\"page\"") : null)>@item.Texto</a>
                     </li>
                 }
             </ul>

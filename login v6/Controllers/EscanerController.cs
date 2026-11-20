@@ -41,8 +41,6 @@ namespace login_v6.Controllers
             return View(det);
         }
 
-
-
         public ActionResult GuardarES(DTO_u_detalle_escaner deta)
         {
             escaner_dominio es = new escaner_dominio();
@@ -76,61 +74,6 @@ namespace login_v6.Controllers
             return Redirect("~/Escaner/Index");
         }
 
-        public ActionResult Incidente(int id)
-        {
-            incidente_escaner_dominio inci = new incidente_escaner_dominio();
-            ViewBag.incidente = inci.Listar();
-            ViewBag.detalle_id = id;
-
-            return View(new escaner_incidente_escaner());
-        }
-
-        public ActionResult Guardarincidente(escaner_incidente_escaner inci)
-        {
-            if (inci.fecha_incidente==null || inci.fecha_reparacion==null)
-            {
-                return RedirectToAction("ErrorPantalla");
-            }
-            else
-            {
-                escaner_incidente_escaner incidente = new escaner_incidente_escaner();
-                escaner_incidente_escaner_dominio incidenteDominio = new escaner_incidente_escaner_dominio();
-
-                incidente.escaner_id = inci.escaner_id;
-                incidente.fecha_incidente = inci.fecha_incidente;
-                incidente.fecha_reparacion = inci.fecha_reparacion;
-                incidente.reparacion = inci.reparacion;
-                incidente.escaner_id = inci.escaner_id;
-                incidente.incidente_escaner_id = inci.incidente_escaner_id;
-
-                incidenteDominio.Guardar(incidente);
-
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
-
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "ESCANER";
-                audit.id_equipo = inci.escaner_id;
-                audit.accion = "INCIDENTE";
-                audit.usuario = User.Identity.Name;
-
-                audit_dom.Guardar(audit);
-                //---//
-
-                var equipo = new escaner_dominio().Obtener(Convert.ToInt32(inci.escaner_id));
-                this.AvisoExito("Se cargó el incidente en el escáner" + Avisos.Nombre(equipo != null ? equipo.descripcion : null) + ".");
-                return Redirect("~/Escaner/Index");
-            }
-        }
-
-        public ActionResult ErrorPantalla()
-        {
-
-            return View();
-        }
-
-
         public ActionResult Baja(int id)
         {
             escaner_dominio esc = new escaner_dominio();
@@ -153,10 +96,6 @@ namespace login_v6.Controllers
             this.AvisoExito("Se dio de baja el escáner" + Avisos.Nombre(escaner.descripcion) + ".");
             return Redirect("~/Escaner/Index");
         }
-
-
-
-
 
     }
 }

@@ -9,7 +9,6 @@ using Negocio.Dominio;
 using Negocio.DTO;
 using Negocio.Servicio;
 
-
 namespace login_v6.Controllers
 {
     public class SwichsController : Controller
@@ -27,50 +26,6 @@ namespace login_v6.Controllers
             ViewBag.ubicaciones = new SelectList(ubi.Listar(), "id_ubicacion_switch", "nombre", ubicacion);
             return View(store.u_sw_01());
         }
-        public ActionResult Guardarincidente(switch_incidente_switch inci)
-        {
-            if (inci.fecha_incidente==null || inci.fecha_reparacion==null)
-            {
-                return RedirectToAction("ErrorPantalla");
-            }
-            else
-            {
-                switch_incidente_switch incidente = new switch_incidente_switch();
-                switch_incidente_switch_dominio incidenteDominio = new switch_incidente_switch_dominio();
-
-                incidente.switch_id = inci.switch_id;
-                incidente.fecha_incidente = inci.fecha_incidente;
-                incidente.fecha_reparacion = inci.fecha_reparacion;
-                incidente.reparacion = inci.reparacion;
-                incidente.incidente_switch_id = inci.incidente_switch_id;
-
-                incidenteDominio.Guardar(incidente);
-
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
-
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "SWITCH";
-                audit.id_equipo = inci.switch_id;
-                audit.accion = "INCIDENTE";
-                audit.usuario = User.Identity.Name;
-
-                audit_dom.Guardar(audit);
-                //---//
-
-                var equipo = new switch_dominio().Obtener(Convert.ToInt32(inci.switch_id));
-                this.AvisoExito("Se cargó el incidente en el switch" + Avisos.Nombre(equipo != null ? equipo.descripcion : null) + ".");
-                return Redirect("~/Swichs/Index");
-            }
-        }
-
-        public ActionResult ErrorPantalla()
-        {
-
-            return View();
-        }
-
 
         public ActionResult Editar(int id)
         {
@@ -84,7 +39,6 @@ namespace login_v6.Controllers
 
             return View(det);
         }
-
 
         public ActionResult GuardarSW(DTO_u_detalle_sw deta)
         {
@@ -104,7 +58,6 @@ namespace login_v6.Controllers
 
             dt.Guardar(detalle);
 
-
             //AUDITORIA
             Auditoria audit = new Auditoria();
             auditoria_dominio audit_dom = new auditoria_dominio();
@@ -119,16 +72,6 @@ namespace login_v6.Controllers
             //---//
             this.AvisoExito("Se guardaron los cambios del switch" + Avisos.Nombre(deta.descripcion) + ".");
             return Redirect("~/Swichs/Index");
-        }
-
-
-        public ActionResult Incidente(int id)
-        {
-            incidente_sw_dominio inci = new incidente_sw_dominio();
-            ViewBag.incidente = inci.Listar();
-            ViewBag.detalle_id = id;
-
-            return View(new switch_incidente_switch());
         }
 
         public ActionResult Baja(int id)
@@ -153,7 +96,6 @@ namespace login_v6.Controllers
             this.AvisoExito("Se dio de baja el switch" + Avisos.Nombre(switc.descripcion) + ".");
             return Redirect("~/Swichs/Index");
         }
-
 
     }
 }
