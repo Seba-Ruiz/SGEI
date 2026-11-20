@@ -248,6 +248,20 @@ namespace Negocio.Servicio
             return filas.OrderByDescending(f => f.FechaIncidente).ThenByDescending(f => f.Id).ToList();
         }
 
+        /// <summary>Fechas de los incidentes de cada tipo de equipo desde una fecha (gráfico del Dashboard).</summary>
+        public Dictionary<string, List<DateTime>> FechasDeIncidentes(DateTime desde)
+        {
+            using (var ctx = new SGEIContext())
+            {
+                return TiposEquipo.Todos.ToDictionary(
+                    tipo => tipo,
+                    tipo => Incidentes(ctx, tipo)
+                        .Where(i => i.FechaIncidente.HasValue && i.FechaIncidente.Value >= desde)
+                        .Select(i => i.FechaIncidente.Value)
+                        .ToList());
+            }
+        }
+
         /// <summary>Un incidente con todos sus datos (para el detalle).</summary>
         public DTO_IncidenteFila ObtenerIncidenteFila(string tipo, int id)
         {

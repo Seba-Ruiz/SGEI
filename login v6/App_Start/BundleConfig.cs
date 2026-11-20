@@ -12,7 +12,7 @@ namespace login_v6
         // Scripts (al final del <body>, en este orden):
         //   ~/bundles/jquery     -> jQuery (única copia en toda la app) + jQuery Migrate
         //   ~/bundles/bootstrap  -> Bootstrap 5 (incluye Popper)
-        //   ~/bundles/plugins    -> DataTables, Select2, jquery.steps (wizard), Chart.js
+        //   ~/bundles/plugins    -> DataTables, Select2, jquery.steps (wizard)
         //   Scripts/app/sgei.js  -> comportamiento común (menú, confirmaciones, AJAX)
         //   Scripts/views/...    -> script propio de cada vista, si existe
         public static void RegisterBundles(BundleCollection bundles)
@@ -53,8 +53,11 @@ namespace login_v6
                         "~/Scripts/lib/datatables/dataTables.js",
                         "~/Scripts/lib/datatables/dataTables.bootstrap5.js",
                         "~/Scripts/lib/select2/select2.js",
-                        "~/assets/plugins/jquery.steps/js/jquery.steps.min.js",
-                        "~/assets/plugins/chart.js/chart.min.js"));
+                        "~/assets/plugins/jquery.steps/js/jquery.steps.min.js"));
+
+            // Dashboard: Chart.js 4 (la vista lo incluye en la sección "librerias" del layout).
+            bundles.Add(new Bundle("~/bundles/chartjs", SinMinificarTransform.Js).Include(
+                        "~/Scripts/lib/chartjs/chart.umd.js"));
 
             // Tickets: editor Summernote (descripción y comentarios) y SortableJS (arrastre del board).
             // Las vistas los incluyen en las secciones "estilos" y "librerias" del layout.

@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Inicio";
+﻿@using Negocio.Servicio
+@{
+    ViewBag.Title = "Dashboard";
 
     // Tarjetas del resumen: título, cantidad, ícono y pantalla a la que lleva.
     var equipos = new[]
@@ -11,12 +12,22 @@
         new { Titulo = "Switches",     Cantidad = ViewBag.sw,           Icono = "bi-diagram-3",   Url = Url.Content("~/Swichs/Index") },
         new { Titulo = "Escáneres",    Cantidad = ViewBag.es,           Icono = "bi-upc-scan",    Url = Url.Content("~/Escaner/Index") }
     };
+
+    // Gráficos: id, título, subtítulo, columnas y alto del lienzo. Los datos van en #datos-dashboard
+    // y los dibuja Scripts/views/Inicio/Index.js.
+    var graficos = new[]
+    {
+        new { Id = "incidentes", Titulo = "Incidentes por mes", Ayuda = "Últimos " + Dashboard.MesesIncidentes + " meses, por tipo de equipo", Columnas = "col-xl-8", Alto = 300, Link = Url.Action("Incidentes", "Consultas"), TextoLink = "Ver incidentes" },
+        new { Id = "estados", Titulo = "Tickets por estado", Ayuda = "Abiertos y terminados en los últimos " + Tickets.DiasTerminadosEnBoard + " días", Columnas = "col-xl-4 col-md-6", Alto = 300, Link = Url.Action("Index", "Tickets"), TextoLink = "Ir al board" },
+        new { Id = "usuarios", Titulo = "Tickets por usuario", Ayuda = "Asignados a cada persona, por estado", Columnas = "col-xl-7 col-md-6", Alto = 320, Link = Url.Action("Index", "Tickets"), TextoLink = "Ir al board" },
+        new { Id = "sistemas", Titulo = "Computadoras por sistema operativo", Ayuda = "Computadoras activas, según su último detalle", Columnas = "col-xl-5", Alto = 320, Link = Url.Action("Index", "Computadora"), TextoLink = "Ver computadoras" }
+    };
 }
 
-<div class="d-flex flex-wrap align-items-start justify-content-between gap-3 mb-4">
+<div class="sgei-encabezado">
     <div>
-        <h4 class="page-title">Panel general</h4>
-        <p class="text-muted mb-0">Resumen del equipamiento informático registrado en SGEI.</p>
+        <h4 class="page-title">Dashboard</h4>
+        <p class="text-muted mb-0">Resumen del equipamiento, los incidentes y los tickets de SGEI.</p>
     </div>
 
     <div class="dropdown">
@@ -46,3 +57,36 @@
         </div>
     }
 </div>
+
+<script type="application/json" id="datos-dashboard">@Html.Raw(Json.Encode(ViewBag.Graficos))</script>
+
+<div class="row g-3 mt-1">
+    @foreach (var g in graficos)
+    {
+        <div class="col-12 @g.Columnas">
+            <section class="card sgei-grafico h-100 mb-0" aria-labelledby="titulo-@g.Id">
+                <div class="card-body">
+                    <header class="sgei-grafico-cabecera">
+                        <div>
+                            <h2 class="sgei-grafico-titulo" id="titulo-@g.Id">@g.Titulo</h2>
+                            <p class="sgei-grafico-ayuda">@g.Ayuda · <span data-total="@g.Id"></span></p>
+                        </div>
+                        <a class="sgei-grafico-link" href="@g.Link" data-spinner>@g.TextoLink<i class="bi bi-arrow-right-short" aria-hidden="true"></i></a>
+                    </header>
+                    <div class="sgei-grafico-lienzo" style="height: @(g.Alto)px">
+                        <canvas id="grafico-@g.Id" role="img" aria-label="@g.Titulo"></canvas>
+                        <p class="sgei-grafico-vacio" data-vacio="@g.Id" hidden>Todavía no hay datos para mostrar.</p>
+                    </div>
+                    <details class="sgei-grafico-tabla">
+                        <summary>Ver datos</summary>
+                        <div class="table-responsive" data-tabla="@g.Id"></div>
+                    </details>
+                </div>
+            </section>
+        </div>
+    }
+</div>
+
+@section librerias {
+    @Scripts.Render("~/bundles/chartjs")
+}

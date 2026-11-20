@@ -2848,7 +2848,7 @@
     <Content Include="Scripts\views\Ingresos\Index.js" />
     <Content Include="Scripts\views\Ingresos\IndexCam.js" />
     <Content Include="Scripts\views\Ingresos\IndexCompu.js" />
-    <Content Include="Scripts\views\Inicio\Dashboard.js" />
+    <Content Include="Scripts\views\Inicio\Index.js" />
     <Content Include="Scripts\views\Inicio\Sugeridos.js" />
     <None Include="connectionStrings.example.config" />
     <None Include="appSettings.secret.example.config" />
@@ -3020,7 +3020,6 @@
     <Content Include="Views\Impresora\Preventivo.cshtml" />
     <Content Include="Views\Computadora\Preventivo.cshtml" />
     <Content Include="Views\Inicio\Sugeridos.cshtml" />
-    <Content Include="Views\Inicio\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3115,6 +3114,8 @@
     <Content Include="Scripts\lib\summernote\lang\summernote-es-ES.min.js" />
     <Content Include="Scripts\lib\sortable\Sortable.js" />
     <Content Include="Scripts\lib\sortable\Sortable.min.js" />
+    <Content Include="Scripts\lib\chartjs\chart.umd.js" />
+    <Content Include="Scripts\lib\chartjs\chart.umd.min.js" />
   </ItemGroup>
 
   <ItemGroup>

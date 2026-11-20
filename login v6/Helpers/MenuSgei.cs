@@ -148,8 +148,8 @@ namespace login_v6.Helpers
         private static MenuEquipo Gestion(params ItemMenu[] items) { return new MenuEquipo("Gestión", "bi-gear", true, items); }
         private static string[] Controladores(params string[] nombres) { return nombres; }
 
-        public static readonly ItemMenu Inicio = I("Inicio", "Inicio", "Index");
-        public static readonly ItemMenu Dashboard = I("Dashboard", "Inicio", "Dashboard");
+        /// <summary>Dashboard (unificado con el antiguo Inicio): queda en /Inicio/Index.</summary>
+        public static readonly ItemMenu Dashboard = I("Dashboard", "Inicio", "Index");
         /// <summary>Board de tickets; queda marcado en todas las pantallas de TicketsController.</summary>
         public static readonly ItemMenu Tickets = I("Tickets", "Tickets", "Index");
         public static readonly ItemMenu Proveedores = I("Proveedores", "ABM", "proveedores", soloAdministrador: true);

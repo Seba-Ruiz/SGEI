@@ -156,6 +156,7 @@
     <Compile Include="Servicio\servicio.cs" />
     <Compile Include="Servicio\servicios.cs" />
     <Compile Include="Servicio\ConsultasUnificadas.cs" />
+    <Compile Include="Servicio\Dashboard.cs" />
     <Compile Include="Servicio\HtmlSeguro.cs" />
     <Compile Include="Servicio\Tickets.cs" />
     <Compile Include="Servicio\stores.cs" />

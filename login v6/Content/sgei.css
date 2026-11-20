@@ -1224,3 +1224,33 @@ div.dt-container .dt-empty { padding: 2rem 1rem !important; color: var(--sgei-te
     .sgei-board-filtros .form-select { flex: 1 1 140px; }
     .sgei-mensaje { max-width: 100%; }
 }
+
+/* =====================================================================
+   Dashboard: tarjetas de gráficos (Views/Inicio/Index, Chart.js 4)
+   ===================================================================== */
+.sgei-grafico .card-body { display: flex; flex-direction: column; gap: .75rem; padding: 1.1rem 1.25rem; }
+.sgei-grafico-cabecera { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem 1rem; }
+.sgei-grafico-titulo { margin: 0; font-size: 1rem; font-weight: 700; color: var(--sgei-texto); }
+.sgei-grafico-ayuda { margin: .15rem 0 0; font-size: .8rem; color: var(--sgei-texto-suave); }
+.sgei-grafico-ayuda [data-total] { font-weight: 600; color: var(--sgei-texto); }
+.sgei-grafico-link { display: inline-flex; align-items: center; flex: 0 0 auto; font-size: .8rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.sgei-grafico-link:hover { text-decoration: underline; }
+.sgei-grafico-lienzo { position: relative; flex: 1 1 auto; min-height: 220px; }
+.sgei-grafico-vacio {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border: 1px dashed #c5ccd5;
+    border-radius: var(--sgei-radio);
+    color: var(--sgei-texto-suave);
+    font-size: .85rem;
+}
+.sgei-grafico-vacio[hidden] { display: none; }
+.sgei-grafico-tabla { font-size: .8rem; }
+.sgei-grafico-tabla > summary { width: max-content; color: var(--sgei-texto-suave); cursor: pointer; }
+.sgei-grafico-tabla > summary:hover { color: var(--sgei-primario); }
+.sgei-grafico-tabla[open] > summary { margin-bottom: .5rem; }
+.sgei-grafico-tabla .table { font-size: .8rem; }

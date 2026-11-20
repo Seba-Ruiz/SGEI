@@ -3,7 +3,7 @@
     ViewBag.Title = "Editar Modelo de Escaner";
 }
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="~/Inicio/index">Inicio</a></li>
+    <li class="breadcrumb-item"><a href="~/Inicio/index">Dashboard</a></li>
     <li class="breadcrumb-item active" aria-current="page">@(Model.id_marca_modelo_escaner > 0 ? Model.descripcion : "Editar Ubicacion") </li>
 </ol>
 @using (Html.BeginForm("GuardarmodeloES", "ABM", FormMethod.Post))

@@ -1,13 +1,13 @@
-﻿using Negocio.Servicio;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using Negocio.Servicio;
 
 namespace login_v6.Controllers
 {
+    /// <summary>
+    /// Dashboard (antes "Inicio"): cantidad de equipos activos por tipo y gráficos de incidentes, tickets y sistemas
+    /// operativos (Negocio/Servicio/Dashboard.cs). Queda en /Inicio/Index para que sigan andando todos los links.
+    /// </summary>
     [Authorize]
     public class InicioController : Controller
     {
@@ -23,60 +23,29 @@ namespace login_v6.Controllers
             ViewBag.sw = serv.sumaSW();
             ViewBag.es = serv.sumaES();
 
-            var a_mantenimiento = store.mantenimiento();
-
-            return View(a_mantenimiento);
-        }
-        public ActionResult Sugeridos()
-        {
-            
-            var a_mantenimiento = store.mantenimiento();
-
-            return View(a_mantenimiento);
-        }
-
-        public ActionResult Dashboard()
-        {
-
-            
-
+            var dashboard = new Negocio.Servicio.Dashboard();
+            var tickets = new Tickets().Board();
+            ViewBag.Graficos = new
+            {
+                incidentes = dashboard.IncidentesPorMes(),
+                estados = dashboard.TicketsPorEstado(tickets),
+                coloresEstado = EstadosTicket.Todos.Select(e => Negocio.Servicio.Dashboard.ColoresEstado[e]).ToList(),
+                usuarios = dashboard.TicketsPorUsuario(tickets),
+                sistemas = dashboard.ComputadorasPorSistemaOperativo()
+            };
             return View();
         }
 
-        [HttpPost]
-        public JsonResult NewChart()
+        /// <summary>El Dashboard se unificó con Inicio.</summary>
+        public ActionResult Dashboard()
         {
-            List<object> iData = new List<object>();
-            //Creating sample data  
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Employee", System.Type.GetType("System.String"));
-            dt.Columns.Add("Credit", System.Type.GetType("System.Int32"));
-
-            DataRow dr = dt.NewRow();
-            dr["Employee"] = "Sam";
-            dr["Credit"] = 123;
-            dt.Rows.Add(dr);
-
-            dr = dt.NewRow();
-            dr["Employee"] = "Alex";
-            dr["Credit"] = 456;
-            dt.Rows.Add(dr);
-
-            dr = dt.NewRow();
-            dr["Employee"] = "Michael";
-            dr["Credit"] = 587;
-            dt.Rows.Add(dr);
-            //Looping and extracting each DataColumn to List<Object>  
-            foreach (DataColumn dc in dt.Columns)
-            {
-                List<object> x = new List<object>();
-                x = (from DataRow drr in dt.Rows select drr[dc.ColumnName]).ToList();
-                iData.Add(x);
-            }
-            //Source data returned as JSON  
-            return Json(iData, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Index");
         }
 
-
+        public ActionResult Sugeridos()
+        {
+            var a_mantenimiento = store.mantenimiento();
+            return View(a_mantenimiento);
+        }
     }
 }

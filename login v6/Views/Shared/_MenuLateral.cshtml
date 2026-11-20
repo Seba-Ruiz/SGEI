@@ -19,11 +19,6 @@
 @* Lo propio de cada equipo (alta, preventivos, ingresos, gestión) está en la barra de su pantalla: Views/Shared/_BarraEquipo.cshtml *@
 <ul class="sgei-menu">
     <li>
-        <a class="@clase(MenuSgei.Inicio)" href="@Url.Action(MenuSgei.Inicio.Accion, MenuSgei.Inicio.Controlador)" data-spinner>
-            <i class="bi bi-house"></i> @MenuSgei.Inicio.Texto
-        </a>
-    </li>
-    <li>
         <a class="@clase(MenuSgei.Dashboard)" href="@Url.Action(MenuSgei.Dashboard.Accion, MenuSgei.Dashboard.Controlador)" data-spinner>
             <i class="bi bi-speedometer2"></i> @MenuSgei.Dashboard.Texto
         </a>
