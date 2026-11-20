@@ -23,12 +23,13 @@ namespace login_v6
             bundles.IgnoreList.Ignore("*.intellisense.js");
             bundles.IgnoreList.Ignore("*-vsdoc.js");
 
-            // CssRewriteUrlTransform corrige las rutas relativas (fuentes de los íconos) al servir el bundle.
+            // SinMinificarTransform.Css pasa a absolutas las rutas relativas de url(...) (las fuentes de los íconos),
+            // también con la app en una carpeta de IIS (/SGEI). No usar CssRewriteUrlTransform: no se aplica a los .min.css.
             bundles.Add(new Bundle("~/Content/css", SinMinificarTransform.Css)
                         .Include("~/Content/lib/bootstrap/bootstrap.css")
-                        .Include("~/Content/lib/bootstrap-icons/bootstrap-icons.css", new CssRewriteUrlTransform())
+                        .Include("~/Content/lib/bootstrap-icons/bootstrap-icons.css")
                         .Include("~/Content/lib/datatables/dataTables.bootstrap5.css")
-                        .Include("~/assets/plugins/jquery.steps/css/jquery.steps.css", new CssRewriteUrlTransform())
+                        .Include("~/assets/plugins/jquery.steps/css/jquery.steps.css")
                         .Include("~/Content/lib/select2/select2.css")
                         .Include("~/Content/lib/select2/select2-bootstrap-5-theme.css")
                         .Include("~/Content/sgei.css"));
