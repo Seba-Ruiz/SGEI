@@ -768,8 +768,29 @@ div.dt-container .dt-search input.form-control:focus { background-color: #fff; }
 div.dt-container .dt-search label { display: none; }
 
 /* Filtros extra junto al buscador (por ejemplo, el combo de ubicación de Computadoras). */
-div.dt-container .dt-layout-start:has(.sgei-grilla-filtro) { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+div.dt-container .dt-layout-start:has(.sgei-grilla-filtro),
+div.dt-container .dt-layout-start:has(.sgei-grilla-fechas) { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
 .sgei-grilla-filtro { width: 260px; max-width: 100%; }
+
+/* Rango de fechas (Consultas): "📅 [desde] a [hasta]", mismo aspecto que el buscador. */
+.sgei-grilla-fechas { display: flex; align-items: center; gap: .35rem; color: var(--sgei-texto-suave); }
+.sgei-grilla-fechas input.form-control {
+    width: 150px;
+    padding: .4rem .75rem;
+    font-size: .875rem;
+    border-radius: 2rem;
+    background-color: #f7f9fb;
+}
+.sgei-grilla-fechas input.form-control:focus { background-color: #fff; }
+
+/* Detalle de un registro (Consultas: incidente, insumo) y fotos del incidente. */
+.sgei-detalle dt { font-weight: 500; color: var(--sgei-texto-suave); }
+.sgei-detalle dd { margin-bottom: .6rem; color: var(--sgei-texto); }
+.sgei-fotos { display: flex; flex-wrap: wrap; gap: .75rem; }
+.sgei-foto { position: relative; margin: 0; }
+.sgei-foto img { width: 160px; height: 120px; object-fit: cover; border-radius: .5rem; border: 1px solid var(--sgei-borde); }
+.sgei-foto form { position: absolute; top: .35rem; right: .35rem; }
+.sgei-form-card > .card-footer form { display: inline-flex; align-items: center; }
 /* Mismo aspecto (alto, letra y bordes redondeados) que el buscador de la grilla, con o sin Select2.
    El tema de Select2 define el padding en .select2-selection--single: hay que pisarlo ahí. */
 .sgei-grilla-filtro select.form-select,
@@ -849,8 +870,13 @@ div.dt-container .dt-empty { padding: 2rem 1rem !important; color: var(--sgei-te
     div.dt-container .dt-layout-start,
     div.dt-container .dt-layout-end { margin-bottom: .5rem; }
     div.dt-container .dt-search input.form-control { width: 100%; }
-    div.dt-container .dt-layout-start:has(.sgei-grilla-filtro) > * { flex: 1 1 100%; }
+    div.dt-container .dt-layout-start:has(.sgei-grilla-filtro) > *,
+    div.dt-container .dt-layout-start:has(.sgei-grilla-fechas) > * { flex: 1 1 100%; }
     .sgei-grilla-filtro { width: 100%; }
+    /* El input date tiene un ancho mínimo propio: se fuerza a repartirse el ancho disponible. */
+    .sgei-grilla-fechas { min-width: 0; }
+    .sgei-grilla-fechas > .bi { display: none; }
+    .sgei-grilla-fechas input.form-control { width: 0; flex: 1 1 0; min-width: 0; padding-left: .6rem; padding-right: .4rem; }
 }
 
 /* ---------------------------------------------------------------- 4. Compatibilidad con el tema anterior */

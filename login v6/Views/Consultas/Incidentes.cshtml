@@ -1,0 +1,69 @@
+﻿@model List<Negocio.DTO.DTO_IncidenteFila>
+@using Negocio.Servicio
+@{
+    ViewBag.Title = "Incidentes";
+}
+
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Incidentes</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item">Consultas</li>
+            <li class="breadcrumb-item active" aria-current="page">Incidentes</li>
+        </ol>
+    </div>
+    <a class="btn btn-primary" href="~/Consultas/NuevoIncidente" data-spinner><i class="bi bi-plus-lg me-1"></i>Nuevo incidente</a>
+</div>
+
+<div class="card-box">
+    @Html.Partial("_Filtros", new ViewDataDictionary { { "grilla", "#grilla-incidentes" }, { "tipos", TiposEquipo.Todos }, { "ubicaciones", ViewBag.Ubicaciones }, { "fechas", "Fecha del incidente" } })
+
+    <table class="table table-hover sgei-grilla" data-grilla id="grilla-incidentes">
+        <thead>
+            <tr>
+                <th class="col-fecha">Fecha</th>
+                <th class="col-tipo">Tipo</th>
+                <th>Equipo</th>
+                <th class="col-ubicacion">Ubicación</th>
+                <th>Incidente</th>
+                <th>Acción realizada</th>
+                <th>Fecha acción</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td>@(i.FechaIncidente.HasValue ? i.FechaIncidente.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@i.TipoNombre</td>
+                    <td>
+                        @i.Equipo
+                        @if (!string.IsNullOrWhiteSpace(i.Ip))
+                        {
+                            <div class="small text-muted">@i.Ip</div>
+                        }
+                    </td>
+                    <td>@i.Ubicacion</td>
+                    <td>
+                        @i.Incidente
+                        @if (i.Fotos > 0)
+                        {
+                            <i class="bi bi-camera text-muted ms-1" title="Tiene foto" aria-label="Tiene foto"></i>
+                        }
+                    </td>
+                    <td>@i.Accion</td>
+                    <td>@(i.FechaAccion.HasValue ? i.FechaAccion.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion sgei-accion-info" title="Ver detalle" aria-label="Ver detalle" href="@Url.Action("VerIncidente", new { tipo = i.Tipo, id = i.Id })" data-spinner><i class="bi bi-eye" aria-hidden="true"></i></a>
+                            <a class="sgei-accion" title="Editar" aria-label="Editar" href="@Url.Action("EditarIncidente", new { tipo = i.Tipo, id = i.Id })" data-spinner><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            @Html.BotonEliminar(Url.Action("EliminarIncidente", new { tipo = i.Tipo, id = i.Id }), "¿Eliminar el incidente «" + i.Incidente + "» de " + TiposEquipo.ConArticulo(i.Tipo) + " «" + i.Equipo + "»?")
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -130,8 +130,9 @@ namespace login_v6.Helpers
     }
 
     /// <summary>
-    /// Navegación de SGEI. Menú lateral: Inicio, Dashboard, Equipos y Administración (Usuarios, Proveedores).
-    /// Lo propio de cada equipo (alta, consultas, ingresos, búsquedas y gestión) está en la barra de ese equipo,
+    /// Navegación de SGEI. Menú lateral: Inicio, Dashboard, Equipos, Consultas (incidentes, insumos y bajas de todos
+    /// los equipos) y Administración (Usuarios, Proveedores).
+    /// Lo propio de cada equipo (alta, preventivos, ingresos, búsquedas y gestión) está en la barra de ese equipo,
     /// arriba de sus pantallas (Views/Shared/_BarraEquipo.cshtml). Para sumar una pantalla alcanza con agregarla acá.
     /// </summary>
     public static class MenuSgei
@@ -141,7 +142,7 @@ namespace login_v6.Helpers
             return new ItemMenu(texto, controlador, accion, soloAdministrador);
         }
 
-        private static MenuEquipo Consultas(params ItemMenu[] items) { return new MenuEquipo("Consultas", "bi-clipboard-data", false, items); }
+        private static MenuEquipo Preventivos(string controlador) { return new MenuEquipo("Preventivos", "bi-tools", false, I("Preventivos", controlador, "Preventivo")); }
         private static MenuEquipo Ingresos(params ItemMenu[] items) { return new MenuEquipo("Ingresos", "bi-box-seam", false, items); }
         private static MenuEquipo Buscar(params ItemMenu[] items) { return new MenuEquipo("Buscar", "bi-search", false, items); }
         private static MenuEquipo Gestion(params ItemMenu[] items) { return new MenuEquipo("Gestión", "bi-gear", true, items); }
@@ -158,10 +159,7 @@ namespace login_v6.Helpers
                 I("Nueva computadora", "Home", "AltaCompu"),
                 new[]
                 {
-                    Consultas(
-                        I("Informes", "Consulta", "computadoras"),
-                        I("Bajas", "Consulta", "compuBaja"),
-                        I("Preventivos", "Computadora", "Preventivo")),
+                    Preventivos("Computadora"),
                     Ingresos(
                         I("Cargar insumos", "Ingresos", "IndexCompu"),
                         I("Ver ingresos", "Ingresos", "VerIngresoPC")),
@@ -182,9 +180,6 @@ namespace login_v6.Helpers
                         I("Motivos de baja", "ABM", "motivospc"))
                 },
                 Controladores("Computadora", "Buscar"),
-                "Consulta/AltaPc", "Consulta/Alta_aceptada_pc", "Consulta/ConsultarRangoFechaPC", "Consulta/ConsultarRangoFechaPCIncidente",
-                "Consulta/ConsultarRangoPC", "Consulta/ConsultarRangoPCIncidente", "Consulta/IncidentesPcporFecha", "Consulta/InsumosPCporFecha",
-                "Insumo/AgregarInsumoPC",
                 "ABM/Crudinsumopc", "ABM/Editarinsumopc", "ABM/CrudRam", "ABM/EditarRam", "ABM/CrudDisco", "ABM/EditarDisco",
                 "ABM/Crudso", "ABM/Editarso", "ABM/Crudmoth", "ABM/Editarmoth", "ABM/Crudprocesadorpc", "ABM/Editarprocesadorpc",
                 "ABM/Crudtipopc", "ABM/Editartipopc", "ABM/Crudubipc", "ABM/Editarubipc", "ABM/Crudincidentepc", "ABM/Editarincidentepc",
@@ -195,10 +190,7 @@ namespace login_v6.Helpers
                 I("Nueva impresora", "Home", "AltaImpr"),
                 new[]
                 {
-                    Consultas(
-                        I("Informes", "Consulta", "Index"),
-                        I("Bajas", "Home", "impresoras_baja"),
-                        I("Preventivos", "Impresora", "Preventivo")),
+                    Preventivos("Impresora"),
                     Ingresos(
                         I("Cargar insumos", "Ingresos", "Index"),
                         I("Ver ingresos", "Ingresos", "VerIngresoImpresora")),
@@ -207,12 +199,9 @@ namespace login_v6.Helpers
                         I("Modelos", "ABM", "impresoras"),
                         I("Ubicaciones", "ABM", "ubicacion"))
                 },
-                Controladores("Impresora", "Incidente"),
+                Controladores("Impresora"),
                 "Home/Baja", "Home/Baja_aceptada", "Home/BuscarParaMover", "Home/Mover",
                 "Home/Crud", "Home/CrudDetalle_Impresora_Ubicacion", "Home/CrudUbicacion_impresora",
-                "Consulta/Buscar", "Consulta/BuscarIncidente", "Consulta/VerIncidente", "Consulta/VerImagen",
-                "Consulta/ConsultarFecha", "Consulta/ConsultarRango", "Consulta/ErrorPantallaImp",
-                "Insumo/AgregarInsumo", "Insumo/ErrorPantallaImpre",
                 "ABM/Crud", "ABM/Editar", "ABM/Insumos", "ABM/CrudImpresora", "ABM/EditarImpresora", "ABM/Impresoras",
                 "ABM/CrudUbicacion", "ABM/EditarUbicacion", "ABM/Ubicacion"),
 
@@ -221,8 +210,6 @@ namespace login_v6.Helpers
                 I("Nuevo teléfono", "Home", "AltaTel"),
                 new[]
                 {
-                    Consultas(
-                        I("Informes", "Consulta", "telefonos")),
                     Gestion(
                         I("Tipos", "ABM", "tipo_telefonos"),
                         I("Modelos", "ABM", "mmarcas"),
@@ -230,7 +217,6 @@ namespace login_v6.Helpers
                         I("Incidentes", "ABM", "incidentestel"))
                 },
                 Controladores("Telefonos"),
-                "Consulta/BuscarTel", "Consulta/ConsultarRangoFechaTelIncidente", "Consulta/ConsultarRangoTelIncidente", "Consulta/ErrorPantallaTel",
                 "ABM/Crudtipo_tel", "ABM/Editartipo_tel", "ABM/Crudmmarca", "ABM/Editarmmarca",
                 "ABM/Crudubicaciontel", "ABM/Editarubicaciontel", "ABM/Crudincidentetel", "ABM/Editarincidentetel"),
 
@@ -239,8 +225,6 @@ namespace login_v6.Helpers
                 I("Nueva cámara", "Home", "AltaCam"),
                 new[]
                 {
-                    Consultas(
-                        I("Informes", "Consulta", "camara")),
                     Ingresos(
                         I("Cargar insumos", "Ingresos", "IndexCam"),
                         I("Ver ingresos", "Ingresos", "VerIngresoCam")),
@@ -251,8 +235,6 @@ namespace login_v6.Helpers
                         I("Incidentes", "ABM", "incidentecam"))
                 },
                 Controladores("Camara"),
-                "Consulta/BuscarCam", "Consulta/BuscarIncidenteCam", "Consulta/VerIncidenteCam", "Consulta/ConsultarFechaCam",
-                "Consulta/ConsultarRangoCam", "Consulta/ErrorPantallaCam",
                 "ABM/Crudinsumocam", "ABM/EditarinsumoCam", "ABM/Crudmmaarcacam", "ABM/EditarmodeloCam",
                 "ABM/Crudubicam", "ABM/EditarubiCam", "ABM/Crudincidentecam", "ABM/EditarincidenteCam"),
 
@@ -261,15 +243,12 @@ namespace login_v6.Helpers
                 I("Nuevo switch", "Home", "Altasw"),
                 new[]
                 {
-                    Consultas(
-                        I("Informes", "Consulta", "switchs")),
                     Gestion(
                         I("Modelos", "ABM", "modelosw"),
                         I("Ubicaciones", "ABM", "ubicacionSW"),
                         I("Incidentes", "ABM", "incidenteSW"))
                 },
                 Controladores("Swichs"),
-                "Consulta/ConsultarSW", "Consulta/ConsultarRangoSW", "Consulta/BuscarIncidenteSW", "Consulta/VerIncidenteSW", "Consulta/ErrorPantallaSW",
                 "ABM/Crudmodelosw", "ABM/Editarmodelosw", "ABM/Crudubicacionsw", "ABM/Editarubicacionsw",
                 "ABM/Crudincidentesw", "ABM/Editarincidentesw"),
 
@@ -278,18 +257,25 @@ namespace login_v6.Helpers
                 I("Nuevo escáner", "Home", "Altaes"),
                 new[]
                 {
-                    Consultas(
-                        I("Informes", "Consulta", "escaners")),
                     Gestion(
                         I("Modelos", "ABM", "modeloES"),
                         I("Ubicaciones", "ABM", "UbicacionES"),
                         I("Incidentes", "ABM", "IncidenteES"))
                 },
                 Controladores("Escaner"),
-                "Consulta/BuscarIncidenteES", "Consulta/VerIncidenteES",
                 "ABM/CrudmodeloES", "ABM/EditarmodeloES", "ABM/CrudubicacionES", "ABM/EditarubicacionES",
                 "ABM/CrudincidenteES", "ABM/EditarincidenteES")
         };
+
+        /// <summary>
+        /// Consultas de todos los equipos juntos (ConsultasController). Cada item queda marcado también en sus
+        /// pantallas de alta, detalle y edición: las acciones cuyo nombre contiene la palabra clave (ver _MenuLateral).
+        /// </summary>
+        public static readonly SeccionMenu Consultas = new SeccionMenu("consultas", "Consultas", "bi-clipboard-data", false,
+            new GrupoMenu(null,
+                I("Incidentes", "Consultas", "Incidentes"),
+                I("Insumos", "Consultas", "Insumos"),
+                I("Bajas", "Consultas", "Bajas")));
 
         /// <summary>Usuarios (solo administradores), en la parte de administración del menú lateral.</summary>
         public static readonly SeccionMenu Usuarios = new SeccionMenu("usuarios", "Usuarios", "bi-people", true,

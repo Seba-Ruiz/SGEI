@@ -1,0 +1,92 @@
+﻿@model Negocio.DTO.DTO_InsumoFormulario
+@using Negocio.Servicio
+@{
+    var editando = Model.Id != 0;
+    var titulo = editando ? "Editar insumo colocado" : "Nuevo insumo colocado";
+    ViewBag.Title = titulo;
+}
+
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">@titulo</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item">Consultas</li>
+            <li class="breadcrumb-item"><a href="~/Consultas/Insumos">Insumos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@(editando ? "Editar" : "Nuevo")</li>
+        </ol>
+    </div>
+</div>
+
+@* Datos para Scripts/views/Consultas/FormularioInsumo.js: equipos e insumos (con stock) de cada tipo. *@
+<script type="application/json" id="datos-formulario">@Html.Raw(Json.Encode(ViewBag.Datos))</script>
+
+@using (Html.BeginForm("GuardarInsumo", "Consultas", FormMethod.Post, new { @class = "sgei-formulario", id = "formulario-insumo" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id)
+
+    <div class="card sgei-form-card">
+        <div class="card-header">
+            <span class="sgei-form-card-icono"><i class="bi bi-box-seam" aria-hidden="true"></i></span>
+            <div>
+                <h5 class="sgei-form-card-titulo">@titulo</h5>
+                <p class="sgei-form-card-ayuda">Al guardar se descuenta 1 unidad del stock del insumo.</p>
+            </div>
+        </div>
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger py-2" })
+
+            <div class="row g-3">
+                <div class="col-sm-5">
+                    <label class="form-label sgei-requerido" for="@(editando ? "TipoFijo" : "Tipo")">Tipo de equipo</label>
+                    @if (editando)
+                    {
+                        @Html.HiddenFor(x => x.Tipo)
+                        <select class="form-select" id="TipoFijo" disabled>
+                            <option value="@Model.Tipo" selected>@TiposEquipo.Nombre(Model.Tipo)</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <select class="form-select" id="Tipo" name="Tipo" required>
+                            @foreach (var t in TiposEquipo.ConInsumos)
+                            {
+                                <option value="@t" @(t == Model.Tipo ? "selected" : "")>@TiposEquipo.Nombre(t)</option>
+                            }
+                        </select>
+                    }
+                </div>
+                <div class="col-sm-7">
+                    <label class="form-label sgei-requerido" for="EquipoId">Equipo</label>
+                    <select class="form-select" id="EquipoId" name="EquipoId" required data-buscable data-valor="@Model.EquipoId">
+                        <option value="">Elegí el equipo…</option>
+                    </select>
+                    @Html.ValidationMessageFor(x => x.EquipoId, null, new { @class = "text-danger small" })
+                </div>
+                <div class="col-sm-7">
+                    <label class="form-label sgei-requerido" for="InsumoId">Insumo</label>
+                    <select class="form-select" id="InsumoId" name="InsumoId" required data-buscable data-valor="@Model.InsumoId">
+                        <option value="">Elegí el insumo…</option>
+                    </select>
+                    <div class="form-text">Entre paréntesis, el stock disponible. Si no hay, cargalo desde <strong>Ingresos</strong>.</div>
+                    @Html.ValidationMessageFor(x => x.InsumoId, null, new { @class = "text-danger small" })
+                </div>
+                <div class="col-sm-5">
+                    <label class="form-label sgei-requerido" for="Fecha">Fecha de colocación</label>
+                    <input type="date" class="form-control" id="Fecha" name="Fecha" value="@(Model.Fecha.HasValue ? Model.Fecha.Value.ToString("yyyy-MM-dd") : "")" max="@DateTime.Today.ToString("yyyy-MM-dd")" required />
+                    @Html.ValidationMessageFor(x => x.Fecha, null, new { @class = "text-danger small" })
+                </div>
+                <div class="col-sm-7" data-solo-tipo="computadora">
+                    <label class="form-label sgei-requerido" for="NroSerie">N° de serie del insumo</label>
+                    @Html.TextBoxFor(x => x.NroSerie, new { @class = "form-control", maxlength = TiposEquipo.LargoTexto })
+                    @Html.ValidationMessageFor(x => x.NroSerie, null, new { @class = "text-danger small" })
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-secondary" href="~/Consultas/Insumos">Cancelar</a>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar</button>
+        </div>
+    </div>
+}

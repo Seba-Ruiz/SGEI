@@ -1,0 +1,55 @@
+﻿@model Negocio.DTO.DTO_InsumoFila
+@using Negocio.Servicio
+@{
+    ViewBag.Title = "Detalle del insumo";
+}
+
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Detalle del insumo colocado</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item">Consultas</li>
+            <li class="breadcrumb-item"><a href="~/Consultas/Insumos">Insumos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Detalle</li>
+        </ol>
+    </div>
+</div>
+
+<div class="sgei-formulario">
+    <div class="card sgei-form-card">
+        <div class="card-header">
+            <span class="sgei-form-card-icono"><i class="bi bi-box-seam" aria-hidden="true"></i></span>
+            <div>
+                <h5 class="sgei-form-card-titulo">@Model.Insumo</h5>
+                <p class="sgei-form-card-ayuda">@Model.TipoNombre · @(Model.Equipo ?? "Equipo sin datos")</p>
+            </div>
+        </div>
+        <div class="card-body">
+            <dl class="row sgei-detalle mb-0">
+                <dt class="col-sm-4">Tipo de equipo</dt>
+                <dd class="col-sm-8">@Model.TipoNombre</dd>
+                <dt class="col-sm-4">Equipo</dt>
+                <dd class="col-sm-8">@(Model.Equipo ?? "—")</dd>
+                <dt class="col-sm-4">IP</dt>
+                <dd class="col-sm-8">@(Model.Ip ?? "—")</dd>
+                <dt class="col-sm-4">Ubicación</dt>
+                <dd class="col-sm-8">@(Model.Ubicacion ?? "—")</dd>
+                <dt class="col-sm-4">Insumo</dt>
+                <dd class="col-sm-8">@Model.Insumo</dd>
+                @if (Model.Tipo == TiposEquipo.Computadora)
+                {
+                    <dt class="col-sm-4">N° de serie</dt>
+                    <dd class="col-sm-8">@(Model.NroSerie ?? "—")</dd>
+                }
+                <dt class="col-sm-4">Fecha de colocación</dt>
+                <dd class="col-sm-8">@(Model.Fecha.HasValue ? Model.Fecha.Value.ToString("dd/MM/yyyy") : "—")</dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-secondary me-auto" href="~/Consultas/Insumos"><i class="bi bi-arrow-left me-1"></i>Volver</a>
+            @Html.BotonEliminar(Url.Action("EliminarInsumo", new { tipo = Model.Tipo, id = Model.Id }), "¿Eliminar este insumo? Se devuelve 1 unidad al stock.")
+            <a class="btn btn-primary" href="@Url.Action("EditarInsumo", new { tipo = Model.Tipo, id = Model.Id })" data-spinner><i class="bi bi-pencil me-1"></i>Editar</a>
+        </div>
+    </div>
+</div>

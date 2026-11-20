@@ -110,61 +110,6 @@ namespace login_v6.Controllers
             return View(ubic);
         }
 
-        public ActionResult Incidente(int id)
-        {
-            detallepc_dominio dt = new detallepc_dominio();
-            pc_dominio pc = new pc_dominio();
-            incidentepc_dominio inci = new incidentepc_dominio();
-
-
-            var detalle = dt.Obtener(id);
-            var compu = pc.Obtener(Convert.ToInt32(detalle.pc_id));
-
-            ViewBag.id_pc = compu.id_pc;
-            ViewBag.incidentepc = inci.Listar();
-
-            pc_incidentepc incidente = new pc_incidentepc();
-            return View(incidente);
-
-        }
-        public ActionResult GuardarIncidente(pc_incidentepc inci, int incidentepc)
-        {
-            if (inci.fecha_incidente == null || inci.fecha_reparacion==null)
-            {
-                return RedirectToAction("ErrorPantalla");
-            }
-            else
-            {
-                inci.incidentepc_id = incidentepc;
-                pc_inidentepc_dominio incid = new pc_inidentepc_dominio();
-                incid.Guardar(inci);
-
-
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
-
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "COMPUTADORA";
-                audit.id_equipo = inci.pc_id;
-                audit.accion = "INCIDENTE";
-                audit.usuario = User.Identity.Name;
-
-                audit_dom.Guardar(audit);
-                //---//
-
-                var equipo = new pc_dominio().Obtener(Convert.ToInt32(inci.pc_id));
-                this.AvisoExito("Se cargó el incidente en la computadora" + Avisos.Nombre(equipo != null ? equipo.nombre : null) + ".");
-                return Redirect("~/Computadora/Index");
-            }
-        }
-
-        public ActionResult ErrorPantalla()
-        {
-            return View();
-
-        }
-
         public ActionResult Baja(int id)
         {
             detallepc_dominio dt = new detallepc_dominio();
@@ -180,7 +125,6 @@ namespace login_v6.Controllers
             ViewBag.detalle_id = id;
             ViewBag.motivobaja = motivo.Listar();
             ViewBag.ubicacion = ubi.Listar();
-
 
             bajaPC baja = new bajaPC();
 
@@ -217,10 +161,8 @@ namespace login_v6.Controllers
             return Redirect("~/Computadora/Index");
         }
 
-
         public ActionResult BuscarParaMover(int id)
         {
-
 
             detallepc_dominio detalle = new detallepc_dominio();
             var dt = detalle.Obtener(id);
@@ -232,7 +174,6 @@ namespace login_v6.Controllers
             return View();
         }
 
-
         public ActionResult Mover(int id_nueva_ubicacion)
         {
 
@@ -241,8 +182,6 @@ namespace login_v6.Controllers
 
             var ubicacion_actual_pc = ubicacion_pc.ObtenerUbicacion(id_pc);
             var id_ubicacion_actual = ubicacion_actual_pc.ubicacionpc_id;
-
-
 
             var dt = new detallepc_dominio();
             dt.mover(Convert.ToInt32(id_ubicacion_actual), id_nueva_ubicacion, id_pc);
@@ -278,7 +217,6 @@ namespace login_v6.Controllers
                 ubicacionpc_dominio ubi = new ubicacionpc_dominio();
                 procesador_dominio procesador = new procesador_dominio();
 
-
                 var ubic = store.u_computadora_detalle_id(id);
 
                 ViewBag.tipo = new SelectList(tipo.Listar(), "id_tipo", "nombre_tipo", ubic.id_tipo);
@@ -292,8 +230,6 @@ namespace login_v6.Controllers
                 return View(ubic);
             
 
-
-
         }
 
         public ActionResult ConfirmaEditar(DTO_u_computadora_detalle_id modelo)
@@ -305,7 +241,6 @@ namespace login_v6.Controllers
             compu.descripcion = modelo.descripcion_pc;
             compu.tipo_id = modelo.id_tipo;
             pc.Guardar(compu); // Guardo las modificaciones de la cabecera
-
 
             detallepc_dominio detalle = new detallepc_dominio();
             var dt = detalle.Obtener(modelo.id_detalle);

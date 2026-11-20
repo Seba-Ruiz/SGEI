@@ -48,7 +48,6 @@ namespace SGEI.Controllers
             ViewBag.tipo = tipot.Listar();
             ViewBag.ubicacion = ubitel.Listar();
 
-
             DTO_Telefono dto = new DTO_Telefono();
 
             return View(dto);
@@ -104,9 +103,6 @@ namespace SGEI.Controllers
 
         }
 
-
-
-
         //ALTA CAMARA
 
         public ActionResult AltaCam()
@@ -121,8 +117,6 @@ namespace SGEI.Controllers
 
             return View(dto);
         }
-
-
 
         public ActionResult GuardarCam(DTO_camara dto)
         {
@@ -173,10 +167,6 @@ namespace SGEI.Controllers
 
         }
 
-
-
-
-
         //------------------------------------------------------------//
         // ALTA SWITCHS
         public ActionResult Altasw()
@@ -191,9 +181,6 @@ namespace SGEI.Controllers
 
             return View(dto);
         }
-
-
-
 
         public ActionResult GuardarSW(DTO_sw dto)
         {
@@ -227,7 +214,6 @@ namespace SGEI.Controllers
 
             ubi.Guardar(ubicacion); //Guardo la ubicacion
 
-
             //AUDITORIA
             Auditoria audit = new Auditoria();
             auditoria_dominio audit_dom = new auditoria_dominio();
@@ -245,7 +231,6 @@ namespace SGEI.Controllers
             return Redirect("~/Swichs/Index");
 
         }
-
 
         //----------------------------------------------//
 
@@ -295,7 +280,6 @@ namespace SGEI.Controllers
 
             ubi.Guardar(ubicacion); //Guardo la ubicacion
 
-
             //AUDITORIA
             Auditoria audit = new Auditoria();
             auditoria_dominio audit_dom = new auditoria_dominio();
@@ -312,8 +296,6 @@ namespace SGEI.Controllers
             return Redirect("~/Escaner/Index");
 
         }
-
-
 
         //--------------------------------------------//
 
@@ -351,7 +333,6 @@ namespace SGEI.Controllers
             detalle.pc_dondeseconecta = dto.pc_donde_se_conecta;
             detalle.ubicacion_impresora_id = id;
 
-
             dt.Guardar(detalle);  //Detalle
 
             //AUDITORIA
@@ -374,7 +355,6 @@ namespace SGEI.Controllers
             mante.fecha_mantenimiento = DateTime.Now;
             mante.descripcion = "Inicial";
 
-
             ubicacion_dominio u = new ubicacion_dominio();
             var nombre_ubi = u.Obtener(dto.ubicacion);
             if (nombre_ubi.nombreUbicacion == "ADMISION" || nombre_ubi.nombreUbicacion == "GUARDIA")
@@ -388,13 +368,11 @@ namespace SGEI.Controllers
 
             mante.id_impresora = id;
 
-
             mante_dom.Guardari(mante);
             this.AvisoExito("Se agregó la impresora" + Avisos.Nombre(dto.descripcion) + " (IP " + dto.ip + ").");
             return Redirect("~/Home/Index");
 
         }
-
 
         //ALTA COMPUTADORA
         public ActionResult AltaCompu(int id = 0)
@@ -460,7 +438,6 @@ namespace SGEI.Controllers
 
             ubipc.Guardar(pcubicacion); // guardo la ubicacion de la pc
 
-
             //AUDITORIA
             Auditoria audit = new Auditoria();
             auditoria_dominio audit_dom = new auditoria_dominio();
@@ -495,18 +472,13 @@ namespace SGEI.Controllers
             
             mante.pc_id = id_compu;
 
-
             mante_dom.Guardar(mante);
             //
-
 
             this.AvisoExito("Se agregó la computadora" + Avisos.Nombre(dto.nombrepc) + " (IP " + dto.ip + ").");
             return Redirect("~/Computadora/Index");
 
         }
-
-
-
 
         public ActionResult Baja(int id)
         {
@@ -639,9 +611,7 @@ namespace SGEI.Controllers
         //    mante.proximo_mantenimiento = DateTime.Now.AddDays(180);
         //    mante.pc_id = model.ubicacion_impresora_id;
 
-
         //    mante_dom.Guardar(mante);
-
 
         //    //TempData["id_impre"] = model.impresora_id;
         //    return Redirect("~/Inicio/Index");
@@ -659,47 +629,6 @@ namespace SGEI.Controllers
             imp.Eliminar(model.id);
             return Redirect("~/Inicio/Index");
         }
-
-        public ActionResult impresoras_baja()
-        {
-            stores store = new stores();
-
-            var datos = store.u_impresora_04();
-
-            return View(datos);
-        }
-
-        public ActionResult Alta(int id)
-        {
-            ViewBag.ubicaciones = ubi.Listar();
-
-            var datos = new ubicacion_impresora_dominio();
-            var ub_impr = datos.Obtener(id);
-
-
-            return View(ub_impr);
-        }
-
-        public ActionResult Alta_aceptada(ubicacion_impresora ubi)
-        {
-
-            ubi.fecha_baja = null;
-
-            var ubi_impr = new ubicacion_impresora_dominio();
-            var alta = new baja_dominio();
-
-            ubi_imp.Guardar(ubi);
-
-
-
-            //alta.Eliminar(ubi.id);
-
-            this.AvisoExito("Se volvió a dar de alta la impresora" + Avisos.Nombre(ubi.descripcion) + ".");
-            return Redirect("~/Home/Index");
-        }
-
-
-
 
     }
 }

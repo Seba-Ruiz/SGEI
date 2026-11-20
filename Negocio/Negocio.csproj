@@ -136,6 +136,7 @@
     <Compile Include="DTO\DTO_Telefono.cs" />
     <Compile Include="DTO\DTO_ubicacion_impre.cs" />
     <Compile Include="DTO\DTO_u_camara_01.cs" />
+    <Compile Include="DTO\DTO_Consultas.cs" />
     <Compile Include="DTO\DTO_u_computadora.cs" />
     <Compile Include="DTO\DTO_u_computadora_detalle.cs" />
     <Compile Include="DTO\DTO_u_computadora_detalle_id.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicio\servicio.cs" />
     <Compile Include="Servicio\servicios.cs" />
+    <Compile Include="Servicio\ConsultasUnificadas.cs" />
     <Compile Include="Servicio\stores.cs" />
   </ItemGroup>
   <ItemGroup>

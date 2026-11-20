@@ -1,0 +1,57 @@
+﻿@model Negocio.DTO.DTO_Reactivacion
+@using Negocio.Servicio
+@{
+    var equipo = (Negocio.DTO.DTO_Equipo)ViewBag.Equipo;
+    ViewBag.Title = "Volver a dar de alta";
+}
+
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Volver a dar de alta</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+            <li class="breadcrumb-item">Consultas</li>
+            <li class="breadcrumb-item"><a href="~/Consultas/Bajas">Bajas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Volver a dar de alta</li>
+        </ol>
+    </div>
+</div>
+
+@using (Html.BeginForm("Reactivar", "Consultas", FormMethod.Post, new { @class = "sgei-formulario" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Tipo)
+    @Html.HiddenFor(x => x.Id)
+
+    <div class="card sgei-form-card">
+        <div class="card-header">
+            <span class="sgei-form-card-icono"><i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i></span>
+            <div>
+                <h5 class="sgei-form-card-titulo">@TiposEquipo.Nombre(Model.Tipo) · @(equipo.Nombre ?? "Sin nombre")</h5>
+                <p class="sgei-form-card-ayuda">
+                    Dado de baja el @(equipo.FechaBaja.HasValue ? equipo.FechaBaja.Value.ToString("dd/MM/yyyy") : "—").
+                    Elegí dónde queda y presioná Guardar.
+                </p>
+            </div>
+        </div>
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger py-2" })
+            <div class="row g-3">
+                <div class="col-sm-7">
+                    <label class="form-label sgei-requerido" for="UbicacionId">Ubicación</label>
+                    @Html.DropDownListFor(x => x.UbicacionId, (SelectList)ViewBag.Ubicaciones, "Elegí la ubicación…", new { @class = "form-select", required = "required", data_buscable = "" })
+                    @Html.ValidationMessageFor(x => x.UbicacionId, null, new { @class = "text-danger small" })
+                </div>
+                <div class="col-sm-5">
+                    <label class="form-label sgei-requerido" for="Fecha">Fecha de ubicación</label>
+                    <input type="date" class="form-control" id="Fecha" name="Fecha" value="@(Model.Fecha.HasValue ? Model.Fecha.Value.ToString("yyyy-MM-dd") : "")" required />
+                    @Html.ValidationMessageFor(x => x.Fecha, null, new { @class = "text-danger small" })
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-secondary" href="~/Consultas/Bajas">Cancelar</a>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar</button>
+        </div>
+    </div>
+}

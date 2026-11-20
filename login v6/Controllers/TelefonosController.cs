@@ -33,62 +33,6 @@ namespace login_v6.Controllers
             return View();
         }
 
-        public ActionResult Incidente(int id)
-        {
-            incidentes_tel_dominio inci = new incidentes_tel_dominio();
-            ViewBag.incidente = inci.Listar();
-            ViewBag.detalle_id = id;
-
-            return View(new incidente_tel_tel());
-        }
-
-
-        public ActionResult Guardarincidente(incidente_tel_tel inci)
-        {
-            if (inci.fecha_incidente == null || inci.fecha_reparacion==null)
-            {
-                return RedirectToAction("Errorpantalla");
-            }
-            else
-            {
-                incidente_tel_tel incidente = new incidente_tel_tel();
-                incidente_tel_tel_dominio incidenteDominio = new incidente_tel_tel_dominio();
-
-                incidente.detalle_id = inci.detalle_id;
-                incidente.fecha_incidente = inci.fecha_incidente;
-                incidente.fecha_reparacion = inci.fecha_reparacion;
-                incidente.reparacion = inci.reparacion;
-                incidente.incidentetel_id = inci.incidentetel_id;
-
-                incidenteDominio.Guardar(incidente);
-
-
-                var detalle = new detalle_tel_dominio();
-                var det = detalle.Obtener(inci.detalle_id);
-
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
-
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "TELEFONO";
-                audit.id_equipo = det.telefono_id;
-                audit.accion = "INCIDENTE";
-                audit.usuario = User.Identity.Name;
-
-                audit_dom.Guardar(audit);
-                //---//
-
-                var equipo = new telefono_dominio().Obtener(Convert.ToInt32(det.telefono_id));
-                this.AvisoExito("Se cargó el incidente en el teléfono" + Avisos.Nombre(equipo != null ? equipo.descripcion : null) + ".");
-                return Redirect("~/Telefonos/Index");
-            }
-           
-        }
-        public ActionResult ErrorPantalla()
-        {
-            return View();
-        }
         public ActionResult Editar(int id)
         {
                 var det = store.u_detalle_telefono(id);
