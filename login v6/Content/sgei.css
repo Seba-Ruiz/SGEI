@@ -548,7 +548,7 @@ label:not(.form-check-label):not(.btn) {
     text-align: center;
 }
 
-/* Wizard por pasos (jquery.steps): alta y edición de computadoras */
+/* Wizard por pasos (jquery.steps): altas y ediciones de equipos */
 .wizard > .steps .current a,
 .wizard > .steps .current a:hover,
 .wizard > .steps .current a:active,
@@ -573,12 +573,41 @@ label:not(.form-check-label):not(.btn) {
     border-radius: .4rem;
 }
 
+/* jquery.steps fija el alto del contenido y posiciona los pasos en absoluto: los campos que no entraban
+   quedaban cortados debajo de los botones. Cada paso toma su alto real. */
 .wizard > .content {
     background: #fff;
     border: 1px solid var(--sgei-borde);
     border-radius: var(--sgei-radio);
-    min-height: 18rem;
+    min-height: 0;
+    overflow: visible;
 }
+.wizard > .content > .body {
+    float: none;
+    position: relative;
+    width: auto;
+    height: auto;
+    padding: 1.25rem 1.5rem;
+}
+
+/* Resumen del último paso: lo cargado (alta) o lo que cambió (edición). */
+.sgei-resumen { margin-bottom: 0; font-size: .9rem; }
+.sgei-resumen thead th { color: var(--sgei-texto-suave); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .03em; }
+.sgei-resumen tbody th { font-weight: 500; width: 34%; }
+.sgei-resumen .sgei-resumen-paso th {
+    background: var(--sgei-primario-suave);
+    color: var(--sgei-primario);
+    font-size: .78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+.sgei-resumen-edicion .sgei-resumen-antes { color: var(--sgei-texto-suave); }
+.sgei-resumen .sgei-resumen-cambio > * { background-color: #fff8e1; }
+.sgei-resumen .sgei-resumen-cambio .sgei-resumen-antes { text-decoration: line-through; }
+.sgei-resumen .sgei-resumen-cambio .sgei-resumen-ahora { font-weight: 600; }
+.sgei-resumen .sgei-resumen-falta > * { background-color: #fdecec; }
+.sgei-resumen .badge { font-weight: 500; vertical-align: middle; }
 
 .wizard > .actions .disabled a,
 .wizard > .actions .disabled a:hover {

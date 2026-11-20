@@ -289,55 +289,43 @@ namespace login_v6.Controllers
 
         }
 
-        public ActionResult ConfirmaEditar(DTO_u_computadora_detalle_id modelo, bool test)
+        public ActionResult ConfirmaEditar(DTO_u_computadora_detalle_id modelo)
         {
-            if (test)
-            {
-                pc_dominio pc = new pc_dominio();
-                var compu = pc.Obtener(modelo.id_pc);
-                compu.ip = modelo.ip;
-                compu.nombre = modelo.nombre_pc;
-                compu.descripcion = modelo.descripcion_pc;
-                compu.tipo_id = modelo.id_tipo;
-                pc.Guardar(compu); // Guardo las modificaciones de la cabecera
+            pc_dominio pc = new pc_dominio();
+            var compu = pc.Obtener(modelo.id_pc);
+            compu.ip = modelo.ip;
+            compu.nombre = modelo.nombre_pc;
+            compu.descripcion = modelo.descripcion_pc;
+            compu.tipo_id = modelo.id_tipo;
+            pc.Guardar(compu); // Guardo las modificaciones de la cabecera
 
 
-                detallepc_dominio detalle = new detallepc_dominio();
-                var dt = detalle.Obtener(modelo.id_detalle);
-                dt.mother_id = modelo.id_mother;
-                dt.disco_id = modelo.id_disco;
-                dt.observacion = modelo.observacion;
-                dt.procesador_id = modelo.id_procesador;
-                dt.ram_id = modelo.id_ram;
-                dt.responsablepc = modelo.responsablepc;
-                dt.so_id = modelo.id_so;
-                detalle.Guardar(dt); // Guardo las modificaciones del detalle
+            detallepc_dominio detalle = new detallepc_dominio();
+            var dt = detalle.Obtener(modelo.id_detalle);
+            dt.mother_id = modelo.id_mother;
+            dt.disco_id = modelo.id_disco;
+            dt.observacion = modelo.observacion;
+            dt.procesador_id = modelo.id_procesador;
+            dt.ram_id = modelo.id_ram;
+            dt.responsablepc = modelo.responsablepc;
+            dt.so_id = modelo.id_so;
+            detalle.Guardar(dt); // Guardo las modificaciones del detalle
 
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
 
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "COMPUTADORA";
-                audit.id_equipo = modelo.id_pc;
-                audit.accion = "EDITAR";
-                audit.usuario = User.Identity.Name;
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "COMPUTADORA";
+            audit.id_equipo = modelo.id_pc;
+            audit.accion = "EDITAR";
+            audit.usuario = User.Identity.Name;
 
-                audit_dom.Guardar(audit);
-                //---//
-            }
-            else
-            {
-                return RedirectToAction("Check");
-            }
+            audit_dom.Guardar(audit);
+            //---//
 
             return View();
 
-        }
-
-        public ActionResult Check()
-        {
-            return View();
         }
     }
 }

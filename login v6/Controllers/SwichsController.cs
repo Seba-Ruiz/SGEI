@@ -83,45 +83,38 @@ namespace login_v6.Controllers
         }
 
 
-        public ActionResult GuardarSW(DTO_u_detalle_sw deta, bool test)
+        public ActionResult GuardarSW(DTO_u_detalle_sw deta)
         {
-            if (test)
-            {
-                switch_dominio sw = new switch_dominio();
-                var switc = sw.Obtener(deta.id_sw);
+            switch_dominio sw = new switch_dominio();
+            var switc = sw.Obtener(deta.id_sw);
 
-                switc.descripcion = deta.descripcion;
-                sw.Guardar(switc); //Cabecera
+            switc.descripcion = deta.descripcion;
+            sw.Guardar(switc); //Cabecera
 
-                detalle_sw_dominio dt = new detalle_sw_dominio();
-                var detalle = dt.Obtener(deta.id_detalle);
+            detalle_sw_dominio dt = new detalle_sw_dominio();
+            var detalle = dt.Obtener(deta.id_detalle);
 
-                detalle.marca_modelo_id = deta.id_mm;
+            detalle.marca_modelo_id = deta.id_mm;
 
-                detalle.nroip = deta.nro_ip; //Detalle
-                detalle.interfaces = deta.interfaces;
+            detalle.nroip = deta.nro_ip; //Detalle
+            detalle.interfaces = deta.interfaces;
 
-                dt.Guardar(detalle);
+            dt.Guardar(detalle);
 
 
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
 
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "SWITCH";
-                audit.id_equipo = deta.id_sw;
-                audit.accion = "EDITAR";
-                audit.usuario = User.Identity.Name;
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "SWITCH";
+            audit.id_equipo = deta.id_sw;
+            audit.accion = "EDITAR";
+            audit.usuario = User.Identity.Name;
 
-                audit_dom.Guardar(audit);
-                //---//
-                return View();
-            }
-            else
-            {
-                return Redirect("~/Swichs/Check");
-            }
+            audit_dom.Guardar(audit);
+            //---//
+            return View();
         }
 
 
@@ -153,11 +146,6 @@ namespace login_v6.Controllers
 
             audit_dom.Guardar(audit);
             //---//
-            return View();
-        }
-
-        public ActionResult Check()
-        {
             return View();
         }
 

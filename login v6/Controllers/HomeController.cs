@@ -53,59 +53,52 @@ namespace SGEI.Controllers
             return View(dto);
         }
 
-        public ActionResult GuardarTel(DTO_Telefono dto, bool test)
+        public ActionResult GuardarTel(DTO_Telefono dto)
         {
-            if (test)
-            {
-                telefono_dominio tel = new telefono_dominio();
-                telefono tele = new telefono();
+            telefono_dominio tel = new telefono_dominio();
+            telefono tele = new telefono();
 
-                tele.descripcion = dto.descripcion;
-                tel.Guardar(tele); //Cabecera
+            tele.descripcion = dto.descripcion;
+            tel.Guardar(tele); //Cabecera
 
-                detalle_tel_dominio dt = new detalle_tel_dominio();
-                detalle_tel detalle = new detalle_tel();
+            detalle_tel_dominio dt = new detalle_tel_dominio();
+            detalle_tel detalle = new detalle_tel();
 
-                int id_telefono = tel.ObtenerUltimo();
+            int id_telefono = tel.ObtenerUltimo();
 
-                detalle.nro_interno = Convert.ToString(dto.interno);
-                detalle.marca_modelo_id = dto.mmarca;
-                detalle.tipo_tel_id = dto.tipo_tel;
-                detalle.fecha_detalle = DateTime.Now;
-                detalle.telefono_id = id_telefono;
+            detalle.nro_interno = Convert.ToString(dto.interno);
+            detalle.marca_modelo_id = dto.mmarca;
+            detalle.tipo_tel_id = dto.tipo_tel;
+            detalle.fecha_detalle = DateTime.Now;
+            detalle.telefono_id = id_telefono;
 
-                dt.Guardar(detalle);  //Detalle
+            dt.Guardar(detalle);  //Detalle
 
-                ubicacion_tel_tel_dominio ubi = new ubicacion_tel_tel_dominio();
-                ubicacion_tel_tel ubicacion = new ubicacion_tel_tel();
+            ubicacion_tel_tel_dominio ubi = new ubicacion_tel_tel_dominio();
+            ubicacion_tel_tel ubicacion = new ubicacion_tel_tel();
 
-                int id_detalle = ubi.ObtenerUltimo();
+            int id_detalle = ubi.ObtenerUltimo();
 
-                ubicacion.ubicacion_tel_id = dto.ubicacion;
-                ubicacion.fecha_ubicacion = DateTime.Now;
-                ubicacion.detalle_id = id_detalle;
+            ubicacion.ubicacion_tel_id = dto.ubicacion;
+            ubicacion.fecha_ubicacion = DateTime.Now;
+            ubicacion.detalle_id = id_detalle;
 
-                ubi.Guardar(ubicacion); //Guardo la ubicacion
+            ubi.Guardar(ubicacion); //Guardo la ubicacion
 
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
 
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "TELEFONO";
-                audit.id_equipo = id_telefono;
-                audit.accion = "ALTA";
-                audit.usuario = User.Identity.Name;
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "TELEFONO";
+            audit.id_equipo = id_telefono;
+            audit.accion = "ALTA";
+            audit.usuario = User.Identity.Name;
 
-                audit_dom.Guardar(audit);
-                //---//
+            audit_dom.Guardar(audit);
+            //---//
 
-                return RedirectToAction("AltaExitosaTel");
-            }
-            else
-            {
-                return Redirect("~/Computadora/Check");
-            }
+            return RedirectToAction("AltaExitosaTel");
 
         }
         public ActionResult AltaExitosaTel()
@@ -133,58 +126,51 @@ namespace SGEI.Controllers
 
 
 
-        public ActionResult GuardarCam(DTO_camara dto, bool test)
+        public ActionResult GuardarCam(DTO_camara dto)
         {
-            if (test)
-            {
-                camara_dominio camara = new camara_dominio();
-                camara cam = new camara();
+            camara_dominio camara = new camara_dominio();
+            camara cam = new camara();
 
-                cam.descripcion = dto.descripcion;
-                camara.Guardar(cam); //Cabecera
+            cam.descripcion = dto.descripcion;
+            camara.Guardar(cam); //Cabecera
 
-                detalle_camara_dominio dt = new detalle_camara_dominio();
-                detalle_camara detalle = new detalle_camara();
+            detalle_camara_dominio dt = new detalle_camara_dominio();
+            detalle_camara detalle = new detalle_camara();
 
-                int id_camara = camara.ObtenerUltimo();
+            int id_camara = camara.ObtenerUltimo();
 
-                detalle.nroip = Convert.ToString(dto.ip);
-                detalle.marca_model_id = dto.mmarca;
-                detalle.fecha_detalle = DateTime.Now;
-                detalle.camara_id = id_camara;
+            detalle.nroip = Convert.ToString(dto.ip);
+            detalle.marca_model_id = dto.mmarca;
+            detalle.fecha_detalle = DateTime.Now;
+            detalle.camara_id = id_camara;
 
-                dt.Guardar(detalle);  //Detalle
+            dt.Guardar(detalle);  //Detalle
 
-                ubicacion_camara_camara_dominio ubi = new ubicacion_camara_camara_dominio();
-                ubicacion_camara_camara ubicacion = new ubicacion_camara_camara();
+            ubicacion_camara_camara_dominio ubi = new ubicacion_camara_camara_dominio();
+            ubicacion_camara_camara ubicacion = new ubicacion_camara_camara();
 
-                int id_detalle = ubi.ObtenerUltimo();
+            int id_detalle = ubi.ObtenerUltimo();
 
-                ubicacion.ubicacion_camara_id = dto.ubicacion;
-                ubicacion.fehca_ubicacion = DateTime.Now;
-                ubicacion.detalle_camara_id = id_detalle;
+            ubicacion.ubicacion_camara_id = dto.ubicacion;
+            ubicacion.fehca_ubicacion = DateTime.Now;
+            ubicacion.detalle_camara_id = id_detalle;
 
-                ubi.Guardar(ubicacion); //Guardo la ubicacion
+            ubi.Guardar(ubicacion); //Guardo la ubicacion
 
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
 
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "CAMARA";
-                audit.id_equipo = id_camara;
-                audit.accion = "ALTA";
-                audit.usuario = User.Identity.Name;
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "CAMARA";
+            audit.id_equipo = id_camara;
+            audit.accion = "ALTA";
+            audit.usuario = User.Identity.Name;
 
-                audit_dom.Guardar(audit);
-                //---//
+            audit_dom.Guardar(audit);
+            //---//
 
-                return RedirectToAction("AltaExitosaCam");
-            }
-            else
-            {
-                return Redirect("~/Camara/Check");
-            }
+            return RedirectToAction("AltaExitosaCam");
 
         }
 
@@ -214,60 +200,53 @@ namespace SGEI.Controllers
 
 
 
-        public ActionResult GuardarSW(DTO_sw dto, bool test)
+        public ActionResult GuardarSW(DTO_sw dto)
         {
-            if (test)
-            {
-                switch_dominio switc = new switch_dominio();
-                swicth sw = new swicth();
+            switch_dominio switc = new switch_dominio();
+            swicth sw = new swicth();
 
-                sw.descripcion = dto.descripcion;
-                switc.Guardar(sw); //Cabecera
+            sw.descripcion = dto.descripcion;
+            switc.Guardar(sw); //Cabecera
 
-                detalle_sw_dominio dt = new detalle_sw_dominio();
-                switch_detalle detalle = new switch_detalle();
+            detalle_sw_dominio dt = new detalle_sw_dominio();
+            switch_detalle detalle = new switch_detalle();
 
-                int id_sw = switc.ObtenerUltimo();
+            int id_sw = switc.ObtenerUltimo();
 
-                detalle.nroip = Convert.ToString(dto.ip);
-                detalle.interfaces = dto.interfaces;
-                detalle.marca_modelo_id = dto.mmarca;
-                detalle.fecha_detalle = DateTime.Now;
-                detalle.switch_id = id_sw;
+            detalle.nroip = Convert.ToString(dto.ip);
+            detalle.interfaces = dto.interfaces;
+            detalle.marca_modelo_id = dto.mmarca;
+            detalle.fecha_detalle = DateTime.Now;
+            detalle.switch_id = id_sw;
 
-                dt.Guardar(detalle);  //Detalle
+            dt.Guardar(detalle);  //Detalle
 
-                switch_ubicacion_switch_dominio ubi = new switch_ubicacion_switch_dominio();
-                switch_ubicacion_switch ubicacion = new switch_ubicacion_switch();
+            switch_ubicacion_switch_dominio ubi = new switch_ubicacion_switch_dominio();
+            switch_ubicacion_switch ubicacion = new switch_ubicacion_switch();
 
-                int id_detalle = ubi.ObtenerUltimo();
+            int id_detalle = ubi.ObtenerUltimo();
 
-                ubicacion.ubicacion_switch_id = dto.ubicacion;
-                ubicacion.fecha_ubicacion = DateTime.Now;
-                ubicacion.detalle_swich_id = id_detalle;
+            ubicacion.ubicacion_switch_id = dto.ubicacion;
+            ubicacion.fecha_ubicacion = DateTime.Now;
+            ubicacion.detalle_swich_id = id_detalle;
 
-                ubi.Guardar(ubicacion); //Guardo la ubicacion
+            ubi.Guardar(ubicacion); //Guardo la ubicacion
 
 
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
 
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "SWITCH";
-                audit.id_equipo = id_sw;
-                audit.accion = "ALTA";
-                audit.usuario = User.Identity.Name;
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "SWITCH";
+            audit.id_equipo = id_sw;
+            audit.accion = "ALTA";
+            audit.usuario = User.Identity.Name;
 
-                audit_dom.Guardar(audit);
-                //---//
+            audit_dom.Guardar(audit);
+            //---//
 
-                return RedirectToAction("AltaExitosaSW");
-            }
-            else
-            {
-                return Redirect("~/Swichs/Check");
-            }
+            return RedirectToAction("AltaExitosaSW");
 
         }
 
@@ -293,58 +272,51 @@ namespace SGEI.Controllers
             return View(dto);
         }
 
-        public ActionResult GuardarES(DTO_es dto, bool test)
+        public ActionResult GuardarES(DTO_es dto)
         {
-            if (test)
-            {
-                escaner_dominio escaner = new escaner_dominio();
-                escaner esc = new escaner();
+            escaner_dominio escaner = new escaner_dominio();
+            escaner esc = new escaner();
 
-                esc.descripcion = dto.descripcion;
-                escaner.Guardar(esc); //Cabecera
+            esc.descripcion = dto.descripcion;
+            escaner.Guardar(esc); //Cabecera
 
-                detalle_escaner_dominio dt = new detalle_escaner_dominio();
-                detalle_escaner detalle = new detalle_escaner();
+            detalle_escaner_dominio dt = new detalle_escaner_dominio();
+            detalle_escaner detalle = new detalle_escaner();
 
-                int id_es = escaner.ObtenerUltimo();
+            int id_es = escaner.ObtenerUltimo();
 
-                detalle.nroip = Convert.ToString(dto.ip);
-                detalle.marca_modelo_id = dto.mmarca;
-                detalle.fecha_detalle = DateTime.Now;
-                detalle.escaner_id = id_es;
+            detalle.nroip = Convert.ToString(dto.ip);
+            detalle.marca_modelo_id = dto.mmarca;
+            detalle.fecha_detalle = DateTime.Now;
+            detalle.escaner_id = id_es;
 
-                dt.Guardar(detalle);  //Detalle
+            dt.Guardar(detalle);  //Detalle
 
-                escaner_ubicacion_escaner_dominio ubi = new escaner_ubicacion_escaner_dominio();
-                escaner_ubicacion_escaner ubicacion = new escaner_ubicacion_escaner();
+            escaner_ubicacion_escaner_dominio ubi = new escaner_ubicacion_escaner_dominio();
+            escaner_ubicacion_escaner ubicacion = new escaner_ubicacion_escaner();
 
-                int id_detalle = ubi.ObtenerUltimo();
+            int id_detalle = ubi.ObtenerUltimo();
 
-                ubicacion.ubicacion_escaner_id = dto.ubicacion;
-                ubicacion.fecha_ubicacion = DateTime.Now;
-                ubicacion.detalle_escaner_id = id_detalle;
+            ubicacion.ubicacion_escaner_id = dto.ubicacion;
+            ubicacion.fecha_ubicacion = DateTime.Now;
+            ubicacion.detalle_escaner_id = id_detalle;
 
-                ubi.Guardar(ubicacion); //Guardo la ubicacion
+            ubi.Guardar(ubicacion); //Guardo la ubicacion
 
 
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
 
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "ESCANER";
-                audit.id_equipo = id_es;
-                audit.accion = "ALTA";
-                audit.usuario = User.Identity.Name;
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "ESCANER";
+            audit.id_equipo = id_es;
+            audit.accion = "ALTA";
+            audit.usuario = User.Identity.Name;
 
-                audit_dom.Guardar(audit);
-                //---//
-                return RedirectToAction("AltaExitosaES");
-            }
-            else
-            {
-                return Redirect("~/Escaner/Check");
-            }
+            audit_dom.Guardar(audit);
+            //---//
+            return RedirectToAction("AltaExitosaES");
 
         }
 
@@ -369,79 +341,68 @@ namespace SGEI.Controllers
 
             return View(dto);
         }
-        public ActionResult GuardarImp(DTO_Impresora dto, bool test)
+        public ActionResult GuardarImp(DTO_Impresora dto)
         {
-            if (test)
+            ubicacion_impresora impresora = new ubicacion_impresora();
+            ubicacion_impresora_dominio imp = new ubicacion_impresora_dominio();
+
+            impresora.descripcion = dto.descripcion;
+            impresora.fecha_ubicacion = DateTime.Now;
+            impresora.impresora_id = dto.mmarca;
+            impresora.ubicacion_id = dto.ubicacion;
+
+            imp.Guardar(impresora); //Cabecera
+
+            detalle_impresora_ubicacion_dominio dt = new detalle_impresora_ubicacion_dominio();
+            detalle_impresora_ubicacion detalle = new detalle_impresora_ubicacion();
+
+            int id = imp.ObtenerUltimo();
+
+            detalle.ip = Convert.ToString(dto.ip);
+            detalle.pc_dondeseconecta = dto.pc_donde_se_conecta;
+            detalle.ubicacion_impresora_id = id;
+
+
+            dt.Guardar(detalle);  //Detalle
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "IMPRESORA";
+            audit.id_equipo = id;
+            audit.accion = "ALTA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
+            //MANTENIMIENTO INICIAL
+            mantenimiento_impre mante = new mantenimiento_impre();
+            mantenimiento_dominio mante_dom = new mantenimiento_dominio();
+
+            mante.fecha_mantenimiento = DateTime.Now;
+            mante.descripcion = "Inicial";
+
+
+            ubicacion_dominio u = new ubicacion_dominio();
+            var nombre_ubi = u.Obtener(dto.ubicacion);
+            if (nombre_ubi.nombreUbicacion == "ADMISION" || nombre_ubi.nombreUbicacion == "GUARDIA")
             {
-                ubicacion_impresora impresora = new ubicacion_impresora();
-                ubicacion_impresora_dominio imp = new ubicacion_impresora_dominio();
-
-                impresora.descripcion = dto.descripcion;
-                impresora.fecha_ubicacion = DateTime.Now;
-                impresora.impresora_id = dto.mmarca;
-                impresora.ubicacion_id = dto.ubicacion;
-
-                imp.Guardar(impresora); //Cabecera
-
-                detalle_impresora_ubicacion_dominio dt = new detalle_impresora_ubicacion_dominio();
-                detalle_impresora_ubicacion detalle = new detalle_impresora_ubicacion();
-
-                int id = imp.ObtenerUltimo();
-
-                detalle.ip = Convert.ToString(dto.ip);
-                detalle.pc_dondeseconecta = dto.pc_donde_se_conecta;
-                detalle.ubicacion_impresora_id = id;
-
-
-                dt.Guardar(detalle);  //Detalle
-
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
-
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "IMPRESORA";
-                audit.id_equipo = id;
-                audit.accion = "ALTA";
-                audit.usuario = User.Identity.Name;
-
-                audit_dom.Guardar(audit);
-                //---//
-
-                //MANTENIMIENTO INICIAL
-                mantenimiento_impre mante = new mantenimiento_impre();
-                mantenimiento_dominio mante_dom = new mantenimiento_dominio();
-
-                mante.fecha_mantenimiento = DateTime.Now;
-                mante.descripcion = "Inicial";
-
-
-                ubicacion_dominio u = new ubicacion_dominio();
-                var nombre_ubi = u.Obtener(dto.ubicacion);
-                if (nombre_ubi.nombreUbicacion == "ADMISION" || nombre_ubi.nombreUbicacion == "GUARDIA")
-                {
-                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(4);
-                }
-                else
-                {
-                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(6);
-                }
-
-                mante.id_impresora = id;
-
-
-                mante_dom.Guardari(mante);
-                return RedirectToAction("AltaExitosaImp");
+                mante.proximo_mantenimiento = DateTime.Now.AddMonths(4);
             }
             else
             {
-                return Redirect("~/Home/Check");
+                mante.proximo_mantenimiento = DateTime.Now.AddMonths(6);
             }
 
-        }
-        public ActionResult Check()
-        {
-            return View();
+            mante.id_impresora = id;
+
+
+            mante_dom.Guardari(mante);
+            return RedirectToAction("AltaExitosaImp");
+
         }
 
         public ActionResult AltaExitosaImp()
@@ -473,94 +434,87 @@ namespace SGEI.Controllers
             return View(dto);
         }
 
-        public ActionResult GuardarCompu(DTO_PC dto, int tipo, int ram, int disco, int so, int moth, int ubicacion, int proce, bool test)
+        public ActionResult GuardarCompu(DTO_PC dto, int tipo, int ram, int disco, int so, int moth, int ubicacion, int proce)
         {
-            if (test)
+            pc_dominio compu = new pc_dominio();
+
+            pc pc = new pc();
+
+            pc.ip = dto.ip;
+            pc.nombre = dto.nombrepc;
+            pc.descripcion = dto.descripcion;
+            pc.tipo_id = tipo;
+
+            compu.Guardar(pc);      // Guardo la cabecera
+
+            int id_compu = compu.ObtenerUltimo(); // obtengo el id de la cabecera
+
+            detallepc_dominio det = new detallepc_dominio();
+
+            detallePC detalle = new detallePC();
+
+            detalle.observacion = dto.observacion;
+            detalle.responsablepc = dto.responsable;
+            detalle.pc_id = id_compu;
+            detalle.ram_id = ram;
+            detalle.so_id = so;
+            detalle.disco_id = disco;
+            detalle.mother_id = moth;
+            detalle.procesador_id = proce;
+            detalle.fecha_detalle = DateTime.Now;
+
+            det.Guardar(detalle); // guardo el detalle de la cabecera
+
+            ubicacionpc_pc_dominio ubipc = new ubicacionpc_pc_dominio();
+            pc_ubicacionpc pcubicacion = new pc_ubicacionpc();
+
+            pcubicacion.pc_id = id_compu;
+            pcubicacion.ubicacionpc_id = ubicacion;
+            pcubicacion.fecha_ubicacion = DateTime.Now;
+
+            ubipc.Guardar(pcubicacion); // guardo la ubicacion de la pc
+
+
+            //AUDITORIA
+            Auditoria audit = new Auditoria();
+            auditoria_dominio audit_dom = new auditoria_dominio();
+
+            audit.fecha_hora = DateTime.Now;
+            audit.tipo_equipo = "COMPUTADORA";
+            audit.id_equipo = id_compu;
+            audit.accion = "ALTA";
+            audit.usuario = User.Identity.Name;
+
+            audit_dom.Guardar(audit);
+            //---//
+
+            //MANTENIMIENTO INICIAL
+            mantenimiento mante = new mantenimiento();
+            mantenimiento_dominio mante_dom = new mantenimiento_dominio();
+
+            mante.fecha_mantenimiento = DateTime.Now;
+            mante.descripcion = "Inicial";
+
+            
+            ubicacionpc_dominio u = new ubicacionpc_dominio();
+            var nombre_ubi = u.Obtener(ubicacion);
+            if (nombre_ubi.nombre == "ADMISION" || nombre_ubi.nombre=="GUARDIA")
             {
-                pc_dominio compu = new pc_dominio();
-
-                pc pc = new pc();
-
-                pc.ip = dto.ip;
-                pc.nombre = dto.nombrepc;
-                pc.descripcion = dto.descripcion;
-                pc.tipo_id = tipo;
-
-                compu.Guardar(pc);      // Guardo la cabecera
-
-                int id_compu = compu.ObtenerUltimo(); // obtengo el id de la cabecera
-
-                detallepc_dominio det = new detallepc_dominio();
-
-                detallePC detalle = new detallePC();
-
-                detalle.observacion = dto.observacion;
-                detalle.responsablepc = dto.responsable;
-                detalle.pc_id = id_compu;
-                detalle.ram_id = ram;
-                detalle.so_id = so;
-                detalle.disco_id = disco;
-                detalle.mother_id = moth;
-                detalle.procesador_id = proce;
-                detalle.fecha_detalle = DateTime.Now;
-
-                det.Guardar(detalle); // guardo el detalle de la cabecera
-
-                ubicacionpc_pc_dominio ubipc = new ubicacionpc_pc_dominio();
-                pc_ubicacionpc pcubicacion = new pc_ubicacionpc();
-
-                pcubicacion.pc_id = id_compu;
-                pcubicacion.ubicacionpc_id = ubicacion;
-                pcubicacion.fecha_ubicacion = DateTime.Now;
-
-                ubipc.Guardar(pcubicacion); // guardo la ubicacion de la pc
-
-
-                //AUDITORIA
-                Auditoria audit = new Auditoria();
-                auditoria_dominio audit_dom = new auditoria_dominio();
-
-                audit.fecha_hora = DateTime.Now;
-                audit.tipo_equipo = "COMPUTADORA";
-                audit.id_equipo = id_compu;
-                audit.accion = "ALTA";
-                audit.usuario = User.Identity.Name;
-
-                audit_dom.Guardar(audit);
-                //---//
-
-                //MANTENIMIENTO INICIAL
-                mantenimiento mante = new mantenimiento();
-                mantenimiento_dominio mante_dom = new mantenimiento_dominio();
-
-                mante.fecha_mantenimiento = DateTime.Now;
-                mante.descripcion = "Inicial";
-
-                
-                ubicacionpc_dominio u = new ubicacionpc_dominio();
-                var nombre_ubi = u.Obtener(ubicacion);
-                if (nombre_ubi.nombre == "ADMISION" || nombre_ubi.nombre=="GUARDIA")
-                {
-                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(6);
-                }
-                else
-                {
-                    mante.proximo_mantenimiento = DateTime.Now.AddMonths(8);
-                }
-                
-                mante.pc_id = id_compu;
-
-
-                mante_dom.Guardar(mante);
-                //
-
-
-                return Redirect("~/home/AltaExitosa");
+                mante.proximo_mantenimiento = DateTime.Now.AddMonths(6);
             }
             else
             {
-                return Redirect("~/Computadora/Check");
+                mante.proximo_mantenimiento = DateTime.Now.AddMonths(8);
             }
+            
+            mante.pc_id = id_compu;
+
+
+            mante_dom.Guardar(mante);
+            //
+
+
+            return Redirect("~/home/AltaExitosa");
 
         }
 
