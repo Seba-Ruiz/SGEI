@@ -23,7 +23,7 @@ namespace login_v6.Controllers
         public ActionResult Index(int? ubicacion)
         {
             ubicacionpc_dominio ubi = new ubicacionpc_dominio();
-            ViewBag.ubicacionpc = new SelectList(ubi.Listar(), "id_ubicacion", "nombre", ubicacion);
+            ViewBag.ubicaciones = new SelectList(ubi.Listar(), "id_ubicacion", "nombre", ubicacion);
             return View(store.u_computadora());
         }
 

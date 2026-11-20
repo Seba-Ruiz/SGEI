@@ -2845,7 +2845,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\AccesoDenegado.cshtml" />
     <Content Include="Scripts\app\sgei.js" />
-    <Content Include="Scripts\views\Computadora\Index.js" />
     <Content Include="Scripts\views\Computadora\Preventivo.js" />
     <Content Include="Scripts\views\Consulta\compuBaja.js" />
     <Content Include="Scripts\views\Home\Landing.js" />
@@ -2972,7 +2971,6 @@
     <Content Include="Views\Insumo\Guardar_insumo_pc.cshtml" />
     <Content Include="Views\Insumo\Index.cshtml" />
     <Content Include="Views\Telefonos\Baja.cshtml" />
-    <Content Include="Views\Telefonos\Buscar.cshtml" />
     <Content Include="Views\Telefonos\Editar.cshtml" />
     <Content Include="Views\Telefonos\Guardarincidente.cshtml" />
     <Content Include="Views\Telefonos\GuardarTel.cshtml" />
@@ -2986,7 +2984,6 @@
     <Content Include="Views\Home\AltaExitosaTel.cshtml" />
     <Content Include="Views\Home\AltaTel.cshtml" />
     <Content Include="Views\Home\Baja.cshtml" />
-    <Content Include="Views\Home\Buscar.cshtml" />
     <Content Include="Views\Home\BuscarParaMover.cshtml" />
     <Content Include="Views\Home\Crud.cshtml" />
     <Content Include="Views\Home\CrudDetalle_Impresora_Ubicacion.cshtml" />
@@ -3038,14 +3035,12 @@
     <Content Include="Views\Home\AltaExitosaCam.cshtml" />
     <Content Include="Views\Camara\Check.cshtml" />
     <Content Include="Views\Camara\Index.cshtml" />
-    <Content Include="Views\Camara\Buscar.cshtml" />
     <Content Include="Views\Camara\Editar.cshtml" />
     <Content Include="Views\Camara\GuardarCam.cshtml" />
     <Content Include="Views\Camara\Incidente.cshtml" />
     <Content Include="Views\Camara\Guardarincidente.cshtml" />
     <Content Include="Views\Camara\Baja.cshtml" />
     <Content Include="Views\Swichs\Index.cshtml" />
-    <Content Include="Views\Swichs\Buscar.cshtml" />
     <Content Include="Views\Home\Altasw.cshtml" />
     <Content Include="Views\Home\AltaExitosaSW.cshtml" />
     <Content Include="Views\Swichs\Check.cshtml" />
@@ -3055,7 +3050,6 @@
     <Content Include="Views\Swichs\Guardarincidente.cshtml" />
     <Content Include="Views\Swichs\Baja.cshtml" />
     <Content Include="Views\Escaner\Index.cshtml" />
-    <Content Include="Views\Escaner\Buscar.cshtml" />
     <Content Include="Views\Home\Altaes.cshtml" />
     <Content Include="Views\Escaner\Check.cshtml" />
     <Content Include="Views\Home\AltaExitosaES.cshtml" />
@@ -3169,6 +3163,14 @@
     <Content Include="Scripts\lib\datatables\dataTables.bootstrap5.min.js" />
     <Content Include="Scripts\lib\datatables\dataTables.js" />
     <Content Include="Scripts\lib\datatables\dataTables.min.js" />
+    <Content Include="Content\lib\select2\LICENSE-bootstrap-5-theme.txt" />
+    <Content Include="Content\lib\select2\select2-bootstrap-5-theme.css" />
+    <Content Include="Content\lib\select2\select2-bootstrap-5-theme.min.css" />
+    <Content Include="Content\lib\select2\select2.css" />
+    <Content Include="Content\lib\select2\select2.min.css" />
+    <Content Include="Scripts\lib\select2\LICENSE.md" />
+    <Content Include="Scripts\lib\select2\select2.js" />
+    <Content Include="Scripts\lib\select2\select2.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />

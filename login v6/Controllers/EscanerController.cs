@@ -16,20 +16,16 @@ namespace login_v6.Controllers
 
         stores store = new stores();
         // GET: Escaner
-        public ActionResult Index()
+        /// <summary>
+        /// Grilla con todos los escáneres activos. El combo de ubicación filtra la grilla en el
+        /// navegador; ?ubicacion=N lo deja preseleccionado.
+        /// </summary>
+        public ActionResult Index(int? ubicacion)
         {
-            ubicacion_escaner_dominio ubi = new ubicacion_escaner_dominio();
-
-            ViewBag.ubicaciones = ubi.Listar();
-            return View();
+            var ubi = new ubicacion_escaner_dominio();
+            ViewBag.ubicaciones = new SelectList(ubi.Listar(), "id_ubicacion_escaner", "nombre", ubicacion);
+            return View(store.u_es_01());
         }
-
-        public ActionResult Buscar(int ubicaciones)
-        {
-            var ubica = store.u_es_01(ubicaciones);
-            return View(ubica);
-        }
-
 
         public ActionResult Editar(int id)
         {

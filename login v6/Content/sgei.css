@@ -624,16 +624,36 @@ div.dt-container .dt-search label { display: none; }
 
 /* Filtros extra junto al buscador (por ejemplo, el combo de ubicación de Computadoras). */
 div.dt-container .dt-layout-start:has(.sgei-grilla-filtro) { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
-.sgei-grilla-filtro select.form-select {
-    width: 240px;
-    max-width: 100%;
+.sgei-grilla-filtro { width: 260px; max-width: 100%; }
+/* Mismo aspecto que el buscador de la grilla, con o sin Select2. */
+.sgei-grilla-filtro select.form-select,
+.sgei-grilla-filtro .select2-container--bootstrap-5 .select2-selection {
+    width: 100%;
+    min-height: 0;
     padding-top: .45rem;
     padding-bottom: .45rem;
     font-size: .875rem;
     border-radius: 2rem;
     background-color: #f7f9fb;
 }
-.sgei-grilla-filtro select.form-select:focus { background-color: #fff; }
+.sgei-grilla-filtro select.form-select:focus,
+.sgei-grilla-filtro .select2-container--open .select2-selection { background-color: #fff; }
+
+/* Select2 con el color institucional. */
+.select2-container--bootstrap-5.select2-container--focus .select2-selection,
+.select2-container--bootstrap-5.select2-container--open .select2-selection {
+    border-color: var(--sgei-primario);
+    box-shadow: 0 0 0 .2rem rgba(31, 95, 168, .2);
+}
+.select2-container--bootstrap-5 .select2-dropdown { border-color: var(--sgei-primario); font-size: .875rem; }
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--highlighted {
+    background-color: var(--sgei-primario-suave);
+    color: var(--sgei-primario);
+}
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected {
+    background-color: var(--sgei-primario);
+    color: #fff;
+}
 
 div.dt-container .dt-length { color: var(--sgei-texto-suave); }
 div.dt-container .dt-length select.form-select { display: inline-block; width: auto; margin-right: .35rem; border-radius: .4rem; }
@@ -676,7 +696,7 @@ div.dt-container .dt-empty { padding: 2rem 1rem !important; color: var(--sgei-te
     div.dt-container .dt-layout-end { margin-bottom: .5rem; }
     div.dt-container .dt-search input.form-control { width: 100%; }
     div.dt-container .dt-layout-start:has(.sgei-grilla-filtro) > * { flex: 1 1 100%; }
-    .sgei-grilla-filtro select.form-select { width: 100%; }
+    .sgei-grilla-filtro { width: 100%; }
 }
 
 /* ---------------------------------------------------------------- 4. Compatibilidad con el tema anterior */

@@ -207,7 +207,8 @@ namespace Negocio.Servicio
 
         }
 
-        public List<DTO_u_impresora_01> u_impresora_01(int ubicacion)
+        /// <summary>Impresoras activas (sin fecha de baja) con su ubicación; sin ubicación, todas las del sistema.</summary>
+        public List<DTO_u_impresora_01> u_impresora_01(int? ubicacion = null)
         {
             var dto_u_impresora_01 = new List<DTO_u_impresora_01>();
 
@@ -221,7 +222,7 @@ namespace Negocio.Servicio
 
                              where
 
-                             c.ubicacion_id == ubicacion &&
+                             (ubicacion == null || c.ubicacion_id == ubicacion) &&
                              c.impresora_id == a.id &&
                              c.ubicacion_id == b.id &&
                              c.id == d.ubicacion_impresora_id &&
@@ -236,6 +237,7 @@ namespace Negocio.Servicio
                                  descripcion = c.descripcion,
                                  fecha_ubicacion = c.fecha_ubicacion,
                                  responsable = b.responsable,
+                                 ubicacion = b.nombreUbicacion,
                                  ip = d.ip,
 
                                  pc_dondeseconecta = d.pc_dondeseconecta,
@@ -253,6 +255,7 @@ namespace Negocio.Servicio
                     dto.descripcion = item.descripcion;
                     dto.fecha_ubicacion = item.fecha_ubicacion;
                     dto.responsable = item.responsable;
+                    dto.ubicacion = item.ubicacion;
                     dto.ip = item.ip;
                     dto.pc_dondeseconecta = item.pc_dondeseconecta;
                     dto.id = item.id;
@@ -408,7 +411,8 @@ namespace Negocio.Servicio
             }
         }
 
-        public List<DTO_u_telefono_01> u_telefono_01(int ubicacion)
+        /// <summary>Teléfonos activos (sin fecha de baja) con su ubicación; sin ubicación, todos los del sistema.</summary>
+        public List<DTO_u_telefono_01> u_telefono_01(int? ubicacion = null)
         {
             var dto_u_telefono_01 = new List<DTO_u_telefono_01>();
 
@@ -425,7 +429,7 @@ namespace Negocio.Servicio
 
                                where
 
-                               d.ubicacion_tel_id == ubicacion &&
+                               (ubicacion == null || d.ubicacion_tel_id == ubicacion) &&
                                e.id_ubicacion_tel == d.ubicacion_tel_id &&
                                d.detalle_id == a.id_detalle &&
                                a.marca_modelo_id == c.id_mm &&
@@ -693,7 +697,8 @@ namespace Negocio.Servicio
 
         }
 
-        public List<DTO_u_camara_01> u_camara_01(int ubicacion)
+        /// <summary>Cámaras activas (sin fecha de baja) con su ubicación; sin ubicación, todas las del sistema.</summary>
+        public List<DTO_u_camara_01> u_camara_01(int? ubicacion = null)
         {
             var dto_u_camara_01 = new List<DTO_u_camara_01>();
 
@@ -709,7 +714,7 @@ namespace Negocio.Servicio
 
                                where
 
-                               d.ubicacion_camara_id == ubicacion &&
+                               (ubicacion == null || d.ubicacion_camara_id == ubicacion) &&
                                e.id_ubicacion_camara == d.ubicacion_camara_id &&
                                d.detalle_camara_id == a.id_detalle &&
                                a.marca_model_id == c.id_mmarca &&
@@ -752,7 +757,8 @@ namespace Negocio.Servicio
             }
         }
 
-        public List<DTO_u_sw_01> u_sw_01(int ubicacion)
+        /// <summary>Switches activos (sin fecha de baja) con su ubicación; sin ubicación, todos los del sistema.</summary>
+        public List<DTO_u_sw_01> u_sw_01(int? ubicacion = null)
         {
             var dto_u_sw_01 = new List<DTO_u_sw_01>();
 
@@ -768,7 +774,7 @@ namespace Negocio.Servicio
 
                                where
 
-                               d.ubicacion_switch_id == ubicacion &&
+                               (ubicacion == null || d.ubicacion_switch_id == ubicacion) &&
                                e.id_ubicacion_switch == d.ubicacion_switch_id &&
                                d.detalle_swich_id == a.id_detalle_switch &&
                                a.marca_modelo_id == c.id_mmarca &&
@@ -867,7 +873,8 @@ namespace Negocio.Servicio
 
         }
 
-        public List<DTO_u_es_01> u_es_01(int ubicacion)
+        /// <summary>Escáneres activos (sin fecha de baja) con su ubicación; sin ubicación, todos los del sistema.</summary>
+        public List<DTO_u_es_01> u_es_01(int? ubicacion = null)
         {
             var dto_u_es_01 = new List<DTO_u_es_01>();
 
@@ -883,7 +890,7 @@ namespace Negocio.Servicio
 
                                where
 
-                               d.ubicacion_escaner_id == ubicacion &&
+                               (ubicacion == null || d.ubicacion_escaner_id == ubicacion) &&
                                e.id_ubicacion_escaner == d.ubicacion_escaner_id &&
                                d.detalle_escaner_id == a.id_detalle_escaner &&
                                a.marca_modelo_id == c.id_marca_modelo_escaner &&

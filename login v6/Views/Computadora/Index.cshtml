@@ -10,10 +10,10 @@
 </ol>
 
 <div class="card-box">
-    @* Scripts/views/Computadora/Index.js lo ubica junto al buscador de la grilla y filtra por la columna Ubicación. *@
-    <div class="sgei-grilla-filtro" id="filtro-ubicacion">
+    @* Combo de ubicación: Scripts/app/sgei.js lo ubica junto al buscador y filtra la columna Ubicación (data-filtro-grilla). *@
+    <div class="sgei-grilla-filtro">
         <label class="visually-hidden" for="ubicacion">Ubicación</label>
-        @Html.DropDownList("ubicacion", (SelectList)ViewBag.ubicacionpc, "Todas las ubicaciones", new { @class = "form-select", autocomplete = "off" })
+        @Html.DropDownList("ubicacion", (SelectList)ViewBag.ubicaciones, "Todas las ubicaciones", new { @class = "form-select", autocomplete = "off", data_filtro_grilla = "#grilla-computadoras", data_filtro_columna = ".sgei-col-ubicacion", data_buscable = "" })
     </div>
 
     <table class="table table-hover sgei-grilla" data-grilla id="grilla-computadoras">

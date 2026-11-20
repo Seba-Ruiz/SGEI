@@ -1,46 +1,52 @@
-﻿
+﻿@model IEnumerable<Negocio.DTO.DTO_u_es_01>
 @{
-    ViewBag.Title = "Escaner";
-
+    ViewBag.Title = "Escáneres";
 }
-<h4 class="page-title">Bienvenido!</h4>
+
+<h4 class="page-title">Escáneres</h4>
 <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">
-        Sistema para control de insumos e incidentes de escaners.
-    </li>
+    <li class="breadcrumb-item"><a href="~/Inicio/Index">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Escáneres</li>
 </ol>
 
-
-<div class="row">
-    <div class="col-sm-6 offset-sm-3">
-        <div class="card card-acento-primary">
-            <div class="card-header">
-                <h4 class="card-title mb-0">ESCANERS</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        @*<h5><b>INSUMOS POR FECHA</b></h5>*@
-                        <p class="text-muted mb-4 font-13">
-                            Para comenzar, seleccione en el combo la ubicación de la camara, el sistema mostrará las camaras en esa ubicaciÓn.
-                        </p>
-                        @using (Html.BeginForm("Buscar", "Escaner", FormMethod.Post, new { id = "frm-incidente" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <div class="mb-3">
-                                @Html.Label("Nombre de Ubicacion:")
-                                @Html.DropDownList("ubicaciones", new SelectList(ViewBag.ubicaciones, "id_ubicacion_escaner", "nombre"), new { @class = "form-select", @style = "width:200px;" })
-                            </div>
-
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Buscar</button>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="card-box">
+    @* Combo de ubicación: Scripts/app/sgei.js lo ubica junto al buscador y filtra la columna Ubicación (data-filtro-grilla). *@
+    <div class="sgei-grilla-filtro">
+        <label class="visually-hidden" for="ubicacion">Ubicación</label>
+        @Html.DropDownList("ubicacion", (SelectList)ViewBag.ubicaciones, "Todas las ubicaciones", new { @class = "form-select", autocomplete = "off", data_filtro_grilla = "#grilla-escaneres", data_filtro_columna = ".sgei-col-ubicacion", data_buscable = "" })
     </div>
+
+    <table class="table table-hover sgei-grilla" data-grilla id="grilla-escaneres">
+        <thead>
+            <tr>
+                <th>Nº ESCANER</th>
+                <th>NRO IP</th>
+                <th>DESCRIPCION</th>
+                <th>MODELO</th>
+                <th class="sgei-col-ubicacion">UBICACIÓN</th>
+                <th>FECHA UBICACION</th>
+                <th class="sgei-col-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.id_es</td>
+                    <td><a href="http://@a.nro_ip" target="_blank" rel="noopener" class="text-danger">@a.nro_ip</a></td>
+                    <td>@a.descripcion</td>
+                    <td>@a.mmarca</td>
+                    <td>@a.nombre_ubi</td>
+                    <td>@a.fecha_ubicacion</td>
+                    <td>
+                        <div class="sgei-acciones">
+                            <a class="sgei-accion" title="Editar" href="~/Escaner/Editar/@a.id_detalle" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                            <a class="sgei-accion sgei-accion-aviso" data-confirmar="¿Desea agregar incidente a este escaner?" title="Cargar incidente" href="~/Escaner/Incidente/@a.id_detalle" aria-label="Cargar incidente"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i></a>
+                            <a class="sgei-accion sgei-accion-peligro" data-confirmar="¿Desea dar de BAJA este escaner?" title="Dar de baja" href="~/Escaner/Baja/@a.id_detalle" aria-label="Dar de baja"><i class="bi bi-arrow-down-circle" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-
-

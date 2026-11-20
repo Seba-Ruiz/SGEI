@@ -14,20 +14,15 @@ namespace login_v6.Controllers
     {
         stores store = new stores();
         // GET: Camara
-        public ActionResult Index()
+        /// <summary>
+        /// Grilla con todas las cámaras activas. El combo de ubicación filtra la grilla en el
+        /// navegador; ?ubicacion=N lo deja preseleccionado.
+        /// </summary>
+        public ActionResult Index(int? ubicacion)
         {
-
-            ubicacion_camara_dominio ubi = new ubicacion_camara_dominio();
-
-            ViewBag.ubicacioncam = ubi.Listar();
-            return View();
-
-        }
-
-        public ActionResult Buscar(int ubicacioncam)
-        {
-            var ubica = store.u_camara_01(ubicacioncam);
-            return View(ubica);
+            var ubi = new ubicacion_camara_dominio();
+            ViewBag.ubicaciones = new SelectList(ubi.Listar(), "id_ubicacion_camara", "nombre", ubicacion);
+            return View(store.u_camara_01());
         }
 
         public ActionResult Editar(int id)
