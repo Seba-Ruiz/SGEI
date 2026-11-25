@@ -12,7 +12,8 @@
  *                              muestra el resumen de lo cargado o de los cambios (data-wizard-resumen).
  *   data-grilla                en <table>: búsqueda, orden y paginación en el navegador.
  *   data-filtro-grilla="#tabla" en <select>: filtra esa grilla por la columna data-filtro-columna
- *                              (selector del <th>) con el texto de la opción elegida.
+ *                              (selector del <th>) con el texto de la opción elegida. Con data-filtro-lista
+ *                              la celda puede tener varios valores separados por coma.
  *   data-buscable              en <select>: combo con buscador (Select2).
  *   .sgei-grilla-fechas[data-filtro-grilla] con inputs [data-desde]/[data-hasta]: filtra la grilla por un
  *                              rango de fechas de la columna data-filtro-columna.
@@ -173,8 +174,12 @@
                     SGEI.armarResumenWizard($pasos, titulos, $resumen, modo);
                 }
             },
+            // No se avanza (ni se termina) con un nombre de equipo repetido en el paso (data-nombre-unico).
+            onStepChanging: function (evento, actual, siguiente) {
+                return siguiente < actual || SGEI.nombresDisponibles($wizard.find("section").eq(actual));
+            },
             onFinishing: function () {
-                return !enviando;
+                return !enviando && SGEI.nombresDisponibles($form);
             },
             onFinished: function () {
                 enviando = true;
@@ -184,6 +189,88 @@
         });
         return $form;
     };
+
+    /*
+     * Nombre de equipo único: <input data-nombre-unico="computadora|camara|switch|escaner|telefono"
+     * data-nombre-id="id del equipo (0 en un alta)" data-nombre-url="Validaciones/NombreEquipo">.
+     * Mientras se escribe consulta al servidor; si ya existe otro equipo con ese nombre (sin importar mayúsculas,
+     * acentos ni espacios) marca el campo en rojo con el mensaje y no deja avanzar el wizard ni enviar el formulario.
+     * El servidor lo vuelve a controlar al guardar.
+     */
+    var verificarNombre = function ($input) {
+        var valor = $.trim($input.val());
+        var $error = $input.nextAll("[data-nombre-error]").first();
+        if (!$error.length) {
+            $error = $('<div class="invalid-feedback d-block" data-nombre-error hidden></div>').insertAfter($input);
+        }
+        var marcar = function (mensaje) {
+            $input.data("nombreEstado", mensaje ? "repetido" : "ok").toggleClass("is-invalid", !!mensaje);
+            $input[0].setCustomValidity(mensaje || "");
+            $error.text(mensaje || "").prop("hidden", !mensaje);
+        };
+        if (!valor) { marcar(null); return; }
+        if ($input.data("nombreConsultado") === valor) { return; }
+
+        var anterior = $input.data("nombrePedido");
+        if (anterior) { anterior.abort(); }
+        $input.data("nombreEstado", "consultando");
+        var pedido = $.ajax({
+            url: $input.attr("data-nombre-url"),
+            data: { tipo: $input.attr("data-nombre-unico"), nombre: valor, id: $input.attr("data-nombre-id") || 0 },
+            cache: false
+        })
+            .done(function (r) {
+                $input.data("nombreConsultado", valor);
+                marcar(r && r.ok === false ? r.mensaje : null);
+            })
+            .fail(function (xhr, estado) {
+                // Si no se pudo consultar, no se frena al usuario: el servidor lo controla al guardar.
+                if (estado !== "abort") { marcar(null); }
+            })
+            .always(function () { $input.removeData("nombrePedido"); });
+        $input.data("nombrePedido", pedido);
+    };
+
+    var esperas = {};
+    $(document).on("input", "input[data-nombre-unico]", function () {
+        var $input = $(this);
+        var clave = this.id || this.name;
+        $input.data("nombreEstado", "consultando");
+        window.clearTimeout(esperas[clave]);
+        esperas[clave] = window.setTimeout(function () { verificarNombre($input); }, 350);
+    });
+    $(document).on("change blur", "input[data-nombre-unico]", function () {
+        window.clearTimeout(esperas[this.id || this.name]);
+        verificarNombre($(this));
+    });
+
+    /** true si ningún nombre del contenedor está repetido (o todavía consultándose); si no, marca el primero. */
+    SGEI.nombresDisponibles = function (contenedor) {
+        var ok = true;
+        $(contenedor).find("input[data-nombre-unico]").each(function () {
+            var $input = $(this);
+            var estado = $input.data("nombreEstado");
+            if (estado === "consultando") {
+                verificarNombre($input);
+                ok = false;
+            } else if (estado === "repetido") {
+                ok = false;
+            }
+            if (!ok) {
+                $input.trigger("focus");
+                return false;
+            }
+        });
+        return ok;
+    };
+
+    $(document).on("submit", "form", function (evento) {
+        if (!SGEI.nombresDisponibles(this)) {
+            evento.preventDefault();
+            evento.stopImmediatePropagation();
+            SGEI.ocultarSpinner();
+        }
+    });
 
     // Todo POST por AJAX lleva el token antiforgery en el header (lo valida el filtro global del servidor).
     $(document).ajaxSend(function (evento, xhr, opciones) {
@@ -386,10 +473,17 @@
             return String(texto).normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
         };
 
+        // data-filtro-lista: la celda tiene varios valores separados por coma ("Franco Ríos, María Pérez");
+        // la fila pasa si alguno coincide.
+        var esLista = $combo.is("[data-filtro-lista]");
+
         var filtrar = function () {
             var texto = $combo.val() ? sinAcentos($combo.find("option:selected").text()) : "";
             // Coincidencia exacta: "ADMISION" no trae las filas de "ADMISION NUEVA".
             columna.search(texto ? function (valor) {
+                if (esLista) {
+                    return String(valor).split(",").some(function (v) { return sinAcentos(v) === texto; });
+                }
                 return sinAcentos(valor) === texto;
             } : "").draw();
         };

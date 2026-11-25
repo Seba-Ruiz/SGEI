@@ -10,9 +10,31 @@ namespace login_v6.Helpers
     {
         public const string Clave = "sgei.aviso.exito";
 
+        public const string ClaveError = "sgei.aviso.error";
+
         public static void AvisoExito(this ControllerBase controlador, string mensaje)
         {
             controlador.TempData[Clave] = mensaje;
+        }
+
+        /// <summary>Aviso rojo en la próxima pantalla (por ejemplo, cuando no se pudo guardar y se vuelve al formulario).</summary>
+        public static void AvisoError(this ControllerBase controlador, string mensaje)
+        {
+            controlador.TempData[ClaveError] = mensaje;
+        }
+
+        /// <summary>
+        /// Nombre de equipo repetido al guardar (si el navegador no lo frenó antes, ver Scripts/app/sgei.js
+        /// data-nombre-unico): deja el aviso rojo y vuelve a la pantalla de la que vino. Devuelve null si el nombre está libre.
+        /// </summary>
+        public static ActionResult VolverSiNombreRepetido(this Controller controlador, string tipo, string nombre, int idPropio, string volverA)
+        {
+            var existente = Negocio.Servicio.NombresUnicos.Equipo(tipo, nombre, idPropio);
+            if (existente == null) { return null; }
+            controlador.AvisoError(Negocio.Servicio.NombresUnicos.MensajeEquipo(tipo, existente));
+            var anterior = controlador.Request.UrlReferrer;
+            var url = anterior != null && controlador.Url.IsLocalUrl(anterior.PathAndQuery) ? anterior.PathAndQuery : volverA;
+            return new RedirectResult(url);
         }
 
         /// <summary>"Se agregó el insumo «MOUSE»." o "Se guardaron los cambios del insumo «MOUSE»."</summary>
@@ -34,6 +56,17 @@ namespace login_v6.Helpers
         public static string Nombre(string nombre)
         {
             return string.IsNullOrWhiteSpace(nombre) ? "" : " «" + nombre.Trim() + "»";
+        }
+
+        /// <summary>
+        /// Respuesta de error para un pedido AJAX: { ok: false, mensaje } con el código HTTP indicado. El script la
+        /// muestra con SGEI.mostrarAviso(mensaje, "error").
+        /// </summary>
+        public static JsonResult ErrorJson(this Controller controlador, int estado, string mensaje)
+        {
+            controlador.Response.StatusCode = estado;
+            controlador.Response.TrySkipIisCustomErrors = true;
+            return new JsonResult { Data = new { ok = false, mensaje } };
         }
 
         /// <summary>"el insumo" -> "del insumo"; "la memoria" -> "de la memoria".</summary>

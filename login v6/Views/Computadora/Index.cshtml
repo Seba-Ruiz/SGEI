@@ -23,7 +23,7 @@
                 <th>Nº IP</th>
                 <th class="sgei-col-ubicacion">UBICACIÓN</th>
                 <th>DESCRIPCION</th>
-                <th>FECHA UBICACION</th>
+                <th class="sgei-col-fecha-ubicacion">FECHA UBICACION</th>
                 <th class="sgei-col-acciones">Acciones</th>
             </tr>
         </thead>
@@ -40,7 +40,7 @@
                 <td>
                     <div class="sgei-acciones">
                         <a class="sgei-accion sgei-accion-info" title="Detalle de la computadora" href="~/Computadora/Detalle/@a.id_detalle" aria-label="Detalle de la computadora"><i class="bi bi-eye" aria-hidden="true"></i></a>
-                        <a class="sgei-accion sgei-accion-neutro" data-confirmar="¿Desea mover de ubicación esta computadora?" title="Mover a otra ubicacion la PC" href="~/Computadora/BuscarParaMover/@a.id_detalle" aria-label="Mover a otra ubicacion la PC"><i class="bi bi-arrows-move" aria-hidden="true"></i></a>
+                        <button type="button" class="sgei-accion sgei-accion-neutro" data-mover-ubicacion data-id="@a.id_detalle" data-nombre="@a.nombre" data-ubicacion="@a.ubicacion" title="Mover a otra ubicación" aria-label="Mover de ubicación la PC @a.nombre"><i class="bi bi-arrows-move" aria-hidden="true"></i></button>
                         <a class="sgei-accion sgei-accion-peligro" data-confirmar="¿Desea dar de BAJA esta computadora?" title="Dar de baja a la PC" href="~/Computadora/Baja/@a.id_detalle" aria-label="Dar de baja a la PC"><i class="bi bi-arrow-down-circle" aria-hidden="true"></i></a>
                     </div>
                 </td>
@@ -49,3 +49,10 @@
         </tbody>
     </table>
 </div>
+
+@* Modal para mover de ubicación (Scripts/app/mover-ubicacion.js), con las ubicaciones de computadoras. *@
+@Html.Partial("_MoverUbicacion", (SelectList)ViewBag.ubicaciones, new ViewDataDictionary { { "url", Url.Action("MoverUbicacion", "Computadora") }, { "equipo", "computadora" } })
+
+@section scripts {
+    @Html.Script("~/Scripts/app/mover-ubicacion.js")
+}

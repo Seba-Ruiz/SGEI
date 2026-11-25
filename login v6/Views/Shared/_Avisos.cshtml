@@ -6,8 +6,21 @@
 *@
 @{
     var mensaje = TempData[Avisos.Clave] as string;
+    var error = TempData[Avisos.ClaveError] as string;
 }
 <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3 sgei-avisos" id="sgei-avisos">
+    @if (!string.IsNullOrWhiteSpace(error))
+    {
+        @* Aviso rojo (AvisoError): por ejemplo, un nombre repetido al guardar. *@
+        <div class="toast align-items-center text-bg-danger border-0 sgei-aviso" role="alert" aria-live="assertive" aria-atomic="true" data-sgei-aviso>
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-exclamation-triangle-fill me-2" aria-hidden="true"></i>@error
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+        </div>
+    }
     @if (!string.IsNullOrWhiteSpace(mensaje))
     {
         <div class="toast align-items-center text-bg-success border-0 sgei-aviso" role="status" aria-live="polite" aria-atomic="true" data-sgei-aviso>

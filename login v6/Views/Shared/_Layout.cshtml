@@ -53,11 +53,12 @@
                     @Html.Partial("_Campana")
                     <div class="dropdown">
                         <a href="#" class="sgei-usuario dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="sgei-avatar">@inicial</span>
-                            <span class="d-none d-md-inline">@nombreUsuario</span>
+                            <span class="sgei-avatar" data-usuario-iniciales>@inicial</span>
+                            <span class="d-none d-md-inline" data-usuario-nombre>@nombreUsuario</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "Manage")"><i class="bi bi-person-circle me-2"></i>Mi cuenta</a></li>
+                            @* Abre la modal "Mi cuenta" (Scripts/app/mi-cuenta.js); sin JavaScript, el link lleva a Manage/Index. *@
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "Manage")" data-mi-cuenta><i class="bi bi-person-circle me-2"></i>Mi cuenta</a></li>
                             <li><hr class="dropdown-divider" /></li>
                             <li>
                                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
@@ -90,6 +91,17 @@
     @* Aviso de éxito de la operación anterior (toast centrado arriba) *@
     @Html.Partial("_Avisos")
 
+    @if (Request.IsAuthenticated)
+    {
+        @* Modal "Mi cuenta": el contenido se pide a Manage/MiCuenta al abrirla. *@
+        <div class="modal fade" id="modal-mi-cuenta" tabindex="-1" aria-labelledby="modal-mi-cuenta-titulo" aria-hidden="true"
+             data-url="@Url.Action("MiCuenta", "Manage")">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content sgei-mi-cuenta" data-contenido></div>
+            </div>
+        </div>
+    }
+
     @* Spinner "Espere..." al navegar (lo abre Scripts/app/sgei.js) *@
     <div id="spiner" class="modal fade sgei-spinner" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -109,6 +121,7 @@
         @* Notificaciones en vivo: SignalR + campana. *@
         @Scripts.Render("~/bundles/signalr")
         @Html.Script("~/Scripts/app/notificaciones.js")
+        @Html.Script("~/Scripts/app/mi-cuenta.js")
     }
     @* Librerías que usa solo alguna pantalla (Summernote, SortableJS): antes del script de la vista. *@
     @RenderSection("librerias", required: false)

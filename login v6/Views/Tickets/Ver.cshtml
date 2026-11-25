@@ -29,7 +29,7 @@
             <text>movió el ticket de @Estado(a.Anterior) a @Estado(a.Nuevo)</text>
             break;
         case "ASIGNADO":
-            <text>reasignó el ticket de <strong>@a.Anterior</strong> a <strong>@a.Nuevo</strong></text>
+            <text>cambió los asignados de <strong>@(a.Anterior ?? "nadie")</strong> a <strong>@(a.Nuevo ?? "nadie")</strong></text>
             break;
         case "PRIORIDAD":
             <text>cambió la prioridad de <strong>@a.Anterior</strong> a <strong>@a.Nuevo</strong></text>
@@ -192,12 +192,19 @@
                 else
                 {
                     <div><span class="sgei-estado sgei-estado-@Model.Estado">@EstadosTicket.Nombre(Model.Estado)</span></div>
-                    <div class="form-text">Solo la persona asignada o un administrador pueden cambiarlo.</div>
+                    <div class="form-text">Solo las personas asignadas o un administrador pueden cambiarlo.</div>
                 }
 
                 <dl class="sgei-ticket-datos-lista">
-                    <dt>Asignado a</dt>
-                    <dd><span class="sgei-avatar sgei-avatar-chico" aria-hidden="true">@Model.AsignadoIniciales</span>@Model.Asignado</dd>
+                    <dt>@(Model.Asignados.Count == 1 ? "Asignado a" : "Asignados (" + Model.Asignados.Count + ")")</dt>
+                    <dd>
+                        <ul class="sgei-ticket-asignados-lista">
+                            @foreach (var a in Model.Asignados)
+                            {
+                                <li><span class="sgei-avatar sgei-avatar-chico" aria-hidden="true">@a.Iniciales</span>@a.Nombre</li>
+                            }
+                        </ul>
+                    </dd>
                     <dt>Fecha prevista</dt>
                     <dd>@Model.FechaPrevista.ToString("dd/MM/yyyy") <span class="sgei-plazo sgei-plazo-@Model.Semaforo">@Model.TextoPlazo</span></dd>
                     <dt>Creado por</dt>

@@ -71,6 +71,7 @@ namespace Model
         public virtual DbSet<ticket> ticket { get; set; }
         public virtual DbSet<ticket_comentario> ticket_comentario { get; set; }
         public virtual DbSet<ticket_historial> ticket_historial { get; set; }
+        public virtual DbSet<ticket_asignado> ticket_asignado { get; set; }
         public virtual DbSet<notificacion> notificacion { get; set; }
         public virtual DbSet<tipo_tel> tipo_tel { get; set; }
         public virtual DbSet<tipoPC> tipoPC { get; set; }
@@ -448,6 +449,12 @@ namespace Model
 
             modelBuilder.Entity<ticket>()
                 .HasMany(e => e.ticket_historial)
+                .WithRequired(e => e.ticket)
+                .HasForeignKey(e => e.id_ticket)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<ticket>()
+                .HasMany(e => e.ticket_asignado)
                 .WithRequired(e => e.ticket)
                 .HasForeignKey(e => e.id_ticket)
                 .WillCascadeOnDelete(true);

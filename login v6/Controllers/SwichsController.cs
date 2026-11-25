@@ -42,6 +42,10 @@ namespace login_v6.Controllers
 
         public ActionResult GuardarSW(DTO_u_detalle_sw deta)
         {
+            // Nombre repetido: vuelve al formulario con el aviso (el navegador normalmente ya lo frenó).
+            var repetido = this.VolverSiNombreRepetido("switch", deta.descripcion, Convert.ToInt32(deta.id_sw), "~/Swichs/Index");
+            if (repetido != null) { return repetido; }
+
             switch_dominio sw = new switch_dominio();
             var switc = sw.Obtener(deta.id_sw);
 

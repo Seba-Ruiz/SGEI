@@ -56,8 +56,8 @@ namespace Negocio.Servicio
     }
 
     /// <summary>
-    /// Tickets de trabajo (menú Tickets): board por estado, alta y edición (administradores), cambio de estado (el
-    /// asignado o un administrador) y comentarios (cualquiera; cada uno edita o elimina los suyos). Cada cambio queda en
+    /// Tickets de trabajo (menú Tickets): board por estado, alta y edición (administradores), cambio de estado (cualquiera
+    /// de los asignados o un administrador) y comentarios (cualquiera; cada uno edita o elimina los suyos). Cada cambio queda en
     /// ticket_historial con quién y cuándo. Tablas: BaseDeDatos/2026-11-20_tickets.sql.
     /// </summary>
     public class Tickets
@@ -70,12 +70,13 @@ namespace Negocio.Servicio
 
         // ------------------------------------------------------------------ Usuarios
 
-        /// <summary>Usuarios activos para asignar (más el que ya tenía el ticket, aunque esté dado de baja).</summary>
-        public List<DTO_Usuario> UsuariosParaAsignar(string incluirId = null)
+        /// <summary>Usuarios activos para asignar (más los que ya tenía el ticket, aunque estén dados de baja).</summary>
+        public List<DTO_Usuario> UsuariosParaAsignar(IEnumerable<string> incluirIds = null)
         {
+            var incluir = new HashSet<string>(incluirIds ?? Enumerable.Empty<string>());
             using (var ctx = new SGEIContext())
             {
-                return Usuarios(ctx).Values.Where(u => u.Activo || u.Id == incluirId).OrderBy(u => u.Nombre).ToList();
+                return Usuarios(ctx).Values.Where(u => u.Activo || incluir.Contains(u.Id)).OrderBy(u => u.Nombre).ToList();
             }
         }
 
@@ -143,8 +144,9 @@ namespace Negocio.Servicio
             var filas = consulta
                 .Select(t => new
                 {
-                    t.id_ticket, t.titulo, t.prioridad, t.estado, t.asignado_id, t.creado_por_id, t.fecha_alta, t.fecha_prevista,
-                    t.fecha_estado, t.fecha_fin, t.tipo_equipo, t.id_equipo, comentarios = t.ticket_comentario.Count()
+                    t.id_ticket, t.titulo, t.prioridad, t.estado, t.creado_por_id, t.fecha_alta, t.fecha_prevista,
+                    t.fecha_estado, t.fecha_fin, t.tipo_equipo, t.id_equipo, comentarios = t.ticket_comentario.Count(),
+                    asignados = t.ticket_asignado.Select(a => a.usuario_id)
                 })
                 .ToList();
             var usuarios = Usuarios(ctx);
@@ -156,11 +158,10 @@ namespace Negocio.Servicio
                 Titulo = f.titulo,
                 Prioridad = f.prioridad,
                 Estado = f.estado,
-                AsignadoId = f.asignado_id,
-                Asignado = NombreDe(usuarios, f.asignado_id),
-                AsignadoIniciales = usuarios.ContainsKey(f.asignado_id) ? usuarios[f.asignado_id].Iniciales : "?",
+                Asignados = UsuariosDe(usuarios, f.asignados),
                 CreadoPorId = f.creado_por_id,
                 CreadoPor = NombreDe(usuarios, f.creado_por_id),
+                CreadoPorIniciales = usuarios.ContainsKey(f.creado_por_id) ? usuarios[f.creado_por_id].Iniciales : "?",
                 FechaAlta = f.fecha_alta,
                 FechaPrevista = f.fecha_prevista,
                 FechaEstado = f.fecha_estado,
@@ -192,6 +193,26 @@ namespace Negocio.Servicio
             DTO_Equipo e;
             if (equipos.TryGetValue(tipo, out delTipo) && delTipo.TryGetValue(id.Value, out e)) { return e.Texto; }
             return TiposEquipo.Nombre(tipo) + " #" + id;
+        }
+
+        /// <summary>Usuarios por id, ordenados por nombre (los que ya no existen quedan como "(usuario eliminado)").</summary>
+        private static List<DTO_Usuario> UsuariosDe(Dictionary<string, DTO_Usuario> usuarios, IEnumerable<string> ids)
+        {
+            return (ids ?? Enumerable.Empty<string>()).Distinct()
+                .Select(id =>
+                {
+                    DTO_Usuario u;
+                    return usuarios.TryGetValue(id, out u) ? u : new DTO_Usuario { Id = id, Nombre = "(usuario eliminado)", Iniciales = "?" };
+                })
+                .OrderBy(u => u.Nombre)
+                .ToList();
+        }
+
+        /// <summary>"Franco Ríos, María Pérez", o null si no hay nadie.</summary>
+        private static string NombresDe(Dictionary<string, DTO_Usuario> usuarios, IEnumerable<string> ids)
+        {
+            var lista = UsuariosDe(usuarios, ids);
+            return lista.Count == 0 ? null : string.Join(", ", lista.Select(u => u.Nombre));
         }
 
         private static string NombreDe(Dictionary<string, DTO_Usuario> usuarios, string id)
@@ -243,7 +264,8 @@ namespace Negocio.Servicio
                 var t = ctx.ticket.Find(id);
                 return t == null ? null : new DTO_TicketFormulario
                 {
-                    Id = t.id_ticket, Titulo = t.titulo, Descripcion = t.descripcion, Prioridad = t.prioridad, AsignadoId = t.asignado_id,
+                    Id = t.id_ticket, Titulo = t.titulo, Descripcion = t.descripcion, Prioridad = t.prioridad,
+                    AsignadosIds = t.ticket_asignado.Select(a => a.usuario_id).ToList(),
                     FechaPrevista = t.fecha_prevista, TipoEquipo = t.tipo_equipo, EquipoId = t.id_equipo
                 };
             }
@@ -251,7 +273,10 @@ namespace Negocio.Servicio
 
         // ------------------------------------------------------------------ Escritura
 
-        /// <summary>Alta o edición (ya validada). Deja en el historial el alta o cada dato que cambió.</summary>
+        /// <summary>
+        /// Alta o edición (ya validada). Deja en el historial el alta o cada dato que cambió. Los asignados se
+        /// sincronizan: se agregan los nuevos y se quitan los que ya no están.
+        /// </summary>
         public int Guardar(DTO_TicketFormulario f, string usuarioId)
         {
             var ahora = DateTime.Now;
@@ -261,6 +286,7 @@ namespace Negocio.Servicio
                 var tipo = f.EquipoId != null && TiposEquipo.EsValido(f.TipoEquipo) ? f.TipoEquipo : null;
                 var idEquipo = tipo != null ? f.EquipoId : null;
                 var descripcion = HtmlSeguro.EstaVacio(f.Descripcion) ? null : HtmlSeguro.Limpiar(f.Descripcion);
+                var asignados = (f.AsignadosIds ?? new List<string>()).Where(a => !string.IsNullOrEmpty(a)).Distinct().ToList();
 
                 ticket t;
                 if (f.Id == 0)
@@ -270,7 +296,7 @@ namespace Negocio.Servicio
                         estado = EstadosTicket.Pendiente, creado_por_id = usuarioId, fecha_alta = ahora, fecha_estado = ahora
                     };
                     ctx.ticket.Add(t);
-                    t.ticket_historial.Add(Historial(usuarioId, ahora, "ALTA", null, NombreDe(usuarios, f.AsignadoId)));
+                    t.ticket_historial.Add(Historial(usuarioId, ahora, "ALTA", null, NombresDe(usuarios, asignados)));
                 }
                 else
                 {
@@ -282,7 +308,7 @@ namespace Negocio.Servicio
                         if (antes != despues) { t.ticket_historial.Add(Historial(usuarioId, ahora, campo, antes, despues)); }
                     };
                     cambio("TITULO", t.titulo, f.Titulo);
-                    cambio("ASIGNADO", NombreDe(usuarios, t.asignado_id), NombreDe(usuarios, f.AsignadoId));
+                    cambio("ASIGNADO", NombresDe(usuarios, t.ticket_asignado.Select(a => a.usuario_id)), NombresDe(usuarios, asignados));
                     cambio("PRIORIDAD", PrioridadesTicket.Nombre(t.prioridad), PrioridadesTicket.Nombre(f.Prioridad.Value));
                     cambio("FECHA_PREVISTA", t.fecha_prevista.ToString("dd/MM/yyyy"), f.FechaPrevista.Value.ToString("dd/MM/yyyy"));
                     cambio("EQUIPO", TextoEquipo(equipos, t.tipo_equipo, t.id_equipo), TextoEquipo(equipos, tipo, idEquipo));
@@ -292,7 +318,14 @@ namespace Negocio.Servicio
                 t.titulo = f.Titulo;
                 t.descripcion = descripcion;
                 t.prioridad = f.Prioridad.Value;
-                t.asignado_id = f.AsignadoId;
+                foreach (var quitado in t.ticket_asignado.Where(a => !asignados.Contains(a.usuario_id)).ToList())
+                {
+                    ctx.ticket_asignado.Remove(quitado);
+                }
+                foreach (var agregado in asignados.Where(a => !t.ticket_asignado.Any(x => x.usuario_id == a)).ToList())
+                {
+                    t.ticket_asignado.Add(new ticket_asignado { usuario_id = agregado, fecha_asignacion = ahora });
+                }
                 t.fecha_prevista = f.FechaPrevista.Value.Date;
                 t.tipo_equipo = tipo;
                 t.id_equipo = idEquipo;
@@ -309,7 +342,7 @@ namespace Negocio.Servicio
             {
                 var t = ctx.ticket.Find(id);
                 if (t == null) { return "El ticket ya no existe."; }
-                if (!esAdministrador && t.asignado_id != usuarioId) { return "Solo la persona asignada o un administrador pueden cambiar el estado."; }
+                if (!esAdministrador && !t.ticket_asignado.Any(a => a.usuario_id == usuarioId)) { return "Solo las personas asignadas o un administrador pueden cambiar el estado."; }
                 if (t.estado == estado) { return null; }
 
                 var ahora = DateTime.Now;

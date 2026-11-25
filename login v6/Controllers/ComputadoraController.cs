@@ -161,6 +161,41 @@ namespace login_v6.Controllers
             return Redirect("~/Computadora/Index");
         }
 
+        /// <summary>
+        /// Mueve la computadora a otra ubicación de computadoras desde la modal de la grilla
+        /// (Views/Shared/_MoverUbicacion.cshtml). id: id_detalle de la fila. Responde JSON.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MoverUbicacion(int id, int idUbicacion)
+        {
+            var detalle = new detallepc_dominio().Obtener(id);
+            if (detalle == null || detalle.pc_id == null) { return this.ErrorJson(404, "La computadora ya no existe."); }
+            var idPc = detalle.pc_id.Value;
+
+            var destino = new ubicacionpc_dominio().Obtener(idUbicacion);
+            if (destino == null || destino.fecha_baja != null) { return this.ErrorJson(400, "Elegí una ubicación válida."); }
+
+            var actual = new ubicacionpc_pc_dominio().ObtenerUbicacion(idPc);
+            if (actual == null || actual.ubicacionpc_id == null) { return this.ErrorJson(400, "La computadora no tiene una ubicación cargada."); }
+            if (actual.ubicacionpc_id == idUbicacion) { return this.ErrorJson(400, "La computadora ya está en " + destino.nombre + "."); }
+
+            new detallepc_dominio().mover(actual.ubicacionpc_id.Value, idUbicacion, idPc);
+            new auditoria_dominio().Guardar(new Auditoria
+            {
+                fecha_hora = DateTime.Now, tipo_equipo = "COMPUTADORA", id_equipo = idPc, accion = "MOVER", usuario = User.Identity.Name
+            });
+
+            var equipo = new pc_dominio().Obtener(idPc);
+            return Json(new
+            {
+                ok = true,
+                mensaje = "Se movió la computadora" + Avisos.Nombre(equipo != null ? equipo.nombre : null) + " a " + destino.nombre + ".",
+                ubicacion = destino.nombre,
+                fecha = ((DateTime?)DateTime.Today).ToString()
+            });
+        }
+
         public ActionResult BuscarParaMover(int id)
         {
 
@@ -234,6 +269,10 @@ namespace login_v6.Controllers
 
         public ActionResult ConfirmaEditar(DTO_u_computadora_detalle_id modelo)
         {
+            // Nombre repetido: vuelve al formulario con el aviso (el navegador normalmente ya lo frenó).
+            var repetido = this.VolverSiNombreRepetido("computadora", modelo.nombre_pc, Convert.ToInt32(modelo.id_pc), "~/Computadora/Index");
+            if (repetido != null) { return repetido; }
+
             pc_dominio pc = new pc_dominio();
             var compu = pc.Obtener(modelo.id_pc);
             compu.ip = modelo.ip;

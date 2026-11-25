@@ -4,7 +4,7 @@
     ViewBag.Title = "Tickets";
     var usuarioId = (string)ViewBag.UsuarioId;
     var esAdmin = (bool)ViewBag.EsAdministrador;
-    var asignados = Model.GroupBy(t => t.AsignadoId).Select(g => g.First()).OrderBy(t => t.Asignado).ToList();
+    var asignados = Model.SelectMany(t => t.Asignados).GroupBy(a => a.Id).Select(g => g.First()).OrderBy(a => a.Nombre).ToList();
     var vencidos = Model.Count(t => t.Semaforo == "vencido");
 }
 
@@ -29,15 +29,15 @@
     <div class="card-body">
         <div class="sgei-board-buscar">
             <i class="bi bi-search" aria-hidden="true"></i>
-            <input type="search" class="form-control" id="board-buscar" placeholder="Buscar por número, título, asignado o equipo" aria-label="Buscar tickets" autocomplete="off" />
+            <input type="search" class="form-control" id="board-buscar" placeholder="Buscar por número, título, persona o equipo" aria-label="Buscar tickets" autocomplete="off" />
         </div>
         <input type="checkbox" class="btn-check" id="board-mios" autocomplete="off" data-usuario="@usuarioId" />
         <label class="btn btn-outline-primary" for="board-mios"><i class="bi bi-person-check me-1"></i>Mis tickets</label>
         <select class="form-select" id="board-asignado" aria-label="Asignado a" autocomplete="off">
             <option value="">Todos los asignados</option>
-            @foreach (var t in asignados)
+            @foreach (var a in asignados)
             {
-                <option value="@t.AsignadoId">@t.Asignado</option>
+                <option value="@a.Id">@a.Nombre</option>
             }
         </select>
         <select class="form-select" id="board-prioridad" aria-label="Prioridad" autocomplete="off">
@@ -73,7 +73,7 @@
             <div class="sgei-board-lista" data-estado="@estado" data-nombre="@EstadosTicket.Nombre(estado)">
                 @foreach (var t in tickets)
                 {
-                    @Html.Partial("_Tarjeta", t, new ViewDataDictionary { { "puedeMover", esAdmin || t.AsignadoId == usuarioId } })
+                    @Html.Partial("_Tarjeta", t, new ViewDataDictionary { { "puedeMover", esAdmin || t.EstaAsignado(usuarioId) } })
                 }
                 <p class="sgei-board-vacio">Sin tickets</p>
             </div>
