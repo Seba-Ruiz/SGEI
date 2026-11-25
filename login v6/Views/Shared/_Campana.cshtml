@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNet.Identity
+@*
+    Campana de notificaciones de la barra superior: cantidad sin leer y, al abrirla, las más nuevas sin leer con
+    "Marcar como leída". La lista se pide por AJAX (Notificaciones/Campana) y se actualiza en vivo por SignalR.
+    Comportamiento: Scripts/app/notificaciones.js.
+*@
+@{
+    var sinLeer = 0;
+    try
+    {
+        sinLeer = new Negocio.Servicio.Notificaciones().CantidadSinLeer(User.Identity.GetUserId());
+    }
+    catch (Exception ex)
+    {
+        // Si la tabla todavía no existe (script sin correr) la barra se sigue mostrando.
+        System.Diagnostics.Trace.TraceError("Campana de notificaciones: " + ex.Message);
+    }
+    var textoCantidad = sinLeer > 99 ? "99+" : sinLeer.ToString();
+}
+<div class="dropdown ms-auto sgei-campana" id="sgei-campana"
+     data-url-lista="@Url.Action("Campana", "Notificaciones")"
+     data-url-leer="@Url.Action("Leer", "Notificaciones")"
+     data-url-leer-todas="@Url.Action("LeerTodas", "Notificaciones")"
+     data-url-signalr="@Url.Content("~/signalr")"
+     data-cantidad="@sinLeer">
+    <button type="button" class="btn sgei-campana-boton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"
+            aria-label="@(sinLeer == 0 ? "Notificaciones: no tenés notificaciones sin leer" : "Notificaciones: " + sinLeer + " sin leer")">
+        <i class="bi bi-bell" aria-hidden="true"></i>
+        <span class="sgei-campana-cantidad" data-cantidad @(sinLeer == 0 ? "hidden" : "")>@textoCantidad</span>
+    </button>
+    <div class="dropdown-menu dropdown-menu-end shadow sgei-campana-menu">
+        <div class="sgei-campana-cabecera">
+            <strong>Notificaciones</strong>
+            <button type="button" class="btn btn-link btn-sm p-0" data-leer-todas @(sinLeer == 0 ? "hidden" : "")>
+                <i class="bi bi-check2-all me-1" aria-hidden="true"></i>Marcar todas como leídas
+            </button>
+        </div>
+        <div class="sgei-campana-lista" data-lista aria-live="polite">
+            <div class="sgei-campana-estado" data-cargando>
+                <span class="spinner-border spinner-border-sm text-primary me-2" role="status" aria-hidden="true"></span>Cargando...
+            </div>
+        </div>
+        <a class="sgei-campana-pie" href="@Url.Action("Index", "Notificaciones")" data-spinner>Ver todas las notificaciones</a>
+    </div>
+</div>

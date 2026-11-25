@@ -88,7 +88,7 @@ namespace Negocio.Servicio
             }
         }
 
-        private static Dictionary<string, DTO_Usuario> Usuarios(SGEIContext ctx)
+        internal static Dictionary<string, DTO_Usuario> Usuarios(SGEIContext ctx)
         {
             return ctx.AspNetUsers
                 .Select(u => new { u.Id, u.UserName, u.nombre, u.apellido, u.fecha_baja })
@@ -101,7 +101,7 @@ namespace Negocio.Servicio
                 });
         }
 
-        private static string Iniciales(string nombre)
+        internal static string Iniciales(string nombre)
         {
             var partes = (nombre ?? "").Split(new[] { ' ', '.', '_', '-', '@' }, StringSplitOptions.RemoveEmptyEntries);
             if (partes.Length == 0) { return "?"; }

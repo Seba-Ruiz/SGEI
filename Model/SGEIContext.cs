@@ -71,6 +71,7 @@ namespace Model
         public virtual DbSet<ticket> ticket { get; set; }
         public virtual DbSet<ticket_comentario> ticket_comentario { get; set; }
         public virtual DbSet<ticket_historial> ticket_historial { get; set; }
+        public virtual DbSet<notificacion> notificacion { get; set; }
         public virtual DbSet<tipo_tel> tipo_tel { get; set; }
         public virtual DbSet<tipoPC> tipoPC { get; set; }
         public virtual DbSet<ubicacion> ubicacion { get; set; }
@@ -453,6 +454,14 @@ namespace Model
 
             modelBuilder.Entity<ticket_historial>()
                 .Property(e => e.campo)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<notificacion>()
+                .Property(e => e.tipo)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<notificacion>()
+                .Property(e => e.referencia_tipo)
                 .IsUnicode(false);
         }
     }

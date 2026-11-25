@@ -107,6 +107,7 @@
     <Compile Include="switch_incidente_switch.cs" />
     <Compile Include="switch_ubicacion_switch.cs" />
     <Compile Include="telefono.cs" />
+    <Compile Include="notificacion.cs" />
     <Compile Include="ticket.cs" />
     <Compile Include="ticket_comentario.cs" />
     <Compile Include="ticket_historial.cs" />

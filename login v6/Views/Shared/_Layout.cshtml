@@ -1,7 +1,9 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using login_v6.Helpers
 @{
-    var nombreUsuario = User.Identity.GetUserName() ?? "";
-    var inicial = nombreUsuario.Length > 0 ? nombreUsuario.Substring(0, 1).ToUpperInvariant() : "?";
+    // Nombre y apellido del usuario conectado (o su usuario, si no tiene nombre cargado).
+    var usuarioActual = UsuarioActual.Datos(User);
+    var nombreUsuario = usuarioActual != null ? usuarioActual.Nombre : "";
+    var inicial = usuarioActual != null ? usuarioActual.Iniciales : "?";
 }
 <!DOCTYPE html>
 <html lang="es">
@@ -9,7 +11,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewBag.Title - SGEI</title>
-    <link rel="icon" href="~/favicon.ico" />
+    <link rel="icon" href="~/favicon.ico" sizes="any" />
+    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
     @Styles.Render("~/Content/css")
     @RenderSection("estilos", required: false)
 </head>
@@ -46,7 +49,9 @@
 
                 @if (Request.IsAuthenticated)
                 {
-                    <div class="dropdown ms-auto">
+                    @* Campana de notificaciones (Scripts/app/notificaciones.js). *@
+                    @Html.Partial("_Campana")
+                    <div class="dropdown">
                         <a href="#" class="sgei-usuario dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="sgei-avatar">@inicial</span>
                             <span class="d-none d-md-inline">@nombreUsuario</span>
@@ -99,6 +104,12 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/plugins")
     @Html.Script("~/Scripts/app/sgei.js")
+    @if (Request.IsAuthenticated)
+    {
+        @* Notificaciones en vivo: SignalR + campana. *@
+        @Scripts.Render("~/bundles/signalr")
+        @Html.Script("~/Scripts/app/notificaciones.js")
+    }
     @* Librerías que usa solo alguna pantalla (Summernote, SortableJS): antes del script de la vista. *@
     @RenderSection("librerias", required: false)
     @* Script propio de la vista: Scripts/views/<Controlador>/<vista>.js (si existe) *@
