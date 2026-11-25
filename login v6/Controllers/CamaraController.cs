@@ -41,6 +41,10 @@ namespace login_v6.Controllers
 
         public ActionResult GuardarCam(DTO_u_detalle_camara deta)
         {
+            // Nombre repetido: vuelve al formulario con el aviso (el navegador normalmente ya lo frenó).
+            var repetido = this.VolverSiNombreRepetido("camara", deta.descripcion, Convert.ToInt32(deta.id_camara), "~/Camara/Index");
+            if (repetido != null) { return repetido; }
+
             camara_dominio cam = new camara_dominio();
             var camara = cam.Obtener(deta.id_camara);
 

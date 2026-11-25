@@ -109,6 +109,7 @@
     <Compile Include="telefono.cs" />
     <Compile Include="notificacion.cs" />
     <Compile Include="ticket.cs" />
+    <Compile Include="ticket_asignado.cs" />
     <Compile Include="ticket_comentario.cs" />
     <Compile Include="ticket_historial.cs" />
     <Compile Include="tipoPC.cs" />

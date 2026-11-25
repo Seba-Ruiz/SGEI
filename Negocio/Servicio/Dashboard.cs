@@ -87,10 +87,14 @@ namespace Negocio.Servicio
             };
         }
 
-        /// <summary>Tickets del board por persona asignada, una serie por estado. Más cargados primero.</summary>
+        /// <summary>
+        /// Tickets del board por persona asignada, una serie por estado. Más cargados primero. Un ticket con varias
+        /// personas asignadas cuenta para cada una.
+        /// </summary>
         public DatosGrafico TicketsPorUsuario(List<Negocio.DTO.DTO_TicketTarjeta> tickets)
         {
-            var personas = tickets.GroupBy(t => t.Asignado)
+            var porPersona = tickets.SelectMany(t => t.Asignados.Select(a => new { Persona = a.Nombre, t.Estado })).ToList();
+            var personas = porPersona.GroupBy(t => t.Persona)
                 .OrderByDescending(g => g.Count()).ThenBy(g => g.Key)
                 .Select(g => g.Key).ToList();
             return new DatosGrafico
@@ -100,7 +104,7 @@ namespace Negocio.Servicio
                 {
                     Nombre = EstadosTicket.Nombre(e),
                     Color = ColoresEstado[e],
-                    Valores = personas.Select(p => tickets.Count(t => t.Asignado == p && t.Estado == e)).ToList()
+                    Valores = personas.Select(p => porPersona.Count(t => t.Persona == p && t.Estado == e)).ToList()
                 }).ToList()
             };
         }

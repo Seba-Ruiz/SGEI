@@ -3,13 +3,17 @@
 @*
     Tarjeta de un ticket en el board. data-* para los filtros y el arrastre (Scripts/views/Tickets/Index.js).
     ViewData["puedeMover"]: el usuario actual puede arrastrarla (asignado o administrador).
+    Asignados: con una sola persona se ve su nombre; con varias, hasta 3 avatares apilados y "+N". Al hacer clic se
+    despliega la lista completa.
 *@
 @{
     var puedeMover = (bool)ViewData["puedeMover"];
-    var buscar = string.Join(" ", "#" + Model.Id, Model.Titulo, Model.Asignado, Model.Equipo).ToLowerInvariant();
+    var buscar = string.Join(" ", "#" + Model.Id, Model.Titulo, Model.AsignadosTexto, Model.CreadoPor, Model.Equipo).ToLowerInvariant();
+    const int AvataresVisibles = 3;
+    var resto = Model.Asignados.Count - AvataresVisibles;
 }
 <article class="sgei-ticket sgei-ticket-prioridad-@Model.Prioridad sgei-ticket-@Model.Semaforo@(puedeMover ? " sgei-ticket-movible" : "")"
-         data-id="@Model.Id" data-asignado="@Model.AsignadoId" data-prioridad="@Model.Prioridad" data-prevista="@Model.FechaPrevista.ToString("yyyyMMdd")" data-buscar="@buscar"
+         data-id="@Model.Id" data-asignado="@string.Join(" ", Model.Asignados.Select(a => a.Id))" data-prioridad="@Model.Prioridad" data-prevista="@Model.FechaPrevista.ToString("yyyyMMdd")" data-buscar="@buscar"
          aria-label="Ticket #@Model.Id: @Model.Titulo">
     <div class="sgei-ticket-cabecera">
         <span class="sgei-ticket-numero">#@Model.Id</span>
@@ -37,9 +41,48 @@
         <span class="sgei-ticket-fecha">@Model.FechaPrevista.ToString("dd/MM")</span>
     </div>
 
+    <div class="sgei-ticket-meta">
+        <span class="sgei-ticket-alta" title="Creado el @Model.FechaAlta.ToString("dd/MM/yyyy HH:mm")">
+            <i class="bi bi-calendar-plus" aria-hidden="true"></i>@Model.FechaAlta.ToString("dd/MM/yyyy")
+        </span>
+        <span class="sgei-ticket-creador" title="Creado por @Model.CreadoPor">
+            <i class="bi bi-pencil-square" aria-hidden="true"></i><span>@Model.CreadoPor</span>
+        </span>
+    </div>
+
     <div class="sgei-ticket-pie">
-        <span class="sgei-avatar" aria-hidden="true">@Model.AsignadoIniciales</span>
-        <span class="sgei-ticket-asignado" title="Asignado a @Model.Asignado">@Model.Asignado</span>
+        @if (Model.Asignados.Count == 1)
+        {
+            var a = Model.Asignados[0];
+            <span class="sgei-avatar" aria-hidden="true">@a.Iniciales</span>
+            <span class="sgei-ticket-asignado" title="Asignado a @a.Nombre">@a.Nombre</span>
+        }
+        else if (Model.Asignados.Count > 1)
+        {
+            <div class="dropdown sgei-ticket-asignados">
+                <button type="button" class="sgei-avatares" data-bs-toggle="dropdown" aria-expanded="false"
+                        data-bs-popper-config='{"strategy":"fixed"}'
+                        title="Asignados: @Model.AsignadosTexto" aria-label="Ver los @Model.Asignados.Count asignados">
+                    @foreach (var a in Model.Asignados.Take(AvataresVisibles))
+                    {
+                        <span class="sgei-avatar" aria-hidden="true">@a.Iniciales</span>
+                    }
+                    @if (resto > 0)
+                    {
+                        <span class="sgei-avatar sgei-avatar-mas" aria-hidden="true">+@resto</span>
+                    }
+                </button>
+                <div class="dropdown-menu shadow sgei-asignados-menu">
+                    <div class="sgei-asignados-menu-titulo">Asignados (@Model.Asignados.Count)</div>
+                    <ul>
+                        @foreach (var a in Model.Asignados)
+                        {
+                            <li><span class="sgei-avatar sgei-avatar-chico" aria-hidden="true">@a.Iniciales</span>@a.Nombre</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
         <span class="sgei-ticket-datos ms-auto">
             <span title="Abierto hace @Model.DiasAbierto @(Model.DiasAbierto == 1 ? "día" : "días")"><i class="bi bi-hourglass-split" aria-hidden="true"></i>@Model.DiasAbierto d</span>
             @if (Model.Comentarios > 0)

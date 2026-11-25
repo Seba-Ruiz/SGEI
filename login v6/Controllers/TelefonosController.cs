@@ -50,6 +50,10 @@ namespace login_v6.Controllers
 
         public ActionResult GuardarTel(DTO_u_detalle_telefono deta)
         {
+            // Nombre repetido: vuelve al formulario con el aviso (el navegador normalmente ya lo frenó).
+            var repetido = this.VolverSiNombreRepetido("telefono", deta.descripcion, Convert.ToInt32(deta.id_telefono), "~/Telefonos/Index");
+            if (repetido != null) { return repetido; }
+
             telefono_dominio tel = new telefono_dominio();
             var telefono = tel.Obtener(deta.id_telefono);
 

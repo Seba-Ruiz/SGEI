@@ -1,0 +1,72 @@
+﻿@model login_v6.Models.MiCuentaViewModel
+@*
+    Contenido de la modal "Mi cuenta" (se pide por AJAX a Manage/MiCuenta al abrirla). Muestra los datos del usuario y,
+    con "Editar", permite cambiar nombre, apellido y teléfono sin salir de la pantalla. Comportamiento:
+    Scripts/app/mi-cuenta.js.
+*@
+@{
+    Func<string, string> oGuion = v => string.IsNullOrWhiteSpace(v) ? "—" : v;
+}
+<div class="modal-header sgei-mi-cuenta-cabecera">
+    <span class="sgei-avatar sgei-avatar-grande" aria-hidden="true" data-mi-cuenta-iniciales>@Model.Iniciales</span>
+    <div class="min-w-0">
+        <h5 class="modal-title" id="modal-mi-cuenta-titulo" data-mi-cuenta-nombre>@Model.NombreCompleto</h5>
+        <div class="sgei-mi-cuenta-sub">
+            <span class="text-truncate">@Model.Email</span>
+            <span class="badge rounded-pill text-bg-primary">@Model.Rol</span>
+        </div>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+</div>
+
+<form data-mi-cuenta-form action="@Url.Action("GuardarMiCuenta", "Manage")" method="post" novalidate>
+    <div class="modal-body">
+        @* Modo ver *@
+        <dl class="sgei-mi-cuenta-datos" data-modo="ver">
+            <div><dt>Nombre</dt><dd data-ver="nombre">@oGuion(Model.Nombre)</dd></div>
+            <div><dt>Apellido</dt><dd data-ver="apellido">@oGuion(Model.Apellido)</dd></div>
+            <div><dt>Email</dt><dd class="text-break">@Model.Email</dd></div>
+            <div><dt>Teléfono</dt><dd data-ver="telefono">@oGuion(Model.Telefono)</dd></div>
+            <div><dt>Tipo de usuario</dt><dd>@Model.Rol</dd></div>
+            <div><dt>Último ingreso</dt><dd>@(Model.UltimoIngreso.HasValue ? Model.UltimoIngreso.Value.ToString("dd/MM/yyyy HH:mm") : "—")</dd></div>
+        </dl>
+
+        @* Modo editar *@
+        <div class="row g-3" data-modo="editar" hidden>
+            <div class="col-sm-6">
+                <label class="form-label sgei-requerido" for="mi-cuenta-nombre">Nombre</label>
+                <input type="text" class="form-control" id="mi-cuenta-nombre" name="nombre" value="@Model.Nombre" maxlength="@login_v6.Models.MiCuentaViewModel.LargoNombre" required autocomplete="given-name" />
+                <div class="invalid-feedback" data-error="nombre"></div>
+            </div>
+            <div class="col-sm-6">
+                <label class="form-label sgei-requerido" for="mi-cuenta-apellido">Apellido</label>
+                <input type="text" class="form-control" id="mi-cuenta-apellido" name="apellido" value="@Model.Apellido" maxlength="@login_v6.Models.MiCuentaViewModel.LargoNombre" required autocomplete="family-name" />
+                <div class="invalid-feedback" data-error="apellido"></div>
+            </div>
+            <div class="col-sm-6">
+                <label class="form-label" for="mi-cuenta-telefono">Teléfono</label>
+                <input type="tel" class="form-control" id="mi-cuenta-telefono" name="telefono" value="@Model.Telefono" maxlength="@login_v6.Models.MiCuentaViewModel.LargoTelefono" autocomplete="tel" placeholder="Ej.: 260 4123456" />
+                <div class="invalid-feedback" data-error="telefono"></div>
+            </div>
+            <div class="col-sm-6">
+                <label class="form-label" for="mi-cuenta-email">Email</label>
+                <input type="email" class="form-control" id="mi-cuenta-email" value="@Model.Email" readonly disabled />
+                <div class="form-text">El email es tu usuario: no se puede cambiar.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer sgei-mi-cuenta-pie">
+        <a class="btn btn-link px-0 me-auto" href="@Url.Action("ChangePassword", "Manage")" data-spinner>
+            <i class="bi bi-key me-1" aria-hidden="true"></i>Cambiar contraseña
+        </a>
+        <div data-modo="ver">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" data-mi-cuenta-editar><i class="bi bi-pencil me-1" aria-hidden="true"></i>Editar</button>
+        </div>
+        <div data-modo="editar" hidden>
+            <button type="button" class="btn btn-outline-secondary" data-mi-cuenta-cancelar>Cancelar</button>
+            <button type="submit" class="btn btn-primary" data-mi-cuenta-guardar><i class="bi bi-check-lg me-1" aria-hidden="true"></i>Guardar</button>
+        </div>
+    </div>
+</form>

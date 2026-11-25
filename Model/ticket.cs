@@ -14,6 +14,7 @@
         {
             ticket_comentario = new HashSet<ticket_comentario>();
             ticket_historial = new HashSet<ticket_historial>();
+            ticket_asignado = new HashSet<ticket_asignado>();
         }
 
         [Key]
@@ -30,10 +31,6 @@
 
         /// <summary>1 Pendiente · 2 En curso · 3 Bloqueado · 4 Terminado</summary>
         public byte estado { get; set; }
-
-        [Required]
-        [StringLength(128)]
-        public string asignado_id { get; set; }
 
         [Required]
         [StringLength(128)]
@@ -58,5 +55,8 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ticket_historial> ticket_historial { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ticket_asignado> ticket_asignado { get; set; }
     }
 }

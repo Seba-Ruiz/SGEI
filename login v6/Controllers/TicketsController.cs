@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using login_v6.Helpers;
@@ -13,7 +14,7 @@ namespace login_v6.Controllers
     /// <summary>
     /// Menú Tickets: board de trabajo por estado (Pendiente, En curso, Bloqueado, Terminado), grilla con todos los
     /// tickets, detalle con la conversación y el historial de cambios. Permisos:
-    ///   alta, edición y eliminación: administradores · cambio de estado: el asignado o un administrador ·
+    ///   alta, edición y eliminación: administradores · cambio de estado: cualquiera de los asignados o un administrador ·
     ///   comentarios: cualquiera; cada uno edita o elimina los suyos.
     /// Lógica en Negocio/Servicio/Tickets.cs; el HTML de Summernote se sanea al guardar (HtmlSeguro).
     /// </summary>
@@ -107,11 +108,17 @@ namespace login_v6.Controllers
             if (f.Titulo.Length == 0) { ModelState.AddModelError("Titulo", "Indicá el título."); }
             else if (f.Titulo.Length > Tickets.LargoTitulo) { ModelState.AddModelError("Titulo", "Máximo " + Tickets.LargoTitulo + " caracteres."); }
 
-            var asignado = string.IsNullOrEmpty(f.AsignadoId) ? null : servicio.Usuario(f.AsignadoId);
-            if (asignado == null) { ModelState.AddModelError("AsignadoId", "Elegí a quién se asigna."); }
-            else if (!asignado.Activo && (f.Id == 0 || servicio.Formulario(f.Id)?.AsignadoId != f.AsignadoId))
+            var nuevo = f.Id == 0;
+            var asignadosAntes = nuevo ? new List<string>() : (servicio.Formulario(f.Id)?.AsignadosIds ?? new List<string>());
+            f.AsignadosIds = (f.AsignadosIds ?? new List<string>()).Where(a => !string.IsNullOrEmpty(a)).Distinct().ToList();
+            var asignados = f.AsignadosIds.Select(a => servicio.Usuario(a)).ToList();
+            if (asignados.Count == 0) { ModelState.AddModelError("AsignadosIds", "Elegí al menos una persona."); }
+            else if (asignados.Any(a => a == null)) { ModelState.AddModelError("AsignadosIds", "Alguno de los usuarios elegidos ya no existe."); }
+            else
             {
-                ModelState.AddModelError("AsignadoId", "El usuario está dado de baja.");
+                // Uno dado de baja puede quedar si ya estaba asignado, pero no se puede sumar.
+                var deBaja = asignados.Where(a => !a.Activo && !asignadosAntes.Contains(a.Id)).Select(a => a.Nombre).ToList();
+                if (deBaja.Count > 0) { ModelState.AddModelError("AsignadosIds", "Dado de baja: " + string.Join(", ", deBaja) + "."); }
             }
 
             if (f.Prioridad == null || !PrioridadesTicket.EsValida(f.Prioridad.Value)) { ModelState.AddModelError("Prioridad", "Elegí la prioridad."); }
@@ -127,12 +134,10 @@ namespace login_v6.Controllers
 
             if (!ModelState.IsValid) { return Formulario(f); }
 
-            var nuevo = f.Id == 0;
-            var asignadoAntes = nuevo ? null : servicio.Formulario(f.Id)?.AsignadoId;
             var id = servicio.Guardar(f, UsuarioId);
-            if (nuevo || asignadoAntes != f.AsignadoId) { NotificarAsignacion(id, nuevo); }
+            NotificarAsignacion(id, nuevo, f.AsignadosIds.Except(asignadosAntes).ToList());
             this.AvisoExito(nuevo
-                ? "Se creó el ticket #" + id + Avisos.Nombre(f.Titulo) + " y se asignó a " + asignado.Nombre + "."
+                ? "Se creó el ticket #" + id + Avisos.Nombre(f.Titulo) + " y se asignó a " + string.Join(", ", asignados.Select(a => a.Nombre)) + "."
                 : "Se guardaron los cambios del ticket #" + id + Avisos.Nombre(f.Titulo) + ".");
             return nuevo ? RedirectToAction("Index") : RedirectToAction("Ver", new { id });
         }
@@ -148,31 +153,41 @@ namespace login_v6.Controllers
 
         // ================================================================== Notificaciones (campana + mail)
 
-        /// <summary>Al crear o reasignar un ticket se le avisa a la persona asignada (salvo que se lo asigne uno mismo).</summary>
-        private void NotificarAsignacion(int id, bool nuevo)
+        /// <summary>
+        /// Al crear un ticket, o al sumar personas a uno existente, se le avisa a cada persona que se agregó (salvo a uno
+        /// mismo). Cada una recibe su notificación y su mail.
+        /// </summary>
+        private void NotificarAsignacion(int id, bool nuevo, List<string> agregados)
         {
+            var destinatarios = agregados.Where(a => a != UsuarioId).ToList();
+            if (destinatarios.Count == 0) { return; }
             var t = servicio.Tarjeta(id);
-            if (t == null || t.AsignadoId == UsuarioId) { return; }
+            if (t == null) { return; }
             var autor = UsuarioActual.Datos(User).Nombre;
-            Notificador.Enviar(new NotificacionNueva
+            foreach (var destinatario in destinatarios)
             {
-                UsuarioId = t.AsignadoId,
-                OrigenUsuarioId = UsuarioId,
-                Tipo = TiposNotificacion.TicketAsignado,
-                Titulo = (nuevo ? "Se te asignó el ticket #" : "Te reasignaron el ticket #") + t.Id,
-                Mensaje = autor + (nuevo ? " te asignó el ticket «" : " te reasignó el ticket «") + t.Titulo + "», con prioridad "
-                    + PrioridadesTicket.Nombre(t.Prioridad).ToLowerInvariant() + " y fecha prevista de finalización el "
-                    + t.FechaPrevista.ToString("dd/MM/yyyy") + ".",
-                Url = "~/Tickets/Ver/" + t.Id,
-                ReferenciaTipo = "TICKET",
-                ReferenciaId = t.Id,
-                TextoBoton = "Ver ticket"
+                var companeros = t.Asignados.Where(a => a.Id != destinatario).Select(a => a.Nombre).ToList();
+                Notificador.Enviar(new NotificacionNueva
+                {
+                    UsuarioId = destinatario,
+                    OrigenUsuarioId = UsuarioId,
+                    Tipo = TiposNotificacion.TicketAsignado,
+                    Titulo = (nuevo ? "Se te asignó el ticket #" : "Te sumaron al ticket #") + t.Id,
+                    Mensaje = autor + (nuevo ? " te asignó el ticket «" : " te sumó al ticket «") + t.Titulo + "», con prioridad "
+                        + PrioridadesTicket.Nombre(t.Prioridad).ToLowerInvariant() + " y fecha prevista de finalización el "
+                        + t.FechaPrevista.ToString("dd/MM/yyyy") + ".",
+                    Url = "~/Tickets/Ver/" + t.Id,
+                    ReferenciaTipo = "TICKET",
+                    ReferenciaId = t.Id,
+                    TextoBoton = "Ver ticket"
+                }
+                .Dato("Ticket", "#" + t.Id + " · " + t.Titulo)
+                .Dato("Prioridad", PrioridadesTicket.Nombre(t.Prioridad))
+                .Dato("Estado", EstadosTicket.Nombre(t.Estado))
+                .Dato("Fecha prevista", t.FechaPrevista.ToString("dd/MM/yyyy"))
+                .Dato("También asignados", companeros.Count == 0 ? null : string.Join(", ", companeros))
+                .Dato("Equipo", t.Equipo));
             }
-            .Dato("Ticket", "#" + t.Id + " · " + t.Titulo)
-            .Dato("Prioridad", PrioridadesTicket.Nombre(t.Prioridad))
-            .Dato("Estado", EstadosTicket.Nombre(t.Estado))
-            .Dato("Fecha prevista", t.FechaPrevista.ToString("dd/MM/yyyy"))
-            .Dato("Equipo", t.Equipo));
         }
 
         /// <summary>Al cambiar el estado se le avisa a quien creó el ticket (salvo que lo haya cambiado él mismo).</summary>
@@ -197,7 +212,7 @@ namespace login_v6.Controllers
             .Dato("Ticket", "#" + antes.Id + " · " + antes.Titulo)
             .Dato("Estado anterior", anterior)
             .Dato("Estado nuevo", nuevo)
-            .Dato("Asignado a", antes.Asignado)
+            .Dato("Asignado a", antes.AsignadosTexto)
             .Dato("Prioridad", PrioridadesTicket.Nombre(antes.Prioridad))
             .Dato("Fecha prevista", antes.FechaPrevista.ToString("dd/MM/yyyy")));
         }
@@ -209,7 +224,7 @@ namespace login_v6.Controllers
                 t => new ConsultasUnificadas().EquiposParaElegir(t, false, t == f.TipoEquipo ? f.EquipoId : null)
                          .Select(e => new { id = e.Id, texto = e.Texto }).ToList());
             ViewBag.Datos = new { equipos };
-            ViewBag.Usuarios = servicio.UsuariosParaAsignar(f.AsignadoId);
+            ViewBag.Usuarios = servicio.UsuariosParaAsignar(f.AsignadosIds);
             return View("Formulario", f);
         }
 
@@ -269,7 +284,7 @@ namespace login_v6.Controllers
 
         private bool PuedeMover(DTO_TicketTarjeta t)
         {
-            return User.EsAdministrador() || t.AsignadoId == UsuarioId;
+            return User.EsAdministrador() || t.EstaAsignado(UsuarioId);
         }
     }
 }

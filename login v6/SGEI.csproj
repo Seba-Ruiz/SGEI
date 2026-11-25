@@ -184,12 +184,14 @@
     <Compile Include="Controllers\SwichsController.cs" />
     <Compile Include="Controllers\TelefonosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\ValidacionesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MailSender.cs" />
+    <Compile Include="Models\MiCuentaViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2877,6 +2879,7 @@
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\_MiCuenta.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
@@ -3131,6 +3134,9 @@
     <Content Include="Views\Notificaciones\Index.cshtml" />
     <Content Include="Views\Shared\_Campana.cshtml" />
     <Content Include="Scripts\app\notificaciones.js" />
+    <Content Include="Scripts\app\mover-ubicacion.js" />
+    <Content Include="Views\Shared\_MoverUbicacion.cshtml" />
+    <Content Include="Scripts\app\mi-cuenta.js" />
     <Content Include="Scripts\views\Notificaciones\Index.js" />
     <Content Include="Scripts\lib\signalr\jquery.signalR-2.4.3.js" />
     <Content Include="Scripts\lib\signalr\jquery.signalR-2.4.3.min.js" />

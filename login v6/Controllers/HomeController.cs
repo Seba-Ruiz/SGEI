@@ -55,6 +55,10 @@ namespace SGEI.Controllers
 
         public ActionResult GuardarTel(DTO_Telefono dto)
         {
+            // Nombre repetido: vuelve al formulario con el aviso (el navegador normalmente ya lo frenó).
+            var repetido = this.VolverSiNombreRepetido("telefono", dto.descripcion, 0, "~/Home/AltaTel");
+            if (repetido != null) { return repetido; }
+
             telefono_dominio tel = new telefono_dominio();
             telefono tele = new telefono();
 
@@ -120,6 +124,10 @@ namespace SGEI.Controllers
 
         public ActionResult GuardarCam(DTO_camara dto)
         {
+            // Nombre repetido: vuelve al formulario con el aviso (el navegador normalmente ya lo frenó).
+            var repetido = this.VolverSiNombreRepetido("camara", dto.descripcion, 0, "~/Home/AltaCam");
+            if (repetido != null) { return repetido; }
+
             camara_dominio camara = new camara_dominio();
             camara cam = new camara();
 
@@ -184,6 +192,10 @@ namespace SGEI.Controllers
 
         public ActionResult GuardarSW(DTO_sw dto)
         {
+            // Nombre repetido: vuelve al formulario con el aviso (el navegador normalmente ya lo frenó).
+            var repetido = this.VolverSiNombreRepetido("switch", dto.descripcion, 0, "~/Home/Altasw");
+            if (repetido != null) { return repetido; }
+
             switch_dominio switc = new switch_dominio();
             swicth sw = new swicth();
 
@@ -251,6 +263,10 @@ namespace SGEI.Controllers
 
         public ActionResult GuardarES(DTO_es dto)
         {
+            // Nombre repetido: vuelve al formulario con el aviso (el navegador normalmente ya lo frenó).
+            var repetido = this.VolverSiNombreRepetido("escaner", dto.descripcion, 0, "~/Home/Altaes");
+            if (repetido != null) { return repetido; }
+
             escaner_dominio escaner = new escaner_dominio();
             escaner esc = new escaner();
 
@@ -400,6 +416,10 @@ namespace SGEI.Controllers
 
         public ActionResult GuardarCompu(DTO_PC dto, int tipo, int ram, int disco, int so, int moth, int ubicacion, int proce)
         {
+            // Nombre repetido: vuelve al formulario con el aviso (el navegador normalmente ya lo frenó).
+            var repetido = this.VolverSiNombreRepetido("computadora", dto.nombrepc, 0, "~/Home/AltaCompu");
+            if (repetido != null) { return repetido; }
+
             pc_dominio compu = new pc_dominio();
 
             pc pc = new pc();
@@ -525,6 +545,37 @@ namespace SGEI.Controllers
         //    return View(id == 0 ? new impresora()
         //                : imp.Obtener(id));
         //}
+
+        /// <summary>
+        /// Mueve la impresora a otra ubicación de impresoras desde la modal de la grilla
+        /// (Views/Shared/_MoverUbicacion.cshtml). id: ubicacion_impresora.id de la fila. Responde JSON.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MoverUbicacion(int id, int idUbicacion)
+        {
+            var movida = new ubicacion_impresora_dominio().Obtener(id);
+            if (movida == null || movida.id == 0) { return this.ErrorJson(404, "La impresora ya no existe."); }
+
+            var destino = new ubicacion_dominio().Obtener(idUbicacion);
+            if (destino == null || destino.id == 0 || destino.fecha_baja != null) { return this.ErrorJson(400, "Elegí una ubicación válida."); }
+            if (movida.ubicacion_id == idUbicacion) { return this.ErrorJson(400, "La impresora ya está en " + destino.nombreUbicacion + "."); }
+
+            new u_impresora_dominio().mover(id, idUbicacion);
+            new auditoria_dominio().Guardar(new Auditoria
+            {
+                fecha_hora = DateTime.Now, tipo_equipo = "IMPRESORA", id_equipo = id, accion = "MOVER", usuario = User.Identity.Name
+            });
+
+            return Json(new
+            {
+                ok = true,
+                mensaje = "Se movió la impresora" + Avisos.Nombre(movida.descripcion) + " a " + destino.nombreUbicacion + ".",
+                ubicacion = destino.nombreUbicacion,
+                responsable = destino.responsable,
+                fecha = ((DateTime?)DateTime.Now).ToString()
+            });
+        }
 
         public ActionResult BuscarParaMover(int id)
         {

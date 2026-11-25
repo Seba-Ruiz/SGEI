@@ -38,7 +38,7 @@
                         <div class="mb-3 clearfix">
                             <div class="mb-3 clearfix">
                                 @Html.Label("Ingrese descripcion del escaner")
-                                @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control", @style = "width:250px;", @required = "required" })
+                                @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control", @style = "width:250px;", @required = "required", data_nombre_unico = "escaner", data_nombre_id = Model.id_escaner, data_nombre_url = Url.Action("NombreEquipo", "Validaciones") })
                                 @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "text-danger small" })
                             </div>
                         </div>

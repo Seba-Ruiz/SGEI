@@ -43,6 +43,10 @@ namespace login_v6.Controllers
 
         public ActionResult GuardarES(DTO_u_detalle_escaner deta)
         {
+            // Nombre repetido: vuelve al formulario con el aviso (el navegador normalmente ya lo frenó).
+            var repetido = this.VolverSiNombreRepetido("escaner", deta.descripcion, Convert.ToInt32(deta.id_escaner), "~/Escaner/Index");
+            if (repetido != null) { return repetido; }
+
             escaner_dominio es = new escaner_dominio();
             var escaner = es.Obtener(deta.id_escaner);
 

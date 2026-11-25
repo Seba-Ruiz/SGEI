@@ -23,8 +23,8 @@
                 <th>TIPO</th>
                 <th class="sgei-col-ubicacion">UBICACIÓN</th>
                 <th>DESCRIPCION</th>
-                <th>FECHA UBICACION</th>
-                <th>RESPONSABLE</th>
+                <th class="sgei-col-fecha-ubicacion">FECHA UBICACION</th>
+                <th class="sgei-col-responsable">RESPONSABLE</th>
                 <th>Nº IP</th>
                 <th>PC_CONECTADA</th>
 
@@ -47,7 +47,7 @@
                 <td>
                     <div class="sgei-acciones">
                         <a class="sgei-accion" title="Editar" href="~/Impresora/Editar/@a.id" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
-                        <a class="sgei-accion sgei-accion-neutro" data-confirmar="¿Desea mover de ubicacion esta impresora?" title="Mover a otra ubicacion la impresora" href="~/Home/BuscarParaMover/@a.id" aria-label="Mover a otra ubicacion la impresora"><i class="bi bi-arrows-move" aria-hidden="true"></i></a>
+                        <button type="button" class="sgei-accion sgei-accion-neutro" data-mover-ubicacion data-id="@a.id" data-nombre="@a.marca_modelo · @a.descripcion" data-ubicacion="@a.ubicacion" title="Mover a otra ubicación" aria-label="Mover de ubicación la impresora @a.descripcion"><i class="bi bi-arrows-move" aria-hidden="true"></i></button>
                         <a class="sgei-accion sgei-accion-peligro" data-confirmar="¿Desea dar de BAJA esta impresora?" title="Dar de baja a la impresora" href="~/Home/Baja/@a.id" aria-label="Dar de baja a la impresora"><i class="bi bi-arrow-down-circle" aria-hidden="true"></i></a>
                     </div>
                 </td>
@@ -57,3 +57,10 @@
 
     </table>
 </div>
+
+@* Modal para mover de ubicación (Scripts/app/mover-ubicacion.js), con las ubicaciones de impresoras. *@
+@Html.Partial("_MoverUbicacion", (SelectList)ViewBag.ubicaciones, new ViewDataDictionary { { "url", Url.Action("MoverUbicacion", "Home") }, { "equipo", "impresora" } })
+
+@section scripts {
+    @Html.Script("~/Scripts/app/mover-ubicacion.js")
+}

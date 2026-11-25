@@ -47,15 +47,16 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label sgei-requerido" for="AsignadoId">Asignado a</label>
-                    <select class="form-select" id="AsignadoId" name="AsignadoId" required data-buscable>
-                        <option value="">Elegí un usuario…</option>
+                    <label class="form-label sgei-requerido" for="AsignadosIds">Asignado a</label>
+                    <select class="form-select" id="AsignadosIds" name="AsignadosIds" multiple required data-buscable
+                            data-placeholder="Elegí una o más personas…" aria-describedby="ayuda-asignados">
                         @foreach (var u in usuarios)
                         {
-                            <option value="@u.Id" @(u.Id == Model.AsignadoId ? "selected" : "")>@u.Nombre@(u.Activo ? "" : " (de baja)")</option>
+                            <option value="@u.Id" @(Model.AsignadosIds.Contains(u.Id) ? "selected" : "")>@u.Nombre@(u.Activo ? "" : " (de baja)")</option>
                         }
                     </select>
-                    @Html.ValidationMessageFor(x => x.AsignadoId, null, new { @class = "text-danger small" })
+                    <div class="form-text" id="ayuda-asignados">A cada persona que sumes le llega una notificación y un mail.</div>
+                    @Html.ValidationMessageFor(x => x.AsignadosIds, null, new { @class = "text-danger small" })
                 </div>
                 <div class="col-md-6">
                     <label class="form-label sgei-requerido" for="FechaPrevista">Fecha de finalización prevista</label>

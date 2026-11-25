@@ -32,6 +32,22 @@ namespace login_v6.Controllers
         public ubicacion_tel_dominio ut = new ubicacion_tel_dominio();
         public incidentes_tel_dominio incitel = new incidentes_tel_dominio();
 
+        /// <summary>
+        /// Si ya hay otro registro activo del mismo catálogo con ese nombre (sin importar mayúsculas, acentos ni
+        /// espacios), deja el error en el campo y devuelve true: el Guardar vuelve a mostrar el formulario.
+        /// </summary>
+        /// <param name="que">Con artículo, como en el aviso: "la ubicación", "el modelo de impresora".</param>
+        private bool NombreRepetido<T>(T model, System.Linq.Expressions.Expression<Func<T, int>> id,
+            System.Linq.Expressions.Expression<Func<T, string>> nombre, string que) where T : class
+        {
+            var valor = nombre.Compile()(model);
+            var existente = Negocio.Servicio.NombresUnicos.Repetido(id, nombre, id.Compile()(model), valor);
+            if (existente == null) { return false; }
+            var campo = ((System.Linq.Expressions.MemberExpression)nombre.Body).Member.Name;
+            ModelState.AddModelError(campo, "Ya existe " + que + Avisos.Nombre(existente) + ". Usá otro nombre.");
+            return true;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -77,6 +93,7 @@ namespace login_v6.Controllers
         public ActionResult Guardar(insumo model)
         {
             var nuevo = !(model.id > 0);
+            if (NombreRepetido(model, x => x.id, x => x.nombre, "el insumo")) { return View(nuevo ? "Crud" : "Editar", model); }
             insu.Guardar(model);
             this.AvisoGuardado(nuevo, "el insumo", model.nombre);
             return Redirect("~/ABM/Insumos");
@@ -85,6 +102,7 @@ namespace login_v6.Controllers
         public ActionResult GuardarImpresora(impresora model)
         {
             var nuevo = !(model.id > 0);
+            if (NombreRepetido(model, x => x.id, x => x.marca_modelo, "el modelo de impresora")) { return View(nuevo ? "CrudImpresora" : "EditarImpresora", model); }
             imp.Guardar(model);
             this.AvisoGuardado(nuevo, "el modelo de impresora", model.marca_modelo);
             return Redirect("~/ABM/Impresoras");
@@ -117,6 +135,7 @@ namespace login_v6.Controllers
         public ActionResult GuardarUbicacion(ubicacion model)
         {
             var nuevo = !(model.id > 0);
+            if (NombreRepetido(model, x => x.id, x => x.nombreUbicacion, "la ubicación")) { return View(nuevo ? "CrudUbicacion" : "EditarUbicacion", model); }
             ubi.Guardar(model);
             this.AvisoGuardado(nuevo, "la ubicación", model.nombreUbicacion);
             return Redirect("~/ABM/ubicacion");
@@ -154,6 +173,7 @@ namespace login_v6.Controllers
         public ActionResult GuardarRam(ramPC model)
         {
             var nuevo = !(model.id_ram > 0);
+            if (NombreRepetido(model, x => x.id_ram, x => x.descripcion, "la memoria")) { return View(nuevo ? "CrudRam" : "EditarRam", model); }
             ram.Guardar(model);
             this.AvisoGuardado(nuevo, "la memoria", model.descripcion);
             return Redirect("~/ABM/rams");
@@ -190,6 +210,7 @@ namespace login_v6.Controllers
         public ActionResult GuardarDisco(discoPC model)
         {
             var nuevo = !(model.id_disco > 0);
+            if (NombreRepetido(model, x => x.id_disco, x => x.descripcion, "el disco")) { return View(nuevo ? "CrudDisco" : "EditarDisco", model); }
             disco.Guardar(model);
             this.AvisoGuardado(nuevo, "el disco", model.descripcion);
             return Redirect("~/ABM/discos");
@@ -228,6 +249,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarso(soPC model)
         {
             var nuevo = !(model.id_so > 0);
+            if (NombreRepetido(model, x => x.id_so, x => x.descripcion, "el sistema operativo")) { return View(nuevo ? "Crudso" : "Editarso", model); }
             so.Guardar(model);
             this.AvisoGuardado(nuevo, "el sistema operativo", model.descripcion);
             return Redirect("~/ABM/sos");
@@ -265,6 +287,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarmoth(motherPC model)
         {
             var nuevo = !(model.id_mother > 0);
+            if (NombreRepetido(model, x => x.id_mother, x => x.descripcion, "la placa madre")) { return View(nuevo ? "Crudmoth" : "Editarmoth", model); }
             moth.Guardar(model);
             this.AvisoGuardado(nuevo, "la placa madre", model.descripcion);
             return Redirect("~/ABM/mothers");
@@ -305,6 +328,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarincidentepc(incidentePC model)
         {
             var nuevo = !(model.id_incidentepc > 0);
+            if (NombreRepetido(model, x => x.id_incidentepc, x => x.nombre, "el incidente")) { return View(nuevo ? "Crudincidentepc" : "Editarincidentepc", model); }
             incipc.Guardar(model);
             this.AvisoGuardado(nuevo, "el incidente", model.nombre);
             return Redirect("~/ABM/incidentespc");
@@ -342,6 +366,7 @@ namespace login_v6.Controllers
         public ActionResult Guardartipopc(tipoPC model)
         {
             var nuevo = !(model.id_tipo > 0);
+            if (NombreRepetido(model, x => x.id_tipo, x => x.nombre_tipo, "el tipo de computadora")) { return View(nuevo ? "Crudtipopc" : "Editartipopc", model); }
             tipocp.Guardar(model);
             this.AvisoGuardado(nuevo, "el tipo de computadora", model.nombre_tipo);
             return Redirect("~/ABM/tipospc");
@@ -379,6 +404,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarubipc(ubicacionPC model)
         {
             var nuevo = !(model.id_ubicacion > 0);
+            if (NombreRepetido(model, x => x.id_ubicacion, x => x.nombre, "la ubicación")) { return View(nuevo ? "Crudubipc" : "Editarubipc", model); }
             ubipc.Guardar(model);
             this.AvisoGuardado(nuevo, "la ubicación", model.nombre);
             return Redirect("~/ABM/ubicacionespc");
@@ -415,6 +441,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarmotivopc(motivobajaPC model)
         {
             var nuevo = !(model.id_motivobaja > 0);
+            if (NombreRepetido(model, x => x.id_motivobaja, x => x.descripcion, "el motivo de baja")) { return View(nuevo ? "Crudmotivopc" : "Editarmotivopc", model); }
             motivopc.Guardar(model);
             this.AvisoGuardado(nuevo, "el motivo de baja", model.descripcion);
             return Redirect("~/ABM/motivospc");
@@ -451,6 +478,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarprocesadorpc(procesadorPC model)
         {
             var nuevo = !(model.id_procesador > 0);
+            if (NombreRepetido(model, x => x.id_procesador, x => x.descripcion, "el procesador")) { return View(nuevo ? "Crudprocesadorpc" : "Editarprocesadorpc", model); }
             procesador.Guardar(model);
             this.AvisoGuardado(nuevo, "el procesador", model.descripcion);
             return Redirect("~/ABM/procesadorespc");
@@ -488,6 +516,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarinsumopc(insumo_pc model)
         {
             var nuevo = !(model.id_insumo > 0);
+            if (NombreRepetido(model, x => x.id_insumo, x => x.nombre, "el insumo")) { return View(nuevo ? "Crudinsumopc" : "Editarinsumopc", model); }
             insumo_pc.Guardar(model);
             this.AvisoGuardado(nuevo, "el insumo", model.nombre);
             return Redirect("~/ABM/insumospc");
@@ -527,6 +556,7 @@ namespace login_v6.Controllers
         public ActionResult Guardartipo_tel(tipo_tel model)
         {
             var nuevo = !(model.id_tipo > 0);
+            if (NombreRepetido(model, x => x.id_tipo, x => x.nombre_tipo, "el tipo de teléfono")) { return View(nuevo ? "Crudtipo_tel" : "Editartipo_tel", model); }
             tel.Guardar(model);
             this.AvisoGuardado(nuevo, "el tipo de teléfono", model.nombre_tipo);
             return Redirect("~/ABM/tipo_telefonos");
@@ -566,6 +596,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarmmarca(marca_modelo_cel model)
         {
             var nuevo = !(model.id_mm > 0);
+            if (NombreRepetido(model, x => x.id_mm, x => x.descripcion, "el modelo de teléfono")) { return View(nuevo ? "Crudmmarca" : "Editarmmarca", model); }
             mm.Guardar(model);
             this.AvisoGuardado(nuevo, "el modelo de teléfono", model.descripcion);
             return Redirect("~/ABM/mmarcas");
@@ -606,6 +637,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarubicaciontel(ubicacion_tel model)
         {
             var nuevo = !(model.id_ubicacion_tel > 0);
+            if (NombreRepetido(model, x => x.id_ubicacion_tel, x => x.nombre_ubi, "la ubicación")) { return View(nuevo ? "Crudubicaciontel" : "Editarubicaciontel", model); }
             ut.Guardar(model);
             this.AvisoGuardado(nuevo, "la ubicación", model.nombre_ubi);
             return Redirect("~/ABM/ubicacionestel");
@@ -642,6 +674,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarincidentetel(incidente_tel model)
         {
             var nuevo = !(model.id_incidente_tel > 0);
+            if (NombreRepetido(model, x => x.id_incidente_tel, x => x.nombre_incidente, "el incidente")) { return View(nuevo ? "Crudincidentetel" : "Editarincidentetel", model); }
             incitel.Guardar(model);
             this.AvisoGuardado(nuevo, "el incidente", model.nombre_incidente);
             return Redirect("~/ABM/incidentestel");
@@ -692,6 +725,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarinsumocam(insumo_camara model)
         {
             var nuevo = !(model.id_insumo > 0);
+            if (NombreRepetido(model, x => x.id_insumo, x => x.nombre, "el insumo")) { return View(nuevo ? "Crudinsumocam" : "EditarinsumoCam", model); }
             insumocam.Guardar(model);
             this.AvisoGuardado(nuevo, "el insumo", model.nombre);
             return Redirect("~/ABM/insumosCam");
@@ -737,6 +771,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarmmarcacam(marca_modelo_camara model)
         {
             var nuevo = !(model.id_mmarca > 0);
+            if (NombreRepetido(model, x => x.id_mmarca, x => x.marca_modelo, "el modelo de cámara")) { return View(nuevo ? "Crudmmaarcacam" : "EditarmodeloCam", model); }
             modelo_cam.Guardar(model);
             this.AvisoGuardado(nuevo, "el modelo de cámara", model.marca_modelo);
             return Redirect("~/ABM/modeloCam");
@@ -782,6 +817,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarubicam(ubicacion_camara model)
         {
             var nuevo = !(model.id_ubicacion_camara > 0);
+            if (NombreRepetido(model, x => x.id_ubicacion_camara, x => x.nombre, "la ubicación")) { return View(nuevo ? "Crudubicam" : "EditarubiCam", model); }
             ubi_cam.Guardar(model);
             this.AvisoGuardado(nuevo, "la ubicación", model.nombre);
             return Redirect("~/ABM/ubiCam");
@@ -825,6 +861,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarincidentecam(incidente_camara model)
         {
             var nuevo = !(model.id_incidente > 0);
+            if (NombreRepetido(model, x => x.id_incidente, x => x.descripcion, "el incidente")) { return View(nuevo ? "Crudincidentecam" : "EditarincidenteCam", model); }
             incidente_cam.Guardar(model);
             this.AvisoGuardado(nuevo, "el incidente", model.descripcion);
             return Redirect("~/ABM/incidenteCam");
@@ -866,6 +903,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarubicacionsw(ubicacion_switch model)
         {
             var nuevo = !(model.id_ubicacion_switch > 0);
+            if (NombreRepetido(model, x => x.id_ubicacion_switch, x => x.nombre, "la ubicación")) { return View(nuevo ? "Crudubicacionsw" : "Editarubicacionsw", model); }
             ubicacion_sw.Guardar(model);
             this.AvisoGuardado(nuevo, "la ubicación", model.nombre);
             return Redirect("~/ABM/ubicacionSW");
@@ -905,6 +943,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarincidentesw(incidente_switch model)
         {
             var nuevo = !(model.id_incidente_switch > 0);
+            if (NombreRepetido(model, x => x.id_incidente_switch, x => x.descripcion, "el incidente")) { return View(nuevo ? "Crudincidentesw" : "Editarincidentesw", model); }
             incidente_sw.Guardar(model);
             this.AvisoGuardado(nuevo, "el incidente", model.descripcion);
             return Redirect("~/ABM/incidenteSW");
@@ -944,6 +983,7 @@ namespace login_v6.Controllers
         public ActionResult Guardarmodelosw(marca_modelo_switch model)
         {
             var nuevo = !(model.id_mmarca > 0);
+            if (NombreRepetido(model, x => x.id_mmarca, x => x.marca_modelo, "el modelo de switch")) { return View(nuevo ? "Crudmodelosw" : "Editarmodelosw", model); }
             modelo_sw.Guardar(model);
             this.AvisoGuardado(nuevo, "el modelo de switch", model.marca_modelo);
             return Redirect("~/ABM/modeloSW");
@@ -983,6 +1023,7 @@ namespace login_v6.Controllers
         public ActionResult GuardarubicacionES(ubicacion_escaner model)
         {
             var nuevo = !(model.id_ubicacion_escaner > 0);
+            if (NombreRepetido(model, x => x.id_ubicacion_escaner, x => x.nombre, "la ubicación")) { return View(nuevo ? "CrudubicacionES" : "EditarubicacionES", model); }
             ubi_es.Guardar(model);
             this.AvisoGuardado(nuevo, "la ubicación", model.nombre);
             return Redirect("~/ABM/ubicacionES");
@@ -1024,6 +1065,7 @@ namespace login_v6.Controllers
         public ActionResult GuardarmodeloES(marca_modelo_escaner model)
         {
             var nuevo = !(model.id_marca_modelo_escaner > 0);
+            if (NombreRepetido(model, x => x.id_marca_modelo_escaner, x => x.descripcion, "el modelo de escáner")) { return View(nuevo ? "CrudmodeloES" : "EditarmodeloES", model); }
             modelo_es.Guardar(model);
             this.AvisoGuardado(nuevo, "el modelo de escáner", model.descripcion);
             return Redirect("~/ABM/modeloES");
@@ -1067,6 +1109,7 @@ namespace login_v6.Controllers
         public ActionResult GuardarincidenteES(incidente_escaner model)
         {
             var nuevo = !(model.id_incidente_escaner > 0);
+            if (NombreRepetido(model, x => x.id_incidente_escaner, x => x.descripcion, "el incidente")) { return View(nuevo ? "CrudincidenteES" : "EditarincidenteES", model); }
             incidente_es.Guardar(model);
             this.AvisoGuardado(nuevo, "el incidente", model.descripcion);
             return Redirect("~/ABM/incidenteES");
@@ -1109,6 +1152,7 @@ namespace login_v6.Controllers
         public ActionResult GuardarProveedor(Proveedor model)
         {
             var nuevo = !(model.id > 0);
+            if (NombreRepetido(model, x => x.id, x => x.nombre, "el proveedor")) { return View(nuevo ? "CrudProveedor" : "EditarProveedor", model); }
             proveedor.Guardar(model);
             this.AvisoGuardado(nuevo, "el proveedor", model.nombre);
             return Redirect("~/ABM/proveedores");

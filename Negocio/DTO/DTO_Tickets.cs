@@ -20,11 +20,11 @@ namespace Negocio.DTO
         public string Titulo { get; set; }
         public byte Prioridad { get; set; }
         public byte Estado { get; set; }
-        public string AsignadoId { get; set; }
-        public string Asignado { get; set; }
-        public string AsignadoIniciales { get; set; }
+        /// <summary>Personas asignadas, por nombre.</summary>
+        public List<DTO_Usuario> Asignados { get; set; } = new List<DTO_Usuario>();
         public string CreadoPorId { get; set; }
         public string CreadoPor { get; set; }
+        public string CreadoPorIniciales { get; set; }
         public DateTime FechaAlta { get; set; }
         public DateTime FechaPrevista { get; set; }
         public DateTime FechaEstado { get; set; }
@@ -36,6 +36,11 @@ namespace Negocio.DTO
         public int Comentarios { get; set; }
 
         public bool Terminado { get { return Estado == Negocio.Servicio.EstadosTicket.Terminado; } }
+
+        /// <summary>"Franco Ríos, María Pérez"</summary>
+        public string AsignadosTexto { get { return string.Join(", ", Asignados.Select(a => a.Nombre)); } }
+
+        public bool EstaAsignado(string usuarioId) { return usuarioId != null && Asignados.Any(a => a.Id == usuarioId); }
 
         /// <summary>Días de atraso respecto de la fecha prevista (al día de hoy, o al terminarse). 0 si está en fecha.</summary>
         public int DiasDemora
@@ -98,7 +103,7 @@ namespace Negocio.DTO
         public DateTime? FechaEdicion { get; set; }
         /// <summary>Comentario: HTML saneado.</summary>
         public string Texto { get; set; }
-        /// <summary>Cambio: ALTA, ESTADO, ASIGNADO, PRIORIDAD, FECHA_PREVISTA, TITULO, EQUIPO, DESCRIPCION.</summary>
+        /// <summary>Cambio: ALTA, ESTADO, ASIGNADO (asignados antes y después), PRIORIDAD, FECHA_PREVISTA, TITULO, EQUIPO, DESCRIPCION.</summary>
         public string Campo { get; set; }
         public string Anterior { get; set; }
         public string Nuevo { get; set; }
@@ -120,7 +125,8 @@ namespace Negocio.DTO
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
         public byte? Prioridad { get; set; }
-        public string AsignadoId { get; set; }
+        /// <summary>Ids de las personas asignadas (al menos una).</summary>
+        public List<string> AsignadosIds { get; set; } = new List<string>();
         public DateTime? FechaPrevista { get; set; }
         /// <summary>Opcional: tipo de equipo (TiposEquipo) y su clave.</summary>
         public string TipoEquipo { get; set; }

@@ -1,6 +1,7 @@
 ﻿/*
  * Tickets/Index: board de trabajo.
  *  - Filtros en el navegador: texto, "Mis tickets", asignado y prioridad (los contadores muestran lo visible).
+ *  - Un ticket puede tener varias personas asignadas (data-asignado: ids separados por espacio).
  *  - Arrastre entre columnas con SortableJS: solo las tarjetas .sgei-ticket-movible (asignado o administrador).
  *    Al soltar se guarda el estado por AJAX (POST Tickets/Estado); si falla, la tarjeta vuelve a su lugar.
  */
@@ -37,9 +38,10 @@
             var prioridad = $prioridad.val();
             $board.find(".sgei-ticket").each(function () {
                 var $t = $(this);
+                var asignados = ($t.attr("data-asignado") || "").split(" ");
                 var ok = (!texto || normalizar($t.attr("data-buscar")).indexOf(texto) >= 0)
-                    && (!soloMios || $t.attr("data-asignado") === usuario)
-                    && (!asignado || $t.attr("data-asignado") === asignado)
+                    && (!soloMios || asignados.indexOf(usuario) >= 0)
+                    && (!asignado || asignados.indexOf(asignado) >= 0)
                     && (!prioridad || $t.attr("data-prioridad") === prioridad);
                 $t.toggleClass("d-none", !ok);
             });
@@ -83,6 +85,9 @@
             window.Sortable.create(this, {
                 group: "tickets",
                 draggable: ".sgei-ticket-movible",
+                // El botón de los asignados abre su lista: no arranca el arrastre.
+                filter: ".sgei-ticket-asignados",
+                preventOnFilter: false,
                 sort: false,
                 animation: 150,
                 // Arrastre propio de SortableJS (eventos de mouse/touch) en vez del drag & drop nativo:

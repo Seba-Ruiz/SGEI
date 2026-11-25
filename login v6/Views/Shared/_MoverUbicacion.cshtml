@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SelectListItem>
+@*
+    Modal para mover un equipo de ubicación desde su grilla (Scripts/app/mover-ubicacion.js). Cada tipo de equipo
+    tiene sus propias ubicaciones: el modelo es la lista de ubicaciones de ese equipo.
+    ViewData["url"]: acción POST que mueve (recibe id e idUbicacion, responde JSON).
+    ViewData["equipo"]: "computadora", "impresora"... (para los textos).
+    Botones de la grilla: <button data-mover-ubicacion data-id="..." data-nombre="..." data-ubicacion="nombre actual">.
+    Las columnas que se actualizan al mover se marcan en el <th>: .sgei-col-ubicacion, .sgei-col-fecha-ubicacion y
+    .sgei-col-responsable.
+*@
+@{
+    var equipo = (string)ViewData["equipo"];
+}
+<div class="modal fade" id="modal-mover-ubicacion" tabindex="-1" aria-labelledby="modal-mover-ubicacion-titulo" aria-hidden="true"
+     data-url="@ViewData["url"]" data-equipo="@equipo">
+    <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content" data-mover-form novalidate>
+            <div class="modal-header">
+                <span class="sgei-form-card-icono me-2"><i class="bi bi-arrows-move" aria-hidden="true"></i></span>
+                <div class="min-w-0">
+                    <h5 class="modal-title" id="modal-mover-ubicacion-titulo">Mover @equipo de ubicación</h5>
+                    <div class="small text-body-secondary text-truncate" data-mover-nombre></div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="sgei-mover-actual">
+                    <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                    <span>Ubicación actual: <strong data-mover-actual></strong></span>
+                </div>
+                <label class="form-label sgei-requerido" for="mover-ubicacion-destino">Nueva ubicación</label>
+                <select class="form-select" id="mover-ubicacion-destino" name="idUbicacion" required data-buscable data-placeholder="Elegí la ubicación…">
+                    <option value=""></option>
+                    @foreach (var u in Model)
+                    {
+                        <option value="@u.Value">@u.Text</option>
+                    }
+                </select>
+                <div class="invalid-feedback d-block" data-mover-error hidden></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" data-mover-aceptar><i class="bi bi-check-lg me-1" aria-hidden="true"></i>Aceptar</button>
+            </div>
+        </form>
+    </div>
+</div>

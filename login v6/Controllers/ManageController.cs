@@ -97,6 +97,83 @@ namespace login_v6.Controllers
             return View(model);
         }
 
+        // ================================================================== Modal "Mi cuenta"
+
+        /// <summary>Contenido de la modal "Mi cuenta" (menú del usuario, Scripts/app/mi-cuenta.js).</summary>
+        [OutputCache(NoStore = true, Duration = 0)]
+        public ActionResult MiCuenta()
+        {
+            var modelo = ArmarMiCuenta(User.Identity.GetUserId());
+            if (modelo == null) { return HttpNotFound(); }
+            return PartialView("_MiCuenta", modelo);
+        }
+
+        /// <summary>Guarda nombre, apellido y teléfono del usuario conectado. Responde JSON.</summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GuardarMiCuenta(string nombre, string apellido, string telefono)
+        {
+            nombre = (nombre ?? "").Trim();
+            apellido = (apellido ?? "").Trim();
+            telefono = (telefono ?? "").Trim();
+
+            var errores = new System.Collections.Generic.Dictionary<string, string>();
+            if (nombre.Length == 0) { errores["nombre"] = "Indicá tu nombre."; }
+            else if (nombre.Length > MiCuentaViewModel.LargoNombre) { errores["nombre"] = "Máximo " + MiCuentaViewModel.LargoNombre + " caracteres."; }
+            if (apellido.Length == 0) { errores["apellido"] = "Indicá tu apellido."; }
+            else if (apellido.Length > MiCuentaViewModel.LargoNombre) { errores["apellido"] = "Máximo " + MiCuentaViewModel.LargoNombre + " caracteres."; }
+            if (telefono.Length > MiCuentaViewModel.LargoTelefono) { errores["telefono"] = "Máximo " + MiCuentaViewModel.LargoTelefono + " caracteres."; }
+            else if (telefono.Length > 0 && !System.Text.RegularExpressions.Regex.IsMatch(telefono, @"^[0-9+()\-\s]+$"))
+            {
+                errores["telefono"] = "Solo números, espacios, guiones, paréntesis y +.";
+            }
+
+            if (errores.Count > 0)
+            {
+                Response.StatusCode = 400;
+                Response.TrySkipIisCustomErrors = true;
+                return Json(new { ok = false, mensaje = "Revisá los datos marcados.", errores });
+            }
+
+            var id = User.Identity.GetUserId();
+            if (!new usuario_dominio().ActualizarDatosPersonales(id, telefono.Length == 0 ? null : telefono, nombre, apellido))
+            {
+                Response.StatusCode = 404;
+                Response.TrySkipIisCustomErrors = true;
+                return Json(new { ok = false, mensaje = "No se encontró tu usuario." });
+            }
+            login_v6.Helpers.UsuarioActual.Olvidar(id);
+            var actual = login_v6.Helpers.UsuarioActual.Datos(User);
+            return Json(new
+            {
+                ok = true,
+                mensaje = "Se guardaron los datos de tu cuenta.",
+                nombre = actual != null ? actual.Nombre : nombre + " " + apellido,
+                iniciales = actual != null ? actual.Iniciales : "?"
+            });
+        }
+
+        private static MiCuentaViewModel ArmarMiCuenta(string id)
+        {
+            var dominio = new usuario_dominio();
+            var u = dominio.Obtener(id);
+            if (u == null) { return null; }
+            var rol = dominio.obtenerTipoRol(id);
+            var datos = new Negocio.Servicio.Tickets().Usuario(id);
+            return new MiCuentaViewModel
+            {
+                Id = u.Id,
+                Email = u.Email,
+                Telefono = u.PhoneNumber,
+                Nombre = u.nombre,
+                Apellido = u.apellido,
+                NombreCompleto = datos != null ? datos.Nombre : u.UserName,
+                Iniciales = datos != null ? datos.Iniciales : "?",
+                Rol = rol != null ? rol.Name : "Sin rol",
+                UltimoIngreso = u.ultimo_ingreso
+            };
+        }
+
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]

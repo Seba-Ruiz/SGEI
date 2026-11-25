@@ -2,7 +2,7 @@
 @using Negocio.Servicio
 @{
     ViewBag.Title = "Todos los tickets";
-    var asignados = Model.Select(t => t.Asignado).Distinct().OrderBy(n => n).ToList();
+    var asignados = Model.SelectMany(t => t.Asignados.Select(a => a.Nombre)).Distinct().OrderBy(n => n).ToList();
 }
 
 <div class="sgei-encabezado">
@@ -30,7 +30,7 @@
     </div>
     <div class="sgei-grilla-filtro">
         <label class="visually-hidden" for="grilla-tickets-asignado">Asignado a</label>
-        <select class="form-select" id="grilla-tickets-asignado" autocomplete="off" data-filtro-grilla="#grilla-tickets" data-filtro-columna=".col-asignado" data-buscable>
+        <select class="form-select" id="grilla-tickets-asignado" autocomplete="off" data-filtro-grilla="#grilla-tickets" data-filtro-columna=".col-asignado" data-filtro-lista data-buscable>
             <option value="">Todos los asignados</option>
             @foreach (var a in asignados)
             {
@@ -67,7 +67,7 @@
                     <td>@t.Titulo</td>
                     <td><span class="sgei-estado sgei-estado-@t.Estado">@EstadosTicket.Nombre(t.Estado)</span></td>
                     <td data-order="@t.Prioridad"><span class="sgei-prioridad sgei-prioridad-@t.Prioridad"><i class="bi bi-flag-fill" aria-hidden="true"></i>@PrioridadesTicket.Nombre(t.Prioridad)</span></td>
-                    <td>@t.Asignado</td>
+                    <td>@t.AsignadosTexto</td>
                     <td data-order="@t.FechaPrevista.ToString("yyyyMMdd")">@t.FechaPrevista.ToString("dd/MM/yyyy")</td>
                     <td data-order="@t.DiasDemora"><span class="sgei-plazo sgei-plazo-@t.Semaforo">@t.TextoPlazo</span></td>
                     <td>@(t.Equipo ?? "—")</td>
