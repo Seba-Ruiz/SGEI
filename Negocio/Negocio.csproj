@@ -137,6 +137,7 @@
     <Compile Include="DTO\DTO_ubicacion_impre.cs" />
     <Compile Include="DTO\DTO_u_camara_01.cs" />
     <Compile Include="DTO\DTO_Consultas.cs" />
+    <Compile Include="DTO\DTO_Notificaciones.cs" />
     <Compile Include="DTO\DTO_Tickets.cs" />
     <Compile Include="DTO\DTO_u_computadora.cs" />
     <Compile Include="DTO\DTO_u_computadora_detalle.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Servicio\ConsultasUnificadas.cs" />
     <Compile Include="Servicio\Dashboard.cs" />
     <Compile Include="Servicio\HtmlSeguro.cs" />
+    <Compile Include="Servicio\Notificaciones.cs" />
     <Compile Include="Servicio\Tickets.cs" />
     <Compile Include="Servicio\stores.cs" />
   </ItemGroup>

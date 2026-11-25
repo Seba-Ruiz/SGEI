@@ -1254,3 +1254,131 @@ div.dt-container .dt-empty { padding: 2rem 1rem !important; color: var(--sgei-te
 .sgei-grafico-tabla > summary:hover { color: var(--sgei-primario); }
 .sgei-grafico-tabla[open] > summary { margin-bottom: .5rem; }
 .sgei-grafico-tabla .table { font-size: .8rem; }
+
+/* =====================================================================
+   Notificaciones: campana de la barra superior (Views/Shared/_Campana, Scripts/app/notificaciones.js)
+   y pantalla Notificaciones/Index
+   ===================================================================== */
+.sgei-campana-boton {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: var(--sgei-texto);
+    font-size: 1.2rem;
+}
+.sgei-campana-boton:hover,
+.sgei-campana-boton[aria-expanded="true"] { background: var(--sgei-primario-suave); color: var(--sgei-primario); }
+.sgei-campana-cantidad {
+    position: absolute;
+    top: 3px;
+    right: 1px;
+    min-width: 1.15rem;
+    height: 1.15rem;
+    padding: 0 .3rem;
+    border: 2px solid #fff;
+    border-radius: 1rem;
+    background: #d63939;
+    color: #fff;
+    font-size: .65rem;
+    font-weight: 700;
+    line-height: .8rem;
+    text-align: center;
+}
+.sgei-campana-cantidad[hidden] { display: none; }
+.sgei-campana-nueva .bi-bell { display: inline-block; animation: sgei-campana-sacudir .9s ease-in-out; transform-origin: 50% 0; }
+@keyframes sgei-campana-sacudir {
+    0%, 100% { transform: rotate(0); }
+    15% { transform: rotate(16deg); }
+    30% { transform: rotate(-14deg); }
+    45% { transform: rotate(10deg); }
+    60% { transform: rotate(-8deg); }
+    75% { transform: rotate(4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sgei-campana-nueva .bi-bell { animation: none; }
+}
+
+.sgei-campana-menu { width: 380px; max-width: calc(100vw - 1.5rem); padding: 0; overflow: hidden; }
+.sgei-campana-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    padding: .75rem 1rem;
+    border-bottom: 1px solid var(--sgei-borde);
+}
+.sgei-campana-cabecera .btn-link { font-size: .8rem; text-decoration: none; }
+.sgei-campana-cabecera [hidden] { display: none; }
+.sgei-campana-lista { max-height: min(420px, 60vh); overflow-y: auto; }
+.sgei-campana-estado { padding: 1.75rem 1rem; color: var(--sgei-texto-suave); font-size: .85rem; text-align: center; }
+.sgei-campana-item { padding: .7rem 1rem; border-bottom: 1px solid var(--sgei-borde); background: #fff; }
+.sgei-campana-item:hover { background: #f8fafc; }
+.sgei-campana-enlace { display: flex; gap: .7rem; color: inherit; text-decoration: none; }
+.sgei-campana-enlace:hover .sgei-campana-titulo { color: var(--sgei-primario); text-decoration: underline; }
+.sgei-campana-icono,
+.sgei-notificacion-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--sgei-primario-suave);
+    color: var(--sgei-primario);
+}
+.sgei-campana-texto { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+.sgei-campana-titulo { font-size: .875rem; font-weight: 600; color: var(--sgei-texto); line-height: 1.3; }
+.sgei-campana-mensaje {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: .8rem;
+    color: var(--sgei-texto);
+    line-height: 1.35;
+}
+.sgei-campana-meta { font-size: .72rem; color: var(--sgei-texto-suave); }
+.sgei-campana-leer { margin: .45rem 0 0 2.7rem; padding: .1rem .5rem; font-size: .75rem; }
+.sgei-campana-pie {
+    display: block;
+    padding: .65rem 1rem;
+    background: #f8fafc;
+    font-size: .85rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+}
+.sgei-campana-pie:hover { background: var(--sgei-primario-suave); }
+
+.sgei-aviso-notificacion { background: #fff; }
+.sgei-aviso-notificacion .toast-body a { color: var(--sgei-texto); text-decoration: none; }
+.sgei-aviso-notificacion .toast-body a:hover { color: var(--sgei-primario); text-decoration: underline; }
+
+/* Pantalla Notificaciones */
+.sgei-notificaciones-filtro { gap: .25rem; margin-bottom: 1rem; }
+.sgei-notificaciones-lista { margin: 0; padding: 0; list-style: none; border: 1px solid var(--sgei-borde); border-radius: var(--sgei-radio); overflow: hidden; }
+.sgei-notificacion { display: flex; align-items: flex-start; gap: .85rem; padding: .9rem 1rem; border-bottom: 1px solid var(--sgei-borde); background: #fff; }
+.sgei-notificacion:last-child { border-bottom: 0; }
+.sgei-notificacion-sin-leer { background: #f5f9fe; box-shadow: inset 3px 0 0 var(--sgei-primario); }
+.sgei-notificacion-texto { flex: 1 1 auto; min-width: 0; }
+.sgei-notificacion-titulo { font-weight: 600; color: var(--sgei-texto); text-decoration: none; }
+.sgei-notificacion-titulo:hover { color: var(--sgei-primario); text-decoration: underline; }
+.sgei-notificacion-mensaje { margin: .2rem 0 .35rem; font-size: .875rem; }
+.sgei-notificacion-meta { display: flex; flex-wrap: wrap; gap: .25rem 1rem; font-size: .78rem; color: var(--sgei-texto-suave); }
+.sgei-notificacion-acciones { display: flex; flex-direction: column; align-items: flex-end; gap: .4rem; flex: 0 0 auto; }
+.sgei-notificaciones .sgei-vacio { padding: 2.5rem 1rem; color: var(--sgei-texto-suave); text-align: center; }
+.sgei-notificaciones .sgei-vacio .bi { display: block; margin-bottom: .5rem; font-size: 2rem; }
+@media (max-width: 575.98px) {
+    .sgei-notificacion { flex-wrap: wrap; }
+    .sgei-notificacion-acciones { flex-direction: row; align-items: center; width: 100%; padding-left: 2.85rem; }
+    .sgei-campana-boton { width: 36px; height: 36px; }
+    /* En el celular la campana ocupa el ancho de la pantalla, con margen a los costados. */
+    .sgei-campana-menu.show { position: fixed !important; inset: calc(var(--sgei-barra-alto) - .25rem) .75rem auto .75rem !important; width: auto; transform: none !important; }
+}

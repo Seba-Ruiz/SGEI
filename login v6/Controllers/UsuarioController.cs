@@ -87,6 +87,7 @@ namespace login_v6.Controllers
             {
                 return HttpNotFound();
             }
+            login_v6.Helpers.UsuarioActual.Olvidar(id);
 
             var rolesDominio = new rol_dominio();
             var rolActual = user.obtenerTipoRol(id);
@@ -121,6 +122,7 @@ namespace login_v6.Controllers
             {
                 return HttpNotFound();
             }
+            login_v6.Helpers.UsuarioActual.Olvidar(id);
 
             return View();
         }

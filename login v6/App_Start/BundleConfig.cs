@@ -71,6 +71,11 @@ namespace login_v6
             bundles.Add(new Bundle("~/bundles/sortable", SinMinificarTransform.Js).Include(
                         "~/Scripts/lib/sortable/Sortable.js"));
 
+            // Notificaciones en vivo (campana de la barra superior): cliente jQuery de SignalR 2.
+            // El layout lo incluye en todas las pantallas con sesión iniciada, antes de Scripts/app/notificaciones.js.
+            bundles.Add(new Bundle("~/bundles/signalr", SinMinificarTransform.Js).Include(
+                        "~/Scripts/lib/signalr/jquery.signalR-2.4.3.js"));
+
             // Portada (Home/Landing): conserva su propio tema.
             bundles.Add(new ScriptBundle("~/bundles/landing").Include(
                         "~/assets/landing/js/bootstrap.min.js",

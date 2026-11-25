@@ -1,0 +1,118 @@
+﻿@model Negocio.DTO.DTO_PaginaNotificaciones
+@{
+    ViewBag.Title = "Notificaciones";
+    var filtro = Model.SoloSinLeer ? "sin-leer" : null;
+    var volver = Request.RawUrl;
+    Func<DateTime, string> fechaHora = f => f.ToString("dd/MM/yyyy HH:mm");
+}
+
+<div class="sgei-encabezado">
+    <div>
+        <h4 class="page-title">Notificaciones</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Inicio/Index">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Notificaciones</li>
+        </ol>
+    </div>
+    @if (Model.TotalSinLeer > 0)
+    {
+        using (Html.BeginForm("LeerTodas", "Notificaciones", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="volver" value="@volver" />
+            <button type="submit" class="btn btn-outline-primary"><i class="bi bi-check2-all me-1"></i>Marcar todas como leídas</button>
+        }
+    }
+</div>
+
+<div class="card-box sgei-notificaciones" data-notificaciones>
+    <ul class="nav nav-pills sgei-notificaciones-filtro" aria-label="Filtrar notificaciones">
+        <li class="nav-item">
+            <a class="nav-link @(Model.SoloSinLeer ? "" : "active")" @(Model.SoloSinLeer ? "" : "aria-current=page")
+               href="@Url.Action("Index")">Todas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(Model.SoloSinLeer ? "active" : "")" @(Model.SoloSinLeer ? "aria-current=page" : "")
+               href="@Url.Action("Index", new { filtro = "sin-leer" })">
+                Sin leer <span class="badge rounded-pill @(Model.SoloSinLeer ? "text-bg-light" : "text-bg-primary") ms-1">@Model.TotalSinLeer</span>
+            </a>
+        </li>
+    </ul>
+
+    @if (!Model.Items.Any())
+    {
+        <div class="sgei-vacio">
+            <i class="bi bi-bell-slash" aria-hidden="true"></i>
+            <p class="mb-0">@(Model.SoloSinLeer ? "No tenés notificaciones sin leer." : "Todavía no recibiste notificaciones.")</p>
+        </div>
+    }
+    else
+    {
+        <ul class="sgei-notificaciones-lista">
+            @foreach (var n in Model.Items)
+            {
+                <li class="sgei-notificacion @(n.Leida ? "" : "sgei-notificacion-sin-leer")" id="notificacion-@n.Id">
+                    <span class="sgei-notificacion-icono" aria-hidden="true"><i class="bi @n.Icono"></i></span>
+                    <div class="sgei-notificacion-texto">
+                        <a class="sgei-notificacion-titulo" href="@Url.Action("Abrir", new { id = n.Id })">@n.Titulo</a>
+                        @if (!string.IsNullOrEmpty(n.Mensaje))
+                        {
+                            <p class="sgei-notificacion-mensaje">@n.Mensaje</p>
+                        }
+                        <div class="sgei-notificacion-meta">
+                            <span><i class="bi bi-clock me-1" aria-hidden="true"></i><time datetime="@n.Fecha.ToString("yyyy-MM-ddTHH:mm:ss")">@fechaHora(n.Fecha)</time></span>
+                            @if (n.Origen != null)
+                            {
+                                <span><i class="bi bi-person me-1" aria-hidden="true"></i>@n.Origen</span>
+                            }
+                            @if (n.FechaMail.HasValue)
+                            {
+                                <span title="Se envió por mail el @fechaHora(n.FechaMail.Value)"><i class="bi bi-envelope-check me-1" aria-hidden="true"></i>Enviada por mail</span>
+                            }
+                            @if (n.Leida)
+                            {
+                                <span><i class="bi bi-check2 me-1" aria-hidden="true"></i>Leída el @fechaHora(n.FechaLectura.Value)</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="sgei-notificacion-acciones">
+                        @if (!n.Leida)
+                        {
+                            <span class="badge text-bg-primary">Sin leer</span>
+                            using (Html.BeginForm("Leer", "Notificaciones", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@n.Id" />
+                                <input type="hidden" name="volver" value="@volver" />
+                                <button type="submit" class="btn btn-sm btn-outline-primary"><i class="bi bi-check2 me-1"></i>Marcar como leída</button>
+                            }
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+
+        if (Model.Paginas > 1)
+        {
+            <nav class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3" aria-label="Páginas de notificaciones">
+                <small class="text-body-secondary">
+                    Página @Model.Pagina de @Model.Paginas · @Model.Total notificaciones
+                </small>
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item @(Model.Pagina == 1 ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { filtro, pagina = Model.Pagina - 1 })" aria-label="Anterior">&laquo;</a>
+                    </li>
+                    @for (var p = Math.Max(1, Model.Pagina - 2); p <= Math.Min(Model.Paginas, Model.Pagina + 2); p++)
+                    {
+                        <li class="page-item @(p == Model.Pagina ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { filtro, pagina = p })" @(p == Model.Pagina ? "aria-current=page" : "")>@p</a>
+                        </li>
+                    }
+                    <li class="page-item @(Model.Pagina == Model.Paginas ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { filtro, pagina = Model.Pagina + 1 })" aria-label="Siguiente">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        }
+    }
+</div>

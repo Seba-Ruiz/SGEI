@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using login_v6.Helpers;
 using login_v6.Seguridad;
+using login_v6.Servicio;
 using Microsoft.AspNet.Identity;
 using Negocio.DTO;
 using Negocio.Servicio;
@@ -56,7 +57,9 @@ namespace login_v6.Controllers
         [HttpPost]
         public ActionResult Estado(int id, byte estado)
         {
+            var antes = servicio.Tarjeta(id);
             var error = servicio.CambiarEstado(id, estado, UsuarioId, User.EsAdministrador());
+            if (error == null && antes != null && antes.Estado != estado) { NotificarCambioDeEstado(antes, estado); }
             if (Request.IsAjaxRequest())
             {
                 if (error != null)
@@ -125,7 +128,9 @@ namespace login_v6.Controllers
             if (!ModelState.IsValid) { return Formulario(f); }
 
             var nuevo = f.Id == 0;
+            var asignadoAntes = nuevo ? null : servicio.Formulario(f.Id)?.AsignadoId;
             var id = servicio.Guardar(f, UsuarioId);
+            if (nuevo || asignadoAntes != f.AsignadoId) { NotificarAsignacion(id, nuevo); }
             this.AvisoExito(nuevo
                 ? "Se creó el ticket #" + id + Avisos.Nombre(f.Titulo) + " y se asignó a " + asignado.Nombre + "."
                 : "Se guardaron los cambios del ticket #" + id + Avisos.Nombre(f.Titulo) + ".");
@@ -139,6 +144,62 @@ namespace login_v6.Controllers
             var titulo = servicio.Eliminar(id, User.Identity.Name);
             if (titulo != null) { this.AvisoExito("Se eliminó el ticket #" + id + Avisos.Nombre(titulo) + "."); }
             return RedirectToAction("Index");
+        }
+
+        // ================================================================== Notificaciones (campana + mail)
+
+        /// <summary>Al crear o reasignar un ticket se le avisa a la persona asignada (salvo que se lo asigne uno mismo).</summary>
+        private void NotificarAsignacion(int id, bool nuevo)
+        {
+            var t = servicio.Tarjeta(id);
+            if (t == null || t.AsignadoId == UsuarioId) { return; }
+            var autor = UsuarioActual.Datos(User).Nombre;
+            Notificador.Enviar(new NotificacionNueva
+            {
+                UsuarioId = t.AsignadoId,
+                OrigenUsuarioId = UsuarioId,
+                Tipo = TiposNotificacion.TicketAsignado,
+                Titulo = (nuevo ? "Se te asignó el ticket #" : "Te reasignaron el ticket #") + t.Id,
+                Mensaje = autor + (nuevo ? " te asignó el ticket «" : " te reasignó el ticket «") + t.Titulo + "», con prioridad "
+                    + PrioridadesTicket.Nombre(t.Prioridad).ToLowerInvariant() + " y fecha prevista de finalización el "
+                    + t.FechaPrevista.ToString("dd/MM/yyyy") + ".",
+                Url = "~/Tickets/Ver/" + t.Id,
+                ReferenciaTipo = "TICKET",
+                ReferenciaId = t.Id,
+                TextoBoton = "Ver ticket"
+            }
+            .Dato("Ticket", "#" + t.Id + " · " + t.Titulo)
+            .Dato("Prioridad", PrioridadesTicket.Nombre(t.Prioridad))
+            .Dato("Estado", EstadosTicket.Nombre(t.Estado))
+            .Dato("Fecha prevista", t.FechaPrevista.ToString("dd/MM/yyyy"))
+            .Dato("Equipo", t.Equipo));
+        }
+
+        /// <summary>Al cambiar el estado se le avisa a quien creó el ticket (salvo que lo haya cambiado él mismo).</summary>
+        private void NotificarCambioDeEstado(DTO_TicketTarjeta antes, byte estado)
+        {
+            if (antes.CreadoPorId == null || antes.CreadoPorId == UsuarioId) { return; }
+            var autor = UsuarioActual.Datos(User).Nombre;
+            var anterior = EstadosTicket.Nombre(antes.Estado);
+            var nuevo = EstadosTicket.Nombre(estado);
+            Notificador.Enviar(new NotificacionNueva
+            {
+                UsuarioId = antes.CreadoPorId,
+                OrigenUsuarioId = UsuarioId,
+                Tipo = TiposNotificacion.TicketEstado,
+                Titulo = "El ticket #" + antes.Id + " pasó a «" + nuevo + "»",
+                Mensaje = autor + " cambió el estado del ticket «" + antes.Titulo + "» de «" + anterior + "» a «" + nuevo + "».",
+                Url = "~/Tickets/Ver/" + antes.Id,
+                ReferenciaTipo = "TICKET",
+                ReferenciaId = antes.Id,
+                TextoBoton = "Ver ticket"
+            }
+            .Dato("Ticket", "#" + antes.Id + " · " + antes.Titulo)
+            .Dato("Estado anterior", anterior)
+            .Dato("Estado nuevo", nuevo)
+            .Dato("Asignado a", antes.Asignado)
+            .Dato("Prioridad", PrioridadesTicket.Nombre(antes.Prioridad))
+            .Dato("Fecha prevista", antes.FechaPrevista.ToString("dd/MM/yyyy")));
         }
 
         private ActionResult Formulario(DTO_TicketFormulario f)
