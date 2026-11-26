@@ -1460,3 +1460,11 @@ div.dt-container .dt-empty { padding: 2rem 1rem !important; color: var(--sgei-te
 }
 .sgei-mover-actual strong { color: var(--sgei-texto); }
 .sgei-fila-resaltada > td { background-color: rgba(var(--sgei-primario-rgb), .12) !important; transition: background-color .6s ease; }
+
+/* Menú lateral: ítem que abre otro sistema en una pestaña nueva (Etiquetas). */
+.sgei-menu-externo { margin-left: auto; font-size: .75rem; opacity: .6; }
+
+/* Ticket: incidente que se carga en el equipo al guardar (Views/Tickets/Formulario.cshtml). */
+.sgei-ticket-incidente { display: flex; gap: .75rem; padding: .85rem 1rem; border: 1px solid #f3d9a4; border-radius: .5rem; background: #fff8eb; }
+.sgei-ticket-incidente > .bi { color: #a15c07; font-size: 1.15rem; line-height: 1.4; }
+.sgei-ticket-incidente .form-text { margin-top: .35rem; color: #6b4a12; }

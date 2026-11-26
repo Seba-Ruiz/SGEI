@@ -56,7 +56,7 @@ namespace Negocio.Servicio
     ///   computadora: pc.id_pc (insumos: detallePC.id_detalle) · impresora: ubicacion_impresora.id ·
     ///   teléfono: detalle_tel.id_detalle · cámara: camara.id_camara · switch: swicth.id_switch · escáner: escaner.id_escaner
     /// </summary>
-    public class ConsultasUnificadas
+    public partial class ConsultasUnificadas
     {
         // ------------------------------------------------------------------ Equipos
 
@@ -331,13 +331,19 @@ namespace Negocio.Servicio
             }
         }
 
-        /// <summary>Guarda un incidente nuevo o editado. Devuelve su id y el nombre del equipo.</summary>
-        public int GuardarIncidente(DTO_IncidenteFormulario f, string usuario, out string equipo)
+        /// <summary>
+        /// Guarda un incidente nuevo o editado. Devuelve su id y el nombre del equipo. usuario: nombre para Auditoria;
+        /// usuarioId: AspNetUsers.Id para el historial del incidente (alta o cada dato que cambió).
+        /// </summary>
+        public int GuardarIncidente(DTO_IncidenteFormulario f, string usuario, string usuarioId, out string equipo)
         {
             using (var ctx = new SGEIContext())
             {
                 var nuevo = f.Id == 0;
                 int id;
+                var equiposDelTipo = Equipos(ctx, f.Tipo);
+                var catalogo = CatalogoIncidentes(ctx, f.Tipo, false);
+                var antes = nuevo ? null : Incidentes(ctx, f.Tipo, f.Id).Select(i => Fila(f.Tipo, i, equiposDelTipo, catalogo)).FirstOrDefault();
                 switch (f.Tipo)
                 {
                     case TiposEquipo.Impresora:
@@ -392,10 +398,14 @@ namespace Negocio.Servicio
                         throw new ArgumentException("Tipo de equipo desconocido: " + f.Tipo);
                 }
 
-                var eq = Equipos(ctx, f.Tipo);
                 DTO_Equipo e = null;
-                if (f.EquipoId != null) { eq.TryGetValue(f.EquipoId.Value, out e); }
+                if (f.EquipoId != null) { equiposDelTipo.TryGetValue(f.EquipoId.Value, out e); }
                 equipo = e != null ? e.Nombre : null;
+                if (!string.IsNullOrEmpty(usuarioId))
+                {
+                    var despues = Incidentes(ctx, f.Tipo, id).Select(i => Fila(f.Tipo, i, equiposDelTipo, catalogo)).First();
+                    RegistrarCambios(ctx, f.Tipo, id, usuarioId, antes, despues);
+                }
                 Auditar(ctx, f.Tipo, e != null ? e.EquipoId : f.EquipoId, nuevo ? "INCIDENTE" : "EDITAR_INCIDENTE", usuario);
                 return id;
             }
@@ -420,6 +430,11 @@ namespace Negocio.Servicio
                     case TiposEquipo.Switch: ctx.switch_incidente_switch.Remove(ctx.switch_incidente_switch.Find(id)); break;
                     case TiposEquipo.Escaner: ctx.escaner_incidente_escaner.Remove(ctx.escaner_incidente_escaner.Find(id)); break;
                 }
+                // Observaciones, historial y vínculo con el ticket que lo generó (no tienen clave foránea: la tabla
+                // del incidente depende del tipo de equipo).
+                ctx.incidente_comentario.RemoveRange(ctx.incidente_comentario.Where(x => x.tipo_equipo == tipo && x.id_incidente == id));
+                ctx.incidente_historial.RemoveRange(ctx.incidente_historial.Where(x => x.tipo_equipo == tipo && x.id_incidente == id));
+                ctx.ticket_incidente.RemoveRange(ctx.ticket_incidente.Where(x => x.tipo_equipo == tipo && x.id_incidente == id));
                 ctx.SaveChanges();
 
                 DTO_Equipo e = null;

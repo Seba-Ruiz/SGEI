@@ -131,5 +131,10 @@ namespace Negocio.DTO
         /// <summary>Opcional: tipo de equipo (TiposEquipo) y su clave.</summary>
         public string TipoEquipo { get; set; }
         public int? EquipoId { get; set; }
+        /// <summary>
+        /// Tipo de incidente del catálogo de ese equipo, para el incidente que se genera al guardar el ticket con equipo
+        /// (no se usa en impresoras ni si el ticket ya generó el incidente de ese equipo).
+        /// </summary>
+        public int? IncidenteCatalogoId { get; set; }
     }
 }

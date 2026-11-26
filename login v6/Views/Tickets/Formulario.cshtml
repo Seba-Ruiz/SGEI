@@ -96,6 +96,24 @@
                     @Html.ValidationMessageFor(x => x.EquipoId, null, new { @class = "text-danger small" })
                 </div>
 
+                @* Incidente que se carga automáticamente en el equipo al guardar (Scripts/views/Tickets/Formulario.js). *@
+                <div class="col-12" data-con-incidente hidden>
+                    <div class="sgei-ticket-incidente">
+                        <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
+                        <div class="flex-grow-1 min-w-0">
+                            <div data-incidente-catalogo>
+                                <label class="form-label sgei-requerido" for="IncidenteCatalogoId">Incidente a registrar en el equipo</label>
+                                <select class="form-select" id="IncidenteCatalogoId" name="IncidenteCatalogoId" data-buscable data-valor="@Model.IncidenteCatalogoId"
+                                        data-placeholder="Elegí el incidente…">
+                                    <option value=""></option>
+                                </select>
+                                @Html.ValidationMessageFor(x => x.IncidenteCatalogoId, null, new { @class = "text-danger small" })
+                            </div>
+                            <div class="form-text" data-incidente-ayuda></div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-12">
                     <label class="form-label" for="Descripcion">Descripción</label>
                     <textarea class="form-control" id="Descripcion" name="Descripcion" rows="8" data-editor data-editor-alto="260"

@@ -72,6 +72,9 @@ namespace Model
         public virtual DbSet<ticket_comentario> ticket_comentario { get; set; }
         public virtual DbSet<ticket_historial> ticket_historial { get; set; }
         public virtual DbSet<ticket_asignado> ticket_asignado { get; set; }
+        public virtual DbSet<ticket_incidente> ticket_incidente { get; set; }
+        public virtual DbSet<incidente_comentario> incidente_comentario { get; set; }
+        public virtual DbSet<incidente_historial> incidente_historial { get; set; }
         public virtual DbSet<notificacion> notificacion { get; set; }
         public virtual DbSet<tipo_tel> tipo_tel { get; set; }
         public virtual DbSet<tipoPC> tipoPC { get; set; }
@@ -462,6 +465,12 @@ namespace Model
             modelBuilder.Entity<ticket_historial>()
                 .Property(e => e.campo)
                 .IsUnicode(false);
+
+            // Observaciones, historial e incidentes de tickets: tipo_equipo y campo son varchar.
+            modelBuilder.Entity<ticket_incidente>().Property(e => e.tipo_equipo).IsUnicode(false);
+            modelBuilder.Entity<incidente_comentario>().Property(e => e.tipo_equipo).IsUnicode(false);
+            modelBuilder.Entity<incidente_historial>().Property(e => e.tipo_equipo).IsUnicode(false);
+            modelBuilder.Entity<incidente_historial>().Property(e => e.campo).IsUnicode(false);
 
             modelBuilder.Entity<notificacion>()
                 .Property(e => e.tipo)

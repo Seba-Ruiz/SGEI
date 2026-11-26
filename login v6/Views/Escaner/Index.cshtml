@@ -36,7 +36,7 @@
                     <td>@a.descripcion</td>
                     <td>@a.mmarca</td>
                     <td>@a.nombre_ubi</td>
-                    <td>@a.fecha_ubicacion</td>
+                    <td data-order="@(a.fecha_ubicacion.HasValue ? a.fecha_ubicacion.Value.ToString("yyyyMMddHHmm") : "")">@(a.fecha_ubicacion.HasValue ? a.fecha_ubicacion.Value.ToString("dd/MM/yyyy") : "")</td>
                     <td>
                         <div class="sgei-acciones">
                             <a class="sgei-accion" title="Editar" href="~/Escaner/Editar/@a.id_detalle" aria-label="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>

@@ -40,7 +40,7 @@
                 <td>@a.tipo</td>
                 <td>@a.ubicacion</td>
                 <td>@a.descripcion</td>
-                <td>@a.fecha_ubicacion</td>
+                <td data-order="@(a.fecha_ubicacion.HasValue ? a.fecha_ubicacion.Value.ToString("yyyyMMddHHmm") : "")">@(a.fecha_ubicacion.HasValue ? a.fecha_ubicacion.Value.ToString("dd/MM/yyyy") : "")</td>
                 <td>@a.responsable</td>
                 <td>@a.ip</td>
                 <td>@a.pc_dondeseconecta</td>

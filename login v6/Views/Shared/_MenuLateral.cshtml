@@ -72,6 +72,16 @@
         </div>
     </li>
 
+    @* Etiquetas: sistema aparte, se abre en otra pestaña. Dirección en Web.config (UrlEtiquetas). *@
+    <li>
+        <a class="sgei-menu-link" href="@(System.Configuration.ConfigurationManager.AppSettings["UrlEtiquetas"] ?? "http://etiquetas-perrupato")"
+           target="_blank" rel="noopener" title="Abre el sistema de etiquetas en una pestaña nueva">
+            <i class="bi bi-tags"></i> Etiquetas
+            <i class="bi bi-box-arrow-up-right sgei-menu-externo" aria-hidden="true"></i>
+            <span class="visually-hidden">(se abre en una pestaña nueva)</span>
+        </a>
+    </li>
+
     @if (esAdmin)
     {
         var idUsuarios = "menu-" + usuarios.Id;

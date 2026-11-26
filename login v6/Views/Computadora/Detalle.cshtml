@@ -74,7 +74,7 @@
                                 <div class="mb-3">
                                     <label class="col-md-2 form-label">Fecha de ubicación</label>
                                     <div class="col-md-10">
-                                        <label class="form-control" readonly="">@Model.fecha_ubicacion</label>
+                                        <label class="form-control" readonly="">@(Model.fecha_ubicacion.HasValue ? Model.fecha_ubicacion.Value.ToString("dd/MM/yyyy") : "—")</label>
                                     </div>
                                 </div>
 
