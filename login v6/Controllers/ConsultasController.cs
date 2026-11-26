@@ -88,23 +88,85 @@ namespace login_v6.Controllers
             f.Accion = f.Accion.Trim();
             var nuevo = f.Id == 0;
             string equipo;
-            var id = servicio.GuardarIncidente(f, User.Identity.Name, out equipo);
-            if (contenidoFoto != null) { servicio.AgregarFoto(id, contenidoFoto); }
+            var id = servicio.GuardarIncidente(f, User.Identity.Name, UsuarioId, out equipo);
+            if (contenidoFoto != null)
+            {
+                servicio.AgregarFoto(id, contenidoFoto);
+                servicio.RegistrarFoto(id, UsuarioId, true);
+            }
 
             var de = TiposEquipo.ConArticulo(f.Tipo);
             this.AvisoExito(nuevo
                 ? "Se cargó el incidente en " + de + Avisos.Nombre(equipo) + (contenidoFoto != null ? ", con su foto." : ".")
                 : "Se guardaron los cambios del incidente de " + de + Avisos.Nombre(equipo) + (contenidoFoto != null ? " y se agregó la foto." : "."));
-            return RedirectToAction("Incidentes");
+            // Al editar se vuelve al detalle, donde queda el cambio en el historial.
+            return nuevo ? RedirectToAction("Incidentes") : RedirectToAction("VerIncidente", new { tipo = f.Tipo, id });
         }
 
+        /// <summary>Detalle del incidente con sus observaciones (cada uno edita o elimina las suyas) y su historial.</summary>
         public ActionResult VerIncidente(string tipo, int id)
         {
-            var fila = TiposEquipo.EsValido(tipo) ? servicio.ObtenerIncidenteFila(tipo, id) : null;
-            if (fila == null) { return HttpNotFound(); }
+            var detalle = TiposEquipo.EsValido(tipo) ? servicio.DetalleIncidente(tipo, id) : null;
+            if (detalle == null) { return HttpNotFound(); }
             ViewBag.Fotos = tipo == TiposEquipo.Impresora ? servicio.FotosDeIncidente(id) : new List<int>();
-            return View(fila);
+            ViewBag.UsuarioId = UsuarioId;
+            return View(detalle);
         }
+
+        // ------------------------------------------------------------------ Observaciones del incidente
+
+        [HttpPost]
+        [ValidateInput(false)] // HTML de Summernote: se sanea en el servicio (HtmlSeguro).
+        public ActionResult Observar(string tipo, int id, string texto)
+        {
+            if (!TiposEquipo.EsValido(tipo)) { return HttpNotFound(); }
+            var error = ValidarObservacion(texto);
+            if (error != null)
+            {
+                TempData["incidente.error"] = error;
+                TempData["incidente.borrador"] = texto != null && texto.Length <= LargoMaximoHtml ? texto : null;
+                return RedirectToAction("VerIncidente", new { tipo, id });
+            }
+            var idObservacion = servicio.Observar(tipo, id, UsuarioId, texto);
+            if (idObservacion == null) { return HttpNotFound(); }
+            this.AvisoExito("Se agregó tu observación al incidente.");
+            return Redirect(Url.Action("VerIncidente", new { tipo, id }) + "#observacion-" + idObservacion);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult EditarObservacion(int id, string texto)
+        {
+            var incidente = servicio.IncidenteDeObservacion(id);
+            if (incidente == null) { return RedirectToAction("Incidentes"); }
+            var error = ValidarObservacion(texto) ?? servicio.EditarObservacion(id, UsuarioId, texto);
+            if (error != null) { TempData["incidente.error"] = error; }
+            else { this.AvisoExito("Se guardaron los cambios de tu observación."); }
+            return Redirect(Url.Action("VerIncidente", new { tipo = incidente.Item1, id = incidente.Item2 }) + "#observacion-" + id);
+        }
+
+        [HttpPost]
+        public ActionResult EliminarObservacion(int id)
+        {
+            var incidente = servicio.IncidenteDeObservacion(id);
+            if (incidente == null) { return RedirectToAction("Incidentes"); }
+            var error = servicio.EliminarObservacion(id, UsuarioId);
+            if (error != null) { TempData["incidente.error"] = error; }
+            else { this.AvisoExito("Se eliminó tu observación."); }
+            return Redirect(Url.Action("VerIncidente", new { tipo = incidente.Item1, id = incidente.Item2 }) + "#actividad");
+        }
+
+        /// <summary>Largo máximo del HTML de una observación (incluye las imágenes pegadas).</summary>
+        private const int LargoMaximoHtml = 12 * 1024 * 1024;
+
+        private static string ValidarObservacion(string texto)
+        {
+            if (HtmlSeguro.EstaVacio(texto)) { return "Escribí la observación."; }
+            if (texto.Length > LargoMaximoHtml) { return "La observación es demasiado grande (revisá el tamaño de las imágenes)."; }
+            return null;
+        }
+
+        private string UsuarioId { get { return Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity); } }
 
         [HttpPost]
         public ActionResult EliminarIncidente(string tipo, int id)
@@ -130,6 +192,7 @@ namespace login_v6.Controllers
         {
             var incidente = servicio.EliminarFoto(id);
             if (incidente == null) { return HttpNotFound(); }
+            servicio.RegistrarFoto(incidente.Value, UsuarioId, false);
             this.AvisoExito("Se eliminó la foto del incidente.");
             return RedirectToAction("VerIncidente", new { tipo = TiposEquipo.Impresora, id = incidente });
         }

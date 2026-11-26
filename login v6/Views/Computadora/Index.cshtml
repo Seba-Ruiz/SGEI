@@ -36,7 +36,7 @@
                 <td>@a.ip</td>
                 <td>@a.ubicacion</td>
                 <td>@a.descripcion</td>
-                <td>@a.fecha_ubicacion</td>
+                <td data-order="@(a.fecha_ubicacion.HasValue ? a.fecha_ubicacion.Value.ToString("yyyyMMddHHmm") : "")">@(a.fecha_ubicacion.HasValue ? a.fecha_ubicacion.Value.ToString("dd/MM/yyyy") : "")</td>
                 <td>
                     <div class="sgei-acciones">
                         <a class="sgei-accion sgei-accion-info" title="Detalle de la computadora" href="~/Computadora/Detalle/@a.id_detalle" aria-label="Detalle de la computadora"><i class="bi bi-eye" aria-hidden="true"></i></a>

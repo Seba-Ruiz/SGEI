@@ -573,7 +573,7 @@ namespace SGEI.Controllers
                 mensaje = "Se movió la impresora" + Avisos.Nombre(movida.descripcion) + " a " + destino.nombreUbicacion + ".",
                 ubicacion = destino.nombreUbicacion,
                 responsable = destino.responsable,
-                fecha = ((DateTime?)DateTime.Now).ToString()
+                fecha = DateTime.Today.ToString("dd/MM/yyyy")
             });
         }
 

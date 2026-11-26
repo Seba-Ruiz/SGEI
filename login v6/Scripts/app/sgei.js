@@ -272,6 +272,31 @@
         }
     });
 
+    /*
+     * Edición en el lugar de un mensaje propio (comentarios de tickets, observaciones de incidentes):
+     *   <li class="sgei-mensaje">… <button data-editar-comentario> … [data-texto-comentario] …
+     *   <form data-edicion-comentario hidden><textarea>…</textarea> … <button data-cancelar-edicion></form></li>
+     * El editor Summernote se crea recién al tocar "Editar"; "Cancelar" vuelve al texto original.
+     */
+    $(document).on("click", "[data-editar-comentario]", function () {
+        var $mensaje = $(this).closest(".sgei-mensaje");
+        var $form = $mensaje.find("[data-edicion-comentario]");
+        $mensaje.find("[data-texto-comentario], .sgei-mensaje-acciones").attr("hidden", true);
+        $form.removeAttr("hidden");
+        var $editor = SGEI.crearEditor($form.find("textarea"));
+        $editor.data("original", $editor.data("original") || $editor.summernote("code"));
+        $editor.summernote("focus");
+    });
+
+    $(document).on("click", "[data-cancelar-edicion]", function () {
+        var $mensaje = $(this).closest(".sgei-mensaje");
+        var $form = $mensaje.find("[data-edicion-comentario]");
+        var $editor = $form.find("textarea");
+        if ($editor.data("original") !== undefined) { $editor.summernote("code", $editor.data("original")); }
+        $form.attr("hidden", true);
+        $mensaje.find("[data-texto-comentario], .sgei-mensaje-acciones").removeAttr("hidden");
+    });
+
     // Todo POST por AJAX lleva el token antiforgery en el header (lo valida el filtro global del servidor).
     $(document).ajaxSend(function (evento, xhr, opciones) {
         if ((opciones.type || "").toUpperCase() !== "POST") {

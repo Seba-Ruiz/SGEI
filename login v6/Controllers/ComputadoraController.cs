@@ -192,7 +192,7 @@ namespace login_v6.Controllers
                 ok = true,
                 mensaje = "Se movió la computadora" + Avisos.Nombre(equipo != null ? equipo.nombre : null) + " a " + destino.nombre + ".",
                 ubicacion = destino.nombre,
-                fecha = ((DateTime?)DateTime.Today).ToString()
+                fecha = DateTime.Today.ToString("dd/MM/yyyy")
             });
         }
 

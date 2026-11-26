@@ -51,6 +51,7 @@ namespace login_v6.Controllers
             ViewBag.UsuarioId = UsuarioId;
             ViewBag.EsAdministrador = User.EsAdministrador();
             ViewBag.PuedeMover = PuedeMover(t);
+            ViewBag.Incidentes = new ConsultasUnificadas().IncidentesDeTicket(id);
             return View(t);
         }
 
@@ -130,15 +131,27 @@ namespace login_v6.Controllers
             else if (!TiposEquipo.EsValido(f.TipoEquipo)) { ModelState.AddModelError("TipoEquipo", "Tipo de equipo desconocido."); }
             else if (f.EquipoId == null) { ModelState.AddModelError("EquipoId", "Elegí el equipo, o dejá el tipo en «Sin equipo»."); }
 
+            // Incidente que se carga en el equipo: salvo en impresoras (usan el título), se elige del catálogo de ese
+            // tipo. No se pide si el ticket ya lo cargó en ese mismo equipo.
+            var cargaIncidente = f.TipoEquipo != null && f.EquipoId != null && TiposEquipo.EsValido(f.TipoEquipo)
+                && (f.Id == 0 || !new ConsultasUnificadas().EquiposConIncidenteDeTicket(f.Id).Contains(f.TipoEquipo + ":" + f.EquipoId));
+            if (!cargaIncidente || f.TipoEquipo == TiposEquipo.Impresora) { f.IncidenteCatalogoId = null; }
+            else if (f.IncidenteCatalogoId == null || !new ConsultasUnificadas().CatalogoIncidentes(f.TipoEquipo).Any(o => o.Id == f.IncidenteCatalogoId))
+            {
+                ModelState.AddModelError("IncidenteCatalogoId", "Elegí el incidente que se registra en el equipo.");
+            }
+
             if (f.Descripcion != null && f.Descripcion.Length > LargoMaximoHtml) { ModelState.AddModelError("Descripcion", "La descripción es demasiado grande (revisá el tamaño de las imágenes)."); }
 
             if (!ModelState.IsValid) { return Formulario(f); }
 
             var id = servicio.Guardar(f, UsuarioId);
             NotificarAsignacion(id, nuevo, f.AsignadosIds.Except(asignadosAntes).ToList());
-            this.AvisoExito(nuevo
+            var incidente = cargaIncidente ? CargarIncidente(id, f) : null;
+            this.AvisoExito((nuevo
                 ? "Se creó el ticket #" + id + Avisos.Nombre(f.Titulo) + " y se asignó a " + string.Join(", ", asignados.Select(a => a.Nombre)) + "."
-                : "Se guardaron los cambios del ticket #" + id + Avisos.Nombre(f.Titulo) + ".");
+                : "Se guardaron los cambios del ticket #" + id + Avisos.Nombre(f.Titulo) + ".")
+                + (incidente != null ? " También se cargó el incidente en " + TiposEquipo.ConArticulo(f.TipoEquipo) + "." : ""));
             return nuevo ? RedirectToAction("Index") : RedirectToAction("Ver", new { id });
         }
 
@@ -217,13 +230,37 @@ namespace login_v6.Controllers
             .Dato("Fecha prevista", antes.FechaPrevista.ToString("dd/MM/yyyy")));
         }
 
+        /// <summary>
+        /// Carga el incidente del ticket en su equipo (una sola vez por equipo). Si falla, el ticket queda guardado igual
+        /// y se registra el error. Devuelve el id del incidente, o null.
+        /// </summary>
+        private int? CargarIncidente(int idTicket, DTO_TicketFormulario f)
+        {
+            try
+            {
+                return new ConsultasUnificadas().CrearIncidenteDesdeTicket(idTicket, f.Titulo, f.TipoEquipo, f.EquipoId.Value, f.IncidenteCatalogoId, User.Identity.Name, UsuarioId);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError("No se pudo cargar el incidente del ticket {0}: {1}", idTicket, ex);
+                return null;
+            }
+        }
+
         private ActionResult Formulario(DTO_TicketFormulario f)
         {
+            var consultas = new ConsultasUnificadas();
             var equipos = TiposEquipo.Todos.ToDictionary(
                 t => t,
-                t => new ConsultasUnificadas().EquiposParaElegir(t, false, t == f.TipoEquipo ? f.EquipoId : null)
+                t => consultas.EquiposParaElegir(t, false, t == f.TipoEquipo ? f.EquipoId : null)
                          .Select(e => new { id = e.Id, texto = e.Texto }).ToList());
-            ViewBag.Datos = new { equipos };
+            // Catálogo de incidentes de cada tipo (el que se carga en el equipo al guardar) y equipos en los que el
+            // ticket ya lo cargó ("tipo:clave").
+            var catalogos = TiposEquipo.Todos.ToDictionary(
+                t => t,
+                t => consultas.CatalogoIncidentes(t).Select(o => new { id = o.Id, texto = o.Texto }).ToList());
+            var generados = f.Id == 0 ? new List<string>() : consultas.EquiposConIncidenteDeTicket(f.Id);
+            ViewBag.Datos = new { equipos, catalogos, generados };
             ViewBag.Usuarios = servicio.UsuariosParaAsignar(f.AsignadosIds);
             return View("Formulario", f);
         }

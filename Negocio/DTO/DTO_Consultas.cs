@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Negocio.DTO
@@ -46,6 +47,18 @@ namespace Negocio.DTO
         public string Accion { get; set; }
         public DateTime? FechaAccion { get; set; }
         public int Fotos { get; set; }
+    }
+
+    /// <summary>Detalle de un incidente: sus datos, observaciones e historial en orden cronológico, y el ticket que lo generó.</summary>
+    public class DTO_IncidenteDetalle
+    {
+        public DTO_IncidenteFila Incidente { get; set; }
+        /// <summary>Observaciones (EsComentario) y cambios, en orden cronológico. Misma forma que la actividad de un ticket.</summary>
+        public List<DTO_TicketActividad> Actividad { get; set; }
+        /// <summary>Tickets que generaron este incidente (Id y título).</summary>
+        public List<DTO_Opcion> Tickets { get; set; }
+
+        public int CantidadObservaciones { get { return (Actividad ?? new List<DTO_TicketActividad>()).Count(a => a.EsComentario); } }
     }
 
     /// <summary>Alta/edición de un incidente de cualquier equipo.</summary>

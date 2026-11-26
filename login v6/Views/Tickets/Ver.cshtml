@@ -7,6 +7,7 @@
     var usuarioId = (string)ViewBag.UsuarioId;
     var esAdmin = (bool)ViewBag.EsAdministrador;
     var puedeMover = (bool)ViewBag.PuedeMover;
+    var incidentes = (List<DTO_IncidenteFila>)ViewBag.Incidentes ?? new List<DTO_IncidenteFila>();
     var error = TempData["ticket.error"] as string;
     var borrador = TempData["ticket.borrador"] as string;
     Func<DateTime, string> cuando = d => d.ToString("dd/MM/yyyy HH:mm");
@@ -229,6 +230,19 @@
                             <span class="text-muted">Sin equipo</span>
                         }
                     </dd>
+                    @if (incidentes.Any())
+                    {
+                        @* Incidentes que el ticket cargó automáticamente en el equipo (Consultas › Incidentes). *@
+                        <dt>@(incidentes.Count == 1 ? "Incidente cargado" : "Incidentes cargados")</dt>
+                        <dd class="d-block">
+                            @foreach (var inc in incidentes)
+                            {
+                                <a class="d-block" href="@Url.Action("VerIncidente", "Consultas", new { tipo = inc.Tipo, id = inc.Id })" data-spinner>
+                                    <i class="bi bi-exclamation-triangle me-1" aria-hidden="true"></i>@inc.Incidente <span class="text-muted">· @inc.Equipo</span>
+                                </a>
+                            }
+                        </dd>
+                    }
                 </dl>
             </div>
             @if (esAdmin)
